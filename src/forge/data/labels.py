@@ -39,6 +39,7 @@ class LabelRules:
     version: int
     product_map: Mapping[str, str]
     min_narrative_chars: int
+    phrase_trigger_max_narrative_chars: int
     ambiguity_phrases: tuple[str, ...]
     missing_field_order: tuple[str, ...]
     high_keywords: tuple[str, ...]
@@ -80,6 +81,7 @@ def load_rules(path: Path = DEFAULT_RULES_PATH) -> LabelRules:
         version=int(raw["version"]),
         product_map=product_map,
         min_narrative_chars=int(ambiguity["min_narrative_chars"]),
+        phrase_trigger_max_narrative_chars=int(ambiguity["phrase_trigger_max_narrative_chars"]),
         ambiguity_phrases=_normalized_terms(ambiguity["phrases"]),
         missing_field_order=field_order,
         high_keywords=_normalized_terms(urgency["high_keywords"]),
@@ -128,7 +130,12 @@ def derive_label(row: Mapping[str, Any], rules: LabelRules | None = None) -> dic
         missing.add("company")
     if len(narrative) < rules.min_narrative_chars:
         missing.add("details")
-    if _contains_any(rule_text, rules.ambiguity_phrases):
+    # Phrase evidence is intentionally bounded to short narratives.  Phrases
+    # such as "not sure" occur incidentally in detailed complaints and cannot,
+    # by themselves, make a long narrative ambiguous under label rules v2.
+    if len(narrative) <= rules.phrase_trigger_max_narrative_chars and _contains_any(
+        rule_text, rules.ambiguity_phrases
+    ):
         missing.add("details")
 
     ambiguity = bool(missing)

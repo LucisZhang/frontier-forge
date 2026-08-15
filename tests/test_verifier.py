@@ -9,7 +9,7 @@ from typing import Any
 import pytest
 
 from forge.verify.schema import is_schema_valid
-from forge.verify.verifier import score
+from forge.verify.verifier import SCORER_VERSION, score
 
 
 def gold_label() -> dict[str, Any]:
@@ -71,6 +71,7 @@ MALFORMED_OUTPUTS = (
 def test_malformed_or_non_object_output_scores_zero(output: object) -> None:
     result = score(_sample(), output)
 
+    assert result.scorer_version == 2 == SCORER_VERSION
     assert not result.schema_valid
     assert not result.task_success
     assert result.reward == 0.0
@@ -159,7 +160,8 @@ def test_valid_but_wrong_product_is_detected(product: str) -> None:
 
     assert result.schema_valid
     assert not result.product_match
-    assert not result.task_success
+    assert result.task_success
+    assert result.reward == 1.0
 
 
 @pytest.mark.parametrize(
@@ -179,8 +181,8 @@ def test_valid_but_wrong_issue_is_detected(issue: str) -> None:
 
     assert result.schema_valid
     assert not result.issue_match
-    assert not result.tool_arguments_match
-    assert not result.task_success
+    assert result.tool_arguments_valid
+    assert result.task_success
 
 
 @pytest.mark.parametrize(
@@ -196,8 +198,8 @@ def test_valid_but_wrong_company_is_detected(company: str) -> None:
 
     assert result.schema_valid
     assert not result.company_match
-    assert not result.tool_arguments_match
-    assert not result.task_success
+    assert result.tool_arguments_valid
+    assert result.task_success
 
 
 @pytest.mark.parametrize("urgency", ("low", "high"))
@@ -241,7 +243,7 @@ def test_wrong_tool_with_plausible_arguments_is_detected(tool_call: dict[str, An
 
     assert result.schema_valid
     assert not result.tool_choice_match
-    assert not result.tool_arguments_match
+    assert result.tool_arguments_valid
     assert not result.task_success
 
 
@@ -285,7 +287,7 @@ def test_unicode_case_and_whitespace_normalization(issue: str, company: str) -> 
     assert result.schema_valid
     assert result.issue_match
     assert result.company_match
-    assert result.tool_arguments_match
+    assert result.tool_arguments_valid
     assert result.task_success
     assert result.reward == 1.0
 
@@ -299,7 +301,134 @@ def test_zero_width_unicode_is_not_silently_erased() -> None:
 
     assert result.schema_valid
     assert not result.company_match
-    assert not result.tool_arguments_match
+    assert result.tool_arguments_valid
+    assert result.task_success
+
+
+def test_correct_decision_with_wrong_issue_text_is_success_under_v2() -> None:
+    prediction = gold_label()
+    prediction["issue"] = "A different but non-empty normalized issue"
+    prediction["tool_call"]["arguments"]["issue"] = "Different operational wording"
+
+    result = score(_sample(), prediction)
+
+    assert result.scorer_version == 2
+    assert not result.secondary_metrics["issue_normalized_match"]
+    assert result.task_success
+    assert result.reward == 1.0
+
+
+def test_nonverbatim_escalation_reason_is_accepted() -> None:
+    expected = gold_label()
+    expected["urgency"] = "high"
+    expected["tool_call"] = {
+        "name": "escalate_to_regulator",
+        "arguments": {"complaint_id": 123, "reason": "identity theft"},
+    }
+    prediction = copy.deepcopy(expected)
+    prediction["tool_call"]["arguments"] = {
+        "complaint_id": 999,
+        "reason": "Immediate regulatory review is warranted for consumer harm.",
+    }
+
+    result = score({"label": expected}, prediction)
+
+    assert result.tool_arguments_valid
+    assert result.tool_arguments_semantic_valid
+    assert result.task_success
+
+
+def test_request_more_info_question_does_not_require_template_equality() -> None:
+    expected = gold_label()
+    expected["ambiguity_flag"] = True
+    expected["tool_call"] = {
+        "name": "request_more_info",
+        "arguments": {
+            "missing_fields": ["company"],
+            "question": "Please provide the missing company for complaint 123.",
+        },
+    }
+    prediction = copy.deepcopy(expected)
+    prediction["tool_call"]["arguments"] = {
+        "missing_fields": ["details"],
+        "question": "Could you clarify the material facts needed to route this complaint?",
+    }
+
+    result = score({"label": expected}, prediction)
+
+    assert result.tool_arguments_valid
+    assert result.tool_arguments_semantic_valid
+    assert result.task_success
+
+
+def test_structurally_invalid_tool_arguments_fail_task_success() -> None:
+    prediction = gold_label()
+    del prediction["tool_call"]["arguments"]["issue"]
+
+    result = score(_sample(), prediction)
+
+    assert not result.schema_valid
+    assert not result.tool_arguments_valid
+    assert not result.task_success
+
+
+def test_placeholder_free_text_is_secondary_and_never_template_compared() -> None:
+    expected = gold_label()
+    expected["ambiguity_flag"] = True
+    expected["tool_call"] = {
+        "name": "request_more_info",
+        "arguments": {
+            "missing_fields": ["details"],
+            "question": "Please provide more details.",
+        },
+    }
+    prediction = copy.deepcopy(expected)
+    prediction["tool_call"]["arguments"]["question"] = "..."
+
+    result = score({"label": expected}, prediction)
+
+    assert result.schema_valid
+    assert result.tool_arguments_valid
+    assert not result.tool_arguments_semantic_valid
+    assert result.task_success
+
+
+def test_metadata_mismatch_cannot_change_decision_reward() -> None:
+    correct = score(_sample(), gold_label())
+    mismatched = gold_label()
+    mismatched["product"] = "mortgage"
+    mismatched["issue"] = "Unrelated issue text"
+    mismatched["company"] = "Different Company"
+    mismatched["tool_call"]["arguments"] = {
+        "company": "Different Company",
+        "issue": "Unrelated issue text",
+    }
+
+    result = score(_sample(), mismatched)
+
+    assert not result.product_match
+    assert not result.issue_match
+    assert not result.company_match
+    assert result.task_success == correct.task_success
+    assert result.reward == correct.reward == 1.0
+
+
+def test_secondary_metrics_are_explicitly_separate_from_decision_checks() -> None:
+    result = score(_sample(), gold_label())
+
+    assert set(result.decision_checks) == {
+        "urgency",
+        "ambiguity_flag",
+        "tool_choice",
+        "tool_arguments_structural",
+    }
+    assert set(result.secondary_metrics) == {
+        "product_match",
+        "issue_normalized_match",
+        "company_normalized_match",
+        "tool_arguments_semantic_valid",
+        "abstention_correct",
+    }
 
 
 def test_extra_fields_preserve_partial_diagnostics_but_never_task_success() -> None:
@@ -311,7 +440,7 @@ def test_extra_fields_preserve_partial_diagnostics_but_never_task_success() -> N
     assert not result.schema_valid
     assert all(result.field_matches.values())
     assert result.tool_choice_match
-    assert result.tool_arguments_match
+    assert result.tool_arguments_valid
     assert not result.task_success
     assert result.reward == 0.8
 

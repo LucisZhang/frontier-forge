@@ -407,6 +407,21 @@ def run_ingest(
     rules_path = Path(rules_path).resolve()
     output_path = Path(output_path)
     manifest_path = Path(manifest_path)
+    if not smoke and (manifest_path.exists() or output_path.exists()):
+        if not manifest_path.is_file() or not output_path.is_file():
+            raise RuntimeError(
+                "incomplete frozen ingest state (artifact/manifest pair); refusing to overwrite"
+            )
+        existing = json.loads(manifest_path.read_text())
+        expected_hash = existing.get("artifact", {}).get("sha256")
+        actual_hash = sha256_file(output_path)
+        if existing.get("frozen") is True and actual_hash == expected_hash:
+            # D3.1 derives v2 labels from these local frozen rows. The v1
+            # receipt remains sufficient for a no-op without re-downloading or
+            # reinterpreting its now-versioned label derivation inputs.
+            return existing, True
+        raise RuntimeError("frozen ingest artifact hash changed; refusing to overwrite it")
+
     if smoke:
         fingerprint = _canonical_hash(
             {

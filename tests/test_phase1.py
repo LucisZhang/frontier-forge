@@ -8,7 +8,9 @@ import pytest
 from forge.data.api_calibrate import _metrics as api_metrics
 from forge.data.calibrate import evaluate_stand_in, stand_in_prediction
 from forge.data.ingest import run_ingest, sha256_file
+from forge.data.input_contract import INPUT_CONTRACT_VERSION, build_model_input
 from forge.data.labels import derive_label, load_rules
+from forge.data.relabel import run_relabel
 from forge.data.splits import SPLITS, run_splits
 from forge.data.spot_label import _parse_teacher_content, _reported_cost
 from forge.verify.schema import PRODUCTS, TASK_SCHEMA, TOOL_NAMES, export_schema, is_schema_valid
@@ -71,6 +73,21 @@ def test_short_narrative_abstains_and_requests_details() -> None:
     assert "details" in label["tool_call"]["arguments"]["missing_fields"]
 
 
+def test_long_narrative_not_sure_phrase_does_not_auto_flag_ambiguity() -> None:
+    narrative = (
+        "I am not sure why the bank used that explanation, but the complaint provides "
+        "the account history, disputed transaction dates, prior contacts, requested "
+        "resolution, and supporting evidence in enough detail for the company to act. "
+        "The consumer requests a complete investigation and written response."
+    )
+
+    label = derive_label(source_row(narrative=narrative))
+
+    assert len(narrative) > 200
+    assert label["ambiguity_flag"] is False
+    assert label["tool_call"]["name"] == "route_to_company"
+
+
 def test_missing_company_abstains() -> None:
     label = derive_label(source_row(company=None))
 
@@ -118,10 +135,29 @@ def test_unknown_product_fails_closed() -> None:
 
 
 def test_stand_in_always_emits_schema_valid_output() -> None:
-    prediction = stand_in_prediction("A mortgage foreclosure complaint involving escrow.")
+    prediction = stand_in_prediction(
+        source_row(
+            product="Mortgage",
+            issue="Foreclosure",
+            narrative="A mortgage foreclosure complaint involving escrow.",
+        )
+    )
 
     assert prediction["product"] == "mortgage"
     assert is_schema_valid(prediction)
+
+
+def test_input_contract_v2_includes_narrative_and_source_metadata() -> None:
+    visible = build_model_input(source_row())
+
+    assert INPUT_CONTRACT_VERSION == 2
+    assert visible == {
+        "complaint_id": 42,
+        "narrative": source_row()["narrative"],
+        "source_product": "Credit reporting",
+        "source_issue": "Incorrect information on your report",
+        "source_company": "Acme Financial",
+    }
 
 
 def test_teacher_audit_parser_preserves_provider_fence_as_raw_but_extracts_json() -> None:
@@ -138,16 +174,19 @@ def test_api_calibration_metrics_keep_schema_failures_in_denominator() -> None:
         {
             "score": {
                 "schema_valid": True,
-                "field_matches": {
-                    "product": True,
-                    "issue": False,
-                    "company": False,
+                "decision_checks": {
                     "urgency": True,
                     "ambiguity_flag": True,
+                    "tool_choice": False,
+                    "tool_arguments_structural": True,
                 },
-                "tool_choice_match": False,
-                "tool_arguments_match": False,
-                "abstention_correct": True,
+                "secondary_metrics": {
+                    "product_match": True,
+                    "issue_normalized_match": False,
+                    "company_normalized_match": False,
+                    "tool_arguments_semantic_valid": True,
+                    "abstention_correct": True,
+                },
                 "task_success": False,
                 "reward": 0.6,
             }
@@ -155,16 +194,19 @@ def test_api_calibration_metrics_keep_schema_failures_in_denominator() -> None:
         {
             "score": {
                 "schema_valid": False,
-                "field_matches": {
-                    "product": False,
-                    "issue": False,
-                    "company": False,
+                "decision_checks": {
                     "urgency": False,
                     "ambiguity_flag": False,
+                    "tool_choice": False,
+                    "tool_arguments_structural": False,
                 },
-                "tool_choice_match": False,
-                "tool_arguments_match": False,
-                "abstention_correct": False,
+                "secondary_metrics": {
+                    "product_match": False,
+                    "issue_normalized_match": False,
+                    "company_normalized_match": False,
+                    "tool_arguments_semantic_valid": False,
+                    "abstention_correct": False,
+                },
                 "task_success": False,
                 "reward": 0.0,
             }
@@ -175,18 +217,23 @@ def test_api_calibration_metrics_keep_schema_failures_in_denominator() -> None:
 
     assert metrics["samples"] == 2
     assert metrics["schema_valid"] == 0.5
-    assert metrics["product_match"] == 0.5
+    assert metrics["secondary_metrics"]["product_match"] == 0.5
     assert metrics["task_success"] == 0.0
 
 
 def test_calibration_metrics_are_bounded() -> None:
     label = derive_label(source_row())
-    metrics = evaluate_stand_in(
-        [{"complaint_id": 42, "narrative": source_row()["narrative"], "label": label}]
-    )
+    metrics = evaluate_stand_in([{**source_row(), "label": label}])
 
     for key, value in metrics.items():
-        if key not in {"samples", "task_success_count", "task_success_ci95_wilson"}:
+        if key == "secondary_metrics":
+            assert all(0.0 <= float(item) <= 1.0 for item in value.values())
+        elif key not in {
+            "scorer_version",
+            "samples",
+            "task_success_count",
+            "task_success_ci95_wilson",
+        }:
             assert 0.0 <= float(value) <= 1.0
 
 
@@ -237,6 +284,49 @@ def test_smoke_ingest_and_splits_are_idempotent(tmp_path: Path) -> None:
     assert sum(item["rows"] for item in first_splits["splits"].values()) == 50
     assert first_splits["audit"]["rows"] == 50
     assert first_splits["protocol"]["cross_split_complaint_id_overlap"] == 0
+
+
+def test_relabel_versions_labels_without_changing_membership(tmp_path: Path) -> None:
+    ingest_path = tmp_path / "ingest" / "labeled_rows.parquet"
+    ingest_manifest = tmp_path / "ingest" / "manifest.json"
+    run_ingest(output_path=ingest_path, manifest_path=ingest_manifest, smoke=True)
+    phase1_dir = tmp_path / "phase1"
+    phase1_manifest_path = phase1_dir / "manifest.json"
+    run_splits(
+        ingest_path=ingest_path,
+        ingest_manifest_path=ingest_manifest,
+        output_dir=phase1_dir,
+        manifest_path=phase1_manifest_path,
+        audit_path=tmp_path / "phase1_audit.md",
+        smoke=True,
+    )
+    phase1_manifest = json.loads(phase1_manifest_path.read_text())
+    phase1_manifest["frozen"] = True
+    phase1_manifest_path.write_text(json.dumps(phase1_manifest))
+
+    output_dir = tmp_path / "phase1_1"
+    manifest_path = output_dir / "manifest.json"
+    audit_path = tmp_path / "phase1_1_audit.md"
+    first, first_noop = run_relabel(
+        phase1_split_dir=phase1_dir,
+        phase1_manifest_path=phase1_manifest_path,
+        output_dir=output_dir,
+        manifest_path=manifest_path,
+        audit_path=audit_path,
+    )
+    second, second_noop = run_relabel(
+        phase1_split_dir=phase1_dir,
+        phase1_manifest_path=phase1_manifest_path,
+        output_dir=output_dir,
+        manifest_path=manifest_path,
+        audit_path=audit_path,
+    )
+
+    assert not first_noop
+    assert second_noop
+    assert first == second
+    assert first["version"] == 2
+    assert all(item["membership_matches_phase1"] for item in first["splits"].values())
 
 
 def test_non_smoke_split_rerun_refuses_changed_frozen_audit(tmp_path: Path) -> None:

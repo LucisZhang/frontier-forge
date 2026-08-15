@@ -1,22 +1,35 @@
-version: 1
+version: 2
 decision_owner: human
 target_task_success_band: [0.20, 0.50]
+input_contract:
+  version: 2
+  visible_input_fields:
+    [complaint_id, narrative, source_product, source_issue, source_company]
+scorer:
+  version: 2
+  task_success_checks:
+    [schema_valid, urgency, ambiguity_flag, tool_choice, tool_arguments_structural]
+  secondary_metrics:
+    [product_match, issue_normalized_match, company_normalized_match,
+     tool_arguments_semantic_valid, abstention_correct]
 api_stand_in:
   model: anthropic/claude-haiku-4.5
   split: CAL
-  sample_cap: 25
+  sample_cap: 100
   sample_seed: 20260815
-  visible_input_fields: [complaint_id, narrative]
-  prompt: configs/teacher_prompts/phase1_api_calibration_v1.txt
+  max_budget_usd: 15.0
+  visible_input_fields:
+    [complaint_id, narrative, source_product, source_issue, source_company]
+  prompt: configs/teacher_prompts/phase1_1_api_calibration_v2.txt
 evaluated_candidate:
-  name: c1_full_ticket_v1
+  name: c1_full_ticket_v2
   schema_fields: 6
   product_classes: 9
   tool_count: 5
   distractor_tool_count: 2
   ambiguous_sample_ratio: natural_rule_rate
   bilingual_instructions: false
-  issue_match: normalized_exact
+  issue_match: normalized_exact_secondary_only
 alternatives_for_human_review:
   easier:
     name: c0_reduced_ticket

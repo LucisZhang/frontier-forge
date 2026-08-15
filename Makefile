@@ -41,8 +41,13 @@ gateway-tsan:
 ingest:
 	@uv run python -m forge.data.ingest $(if $(filter 1,$(SMOKE)),--smoke,)
 
+ifeq ($(SMOKE),1)
 splits: ingest
-	@uv run python -m forge.data.splits $(if $(filter 1,$(SMOKE)),--smoke,)
+	@uv run python -m forge.data.splits --smoke
+else
+splits:
+	@uv run python -m forge.data.relabel
+endif
 
 calibrate-difficulty: splits
 	@uv run python -m forge.data.calibrate $(if $(filter 1,$(SMOKE)),--smoke,)

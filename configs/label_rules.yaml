@@ -1,4 +1,4 @@
-version: 1
+version: 2
 taxonomy:
   provenance: nlp-eval-lab/taxonomy_map.yaml@v1
   product_map:
@@ -27,6 +27,10 @@ taxonomy:
 # whitespace-collapsed, and case-insensitive over issue + narrative.
 ambiguity:
   min_narrative_chars: 40
+  # Phrase triggers are weak evidence. They may add a missing-details signal
+  # only to short narratives; at 201+ characters they cannot create ambiguity
+  # unless a source field is missing or another hard rule applies.
+  phrase_trigger_max_narrative_chars: 200
   phrases:
     - not sure
     - do not know what happened
@@ -82,4 +86,3 @@ teacher_spot_labels:
   max_budget_usd: 10.0
   selection: deterministic ambiguous CAL rows only
   application: audit-only; frozen rule labels are never silently overwritten
-

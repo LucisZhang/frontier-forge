@@ -324,11 +324,13 @@ def run_spot_labels(
             if valid:
                 breakdown = score({"label": row["rule_label"]}, teacher_label)
                 record["agreement"] = {
+                    "scorer_version": breakdown.scorer_version,
                     "task_success": breakdown.task_success,
                     "reward": breakdown.reward,
                     "field_matches": breakdown.field_matches,
                     "tool_choice_match": breakdown.tool_choice_match,
-                    "tool_arguments_match": breakdown.tool_arguments_match,
+                    "tool_arguments_structural_valid": breakdown.tool_arguments_valid,
+                    "secondary_metrics": breakdown.secondary_metrics,
                 }
             if cost is not None:
                 total_cost += cost

@@ -1,4 +1,4 @@
-"""Receipt-backed small-API stand-in calibration on frozen CAL only."""
+"""Receipt-backed fair-baseline calibration for input contract v2."""
 
 from __future__ import annotations
 
@@ -19,7 +19,13 @@ import yaml
 
 from forge.data.calibrate import CALIBRATION_SEED, _wilson
 from forge.data.ingest import DEFAULT_CONFIG_PATH, load_data_source_config, sha256_file
-from forge.data.splits import DEFAULT_OUTPUT_DIR
+from forge.data.input_contract import (
+    INPUT_CONTRACT_VERSION,
+    MODEL_INPUT_FIELDS,
+    build_model_input,
+)
+from forge.data.relabel import DEFAULT_MANIFEST_PATH as DEFAULT_DATASET_MANIFEST_PATH
+from forge.data.relabel import DEFAULT_OUTPUT_DIR
 from forge.data.spot_label import (
     OPENROUTER_URL,
     _content_text,
@@ -27,15 +33,15 @@ from forge.data.spot_label import (
     _parse_teacher_content,
     _reported_cost,
 )
-from forge.verify.verifier import ScoreBreakdown, score
+from forge.verify.verifier import SCORER_VERSION, ScoreBreakdown, score
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CAL_PATH = DEFAULT_OUTPUT_DIR / "cal.parquet"
-DEFAULT_RULES_PATH = REPO_ROOT / "configs" / "label_rules.yaml"
-DEFAULT_PROMPT_PATH = REPO_ROOT / "configs" / "teacher_prompts" / "phase1_api_calibration_v1.txt"
-DEFAULT_RECEIPTS_PATH = REPO_ROOT / "results" / "phase1_api_calibration_receipts.jsonl"
-DEFAULT_LEDGER_PATH = REPO_ROOT / "results" / "phase1_api_calibration_ledger.json"
-DEFAULT_LIMIT = 25
+DEFAULT_CALIBRATION_CONFIG_PATH = REPO_ROOT / "configs" / "difficulty_candidates.yaml"
+DEFAULT_PROMPT_PATH = REPO_ROOT / "configs" / "teacher_prompts" / "phase1_1_api_calibration_v2.txt"
+DEFAULT_RECEIPTS_PATH = REPO_ROOT / "results" / "phase1_1_api_calibration_receipts.jsonl"
+DEFAULT_LEDGER_PATH = REPO_ROOT / "results" / "phase1_1_api_calibration_ledger.json"
+DEFAULT_LIMIT = 100
 
 
 def _rank(complaint_id: int) -> bytes:
@@ -51,7 +57,11 @@ def _select_rows(cal_path: Path, limit: int) -> list[dict[str, Any]]:
     con = duckdb.connect()
     try:
         rows = con.execute(
-            "SELECT complaint_id, narrative, label_json FROM read_parquet(?)",
+            """
+            SELECT complaint_id, narrative, source_product, source_issue,
+                   source_company, label_json
+            FROM read_parquet(?)
+            """,
             [str(cal_path)],
         ).fetchall()
     finally:
@@ -61,9 +71,19 @@ def _select_rows(cal_path: Path, limit: int) -> list[dict[str, Any]]:
         {
             "complaint_id": int(complaint_id),
             "narrative": narrative,
+            "source_product": source_product,
+            "source_issue": source_issue,
+            "source_company": source_company,
             "label": json.loads(label_json),
         }
-        for complaint_id, narrative, label_json in selected
+        for (
+            complaint_id,
+            narrative,
+            source_product,
+            source_issue,
+            source_company,
+            label_json,
+        ) in selected
     ]
 
 
@@ -72,22 +92,16 @@ def _request(
     api_key: str,
     model: str,
     prompt: str,
-    row: dict[str, Any],
+    model_input: dict[str, Any],
     timeout_seconds: float = 90.0,
 ) -> dict[str, Any]:
-    # Deliberately exclude source_product/source_issue/source_company: this is
-    # zero-shot task calibration, not the separate teacher label audit.
-    visible_input = {
-        "complaint_id": row["complaint_id"],
-        "narrative": row["narrative"],
-    }
     body = {
         "model": model,
         "messages": [
             {"role": "system", "content": prompt},
             {
                 "role": "user",
-                "content": json.dumps(visible_input, ensure_ascii=False, sort_keys=True),
+                "content": json.dumps(model_input, ensure_ascii=False, sort_keys=True),
             },
         ],
         "temperature": 0.0,
@@ -100,7 +114,7 @@ def _request(
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
-            "X-Title": "frontier-forge Phase 1 API calibration",
+            "X-Title": "frontier-forge Phase 1.1 fair-baseline calibration",
         },
         method="POST",
     )
@@ -127,12 +141,11 @@ def _call_with_retry(**kwargs: Any) -> tuple[dict[str, Any] | None, str | None]:
 
 def _breakdown_dict(item: ScoreBreakdown) -> dict[str, Any]:
     return {
+        "scorer_version": item.scorer_version,
         "json_valid": item.json_valid,
         "schema_valid": item.schema_valid,
-        "field_matches": item.field_matches,
-        "tool_choice_match": item.tool_choice_match,
-        "tool_arguments_match": item.tool_arguments_match,
-        "abstention_correct": item.abstention_correct,
+        "decision_checks": item.decision_checks,
+        "secondary_metrics": item.secondary_metrics,
         "task_success": item.task_success,
         "reward": item.reward,
         "errors": item.errors,
@@ -153,10 +166,10 @@ def _existing_records(path: Path, fingerprint: str) -> list[dict[str, Any]]:
         return []
     records = [json.loads(line) for line in path.read_text().splitlines() if line]
     if any(record.get("run_fingerprint") != fingerprint for record in records):
-        raise RuntimeError("existing API calibration receipts belong to another run")
+        raise RuntimeError("existing Phase 1.1 receipts belong to another run")
     ids = [record["complaint_id"] for record in records]
     if len(ids) != len(set(ids)):
-        raise RuntimeError("duplicate complaint_id in API calibration receipts")
+        raise RuntimeError("duplicate complaint_id in Phase 1.1 receipts")
     return records
 
 
@@ -167,73 +180,103 @@ def _metrics(records: list[dict[str, Any]]) -> dict[str, Any]:
     def rate(key: str) -> float:
         return sum(bool(item[key]) for item in scored) / total if total else 0.0
 
-    def field_rate(key: str) -> float:
-        return sum(bool(item["field_matches"][key]) for item in scored) / total if total else 0.0
+    def decision_rate(key: str) -> float:
+        return sum(bool(item["decision_checks"][key]) for item in scored) / total if total else 0.0
+
+    def secondary_rate(key: str) -> float:
+        return (
+            sum(bool(item["secondary_metrics"][key]) for item in scored) / total if total else 0.0
+        )
 
     successes = sum(bool(item["task_success"]) for item in scored)
     low, high = _wilson(successes, total)
     return {
+        "scorer_version": SCORER_VERSION,
         "samples": total,
         "task_success_count": successes,
         "task_success": successes / total if total else 0.0,
         "task_success_ci95_wilson": [low, high],
         "schema_valid": rate("schema_valid"),
-        "product_match": field_rate("product"),
-        "issue_match": field_rate("issue"),
-        "company_match": field_rate("company"),
-        "urgency_match": field_rate("urgency"),
-        "ambiguity_flag_match": field_rate("ambiguity_flag"),
-        "tool_choice_match": rate("tool_choice_match"),
-        "tool_arguments_match": rate("tool_arguments_match"),
-        "abstention_correct": rate("abstention_correct"),
-        "mean_reward": sum(float(item["reward"]) for item in scored) / total if total else 0.0,
+        "urgency_match": decision_rate("urgency"),
+        "ambiguity_flag_match": decision_rate("ambiguity_flag"),
+        "tool_choice_match": decision_rate("tool_choice"),
+        "tool_arguments_structural_valid": decision_rate("tool_arguments_structural"),
+        "secondary_metrics": {
+            "product_match": secondary_rate("product_match"),
+            "issue_normalized_match": secondary_rate("issue_normalized_match"),
+            "company_normalized_match": secondary_rate("company_normalized_match"),
+            "tool_arguments_semantic_valid": secondary_rate("tool_arguments_semantic_valid"),
+            "abstention_correct": secondary_rate("abstention_correct"),
+        },
+        "mean_reward": (sum(float(item["reward"]) for item in scored) / total if total else 0.0),
     }
 
 
 def run_api_calibration(
     *,
     cal_path: Path = DEFAULT_CAL_PATH,
+    dataset_manifest_path: Path = DEFAULT_DATASET_MANIFEST_PATH,
     data_config_path: Path = DEFAULT_CONFIG_PATH,
-    rules_path: Path = DEFAULT_RULES_PATH,
+    calibration_config_path: Path = DEFAULT_CALIBRATION_CONFIG_PATH,
     prompt_path: Path = DEFAULT_PROMPT_PATH,
     receipts_path: Path = DEFAULT_RECEIPTS_PATH,
     ledger_path: Path = DEFAULT_LEDGER_PATH,
-    limit: int = DEFAULT_LIMIT,
+    limit: int | None = None,
     live: bool = False,
 ) -> tuple[dict[str, Any], bool]:
     cal_path = Path(cal_path)
+    dataset_manifest_path = Path(dataset_manifest_path)
+    calibration_config_path = Path(calibration_config_path)
     prompt_path = Path(prompt_path)
     receipts_path = Path(receipts_path)
     ledger_path = Path(ledger_path)
     if not cal_path.is_file():
         raise FileNotFoundError(f"CAL split is missing: {cal_path}")
-    config = yaml.safe_load(Path(rules_path).read_text())["teacher_spot_labels"]
-    model = str(config["model"])
-    budget = float(config["max_budget_usd"])
+    if not dataset_manifest_path.is_file():
+        raise FileNotFoundError(f"v2 dataset manifest is missing: {dataset_manifest_path}")
+    dataset_manifest = json.loads(dataset_manifest_path.read_text())
+    if dataset_manifest.get("version") != 2:
+        raise ValueError("Phase 1.1 calibration requires the version-2 dataset")
+
+    calibration_config = yaml.safe_load(calibration_config_path.read_text())
+    api_config = calibration_config["api_stand_in"]
+    model = str(api_config["model"])
+    budget = float(api_config["max_budget_usd"])
+    configured_cap = int(api_config["sample_cap"])
+    limit = configured_cap if limit is None else int(limit)
+    if not 100 <= limit <= 200:
+        raise ValueError("Phase 1.1 live calibration requires 100 to 200 CAL rows")
+    if limit > configured_cap:
+        raise ValueError(f"requested limit {limit} exceeds configured cap {configured_cap}")
+
     prompt = prompt_path.read_text()
     selected = _select_rows(cal_path, limit)
     selection_ids = [row["complaint_id"] for row in selected]
     fingerprint = _canonical_hash(
         {
             "cal_sha256": sha256_file(cal_path),
+            "dataset_hash": dataset_manifest["dataset_hash"],
             "prompt_sha256": sha256_file(prompt_path),
             "runner_sha256": sha256_file(Path(__file__)),
             "model": model,
             "selection_ids": selection_ids,
-            "visible_input_fields": ["complaint_id", "narrative"],
+            "input_contract_version": INPUT_CONTRACT_VERSION,
+            "visible_input_fields": MODEL_INPUT_FIELDS,
+            "scorer_version": SCORER_VERSION,
         }
     )
     if ledger_path.exists():
         ledger = json.loads(ledger_path.read_text())
         if ledger.get("run_fingerprint") == fingerprint and ledger.get("status") == "complete":
             return ledger, True
-        raise RuntimeError("existing API calibration ledger is not this completed run")
+        raise RuntimeError("existing Phase 1.1 ledger is not this completed run")
     if not live:
         return {
             "status": "dry-run",
             "run_fingerprint": fingerprint,
             "model": model,
             "selected_complaint_ids": selection_ids,
+            "input_contract_version": INPUT_CONTRACT_VERSION,
             "network_calls": 0,
         }, False
 
@@ -250,20 +293,20 @@ def run_api_calibration(
             continue
         if total_cost > budget:
             raise RuntimeError(f"API calibration cost {total_cost:.6f} exceeded cap")
+        model_input = build_model_input(row)
         response, error = _call_with_retry(
             api_key=api_key,
             model=model,
             prompt=prompt,
-            row=row,
+            model_input=model_input,
         )
         record: dict[str, Any] = {
             "run_fingerprint": fingerprint,
             "complaint_id": row["complaint_id"],
             "model": model,
             "prompt_sha256": sha256_file(prompt_path),
-            "input_sha256": _canonical_hash(
-                {"complaint_id": row["complaint_id"], "narrative": row["narrative"]}
-            ),
+            "input_contract_version": INPUT_CONTRACT_VERSION,
+            "input_sha256": _canonical_hash(model_input),
         }
         if response is None:
             record.update({"status": "request_failed", "error": error})
@@ -302,7 +345,7 @@ def run_api_calibration(
     ]
     metrics = _metrics(response_records)
     ledger = {
-        "version": 1,
+        "version": 2,
         "status": (
             "complete"
             if len(response_records) == limit and len(records) == limit and not missing_cost
@@ -312,7 +355,11 @@ def run_api_calibration(
         "started_at": started_at,
         "finished_at": datetime.now(UTC).isoformat(),
         "model": model,
-        "input_fields_visible_to_model": ["complaint_id", "narrative"],
+        "scorer_version": SCORER_VERSION,
+        "input_contract_version": INPUT_CONTRACT_VERSION,
+        "input_fields_visible_to_model": list(MODEL_INPUT_FIELDS),
+        "dataset_manifest_path": str(dataset_manifest_path.resolve()),
+        "dataset_hash": dataset_manifest["dataset_hash"],
         "cal_path": str(cal_path.resolve()),
         "cal_sha256": sha256_file(cal_path),
         "selection_seed": CALIBRATION_SEED,
@@ -337,18 +384,20 @@ def run_api_calibration(
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m forge.data.api_calibrate")
     parser.add_argument("--cal", type=Path, default=DEFAULT_CAL_PATH)
+    parser.add_argument("--dataset-manifest", type=Path, default=DEFAULT_DATASET_MANIFEST_PATH)
     parser.add_argument("--data-config", type=Path, default=DEFAULT_CONFIG_PATH)
-    parser.add_argument("--rules", type=Path, default=DEFAULT_RULES_PATH)
+    parser.add_argument("--calibration-config", type=Path, default=DEFAULT_CALIBRATION_CONFIG_PATH)
     parser.add_argument("--prompt", type=Path, default=DEFAULT_PROMPT_PATH)
     parser.add_argument("--receipts", type=Path, default=DEFAULT_RECEIPTS_PATH)
     parser.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER_PATH)
-    parser.add_argument("--limit", type=int, default=DEFAULT_LIMIT)
+    parser.add_argument("--limit", type=int)
     parser.add_argument("--live", action="store_true")
     args = parser.parse_args(argv)
     ledger, noop = run_api_calibration(
         cal_path=args.cal,
+        dataset_manifest_path=args.dataset_manifest,
         data_config_path=args.data_config,
-        rules_path=args.rules,
+        calibration_config_path=args.calibration_config,
         prompt_path=args.prompt,
         receipts_path=args.receipts,
         ledger_path=args.ledger,
@@ -358,7 +407,7 @@ def main(argv: list[str] | None = None) -> int:
     status = "frozen no-op" if noop else ledger["status"]
     metrics = ledger.get("metrics", {})
     print(
-        f"API calibration: {status}; calls={ledger.get('calls_recorded', 0)}; "
+        f"API calibration v2: {status}; calls={ledger.get('calls_recorded', 0)}; "
         f"task_success={metrics.get('task_success', 0.0):.3f}; "
         f"api_usd={ledger.get('reported_api_usd', 0.0):.6f}"
     )
