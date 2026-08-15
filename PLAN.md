@@ -136,6 +136,51 @@ belong to the human; the agent only reports calibration evidence.
 
 ---
 
+## Phase 1.1 — Calibration remediation (local + small API budget, 2–3 days)
+
+**Why this phase exists**: Phase 1 calibration scored 0.0% because two of eight
+task_success checks were unwinnable from the model's input (gold `issue`/`company`
+come from metadata columns absent from the redacted narrative) and tool arguments
+required verbatim template equality. See D3.1 for the human-approved fix.
+
+**Goal**: implement input contract v2 [D3.1] so the calibration lands in the
+20–50% band for a real reason.
+
+**Deliverables**
+1. Verifier v2: task_success = urgency + ambiguity_flag + tool_choice +
+   structural tool-argument validity (schema/keys/types; no verbatim free-text
+   matching). `issue`/`company` normalized match moves to a secondary metrics
+   block. Version the scorer (`scorer_version: 2`) in every ScoreBreakdown.
+2. Input builder: model input = narrative + source product/issue/company fields;
+   used consistently by calibration, and later by all training/eval [D3.1].
+3. Label rules v2 (`configs/label_rules.yaml` version bump): fix the ambiguity
+   rule so phrase triggers (e.g. "not sure") cannot alone flag long narratives
+   (documented design; re-run the 200-row audit emit for the changed rows).
+4. Fair-baseline calibration prompt v2: full task spec (urgency policy, ambiguity
+   definition, tool registry semantics) included; re-run calibration on 100–200
+   CAL rows with the API stand-in (budget ≤$15, receipted).
+5. Updated adversarial verifier tests covering the v2 scoring (target ≥60 cases
+   total, including: correct decision + wrong issue text → task_success true;
+   verbatim-template argument no longer required; long-narrative "not sure" no
+   longer auto-ambiguous).
+6. `results/phase1_1_calibration_report.md`: new success band, CI, per-check
+   breakdown, and a delta explanation vs the Phase 1 report.
+7. Git hygiene: commit Phase 1 as delivered (baseline), then Phase 1.1 changes
+   as separate commits; push and confirm CI green.
+
+**Gate**
+- [ ] calibration success in 20–50% band on n≥100 (or a documented escalation if
+      still outside — do NOT tune knobs silently to force the band)
+- [ ] verifier v2 tests green (≥60 cases)  - [ ] scorer_version stamped
+- [ ] label rules v2 documented + audit rows re-emitted for human review
+- [ ] split membership hashes unchanged  - [ ] CI green after push
+
+**Constraints**: split membership is untouchable; label re-derivation allowed only
+per D3.1. No Phase 2 work. The human reviews the re-emitted audit rows and the new
+band before Phase 2 starts.
+
+---
+
 ## Phase 2 — Teacher distillation data factory (local + API, 3–4 days)
 
 **Goal**: two SFT corpora + DPO preference pairs, with a documented filter funnel.

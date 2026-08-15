@@ -25,6 +25,25 @@ nlp-eval-lab's frozen CFPB snapshot; the trained model plugs back into its casca
 - Fallback (human decision only): executable text-to-SQL if CFPB proves
   uncalibratable. Agents report calibration data; the human decides any switch.
 
+### D3.1 Amendment (2026-08, human-approved after Phase 1 calibration audit)
+Phase 1 calibration exposed structural scoring flaws (gold `issue`/`company` copied
+from metadata columns not present in the redacted narrative; hard-AND task_success;
+verbatim-template tool arguments). Human decision — **input contract v2**:
+- Model input = complaint narrative + source metadata fields (product/issue/company
+  columns), mirroring real triage where ticket metadata exists.
+- `task_success` scores DECISION fields only: urgency, ambiguity_flag, tool choice,
+  structural tool-argument validity. Free-text tool arguments (`question`, `reason`)
+  are scored for structure/semantics, never verbatim equality.
+- `issue`/`company` normalization becomes a separately-reported secondary metric,
+  excluded from task_success and from any RL reward.
+- **Fair-baseline principle**: every zero-shot baseline (R0, teacher) receives the
+  full task specification — urgency policy, ambiguity definition, tool registry
+  semantics — in its prompt. A headline may claim execution/policy-following
+  superiority only against baselines given the same spec.
+- Split MEMBERSHIP stays frozen [D10]; label DERIVATION is versioned — re-derivation
+  with a label_rules version bump and new dataset_hash is allowed until Phase 2 data
+  generation begins, after which labels freeze too.
+
 ## D4. Training stack: TRL as reference, Unsloth as fast path
 Smoke and first full run on TRL; switch to Unsloth for speed/VRAM after one
 cross-check run confirms metric agreement. LLaMA-Factory optional, not required.
