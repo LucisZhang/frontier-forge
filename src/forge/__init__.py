@@ -1,0 +1,1 @@
+"""frontier-forge package scaffold."""

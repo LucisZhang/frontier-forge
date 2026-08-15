@@ -1,0 +1,35 @@
+# secrets
+.env
+.env.*
+
+# data & model artifacts (never in git; synced via scripts/remote/sync.sh)
+data/
+checkpoints/
+*.gguf
+*.safetensors
+*.onnx
+*.bin
+wheels/
+*.whl
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# c++
+gateway/build/
+gateway/out/
+gateway/compile_commands.json
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/
+
+# scratch (results/runs.jsonl and reports ARE tracked — do not add results/ here)
+tmp/
