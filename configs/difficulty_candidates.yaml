@@ -1,0 +1,39 @@
+version: 1
+decision_owner: human
+target_task_success_band: [0.20, 0.50]
+api_stand_in:
+  model: anthropic/claude-haiku-4.5
+  split: CAL
+  sample_cap: 25
+  sample_seed: 20260815
+  visible_input_fields: [complaint_id, narrative]
+  prompt: configs/teacher_prompts/phase1_api_calibration_v1.txt
+evaluated_candidate:
+  name: c1_full_ticket_v1
+  schema_fields: 6
+  product_classes: 9
+  tool_count: 5
+  distractor_tool_count: 2
+  ambiguous_sample_ratio: natural_rule_rate
+  bilingual_instructions: false
+  issue_match: normalized_exact
+alternatives_for_human_review:
+  easier:
+    name: c0_reduced_ticket
+    schema_fields: 4
+    product_classes: 9
+    tool_count: 3
+    distractor_tool_count: 0
+    ambiguous_sample_ratio: 0.10
+    bilingual_instructions: false
+    issue_match: normalized_exact
+  harder:
+    name: c2_distractor_heavy
+    schema_fields: 6
+    product_classes: 9
+    tool_count: 5
+    distractor_tool_count: 4
+    ambiguous_sample_ratio: 0.25
+    bilingual_instructions: true
+    issue_match: normalized_exact
+final_selection: HUMAN_DECISION_REQUIRED

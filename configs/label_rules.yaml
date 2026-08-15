@@ -1,0 +1,85 @@
+version: 1
+taxonomy:
+  provenance: nlp-eval-lab/taxonomy_map.yaml@v1
+  product_map:
+    Bank account or service: deposit_account
+    Checking or savings account: deposit_account
+    Consumer Loan: vehicle_loan
+    Credit card: card
+    Credit card or prepaid card: card
+    Credit reporting: credit_reporting
+    Credit reporting, credit repair services, or other personal consumer reports: credit_reporting
+    Credit reporting or other personal consumer reports: credit_reporting
+    Debt collection: debt_collection
+    Debt or credit management: credit_reporting
+    Money transfer, virtual currency, or money service: money_service
+    Money transfers: money_service
+    Mortgage: mortgage
+    Payday loan: payday_personal_loan
+    Payday loan, title loan, or personal loan: payday_personal_loan
+    Payday loan, title loan, personal loan, or advance loan: payday_personal_loan
+    Prepaid card: card
+    Student loan: student_loan
+    Vehicle loan or lease: vehicle_loan
+    Virtual currency: money_service
+
+# Rules are applied in the listed priority. Keyword matching is Unicode NFKC,
+# whitespace-collapsed, and case-insensitive over issue + narrative.
+ambiguity:
+  min_narrative_chars: 40
+  phrases:
+    - not sure
+    - do not know what happened
+    - don't know what happened
+    - insufficient information
+    - no details available
+  missing_field_order: [product, issue, company, details]
+
+urgency:
+  high_keywords:
+    - foreclosure
+    - eviction
+    - identity theft
+    - garnishment
+    - repossession
+    - threatened to take legal action
+    - unable to access funds
+    - account takeover
+  medium_keywords:
+    - fraud
+    - unauthorized
+    - dispute
+    - incorrect information
+    - late fee
+    - collection
+    - charged
+    - denied
+  default: low
+
+tools:
+  priority:
+    - request_more_info
+    - close_no_action
+    - escalate_to_regulator
+    - start_refund_workflow
+    - route_to_company
+    - close_no_action_fallback
+  no_action_phrases:
+    - issue was resolved
+    - problem was resolved
+    - company resolved the issue
+    - filed in error
+    - duplicate complaint
+  refund_phrases:
+    - refund
+    - reimbursement
+    - money back
+    - reverse the charge
+    - chargeback
+
+teacher_spot_labels:
+  model: anthropic/claude-haiku-4.5
+  max_budget_usd: 10.0
+  selection: deterministic ambiguous CAL rows only
+  application: audit-only; frozen rule labels are never silently overwritten
+

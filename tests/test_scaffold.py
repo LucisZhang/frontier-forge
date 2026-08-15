@@ -68,7 +68,7 @@ def test_every_c3_target_accepts_smoke() -> None:
         )
 
 
-def test_smoke_ingest_is_a_noop_stub() -> None:
+def test_smoke_ingest_materializes_phase1_fixture() -> None:
     completed = subprocess.run(
         ["make", "--no-print-directory", "ingest", "SMOKE=1"],
         cwd=ROOT,
@@ -77,4 +77,5 @@ def test_smoke_ingest_is_a_noop_stub() -> None:
         text=True,
     )
 
-    assert completed.stdout.strip() == "[stub] ingest"
+    assert "rows=50" in completed.stdout
+    assert "synthetic" not in completed.stderr.lower()

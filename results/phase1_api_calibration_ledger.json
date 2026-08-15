@@ -1,0 +1,44 @@
+{
+  "budget_usd": 10.0,
+  "cal_path": "/Users/hsiangkuochang/frontier-forge/data/splits/cal.parquet",
+  "cal_sha256": "2bc6e3886319d78afdcd35c45d9a1e81d0f06209b477dd04da7744a6c7ad8074",
+  "calls_recorded": 25,
+  "finished_at": "2026-08-15T15:03:49.151781+00:00",
+  "input_fields_visible_to_model": [
+    "complaint_id",
+    "narrative"
+  ],
+  "metrics": {
+    "abstention_correct": 0.52,
+    "ambiguity_flag_match": 0.52,
+    "company_match": 0.0,
+    "issue_match": 0.0,
+    "mean_reward": 0.444,
+    "product_match": 0.8,
+    "samples": 25,
+    "schema_valid": 1.0,
+    "task_success": 0.0,
+    "task_success_ci95_wilson": [
+      1.3877787807814457e-17,
+      0.13319225093904846
+    ],
+    "task_success_count": 0,
+    "tool_arguments_match": 0.0,
+    "tool_choice_match": 0.16,
+    "urgency_match": 0.44
+  },
+  "missing_cost_complaint_ids": [],
+  "model": "anthropic/claude-haiku-4.5",
+  "prompt_path": "/Users/hsiangkuochang/frontier-forge/configs/teacher_prompts/phase1_api_calibration_v1.txt",
+  "prompt_sha256": "d84ff6a1ee052e87c5aef69c2a13f7ce9f1df54bca5752f01584a29475582df3",
+  "receipts_path": "/Users/hsiangkuochang/frontier-forge/results/phase1_api_calibration_receipts.jsonl",
+  "receipts_sha256": "c5f5636fc5eb128a8e8174a8d9e328be6946cc27dfa26ecb93e0aec32ac987c7",
+  "reported_api_usd": 0.044239,
+  "run_fingerprint": "45e8ff26d428cb182c8a22eac4ee6efe1db1ee471407831b99e00adfd3328749",
+  "selected_rows": 25,
+  "selection_seed": 20260815,
+  "started_at": "2026-08-15T15:02:33.498146+00:00",
+  "status": "complete",
+  "version": 1,
+  "within_budget": true
+}

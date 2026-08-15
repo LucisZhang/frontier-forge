@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontier-forge.local/schemas/task-output-v1.json",
+  "title": "CFPB structured triage ticket v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "product",
+    "issue",
+    "company",
+    "urgency",
+    "ambiguity_flag",
+    "tool_call"
+  ],
+  "properties": {
+    "product": {
+      "type": "string",
+      "enum": [
+        "card",
+        "credit_reporting",
+        "debt_collection",
+        "deposit_account",
+        "money_service",
+        "mortgage",
+        "payday_personal_loan",
+        "student_loan",
+        "vehicle_loan"
+      ]
+    },
+    "issue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "company": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "ambiguity_flag": {
+      "type": "boolean"
+    },
+    "tool_call": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "arguments"
+          ],
+          "properties": {
+            "name": {
+              "const": "escalate_to_regulator"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "complaint_id",
+                "reason"
+              ],
+              "properties": {
+                "complaint_id": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "arguments"
+          ],
+          "properties": {
+            "name": {
+              "const": "request_more_info"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "missing_fields",
+                "question"
+              ],
+              "properties": {
+                "missing_fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "product",
+                      "issue",
+                      "company",
+                      "details"
+                    ]
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                },
+                "question": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "arguments"
+          ],
+          "properties": {
+            "name": {
+              "const": "route_to_company"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "company",
+                "issue"
+              ],
+              "properties": {
+                "company": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "issue": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "arguments"
+          ],
+          "properties": {
+            "name": {
+              "const": "start_refund_workflow"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "company",
+                "issue",
+                "evidence_required"
+              ],
+              "properties": {
+                "company": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "issue": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "evidence_required": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "arguments"
+          ],
+          "properties": {
+            "name": {
+              "const": "close_no_action"
+            },
+            "arguments": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "reason"
+              ],
+              "properties": {
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "already_resolved",
+                    "duplicate_or_spam",
+                    "no_consumer_harm_detected"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "ambiguity_flag"
+        ],
+        "properties": {
+          "ambiguity_flag": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "tool_call": {
+            "properties": {
+              "name": {
+                "const": "request_more_info"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "tool_call"
+        ],
+        "properties": {
+          "tool_call": {
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "const": "request_more_info"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ambiguity_flag": {
+            "const": true
+          }
+        }
+      }
+    }
+  ]
+}
