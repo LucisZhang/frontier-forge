@@ -3,8 +3,9 @@
 .env.*
 
 # data & model artifacts (never in git; synced via scripts/remote/sync.sh)
-data/
-checkpoints/
+# root-anchored: must not swallow source packages like src/forge/data/
+/data/
+/checkpoints/
 *.gguf
 *.safetensors
 *.onnx
