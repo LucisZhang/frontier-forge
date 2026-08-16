@@ -15,9 +15,18 @@
       "to_backend": "trl"
     },
     {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        -0.1570125,
+        -0.1255
+      ],
       "from": "r1",
-      "status": "pending",
-      "to": "r2"
+      "from_backend": "trl",
+      "mean_task_success_delta": -0.142,
+      "paired_rows": 2000,
+      "status": "complete",
+      "to": "r2",
+      "to_backend": "trl"
     },
     {
       "from": "r2",
