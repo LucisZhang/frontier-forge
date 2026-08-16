@@ -34,7 +34,7 @@ uv pip check --python .venv-unsloth/bin/python
   'import torch; assert torch.version.cuda is not None; assert torch.cuda.is_available(); print(f"Unsloth torch CUDA {torch.version.cuda}: {torch.cuda.get_device_name(0)}")'
 
 .venv/bin/python -c \
-  'import importlib.metadata as m; expected={"torch":"2.13.0","transformers":"5.15.0","trl":"1.10.0","bitsandbytes":"0.50.1","gptqmodel":"7.3.2"}; actual={k:m.version(k) for k in expected}; assert actual == expected, (actual, expected); print(actual)'
+  'import importlib.metadata as m; expected={"torch":"2.13.0","transformers":"5.15.0","trl":"1.10.0","bitsandbytes":"0.50.1","gptqmodel":"7.3.2","optimum":"2.2.0"}; actual={k:m.version(k) for k in expected}; assert actual == expected, (actual, expected); print(actual)'
 .venv-unsloth/bin/python -c \
   'import importlib.metadata as m; expected={"torch":"2.11.0","torchvision":"0.26.0","transformers":"5.5.0","trl":"0.24.0","unsloth":"2026.8.18","bitsandbytes":"0.50.1"}; actual={k:m.version(k) for k in expected}; assert actual == expected, (actual, expected); print(actual)'
 .venv-unsloth/bin/python -c \

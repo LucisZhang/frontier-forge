@@ -88,6 +88,7 @@ def test_remote_training_packages_are_linux_only_and_lockable() -> None:
     assert reference == [
         "bitsandbytes==0.50.1; sys_platform == 'linux'",
         "gptqmodel==7.3.2; sys_platform == 'linux'",
+        "optimum==2.2.0; sys_platform == 'linux'",
     ]
     assert unsloth == [
         "bitsandbytes==0.50.1; sys_platform == 'linux'",
@@ -107,6 +108,7 @@ def test_locked_reference_and_unsloth_forks_are_exact() -> None:
     assert versions["transformers"] == {"5.5.0", "5.15.0"}
     assert versions["trl"] == {"0.24.0", "1.10.0"}
     assert versions["unsloth"] == {"2026.8.18"}
+    assert versions["optimum"] == {"2.2.0"}
 
 
 def test_versioned_training_argument_only_passes_supported_fields() -> None:

@@ -30,6 +30,7 @@ train = [
 remote-reference = [
   "bitsandbytes==0.50.1; sys_platform == 'linux'",
   "gptqmodel==7.3.2; sys_platform == 'linux'",
+  "optimum==2.2.0; sys_platform == 'linux'",
 ]
 unsloth-train = [
   "bitsandbytes==0.50.1; sys_platform == 'linux'",

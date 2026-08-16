@@ -566,6 +566,7 @@ dev = [
 remote-reference = [
     { name = "bitsandbytes", marker = "sys_platform == 'linux' or (extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
     { name = "gptqmodel", marker = "sys_platform == 'linux' or (extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
+    { name = "optimum", marker = "sys_platform == 'linux' or (extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
 ]
 train = [
     { name = "accelerate" },
@@ -600,6 +601,7 @@ dev = [
 remote-reference = [
     { name = "bitsandbytes", marker = "sys_platform == 'linux'", specifier = "==0.50.1" },
     { name = "gptqmodel", marker = "sys_platform == 'linux'", specifier = "==7.3.2" },
+    { name = "optimum", marker = "sys_platform == 'linux'", specifier = "==2.2.0" },
 ]
 train = [
     { name = "accelerate", specifier = "==1.14.0" },
@@ -1492,6 +1494,24 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/cf/4c/c73f828fdbcd37eaf21d08fa852544a3ca7c2dbb3ea76873d64f2ea413d1/opencv_python-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:c8de2dec111122a02e8beb28e16c31904992dfd6186560b142a92c71403c1039", size = 73783032, upload-time = "2026-07-02T06:55:03.415Z" },
     { url = "https://files.pythonhosted.org/packages/e2/4b/edaf83b996ca5a1a3d8ccad485706b9c6d4742b13b9c4586bf1c1e7d9423/opencv_python-5.0.0.93-cp37-abi3-win32.whl", hash = "sha256:4b4b1a34c79bf8d3738e3cfe9a9e67b51a79663f6b692cbdad8c31f570da4157", size = 35564734, upload-time = "2026-07-02T05:49:57.704Z" },
     { url = "https://files.pythonhosted.org/packages/21/f0/9fa6e85cb10c8eb36a0222d27e50fe381b86ce49a55446bf39f491727564/opencv_python-5.0.0.93-cp37-abi3-win_amd64.whl", hash = "sha256:f90ba04b8f73bc5c3814037699739f0156f597338a98f05956c684e7c3ca10d2", size = 44000345, upload-time = "2026-07-02T05:49:54.971Z" },
+]
+
+[[package]]
+name = "optimum"
+version = "2.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "huggingface-hub", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32') or (sys_platform == 'emscripten' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'win32' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
+    { name = "numpy", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32') or (sys_platform == 'emscripten' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'win32' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
+    { name = "packaging", marker = "(sys_platform != 'emscripten' and sys_platform != 'win32') or (sys_platform == 'emscripten' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'win32' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
+    { name = "torch", version = "2.11.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'emscripten' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'win32' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
+    { name = "torch", version = "2.13.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'group-14-frontier-forge-train') or (sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'emscripten' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'win32' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
+    { name = "transformers", version = "5.5.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'emscripten' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'win32' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
+    { name = "transformers", version = "5.15.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform != 'emscripten' and sys_platform != 'win32' and extra == 'group-14-frontier-forge-train') or (sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'emscripten' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train') or (sys_platform == 'win32' and extra == 'group-14-frontier-forge-train' and extra == 'group-14-frontier-forge-unsloth-train')" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/22/8a/ec4817189453d5dd556057abe60298699270da29015afe94422eaba12fbd/optimum-2.2.0.tar.gz", hash = "sha256:c4ff6373af47d27f3faf1d2dd9b99786dd27dfffdbffe8812abc06d0d97fd235", size = 126091, upload-time = "2026-06-09T16:24:16.537Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/dc/78/76f2605d4193da704e0a5c5d3eea62d4d14d6f5bd818bf54797a06389147/optimum-2.2.0-py3-none-any.whl", hash = "sha256:6132258a88f93be695670bbf439ff0b1f5ff6563b3b2033c31602d9d5259bc5e", size = 161487, upload-time = "2026-06-09T16:24:15.018Z" },
 ]
 
 [[package]]
