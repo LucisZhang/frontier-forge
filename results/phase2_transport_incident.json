@@ -1,0 +1,139 @@
+{
+  "account_reconciliation": {
+    "current_key_endpoint": "https://openrouter.ai/api/v1/key",
+    "current_key_usage_snapshot": {
+      "observed_at_utc": "2026-08-16T04:58:25Z",
+      "usage_daily_usd": 12.917487,
+      "usage_monthly_usd": 12.917487,
+      "usage_total_usd": 12.917487,
+      "usage_weekly_usd": 12.917487
+    },
+    "key_identifier_committed": false,
+    "env_file_modified_at_utc": "2026-08-16T02:37:15Z",
+    "pre_phase2_receipt": {
+      "api_usd": 0.216797,
+      "finished_at": "2026-08-16T02:43:41.396294+00:00",
+      "path": "results/phase1_1_api_calibration_ledger.json",
+      "started_at": "2026-08-16T02:39:06.668443+00:00"
+    },
+    "reconciliation_formula": "0.216797 prior + 12.667514 unique Phase 2 receipts + 0.033176 replayed-batch charge = 12.917487 current-key usage",
+    "status": "exact_to_provider_reported_six_decimal_precision"
+  },
+  "cost": {
+    "account_reconciled_phase2_api_usd": 12.70069,
+    "provider_receipted_unique_phase2_api_usd": 12.667514,
+    "replayed_batch_charge_usd": 0.033176,
+    "run_cap_usd": 20.0,
+    "within_run_cap": true
+  },
+  "phase": 2,
+  "replay_receipts": [
+    {
+      "complaint_id": 1746266,
+      "reported_cost_usd": 0.001887,
+      "response_id": "gen-1786855792-ZXOq1FSaIyWNnegWoXOL",
+      "sequence": 5744
+    },
+    {
+      "complaint_id": 3824591,
+      "reported_cost_usd": 0.00188,
+      "response_id": "gen-1786855792-XxiR6tkmwuc7e2Vz7e7d",
+      "sequence": 5745
+    },
+    {
+      "complaint_id": 3819323,
+      "reported_cost_usd": 0.001875,
+      "response_id": "gen-1786855792-oxTrtiK0HQGm5bI6KMvK",
+      "sequence": 5746
+    },
+    {
+      "complaint_id": 3079736,
+      "reported_cost_usd": 0.001876,
+      "response_id": "gen-1786855792-q76a5MBaxRiUS5eQznAE",
+      "sequence": 5747
+    },
+    {
+      "complaint_id": 2927459,
+      "reported_cost_usd": 0.002028,
+      "response_id": "gen-1786855792-oPyYjeyedXlNYT0LSD8P",
+      "sequence": 5748
+    },
+    {
+      "complaint_id": 4655906,
+      "reported_cost_usd": 0.002257,
+      "response_id": "gen-1786855792-Zd3BV3ylKVSdFZrZicu7",
+      "sequence": 5749
+    },
+    {
+      "complaint_id": 2828717,
+      "reported_cost_usd": 0.002416,
+      "response_id": "gen-1786855792-8rCafa0Il6mLSZzWp0B5",
+      "sequence": 5750
+    },
+    {
+      "complaint_id": 4615026,
+      "reported_cost_usd": 0.001934,
+      "response_id": "gen-1786855792-r3xcRUJNlLyq2r2M60fY",
+      "sequence": 5751
+    },
+    {
+      "complaint_id": 3212489,
+      "reported_cost_usd": 0.001956,
+      "response_id": "gen-1786855792-H7urj3gIc4VkOMGpZ3E0",
+      "sequence": 5752
+    },
+    {
+      "complaint_id": 4879476,
+      "reported_cost_usd": 0.0021,
+      "response_id": "gen-1786855792-vbJfRaPgCjTyC3SdTlwV",
+      "sequence": 5753
+    },
+    {
+      "complaint_id": 5050056,
+      "reported_cost_usd": 0.003185,
+      "response_id": "gen-1786855792-KtrxPmFReQH5E5wUnmTN",
+      "sequence": 5754
+    },
+    {
+      "complaint_id": 3832299,
+      "reported_cost_usd": 0.002021,
+      "response_id": "gen-1786855792-dMoFud4IeET56lFSEeWA",
+      "sequence": 5755
+    },
+    {
+      "complaint_id": 2552721,
+      "reported_cost_usd": 0.001943,
+      "response_id": "gen-1786855792-g3du7Fu443mwgmFAIAFe",
+      "sequence": 5756
+    },
+    {
+      "complaint_id": 3650710,
+      "reported_cost_usd": 0.001922,
+      "response_id": "gen-1786855792-BChB8CWtLPTbpEMXxtYc",
+      "sequence": 5757
+    },
+    {
+      "complaint_id": 3368281,
+      "reported_cost_usd": 0.001978,
+      "response_id": "gen-1786855792-KRwPZ2ZatygxjG7LCA38",
+      "sequence": 5758
+    },
+    {
+      "complaint_id": 1512608,
+      "reported_cost_usd": 0.001918,
+      "response_id": "gen-1786855792-hu7NPYEaaSYjepT1P01i",
+      "sequence": 5759
+    }
+  ],
+  "status": "reconciled",
+  "transport_failure": {
+    "candidate_batch_items": 16,
+    "exception": "http.client.IncompleteRead(66 bytes read)",
+    "first_affected_sequence": 5744,
+    "last_affected_sequence": 5759,
+    "last_durable_sequence": 5743,
+    "provider_receipted_usd_at_last_durable_checkpoint": 12.134876,
+    "recovery": "The same frozen run resumed from 5,744 durable responses and replayed the 16-item batch before completing all 6,000 rows."
+  },
+  "version": 1
+}

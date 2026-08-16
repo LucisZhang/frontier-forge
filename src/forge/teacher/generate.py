@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import hashlib
+import http.client
 import json
 import os
 import sys
@@ -194,7 +195,7 @@ def _call_with_retry(
             last_error = f"HTTP {exc.code}: {detail}"
             if exc.code not in {408, 409, 429, 500, 502, 503, 504}:
                 break
-        except (TimeoutError, urllib.error.URLError) as exc:
+        except (TimeoutError, urllib.error.URLError, http.client.IncompleteRead) as exc:
             last_error = f"{type(exc).__name__}: {exc}"
         if attempt + 1 < max_retries:
             time.sleep(0.5 * (2**attempt))
@@ -1144,10 +1145,15 @@ def run_teacher_data(
         manifest = json.loads(manifest_path.read_text())
         raw_path = output_dir / RAW_LOG_NAME
         if (
-            manifest.get("generation", {}).get("selected_complaint_ids_sha256")
+            manifest.get("status") == "complete"
+            and manifest.get("mode") == mode
+            and manifest.get("source", {}).get("dataset_hash") == frozen["dataset_hash"]
+            and manifest.get("generation", {}).get("selected_complaint_ids_sha256")
             == _canonical_hash([int(row["complaint_id"]) for row in selected])
             and manifest.get("config_sha256") == sha256_file(config_path)
-            and manifest.get("generation", {}).get("run_fingerprint") == fingerprint
+            and manifest.get("generation", {}).get("prompt_sha256") == sha256_file(prompt_path)
+            and manifest.get("generation", {}).get("teacher_model_id")
+            == config["teacher"]["mock_model" if smoke else "model"]
             and raw_path.is_file()
             and manifest.get("generation", {}).get("raw_log_sha256") == sha256_file(raw_path)
         ):

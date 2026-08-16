@@ -208,10 +208,79 @@ def run_teacher_audit(
     ):
         raise ValueError("distilled corpus lost teacher provenance")
 
-    cost = sum(float(record.get("reported_cost_usd") or 0.0) for record in successful.values())
-    _assert_close(cost, float(manifest["cost"]["api_usd"]), "manifest API cost")
-    _assert_close(cost, float(ledger["reported_api_usd"]), "generation-ledger API cost")
-    if cost > float(manifest["cost"]["run_cap_usd"]):
+    unique_cost = sum(
+        float(record.get("reported_cost_usd") or 0.0) for record in successful.values()
+    )
+    declared_unique_cost = float(
+        manifest["cost"].get("provider_receipted_unique_api_usd", manifest["cost"]["api_usd"])
+    )
+    _assert_close(unique_cost, declared_unique_cost, "manifest unique-response API cost")
+    _assert_close(unique_cost, float(ledger["reported_api_usd"]), "generation-ledger API cost")
+
+    account_cost = float(manifest["cost"]["api_usd"])
+    incident_receipt = manifest.get("receipts", {}).get("transport_incident_path")
+    if incident_receipt is None:
+        _assert_close(account_cost, unique_cost, "manifest account API cost")
+    else:
+        incident_path = resolve_path(incident_receipt)
+        if sha256_file(incident_path) != manifest["receipts"]["transport_incident_sha256"]:
+            raise ValueError("transport-incident receipt hash mismatch")
+        incident = json.loads(incident_path.read_text())
+        if incident.get("status") != "reconciled":
+            raise ValueError("transport incident is not account-reconciled")
+        raw_by_sequence = {int(record["sequence"]): record for record in latest}
+        replay_cost = 0.0
+        for replay in incident["replay_receipts"]:
+            raw = raw_by_sequence.get(int(replay["sequence"]))
+            if raw is None:
+                raise ValueError("transport replay sequence is absent from the raw log")
+            if int(raw["complaint_id"]) != int(replay["complaint_id"]) or raw.get(
+                "response_id"
+            ) != replay.get("response_id"):
+                raise ValueError("transport replay receipt differs from the raw log")
+            _assert_close(
+                float(raw["reported_cost_usd"]),
+                float(replay["reported_cost_usd"]),
+                "transport replay response cost",
+            )
+            replay_cost += float(replay["reported_cost_usd"])
+        _assert_close(
+            replay_cost,
+            float(incident["cost"]["replayed_batch_charge_usd"]),
+            "transport replay batch cost",
+        )
+        _assert_close(
+            unique_cost + replay_cost,
+            account_cost,
+            "account-reconciled Phase 2 API cost",
+        )
+        snapshot = incident["account_reconciliation"]["current_key_usage_snapshot"]
+        prior = incident["account_reconciliation"]["pre_phase2_receipt"]
+        prior_path = resolve_path(prior["path"])
+        prior_receipt = json.loads(prior_path.read_text())
+        _assert_close(
+            float(prior_receipt["reported_api_usd"]),
+            float(prior["api_usd"]),
+            "pre-Phase-2 current-key receipt cost",
+        )
+        for window in ("usage_daily_usd", "usage_weekly_usd", "usage_monthly_usd"):
+            _assert_close(
+                float(snapshot[window]),
+                float(snapshot["usage_total_usd"]),
+                f"current-key {window}",
+            )
+        _assert_close(
+            float(snapshot["usage_total_usd"]) - float(prior["api_usd"]),
+            account_cost,
+            "current-key Phase 2 usage delta",
+        )
+        _assert_close(
+            account_cost,
+            float(incident["cost"]["account_reconciled_phase2_api_usd"]),
+            "transport-incident Phase 2 API cost",
+        )
+
+    if account_cost > float(manifest["cost"]["run_cap_usd"]):
         raise ValueError("reproduced teacher API cost exceeds run cap")
 
     outputs = config["outputs"]
@@ -225,6 +294,15 @@ def run_teacher_audit(
         raise ValueError("data-card hash mismatch")
     if sha256_file(cost_ledger_path) != manifest["receipts"]["cost_ledger_sha256"]:
         raise ValueError("cost-ledger hash mismatch")
+    cost_ledger = json.loads(cost_ledger_path.read_text())
+    ledger_account_cost = float(
+        cost_ledger.get(
+            "account_reconciled_api_usd", cost_ledger.get("provider_reported_api_usd", 0.0)
+        )
+    )
+    _assert_close(account_cost, ledger_account_cost, "tracked cost-ledger API cost")
+    if cost_ledger.get("within_run_cap") is not True:
+        raise ValueError("tracked cost ledger does not declare the run within cap")
 
     return {
         "status": "pass",
@@ -238,7 +316,8 @@ def run_teacher_audit(
         "quarantined_rows": len(quarantine),
         "corpus_rows": len(rule),
         "dpo_pairs": len(dpo),
-        "api_usd": cost,
+        "api_usd": account_cost,
+        "unique_response_api_usd": unique_cost,
         "phase2_dataset_hash": manifest["phase2_dataset_hash"],
     }
 

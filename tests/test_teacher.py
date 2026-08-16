@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import http.client
 import json
 from pathlib import Path
 
@@ -12,7 +13,7 @@ from forge.teacher.filters import (
     perturb_near_miss,
 )
 from forge.teacher.freeze import DEFAULT_CONFIG_PATH, verify_frozen_source
-from forge.teacher.generate import _mock_record
+from forge.teacher.generate import _call_with_retry, _mock_record
 from forge.verify.schema import is_schema_valid
 
 
@@ -84,6 +85,26 @@ def test_mock_teacher_record_retains_required_provenance() -> None:
     assert record["prompt_sha256"] == "a" * 64
     assert record["raw_response"]["choices"]
     assert record["score"]["task_success"] is True
+
+
+def test_teacher_retry_handles_truncated_http_response(monkeypatch) -> None:
+    calls = 0
+
+    def flaky_request(**_kwargs: object) -> dict[str, object]:
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            raise http.client.IncompleteRead(b"{}", 10)
+        return {"id": "retry-succeeded"}
+
+    monkeypatch.setattr("forge.teacher.generate._request", flaky_request)
+    monkeypatch.setattr("forge.teacher.generate.time.sleep", lambda _seconds: None)
+
+    response, error = _call_with_retry(max_retries=2)
+
+    assert response == {"id": "retry-succeeded"}
+    assert error is None
+    assert calls == 2
 
 
 def test_minhash_dedup_keeps_first_normalized_duplicate() -> None:

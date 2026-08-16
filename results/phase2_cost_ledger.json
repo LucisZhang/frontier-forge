@@ -1,0 +1,24 @@
+{
+  "account_reconciled_api_usd": 12.70069,
+  "account_reconciliation_status": "exact_to_provider_reported_six_decimal_precision",
+  "current_key_usage_snapshot_usd": 12.917487,
+  "gpu_hours": 0.0,
+  "gpu_type": "none",
+  "gpu_usd": 0.0,
+  "missing_cost_complaint_ids": [],
+  "phase": 2,
+  "project_teacher_api_envelope_usd": [
+    20.0,
+    50.0
+  ],
+  "pre_phase2_current_key_usage_usd": 0.216797,
+  "provider_receipted_unique_api_usd": 12.667514,
+  "raw_log_sha256": "f4b545d94cbb58b4dccd9585b65c6e52667ad38d2bf5aeaf2b5ee68e07204cd9",
+  "run_cap_usd": 20.0,
+  "teacher_model_id": "anthropic/claude-haiku-4.5",
+  "transport_incident_path": "results/phase2_transport_incident.json",
+  "transport_incident_sha256": "c5ff791e5718ab24668942a4740bccf869c2f863379d7a5c19bd0c81a24dfc29",
+  "transport_replay_api_usd": 0.033176,
+  "version": 2,
+  "within_run_cap": true
+}

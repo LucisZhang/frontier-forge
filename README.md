@@ -11,16 +11,19 @@ Sequel to [nlp-eval-lab](https://github.com/LucisZhang/nlp-eval-lab), which mapp
 the cost-quality frontier of classical / fine-tuned / frontier-API tiers. This
 project pushes a small model across that frontier and productionizes the result.
 
-**Status**: Phase 1.2 is implemented. Label rules v3 scope escalation/refund
-keywords to complaint narratives, assert configured tool precedence, and preserve
-all four frozen split memberships. Re-derivation changed 5,762 labels, including
-5,740 strong-action transitions; see the [reviewer audit](results/phase1_2_label_audit.md).
-The existing 100 API receipts remain at 21.0% after the offline v3 re-score (0 new
-calls); see run `phase1_2_api_calibration_v3_offline_rescore_s20260815` in
-[results/runs.jsonl](results/runs.jsonl) and the
-[re-score report](results/phase1_2_calibration_rescore.md). Human review is required
-before label freeze or Phase 2. Training and serving remain intentionally
-unimplemented.
+**Status**: Phase 2 is complete, and labels are frozen under D3.1. The final
+stratified review recorded a 14% WRONG rate (four escalation and three refund
+false negatives), while the unchanged 21.0% calibration re-score had no
+discriminative power because none of its 100 labels changed. See the
+[reviewer audit](results/phase1_2_label_audit.md), [freeze receipt](results/phase1_2_label_freeze.md),
+and [re-score report](results/phase1_2_calibration_rescore.md).
+
+The Phase 2 factory sent 6,000 deterministic frozen TRAIN records to
+`anthropic/claude-haiku-4.5`, retained 1,450 matched SFT/DPO examples, and
+quarantined 214 TEST-overlap hits. Exact account-reconciled API spend was
+$12.700690 against the $20 cap; see the [data card](results/phase2_data_card.md)
+and run `phase2_teacher_factory_v1_s20260816` in [results/runs.jsonl](results/runs.jsonl).
+Phase 3 has not started; training and serving remain intentionally unimplemented.
 
 ## Local verification
 
@@ -29,6 +32,9 @@ uv sync --locked
 make test
 make gateway-test
 make phase1-2
+SMOKE=1 make teacher-data
+SMOKE=1 make teacher-audit
+make teacher-audit
 SMOKE=1 make ingest
 SMOKE=1 make splits
 SMOKE=1 make calibrate-difficulty

@@ -1,0 +1,1721 @@
+{
+  "dataset_hash": "2f2498c95ea224e48cfc7ee9c705ecef00563c616b0ec14512800706cd8f2573",
+  "policy": "any exact normalized n-gram overlap quarantines the TRAIN sample",
+  "quarantined_rows": 214,
+  "rows": [
+    {
+      "complaint_id": 1451241,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1481831,
+      "ngram_sha256": "03452f12d4ebc1ef45601d26dbf53006fb5201a66cdfe0b55392d2f9212bcb71",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5730194,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1502480,
+      "ngram_sha256": "63fd4965d6c6d95a23db21932cd0a0eac736a60d437725758fdeede98f638463",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5758081,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1593093,
+      "ngram_sha256": "2510c1cb88f004594670e02292ca79308f72c91e19bcfd02881cb51b3997af6f",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 8822203,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1668837,
+      "ngram_sha256": "cb556c6119d473a136483eb383db95b35908e06980c6bd8efa322b6dc9a53efa",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 10370298,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1674695,
+      "ngram_sha256": "57b05829646480d5701d292e73bdb7e7b19a4a022fb34562777679f723e21e98",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6140214,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1693625,
+      "ngram_sha256": "02f180f54400c68194f90638ec4800b4f1aaca7af1298cec694ba2ae6bf4c868",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5770589,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1783105,
+      "ngram_sha256": "3076426769df75eb1da01dcc1fe8f966519a2bcc5b450dda7c2578ea7f8d80ad",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5937313,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1922465,
+      "ngram_sha256": "719d65e088de67c475f69a6dce40130aa33b2bc1cea64442aad944b039bf1ef9",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6156696,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 1950276,
+      "ngram_sha256": "231c43305cfe2e3a9d01aac681fbbcf2621e233d8e13211e22a320261267c5e5",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5730575,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2010336,
+      "ngram_sha256": "296728cb6a64d5b4f36c5cd81e60226c57a0b0544649d6c675685565f5c92b78",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5978532,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2028758,
+      "ngram_sha256": "5b3dd65f1e62587b0465e975d8dac6942c8d38a212f39790a2d5225ade53e53d",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 14088139,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2084599,
+      "ngram_sha256": "0a8909f031e40159baffdb6920961159f7711b97aeba777af33b4dc5f821b214",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725650,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2133452,
+      "ngram_sha256": "1be67d39ccfb136107461deaa2c80b9adc2f8ef0d5d16d3ce56be6fa186bcba5",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6042938,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2151192,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2238406,
+      "ngram_sha256": "961603e4368fd745260d1f3863149fe9ed6bf266067f493173aefda902eca2f4",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6274232,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2369407,
+      "ngram_sha256": "40e8697757a2d518b56fd800f5f9f2da02edb7a122c99fcdd9286aaf4f667531",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 8030129,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2375216,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2422438,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2466811,
+      "ngram_sha256": "3eba747452cd83eb18871e4f726e5d328a5dbcacd580e036b19ea402a60a2c41",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5894800,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2467533,
+      "ngram_sha256": "494362064f355c9bcd5d0c907fb57328317252bbec6bfcb50406913a489692b1",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5731007,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2469685,
+      "ngram_sha256": "59a42f8a117362482c381485ca87cabb8e61f39d1dd3bec2bede39ba4e534483",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5876874,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2494082,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2555970,
+      "ngram_sha256": "0e5bda86278ddb44e1853b098f67c68c49cfc38d04b0216905f53079a5d02ee6",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6311669,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2574162,
+      "ngram_sha256": "1398dfc9ee2f3e1b625f22f04580895bd96697a3b51fce2920e1ce0f18c86bf6",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5801082,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2575508,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2577425,
+      "ngram_sha256": "1a3a1a34410864ee229c52c59fe0a8ea10eb9d3f24ba8085355685f3f8d73326",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725703,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2583147,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2590485,
+      "ngram_sha256": "163447ebdfc702e22fa228d601f017082f859011f7d2c67f98cc36aaee459b60",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6334121,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2641814,
+      "ngram_sha256": "4db97ba304d80b298f285cb4750871bcb417bf6c5c9b50803cc812466977ba85",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724728,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2653752,
+      "ngram_sha256": "064b7b9529f9f7d06e0d1748364d44a5cf77d62122e4f9350276be3a06bd6808",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 9132590,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2682320,
+      "ngram_sha256": "019c4e5730169839ec59c06e669f7b27826d8eea0397c2b5d9037b7f92d467ed",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6008398,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2687089,
+      "ngram_sha256": "1e0869555a36b9ab65d481354fa40b5fcdad0f9c5cbfa4e0b63c1afb73a600a0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726065,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2707112,
+      "ngram_sha256": "07b6a0a1bb98bb84a2ad4570ed0a127c874eb485ea02a9b40c23b516b81f68c5",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5976337,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2715212,
+      "ngram_sha256": "9488a0037e656117e5b363f523a7e6234339b833c9d1026d30ae1057072fc7e4",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6340214,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2732524,
+      "ngram_sha256": "35507c1dcd49943937fba2447e10b56209ddd8275be59167e258bfdc8ec93f26",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5762558,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2756552,
+      "ngram_sha256": "0ecd9f9c292f27f878084c26c0861c112eec367a2493cd689ddd193c6190e9c7",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5749352,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2763843,
+      "ngram_sha256": "1c0e2a6ad4700914ecbc7f0dd4ff3bb7cb59007091806abb55c9ed58db70a8e8",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5734164,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2775884,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2778208,
+      "ngram_sha256": "0dc63ae0aee31744435fc4a426d1706019d2b1406a91c8c6bfd50d83383f18d3",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5884459,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2791499,
+      "ngram_sha256": "12b64233069d773d592f3317714e73c0ce1c2a4146b318c41f29a7b2f55a6f70",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6020028,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2810208,
+      "ngram_sha256": "ddaa823ef97de8c448e8961b3abd54f9a230f39d121106f5cfc5dac50eb512b8",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6139794,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2819056,
+      "ngram_sha256": "134cf1ddcf32a2a70e77f9937358e76c1754f845009bf143e5031349d255bdae",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5821069,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2827063,
+      "ngram_sha256": "1e0869555a36b9ab65d481354fa40b5fcdad0f9c5cbfa4e0b63c1afb73a600a0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726065,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2844624,
+      "ngram_sha256": "3e802f0c6b7ecc44fc348d8a6a1fdf35726efda9b348db07f2bd21150ae6a85e",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6005170,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2847759,
+      "ngram_sha256": "03951cbabe650dcadd5fd6d4d5b768920ed9ada551aa3c4393dbec20ba7ee2cf",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5797589,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2854892,
+      "ngram_sha256": "1d358063f5aa1a20e04375a8463ff43e2a95876ae26f302374bac09793144a1c",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5729120,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2864226,
+      "ngram_sha256": "cb99d71b974a3f2dbbfbe12564dc6a93112d716832119599b73b3e18899e6388",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5875678,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2872638,
+      "ngram_sha256": "1b7372313ba52ab81bbc383d017020f36d194a3da29f802343920e9c44a51c8d",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725703,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2875890,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2902789,
+      "ngram_sha256": "44f7645b235a2ed0376f7d7ab53bb582f4b9412b42bbfdb9ef625d86a877d9db",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6208908,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2904405,
+      "ngram_sha256": "cc2fa9bf4fec457552155ec3ae42684404764216c4d7f4053e70e1f512f2f4d1",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6266492,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2913389,
+      "ngram_sha256": "0192fc3f3a9d0ef1bdd4a6f4e9330ea8b0baba6268e83ab44471e3b8c5e9f3b3",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5816259,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2918740,
+      "ngram_sha256": "acb27c0292814381b8d672041d9097dc4955ab6b9fdcebb4b654a141c27ec55e",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5743734,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2918964,
+      "ngram_sha256": "a15f11d5cc631d37eb5ef9f6805630f96a2f5408830eed01be522800e051c38e",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5741421,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 2929069,
+      "ngram_sha256": "01cc074e453bba8040f9a7802829e03d1e0ae2937ad6c28dc41594b22e5b74c1",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5778244,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3013833,
+      "ngram_sha256": "d55f9fe2b689974b33ba6d6778cc45bc88d2ca801bd99c10743dfedab9f1bb5b",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5931543,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3022971,
+      "ngram_sha256": "4217e6bc105697a31f33164f037ef1a19241a6fa45a2cd2d5de0d62492c1fab3",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5812877,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3023082,
+      "ngram_sha256": "f99d9b745edb1be03f7b973af8995f76db78f19ff5afa7531d8ebf89c52073cc",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5788240,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3031867,
+      "ngram_sha256": "03951cbabe650dcadd5fd6d4d5b768920ed9ada551aa3c4393dbec20ba7ee2cf",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5797589,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3070877,
+      "ngram_sha256": "1545bd272707460ba8da016aafba3942bc4d254f92756304e4984191b02984e3",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 9113668,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3118380,
+      "ngram_sha256": "23cfb2f4f1a976ae22f7984b4ad60b523b4aeef122ec6addcb7a3a4a5c717e43",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6477595,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3121087,
+      "ngram_sha256": "3162154d95a9c3210f5bbc515f7a41e12818fb866c3ed40b42894ce4174149a9",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 10936099,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3122709,
+      "ngram_sha256": "1e0869555a36b9ab65d481354fa40b5fcdad0f9c5cbfa4e0b63c1afb73a600a0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726065,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3126628,
+      "ngram_sha256": "00190ec60a4ba5e35c8b1a87a77ce49c5f1294fd3a6ed3a260cd9a9574a0d6c6",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5732240,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3148206,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3150474,
+      "ngram_sha256": "26897c36abc62722941e8e94a4dbc45f07e95f0f4afcbcf80574426922812e4a",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5816259,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3179024,
+      "ngram_sha256": "0356f4e56f3a1466d58acf03494e15012b0244ed8eb5fe1f8011c639e60ec452",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5747224,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3188728,
+      "ngram_sha256": "2e365769c2617858cbe6a98e82e02108e5486bfddc5288d061d53323cd2bc5e0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 14908000,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3210640,
+      "ngram_sha256": "32b50e4b2a2db1848a3b98fa82e9d12151827c2722afea7caf26662d4112e0ec",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5807014,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3235979,
+      "ngram_sha256": "0f6ff93e56879800fef08210f8b1149c5d3f8699751af8d810ed2260d6457135",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 9152019,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3254209,
+      "ngram_sha256": "ae4288ebb2623cfded5443755d8afa9c519ad04a1f72f42dae88357a77f590f2",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726756,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3272347,
+      "ngram_sha256": "481f46d0cc276d2d7c4a0ab977a97056c969399e6ffe5b8fea03786fba4b2fe5",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5842691,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3275905,
+      "ngram_sha256": "29714525e56e17cda3f3d80f41a4c9ba64fbf496d5191361954f6988ec684a48",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724737,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3293004,
+      "ngram_sha256": "5bda854c504fc5b9a9a61708fb62111c6679096f3c2675a445d254a8b82b19cb",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6005172,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3297451,
+      "ngram_sha256": "2e365769c2617858cbe6a98e82e02108e5486bfddc5288d061d53323cd2bc5e0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 14908000,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3302431,
+      "ngram_sha256": "54c1a47d57b21c6fe7470801654f3964fe3a0cff2f8235a2ba2c2a0d116787ba",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5734423,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3307683,
+      "ngram_sha256": "03bbc15a8453e80ab5c9668c9568af55482862685d04854876e1665414b6a7a5",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5936721,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3315652,
+      "ngram_sha256": "14e63f7aa96a60742d3e8a4effadaa8c12be66a7f750cf602631856a303d84df",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725703,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3319352,
+      "ngram_sha256": "603f1948c510fe88979571719e0a21017d1a2160e7ab265d041d1b9a51160804",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5730868,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3322773,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3325632,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3362372,
+      "ngram_sha256": "1239bd2cdc5534795f220b7be168d9f08ec382593a8283dc226abedda27fafac",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5742041,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3381354,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3426520,
+      "ngram_sha256": "467fbf789e148a1ce81859ea5907265b4890b0cd99cc67cadef49a35220af9fd",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 10276390,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3432678,
+      "ngram_sha256": "1a3a1a34410864ee229c52c59fe0a8ea10eb9d3f24ba8085355685f3f8d73326",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725703,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3434741,
+      "ngram_sha256": "02864105859ac2bb3e2b898e55606fbe68381dc2670076f9128ea7c6e8758cb9",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6204952,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3447806,
+      "ngram_sha256": "e802c5148ca2882a28a3a3c9c0721ece48189cb18c62a99c7058ecb29b2483df",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6035591,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3460649,
+      "ngram_sha256": "68410217c9a21a5e93946bfcf6878d44e4633454e8ce9f2a21e682476e4207c3",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 7184476,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3475357,
+      "ngram_sha256": "069c57f7922ee0aa6e9cbfebe7fd1e50729421fc29b8ebd86c4ed6211dc25d74",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5729049,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3485949,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3495665,
+      "ngram_sha256": "0fc1d09eedab3a5c06f449542ee1a7608dee16430db2c377eced9746fa1b3e10",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5784702,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3499555,
+      "ngram_sha256": "23c86621cd4a669b062aa3c9c47a317649fd4185d2db31d02ef9e057bd337423",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5900195,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3518543,
+      "ngram_sha256": "1d11a4252c692ada062ea416f52999d957a6ff0792b4a3bb3e68945774b641f5",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724728,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3537817,
+      "ngram_sha256": "0b78867d3eb040a3613d68df5f8729141d8f01aa540f32bd4d96b3180f07ffb2",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726259,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3545854,
+      "ngram_sha256": "0d941301242679176c84c4edb890833fbbe07a975f148f0b7d76d272e5dc4640",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5741871,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3596149,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3598395,
+      "ngram_sha256": "0043d19e60bd911a9c43cffd3a9f3ffebe420d6ca535ee1b0f108dbc65324407",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5781090,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3602024,
+      "ngram_sha256": "0ba5d072686b812a88d7988d9de8dc8fe296de3b1ab62169edab36389aafb43b",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5728819,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3605282,
+      "ngram_sha256": "01cdbff70215c6c18851938071b032208f6b6e38c845f6f2e2d83a09cabeccc0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5760409,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3616372,
+      "ngram_sha256": "ae4288ebb2623cfded5443755d8afa9c519ad04a1f72f42dae88357a77f590f2",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726756,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3623903,
+      "ngram_sha256": "84db76564cd3357de4e98a011ce9db9e94a21b027c835a54ec92cef10fa550ca",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 12810797,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3634412,
+      "ngram_sha256": "40fe83d56787f91f1daa90fd5f0a934557c3cff939c7bdd6832db3ad59236a44",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5728732,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3636237,
+      "ngram_sha256": "777bd4774d5d8885d766ee656c3e665d62aa4373d351a2b3d37d4cebc0c04d78",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5792916,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3644002,
+      "ngram_sha256": "ae4288ebb2623cfded5443755d8afa9c519ad04a1f72f42dae88357a77f590f2",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726756,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3650321,
+      "ngram_sha256": "ae4288ebb2623cfded5443755d8afa9c519ad04a1f72f42dae88357a77f590f2",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726756,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3655137,
+      "ngram_sha256": "230d3ce79f8a93c506d4fae7e0e342a63969f3c0363530b7c4cd6fd1f31e60d4",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5731045,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3655405,
+      "ngram_sha256": "230d3ce79f8a93c506d4fae7e0e342a63969f3c0363530b7c4cd6fd1f31e60d4",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5731045,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3664087,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3675159,
+      "ngram_sha256": "0eb47d1c46eeea38920c90bc9773cd3b16683f201abc75317e927737e936bcad",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6024089,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3677524,
+      "ngram_sha256": "565b807b3090487b19e460c33fc8b9860c6f49c3621f14998e7801249dfbb110",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5759051,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3681534,
+      "ngram_sha256": "02f022e6b68956249e5c8092a86b227189721e2db64153f49ee9368c4b30cdd1",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 8863663,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3684557,
+      "ngram_sha256": "f0e26823465bc4013b59850512dc0474ca391258e8a30995fbd2aef7b9c85751",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6199136,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3687422,
+      "ngram_sha256": "aa7547f9a33a4957023c11ab697a7ff6914dc46ddc63865b6e2b6eff27600dae",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5762558,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3687477,
+      "ngram_sha256": "4e24167994924e59ddc4956855edf55bb815e6f5c1d1e5fc04c0e76ad5a4f168",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5805279,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3697939,
+      "ngram_sha256": "50e377c7d7dd085addf921c87d0f5576c32d13dc15b5d049b8ad67c4321085b6",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5926272,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3712811,
+      "ngram_sha256": "95e862598c8173cc8d92d6966be386d6edd1f0a0aba91343afbb2d2b9c80f974",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6226211,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3713107,
+      "ngram_sha256": "001f7bb4d1aa71a1f41f44a51579f2152625d45a388d4fddcf97aa97fcf24ec0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 7358796,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3713999,
+      "ngram_sha256": "bc3c9756a9fff4944ae782ccc509fe02a425c6f5e96ec954e99d46eeff15edf7",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724737,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3714913,
+      "ngram_sha256": "8daa443ba09ca520c388ff1e4569aea8bcb70cf4eed14c4699538c1a9c927cf7",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5849025,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3738626,
+      "ngram_sha256": "3bdc7168f8a712ddf5c040e2e17db37922d40bd055c8c6e8a6dfdf8e9bd07478",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5742650,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3746613,
+      "ngram_sha256": "06d1b609e409f69659a05e9dba907959b3e2593dbbadfba79f669531ef3eab2f",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5925000,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3779894,
+      "ngram_sha256": "001f7bb4d1aa71a1f41f44a51579f2152625d45a388d4fddcf97aa97fcf24ec0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 7358796,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3811761,
+      "ngram_sha256": "5432f88162fec121b5cc1937efa9eaa7f1de3bb132aae383be5af9cec5134f75",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 8212871,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3819898,
+      "ngram_sha256": "4db97ba304d80b298f285cb4750871bcb417bf6c5c9b50803cc812466977ba85",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724728,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3819902,
+      "ngram_sha256": "ab560c6cfceb3a386c8980724204b1cac2154019c22e3dbd20f9a3618b37f053",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5842689,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3851840,
+      "ngram_sha256": "1f7dd00a47249b8c809b737d978b80c6e8cca304d46f3c33a08ddee51fa00619",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6112179,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3856486,
+      "ngram_sha256": "54c1a47d57b21c6fe7470801654f3964fe3a0cff2f8235a2ba2c2a0d116787ba",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5734423,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3899407,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3913240,
+      "ngram_sha256": "0034f4ab4ee91a6db5f6ed78e40f1b563c957287bbff11767f9af41e26568fd1",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6016220,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3914410,
+      "ngram_sha256": "f9bb9c7189d2808a61147a20e0063e0633e778b65256da4eb12f67172020e487",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5920971,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3931034,
+      "ngram_sha256": "1b7372313ba52ab81bbc383d017020f36d194a3da29f802343920e9c44a51c8d",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725703,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3941142,
+      "ngram_sha256": "27feb13aba6da78b58f219e308d7543d4b5682ba6a30e950aa9456b056645896",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5728732,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3966858,
+      "ngram_sha256": "4665a579edaa9c665e55d61bfe03564199d0da4f84f9c857abe4996ae0a4a9be",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724655,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3972668,
+      "ngram_sha256": "02c14ba1c558246f3e4923ac9d49a7a5188eee86b0e307ad9707c7b1f2271bb5",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5963379,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3976380,
+      "ngram_sha256": "3ef858e0c1c3c6bff08cbc8dab70a37e74b394945575cbcab25e5bb8d555ee5d",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6179791,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 3992014,
+      "ngram_sha256": "17174829d150e381127abe50748d32200604f7b39b86e3a60d6797a41128c55b",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5750573,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4025126,
+      "ngram_sha256": "0043d19e60bd911a9c43cffd3a9f3ffebe420d6ca535ee1b0f108dbc65324407",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5781090,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4028894,
+      "ngram_sha256": "14e63f7aa96a60742d3e8a4effadaa8c12be66a7f750cf602631856a303d84df",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725703,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4042800,
+      "ngram_sha256": "8e15d1f46298b1c57b3a7c685cf1e7b9daa071ad0589265ebfc3f773d60a880e",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5830399,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4061738,
+      "ngram_sha256": "699c3626738ebcaba2b430dc5dda7f44ee886bd2c753ac7c946ccf02873ea704",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724798,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4063807,
+      "ngram_sha256": "d23985a9b43157215ba69b45336077286cd244738b677dfcc696c9c54e1f7862",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724798,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4071285,
+      "ngram_sha256": "722e408593e883de05799360e370186e13d6ede9a7c04622c893d2d53ac7174f",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5732084,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4086657,
+      "ngram_sha256": "0bef01fa5ce118e2adcf397c71f31bce75332b51e0ded36778ca7521216a561c",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5804306,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4090132,
+      "ngram_sha256": "a46e8b65cd6cb2c6b2f6774f5adda7f841f54f38f8ae727506a8f07cd558a3eb",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 11718733,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4095946,
+      "ngram_sha256": "2c2481374c73c842c666c7e2562ebc6fd0a5b94535b1d7a6e47eb1fd5b1cf22e",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5965497,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4117800,
+      "ngram_sha256": "321fd3f5a7aa247e960e269adcc0041ca23cbe4876bf4280d5f41a6e6c3bbb44",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5798931,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4122414,
+      "ngram_sha256": "52dad7014e299d82089be07be707c389d41d697942e267e2b9af308821727820",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5728176,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4128380,
+      "ngram_sha256": "18ff8f2241dcdacbd5eaa6bd0303e60eac37ad649c8cd5d280d7b6a924f08d83",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5730758,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4130051,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4134095,
+      "ngram_sha256": "688fc4accdf51ad19c373e21bcd4fa7f3452cca2d7a4abd999fe7670871abea6",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6112424,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4137788,
+      "ngram_sha256": "0168cddde3b5690fa161396c5822d3f175a1153d49beba7141f0c28541581bad",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 13227511,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4161089,
+      "ngram_sha256": "52dad7014e299d82089be07be707c389d41d697942e267e2b9af308821727820",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5728176,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4182016,
+      "ngram_sha256": "5c8f70c4fc69c0a42e1cceabf89a42fbd6b8dc6f906c06e4bd830a230966349f",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6005921,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4248906,
+      "ngram_sha256": "52dad7014e299d82089be07be707c389d41d697942e267e2b9af308821727820",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5728176,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4267194,
+      "ngram_sha256": "095fa7e7da415627f0dba52707a0ecaa708bbc0f21fb9847d98cc323b2e3a332",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5932603,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4287137,
+      "ngram_sha256": "4eec0015389b2c6f9c220ab76e5d3ff7a8ed0dde526e30d45becbb8e6edb7be0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5973581,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4294460,
+      "ngram_sha256": "08b1c7cc2088816c15cbe2355a783414347ad2821019facd1e09a221f0b1e010",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726513,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4298714,
+      "ngram_sha256": "ae5905ac0c38ebeae1e267b8686912480a36221da5e27aa218f4cf60e8c4c7ed",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724604,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4301539,
+      "ngram_sha256": "137a5bc10732d99146dc9015c8aa8d10d5df2aba317608b7152834db250be0c1",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724737,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4325694,
+      "ngram_sha256": "006f2c068c807febbe167365ad71c8900f2e110a4e6ed4ecbf7160300cacbf53",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5840433,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4332036,
+      "ngram_sha256": "059aafbeaf826bb7beac712d1563543d1602676375d2ed7575f388254d879521",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5730487,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4333230,
+      "ngram_sha256": "0b82aca52abbb7f98ab039df29466b5915ca361ef8f66bd86b3b65375d14c585",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6059999,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4404511,
+      "ngram_sha256": "79ecdeaf23649b5fc88ad3b5692b9a206e925ce5eb4abd8745c08ec77978b436",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6898438,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4416215,
+      "ngram_sha256": "3487a85819cbabe7ed246eee4413da15bd2431c8310ed036bed5cac1e1160938",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 13220453,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4425753,
+      "ngram_sha256": "0b6a2298b485399cd383ce51e30a97f9544ffce27aff89d370e2f755bdf7e76c",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5737812,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4429938,
+      "ngram_sha256": "ae4288ebb2623cfded5443755d8afa9c519ad04a1f72f42dae88357a77f590f2",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5726756,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4465854,
+      "ngram_sha256": "213d713031482610c6c36996694fb8f7225215f0324b3e13bf494a4b7f66a690",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 9679782,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4472156,
+      "ngram_sha256": "1a5e068fe8d63e312c55adf2ea352ce2e0d6990ae8f7755ac120253cfbee7e79",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5734164,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4481063,
+      "ngram_sha256": "5fb0762cc44d5fddfda499a6d6e0ce201d6042ed421b42fed743f4613e3c6b39",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6161277,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4491851,
+      "ngram_sha256": "00ccdc20600fd59d217273c3f81ce0dd6a75b9d7a7e8bdf7b5e6b68a2be465f6",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5762558,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4507349,
+      "ngram_sha256": "20377ba975b9772b7e22f42fb955604f47737b848b1e51be1090f3643aff0a3e",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5869291,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4552469,
+      "ngram_sha256": "0c91905f724a4114f4c0a429f4840795a478d611e04d24111d0d685424da9060",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5944144,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4557284,
+      "ngram_sha256": "2d75479f3ebc436c08ff68a0dc1da348d74978c7b614ea42c9d9b2f97fbbd5a6",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5794204,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4568384,
+      "ngram_sha256": "54c1a47d57b21c6fe7470801654f3964fe3a0cff2f8235a2ba2c2a0d116787ba",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5734423,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4569234,
+      "ngram_sha256": "2810c9abe542373474edf034193b633cbffa8316ce458591a5be76184d6162ae",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6112839,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4573865,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4577995,
+      "ngram_sha256": "ffa77ad6ece7a4b391fbc3d1cf02cfcfc0d9047161d0e776bfad5f9956be3833",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6003341,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4589471,
+      "ngram_sha256": "2813ff9afac512fc6563cd9e5eae00f91be607afcb3262697a02bdf78a87d5d0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5770046,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4619597,
+      "ngram_sha256": "14eadb0441b21d8d66c37e2a7c8aa7b520437f5faca68d6086701460f04c115e",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6003599,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4632964,
+      "ngram_sha256": "1e95fe8bac3462c6f7f8e5aad0afee95a42a5b8b2990c3b405557621d5a9bc32",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5730194,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4639000,
+      "ngram_sha256": "234b1595713d5efebe576c4f4d89a7113f178a1c9b89071f910de91191bb8f78",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5763612,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4652681,
+      "ngram_sha256": "c0fc35bce32541a10f530769f18eed63d99d81d43ad2e23c34689a205f607e56",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5828713,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4659518,
+      "ngram_sha256": "243b68b6572ee487c9fab24794c364803d83b0ede59f0e5dc72a291102744380",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6035598,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4662951,
+      "ngram_sha256": "5b931c51ac13b1df8e877395b2ec2bda9ce7c87898ea14112eb89f0fdbe65aaf",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725632,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4702093,
+      "ngram_sha256": "3e3d0d4dd61b67b6866f270b64c659617f2c7347281bd3bcca0e554a54079c32",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5762111,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4762807,
+      "ngram_sha256": "281341edb09d7fc5b26ffd92fb520f19ec6e15e86131e86985bb607152916ce3",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5730453,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4770656,
+      "ngram_sha256": "0e55ee4cd4de39e43ada787a498f6fb8ab50d47b6cc7829998a8e0052d6ead63",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5747735,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4792253,
+      "ngram_sha256": "03cdcf4a4737792df2bc9805a3449bda9d5c7400403b4050cca3b1facdc66876",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6054823,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4799736,
+      "ngram_sha256": "150053310c43a7167570d9264fd7fd3e9710d82f53572211942237c39ece9248",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5788483,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4843751,
+      "ngram_sha256": "46b047d7f8f7a76c7944f884285fb062481a72dcc924a03e83f8c0dff7a072b0",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5728630,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4847171,
+      "ngram_sha256": "00529a9728d35a19f6c979fd6a0da5ffaa998b93e08c37d9f7157beefaea4915",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5866204,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4856122,
+      "ngram_sha256": "1630a44fbd4ca21332e25f3f735c9c172f5f3ee46f573b681b09c54032547048",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5757983,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4869186,
+      "ngram_sha256": "3877beefa87f9ca3b4b9542aebf26d4637393f5be9f938b771975ad0d8eae5e2",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6910304,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4879476,
+      "ngram_sha256": "2aab038fd3784f5b107b1e4699f5b426f9f6d5b5e6d22e00ccf5f3e570391d84",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 6043749,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4891348,
+      "ngram_sha256": "0640b72af28f62ea230e442e37d128177e3480e3ed6ac3f34f3f35ce2022049c",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5930183,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4898489,
+      "ngram_sha256": "006f49f2e64fb5b0c0087dad18808c348e62609a7a8582e19b95651e61e10a8e",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5756031,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4919605,
+      "ngram_sha256": "768d4538dc9dd51a1aaa50f2ece76dec2252abda2a6794b62a872332e75f9041",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5728635,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4925487,
+      "ngram_sha256": "1b7372313ba52ab81bbc383d017020f36d194a3da29f802343920e9c44a51c8d",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5725703,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4933068,
+      "ngram_sha256": "1630a44fbd4ca21332e25f3f735c9c172f5f3ee46f573b681b09c54032547048",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5757983,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4950360,
+      "ngram_sha256": "450b46806d1a0ae637cfe4f694055b71027d71bb7550e1f992c93fe457db3db2",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5747735,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4950449,
+      "ngram_sha256": "0e55ee4cd4de39e43ada787a498f6fb8ab50d47b6cc7829998a8e0052d6ead63",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5747735,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4951264,
+      "ngram_sha256": "1f010af51907b4a522fe07afeb1de2e36a5e1a2f8bc44b1390cb8c8f5a212c23",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5767815,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4966455,
+      "ngram_sha256": "1630a44fbd4ca21332e25f3f735c9c172f5f3ee46f573b681b09c54032547048",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5757983,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4970776,
+      "ngram_sha256": "1f010af51907b4a522fe07afeb1de2e36a5e1a2f8bc44b1390cb8c8f5a212c23",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5767815,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 4980571,
+      "ngram_sha256": "8d416585a99b47b09a9abf2d839cf24dbf2b39f99fa3d52352423d6ff2842067",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 13387543,
+      "test_split": "test_drift",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 5000036,
+      "ngram_sha256": "4db97ba304d80b298f285cb4750871bcb417bf6c5c9b50803cc812466977ba85",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724728,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 5003472,
+      "ngram_sha256": "1630a44fbd4ca21332e25f3f735c9c172f5f3ee46f573b681b09c54032547048",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5757983,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 5004035,
+      "ngram_sha256": "fe45f0c4193e060d4e01615a75acac65b85e2f30518bc14d9c42b5daf41e2f48",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5738244,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 5007204,
+      "ngram_sha256": "748390850c67baa43035927275b81b96a841b6e69d7fd06fcfcf77ece0872feb",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724737,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 5015452,
+      "ngram_sha256": "c556b0cd27904e828018a3fa020664bd1f8f2e90275a1dc8808622748e11a044",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724737,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 5022131,
+      "ngram_sha256": "73c738a93f76f4caa6eb6877a7c1b726c99218f90715fc7c199d748ec5023598",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5724663,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 5022913,
+      "ngram_sha256": "07711cf565cd25aec660164c4ff0f84297667d557c0b1b7ce52aec61a2d27cbd",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5733658,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    },
+    {
+      "complaint_id": 5050056,
+      "ngram_sha256": "9f1e8eff76d12fd7a522b7e6fecd3757f8874d5c339e3bccbb712aba06665e38",
+      "policy": "any exact normalized n-gram overlap",
+      "test_complaint_id": 5730301,
+      "test_split": "test_iid",
+      "token_ngram": 13
+    }
+  ],
+  "token_ngram": 13,
+  "version": 1
+}
