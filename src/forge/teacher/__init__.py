@@ -1,1 +1,1 @@
-"""Teacher-data package scaffold."""
+"""Teacher distillation data factory."""

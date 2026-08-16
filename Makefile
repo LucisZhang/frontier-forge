@@ -3,6 +3,9 @@ SHELL := /bin/sh
 SMOKE ?= 0
 export SMOKE
 
+LIVE ?= 0
+export LIVE
+
 C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 	ingest splits calibrate-difficulty \
 	teacher-data teacher-audit \
@@ -10,8 +13,7 @@ C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 	serve-bench spec-decode-bench structured-bench bench-report \
 	gateway-bench sync-up sync-down demo-build reproduce-headline
 
-STUB_TARGETS := teacher-data teacher-audit \
-	train-sft train-dpo train-grpo eval export-model \
+STUB_TARGETS := train-sft train-dpo train-grpo eval export-model \
 	serve-bench spec-decode-bench structured-bench bench-report \
 	gateway-bench demo-build reproduce-headline
 
@@ -54,7 +56,14 @@ calibrate-difficulty: phase1-2
 endif
 
 phase1-2:
-	@uv run python -m forge.data.phase1_2
+	@uv run python -m forge.teacher.freeze
+
+teacher-data:
+	@uv run python -m forge.teacher.generate \
+		$(if $(filter 1,$(SMOKE)),--smoke,$(if $(filter 1,$(LIVE)),--live,))
+
+teacher-audit:
+	@uv run python -m forge.teacher.audit $(if $(filter 1,$(SMOKE)),--smoke,)
 
 sync-up:
 	@./scripts/remote/sync.sh up

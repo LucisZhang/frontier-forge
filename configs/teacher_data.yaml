@@ -1,0 +1,74 @@
+version: 1
+
+source:
+  label_freeze: results/phase1_2_label_freeze.md
+  dataset_manifest: data/phase1_2/manifest.json
+  dataset_manifest_sha256: dc8299726faf20a8d300f510a69f05566f150a319c6dcf43c5f9241cc3c28407
+  dataset_hash: 2f2498c95ea224e48cfc7ee9c705ecef00563c616b0ec14512800706cd8f2573
+  label_rules: configs/label_rules.yaml
+  label_rules_version: 3
+  label_rules_sha256: 216199a541c360645927fb195d12c0da779e3e4f4743c6dcda189c63aa0e1812
+  input_contract_version: 2
+  scorer_version: 2
+  train:
+    path: data/phase1_2/splits/train.parquet
+    rows: 300000
+    payload_sha256: a753b3de8cbf85aabf71dc06ab960b371c586ff764e8f221c83a889d09676057
+    membership_sha256: 7f63a4afb0b94b5adb7e30d761941e8d76e65f345dc16de85493a1e32134b483
+  test_splits:
+    test_iid:
+      path: data/phase1_2/splits/test_iid.parquet
+      rows: 104443
+      payload_sha256: c196fd9ac620640dbb9fa545a46830300a4699fcda5d2606b018f5417765d6e6
+      membership_sha256: 049dce9c635a4280eea7b19948807ed20975d134b9e36655645320afad7fbb21
+    test_drift:
+      path: data/phase1_2/splits/test_drift.parquet
+      rows: 80000
+      payload_sha256: 6ea9f6210898fb9a72c1bc66146c1e033af00cd5c125607e4e953aff7333dd80
+      membership_sha256: 5b3d77cee9e3852747f44ee36d8a91fa421b3f24bf28d3fba418aed75fd95946
+
+selection:
+  seed: 20260816
+  live_candidate_cap: 6000
+  smoke_candidate_cap: 10
+  ordering: blake2b(seed:complaint_id), complaint_id
+
+teacher:
+  model: anthropic/claude-haiku-4.5
+  mock_model: mock/phase2-deterministic-v1
+  prompt: configs/teacher_prompts/phase2_teacher_v1.txt
+  temperature: 0.0
+  max_tokens: 512
+  timeout_seconds: 90.0
+  concurrency: 16
+  max_retries: 3
+  max_budget_usd: 20.0
+  planning_cost_per_call_usd: 0.0032
+
+filter:
+  require_schema_valid: true
+  require_task_success: true
+  require_tool_arguments_semantic_valid: true
+  minhash:
+    token_ngram: 5
+    permutations: 64
+    bands: 16
+    similarity_threshold: 0.85
+  contamination:
+    token_ngram: 13
+    policy: any exact normalized n-gram overlap quarantines the TRAIN sample
+
+dpo:
+  rejected_source: deterministic_perturbed_near_miss
+  perturbation_taxonomy:
+    - urgency_cycle
+    - tool_choice_substitution
+    - ambiguity_flip
+
+outputs:
+  full_dir: data/phase2
+  smoke_dir: data/smoke/phase2
+  tracked_manifest: results/phase2_manifest.json
+  data_card: results/phase2_data_card.md
+  cost_ledger: results/phase2_cost_ledger.json
+  quarantine: results/phase2_contamination_quarantine.json
