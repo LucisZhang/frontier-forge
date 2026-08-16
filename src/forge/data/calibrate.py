@@ -260,8 +260,8 @@ def _render_report(
         "",
         "## Gate result",
         "",
-        f"**{gate_status}.** The {mode} scored **{_percent(success)}** task success ",
         (
+            f"**{gate_status}.** The {mode} scored **{_percent(success)}** task success "
             f"on n={primary['samples']} CAL rows (95% Wilson CI {_percent(low)}–"
             f"{_percent(high)}), **{comparison}** the D3 target band of "
             f"{_percent(target_low)}–{_percent(target_high)}."
@@ -307,7 +307,7 @@ def _render_report(
             "| Tool arguments structurally valid | "
             f"{_percent(float(primary['tool_arguments_structural_valid']))} | yes |"
         ),
-        f"| Mean decision-only reward | {_percent(float(primary['mean_reward']))} | — |",
+        f"| Mean scorer-v2 reward | {_percent(float(primary['mean_reward']))} | — |",
         "",
         "## Secondary metrics (excluded from success and reward)",
         "",

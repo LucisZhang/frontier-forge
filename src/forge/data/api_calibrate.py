@@ -18,7 +18,7 @@ import duckdb
 import yaml
 
 from forge.data.calibrate import CALIBRATION_SEED, _wilson
-from forge.data.ingest import DEFAULT_CONFIG_PATH, load_data_source_config, sha256_file
+from forge.data.ingest import sha256_file
 from forge.data.input_contract import (
     INPUT_CONTRACT_VERSION,
     MODEL_INPUT_FIELDS,
@@ -38,6 +38,7 @@ from forge.verify.verifier import SCORER_VERSION, ScoreBreakdown, score
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CAL_PATH = DEFAULT_OUTPUT_DIR / "cal.parquet"
 DEFAULT_CALIBRATION_CONFIG_PATH = REPO_ROOT / "configs" / "difficulty_candidates.yaml"
+DEFAULT_API_ENV_PATH = REPO_ROOT / ".env"
 DEFAULT_PROMPT_PATH = REPO_ROOT / "configs" / "teacher_prompts" / "phase1_1_api_calibration_v2.txt"
 DEFAULT_RECEIPTS_PATH = REPO_ROOT / "results" / "phase1_1_api_calibration_receipts.jsonl"
 DEFAULT_LEDGER_PATH = REPO_ROOT / "results" / "phase1_1_api_calibration_ledger.json"
@@ -216,7 +217,7 @@ def run_api_calibration(
     *,
     cal_path: Path = DEFAULT_CAL_PATH,
     dataset_manifest_path: Path = DEFAULT_DATASET_MANIFEST_PATH,
-    data_config_path: Path = DEFAULT_CONFIG_PATH,
+    api_env_path: Path = DEFAULT_API_ENV_PATH,
     calibration_config_path: Path = DEFAULT_CALIBRATION_CONFIG_PATH,
     prompt_path: Path = DEFAULT_PROMPT_PATH,
     receipts_path: Path = DEFAULT_RECEIPTS_PATH,
@@ -226,6 +227,7 @@ def run_api_calibration(
 ) -> tuple[dict[str, Any], bool]:
     cal_path = Path(cal_path)
     dataset_manifest_path = Path(dataset_manifest_path)
+    api_env_path = Path(api_env_path)
     calibration_config_path = Path(calibration_config_path)
     prompt_path = Path(prompt_path)
     receipts_path = Path(receipts_path)
@@ -280,8 +282,7 @@ def run_api_calibration(
             "network_calls": 0,
         }, False
 
-    upstream = load_data_source_config(data_config_path).upstream_root
-    api_key = _load_key(upstream / ".env")
+    api_key = _load_key(api_env_path)
     receipts_path.parent.mkdir(parents=True, exist_ok=True)
     records = _existing_records(receipts_path, fingerprint)
     completed_ids = {int(record["complaint_id"]) for record in records}
@@ -385,7 +386,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m forge.data.api_calibrate")
     parser.add_argument("--cal", type=Path, default=DEFAULT_CAL_PATH)
     parser.add_argument("--dataset-manifest", type=Path, default=DEFAULT_DATASET_MANIFEST_PATH)
-    parser.add_argument("--data-config", type=Path, default=DEFAULT_CONFIG_PATH)
+    parser.add_argument("--api-env", type=Path, default=DEFAULT_API_ENV_PATH)
     parser.add_argument("--calibration-config", type=Path, default=DEFAULT_CALIBRATION_CONFIG_PATH)
     parser.add_argument("--prompt", type=Path, default=DEFAULT_PROMPT_PATH)
     parser.add_argument("--receipts", type=Path, default=DEFAULT_RECEIPTS_PATH)
@@ -396,7 +397,7 @@ def main(argv: list[str] | None = None) -> int:
     ledger, noop = run_api_calibration(
         cal_path=args.cal,
         dataset_manifest_path=args.dataset_manifest,
-        data_config_path=args.data_config,
+        api_env_path=args.api_env,
         calibration_config_path=args.calibration_config,
         prompt_path=args.prompt,
         receipts_path=args.receipts,
