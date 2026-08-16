@@ -24,7 +24,7 @@ from forge.train.ledger import billable_records
 from forge.train.preflight import actual_gpu_hours, check_config, require_r1_reference_receipt
 from forge.train.report import _failed_gpu_attempts
 from forge.train.runtime import lora_config, versioned_training_argument
-from forge.train.sft import processor_eos_token
+from forge.train.sft import processor_eos_token, text_processing_class
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -138,8 +138,11 @@ def test_unsloth_processor_uses_real_eos_token() -> None:
         tokenizer = InnerTokenizer()
 
     assert processor_eos_token(Processor()) == "<|endoftext|>"
+    assert text_processing_class(Processor()) is Processor.tokenizer
     with pytest.raises(RuntimeError, match="usable EOS token"):
         processor_eos_token(object())
+    plain = object()
+    assert text_processing_class(plain) is plain
 
 
 def test_unsloth_is_activated_before_trl_imports() -> None:

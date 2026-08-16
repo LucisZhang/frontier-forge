@@ -1,0 +1,117 @@
+[
+  {
+    "backend": "unsloth",
+    "budget": {
+      "actual_gpu_hours": 4.525,
+      "ceiling_gpu_hours": 90.0,
+      "planning_rate_usd_per_gpu_hour": 0.5,
+      "projected_next_gpu_hours": 5.0,
+      "projected_next_planning_usd": 2.5,
+      "projected_total_gpu_hours": 9.525
+    },
+    "config_hash": "06e3f0c235f69960ed199eb636b2a448f15633eca74ba402a9a97de11a314405",
+    "context_audit_status": "complete",
+    "launch_code_tree_clean": true,
+    "launch_hardware": {
+      "cuda_version": "13.0",
+      "name": "NVIDIA GeForce RTX 4090",
+      "total_memory_bytes": 25250627584,
+      "visible_device_count": 1
+    },
+    "mode": "full",
+    "phase2_dataset_hash": "28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4",
+    "prompt_sha256": "bf1d31236ece8abee77587b8652f42ef4afb5b65a54309d35e56646e420515c3",
+    "r1_reference": {
+      "predictions": "data/full/phase3/eval/r1/trl/s0/predictions.jsonl",
+      "run_id": "r1_sft_rule_s0"
+    },
+    "rung": "r1",
+    "seed": 0,
+    "stage": "sft",
+    "training_data_path": "data/phase2/sft_rule.jsonl",
+    "training_data_sha256": "0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e"
+  }
+]
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.8.18: Fast Qwen3_5 patching. Transformers: 5.5.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.516 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.11.0+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.6.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]Loading weights:   0%|          | 1/723 [00:00<02:26,  4.93it/s]Loading weights:   3%|▎         | 22/723 [00:00<00:07, 89.24it/s]Loading weights:   7%|▋         | 47/723 [00:00<00:04, 146.85it/s]Loading weights:  12%|█▏        | 89/723 [00:00<00:02, 236.19it/s]Loading weights:  16%|█▋        | 119/723 [00:00<00:02, 252.05it/s]Loading weights:  21%|██        | 151/723 [00:00<00:02, 270.01it/s]Loading weights:  26%|██▌       | 186/723 [00:00<00:01, 292.36it/s]Loading weights:  31%|███       | 221/723 [00:00<00:01, 308.66it/s]Loading weights:  35%|███▍      | 253/723 [00:01<00:01, 301.10it/s]Loading weights:  40%|███▉      | 287/723 [00:01<00:01, 310.36it/s]Loading weights:  44%|████▍     | 319/723 [00:01<00:01, 295.77it/s]Loading weights:  49%|████▉     | 357/723 [00:01<00:01, 317.36it/s]Loading weights:  54%|█████▍    | 390/723 [00:01<00:01, 309.64it/s]Loading weights:  58%|█████▊    | 422/723 [00:01<00:01, 297.82it/s]Loading weights:  80%|███████▉  | 578/723 [00:01<00:00, 648.28it/s]Loading weights: 100%|██████████| 723/723 [00:01<00:00, 405.21it/s]
+Unsloth: Qwen/Qwen3.5-4B-Base had a bad pad_token (<|endoftext|>). Using pad_token = <|vision_pad|>.
+Unsloth: Explicit target_modules are constrained by the finetune_(vision|language|attention|mlp) filters; adapters attach only where both select.
+Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:00<?, ? examples/s]Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:01<?, ? examples/s]Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:01<?, ? examples/s]Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:01<?, ? examples/s]Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:02<?, ? examples/s]Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:02<?, ? examples/s]Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:02<?, ? examples/s]Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:02<?, ? examples/s]Unsloth: Tokenizing ["prompt"+"completion"] (num_proc=8):   0%|          | 0/1450 [00:02<?, ? examples/s]
+multiprocess.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/multiprocess/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/datasets/utils/py_utils.py", line 586, in _write_generator_to_queue
+    for i, result in enumerate(func(**kwargs)):
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 3664, in _map_single
+    for i, example in iter_outputs(shard_iterable):
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 3638, in iter_outputs
+    yield i, apply_function(example, i, offset=offset)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 3561, in apply_function
+    processed_inputs = function(*fn_args, *additional_args, **fn_kwargs)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/frontier-forge-unsloth-compiled/UnslothSFTTrainer.py", line 1304, in _tokenize_pc
+    prompt_ids = processing_class.apply_chat_template(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/transformers/processing_utils.py", line 1807, in apply_chat_template
+    visuals = [content for content in message["content"] if content["type"] in ["image", "video"]]
+                                                            ~~~~~~~^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/sft.py", line 206, in <module>
+    main()
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/sft.py", line 202, in main
+    run(args.config, seed=args.seed, smoke=args.smoke, backend=args.backend)
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/sft.py", line 172, in run
+    result, _trainer, _tokenizer, resume = _unsloth_train(
+                                           ^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/sft.py", line 145, in _unsloth_train
+    trainer = SFTTrainer(
+              ^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/unsloth/trainer.py", line 781, in new_init
+    original_init(self, *args, **kwargs)
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/unsloth/trainer.py", line 915, in new_init
+    original_init(self, *args, **kwargs)
+  File "/tmp/frontier-forge-unsloth-compiled/UnslothSFTTrainer.py", line 1755, in __init__
+    super().__init__(
+  File "/tmp/frontier-forge-unsloth-compiled/UnslothSFTTrainer.py", line 1059, in __init__
+    train_dataset = self._prepare_dataset(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/frontier-forge-unsloth-compiled/UnslothSFTTrainer.py", line 1350, in _prepare_dataset
+    dataset = dataset.map(
+              ^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/unsloth_zoo/temporary_patches/misc.py", line 1266, in map
+    return original_map(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 562, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/datasets/arrow_dataset.py", line 3323, in map
+    for rank, done, content in iflatmap_unordered(
+                               ^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/datasets/utils/py_utils.py", line 626, in iflatmap_unordered
+    [async_result.get(timeout=0.05) for async_result in async_results]
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/multiprocess/pool.py", line 774, in get
+    raise self._value
+TypeError: string indices must be integers, not 'str'
+recorded failed GPU attempt: failed_0875f0f4e54bb56f80ec (0.011h)

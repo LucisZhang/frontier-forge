@@ -30,6 +30,11 @@ def processor_eos_token(processing_class: Any) -> str:
     return value
 
 
+def text_processing_class(processing_class: Any) -> Any:
+    """Use a multimodal processor's tokenizer for the text-only SFT corpus."""
+    return getattr(processing_class, "tokenizer", None) or processing_class
+
+
 def _trl_train(
     config: dict[str, Any], *, seed: int, smoke: bool
 ) -> tuple[Any, Any, Any, Path | None]:
@@ -103,13 +108,14 @@ def _unsloth_train(
     training = config["training"]
     lora = training["lora"]
     tokenizer: Any
-    model, tokenizer = FastLanguageModel.from_pretrained(
+    model, processor = FastLanguageModel.from_pretrained(
         model_name=spec["id"],
         revision=spec["revision"],
         max_seq_length=int(training["max_length"]),
         load_in_4bit=True,
         full_finetuning=False,
     )
+    tokenizer = text_processing_class(processor)
     model = FastLanguageModel.get_peft_model(
         model,
         r=int(lora["rank"]),
