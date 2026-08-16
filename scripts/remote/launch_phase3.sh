@@ -69,6 +69,11 @@ launch_env=(
   "FORGE_TRAIN_PYTHON=${train_python}"
   "FORGE_GPU_HOURLY_USD=${FORGE_GPU_HOURLY_USD}"
 )
+if [[ "${backend}" == "unsloth" ]]; then
+  launch_env+=(
+    "UNSLOTH_COMPILE_LOCATION=${UNSLOTH_COMPILE_LOCATION:-${TMPDIR:-/tmp}/frontier-forge-unsloth-compiled}"
+  )
+fi
 for name in \
   http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY \
   REQUESTS_CA_BUNDLE SSL_CERT_FILE HF_HUB_DISABLE_XET; do
