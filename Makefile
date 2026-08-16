@@ -13,11 +13,11 @@ C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 	serve-bench spec-decode-bench structured-bench bench-report \
 	gateway-bench sync-up sync-down demo-build reproduce-headline
 
-STUB_TARGETS := train-sft train-dpo train-grpo eval export-model \
-	serve-bench spec-decode-bench structured-bench bench-report \
+STUB_TARGETS := serve-bench spec-decode-bench structured-bench bench-report \
 	gateway-bench demo-build reproduce-headline
 
-.PHONY: $(C3_TARGETS) ci-lint
+.PHONY: $(C3_TARGETS) ci-lint prepare-r1b phase3-context-audit phase3-report \
+	phase3-preflight phase3-smoke
 
 test:
 	uv run pytest
@@ -64,6 +64,68 @@ teacher-data:
 
 teacher-audit:
 	@uv run python -m forge.teacher.audit $(if $(filter 1,$(SMOKE)),--smoke,)
+
+prepare-r1b:
+	@uv run python -m forge.train.ablation $(if $(filter 1,$(SMOKE)),--smoke,)
+
+phase3-context-audit:
+	@uv run --group train python -m forge.train.context_audit
+
+train-sft:
+	@uv run --group train python -m forge.train.sft \
+		--config $(if $(strip $(CONFIG)),$(CONFIG),configs/r1_sft_rule.yaml) \
+		--backend $(if $(strip $(BACKEND)),$(BACKEND),trl) \
+		$(if $(strip $(SEED)),--seed $(SEED),) \
+		$(if $(filter 1,$(SMOKE)),--smoke,)
+
+train-dpo:
+	@uv run --group train python -m forge.train.dpo \
+		--config $(if $(strip $(CONFIG)),$(CONFIG),configs/r3_dpo.yaml) \
+		--backend $(if $(strip $(BACKEND)),$(BACKEND),trl) \
+		$(if $(strip $(SEED)),--seed $(SEED),) \
+		$(if $(filter 1,$(SMOKE)),--smoke,)
+
+train-grpo:
+	@uv run --group train python -m forge.train.grpo \
+		--config $(if $(strip $(CONFIG)),$(CONFIG),configs/r4_grpo.yaml) \
+		--backend $(if $(strip $(BACKEND)),$(BACKEND),trl) \
+		$(if $(strip $(SEED)),--seed $(SEED),) \
+		$(if $(filter 1,$(SMOKE)),--smoke,)
+
+eval:
+	@uv run --group train python -m forge.train.evaluate \
+		$(if $(strip $(CONFIG)),--config $(CONFIG),--available) \
+		--backend $(if $(strip $(BACKEND)),$(BACKEND),trl) \
+		$(if $(strip $(SEED)),--seed $(SEED),) \
+		$(if $(filter 1,$(SMOKE)),--smoke,)
+
+export-model:
+	@uv run --group train python -m forge.train.export \
+		--config $(if $(strip $(CONFIG)),$(CONFIG),configs/r4_grpo.yaml) \
+		--backend $(if $(strip $(BACKEND)),$(BACKEND),trl) \
+		$(if $(strip $(SEED)),--seed $(SEED),) \
+		$(if $(filter 1,$(SMOKE)),--smoke,)
+
+phase3-report:
+	@uv run python -m forge.train.report $(if $(filter 1,$(SMOKE)),--smoke,)
+
+phase3-preflight:
+	@uv run python -m forge.train.preflight \
+		$(if $(strip $(CONFIG)),--config $(CONFIG),--all) \
+		$(if $(strip $(SEED)),--seed $(SEED),) \
+		$(if $(filter 1,$(SMOKE)),--smoke,)
+
+phase3-smoke:
+	@test "$(SMOKE)" = "1" || { echo "phase3-smoke requires SMOKE=1" >&2; exit 2; }
+	@$(MAKE) prepare-r1b SMOKE=1
+	@$(MAKE) train-sft SMOKE=1 CONFIG=configs/r1_sft_rule.yaml
+	@$(MAKE) train-sft SMOKE=1 CONFIG=configs/r1b_sft_rule_20k.yaml
+	@$(MAKE) train-sft SMOKE=1 CONFIG=configs/r2_sft_distilled.yaml
+	@$(MAKE) train-dpo SMOKE=1 CONFIG=configs/r3_dpo.yaml
+	@$(MAKE) train-grpo SMOKE=1 CONFIG=configs/r4_grpo.yaml SEED=0
+	@$(MAKE) eval SMOKE=1
+	@$(MAKE) export-model SMOKE=1 CONFIG=configs/r4_grpo.yaml SEED=0
+	@$(MAKE) phase3-report SMOKE=1
 
 sync-up:
 	@./scripts/remote/sync.sh up

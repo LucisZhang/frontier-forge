@@ -1,0 +1,32 @@
+{
+  "artifact": {
+    "path": "data/phase3/r1b_sft_rule.jsonl",
+    "rows": 20000,
+    "sha256": "cd4a2df77f4213b31ee97190bc25cc011b0d0bb5101561d66a2de4fb63975e6d"
+  },
+  "config_hash": "aad4c613a265ade6b181dbc0785583e68248ab5da6bba91efe5be758b4fc8dbd",
+  "config_path": "configs/r1b_sft_rule_20k.yaml",
+  "contamination": {
+    "audit_path": "results/phase3_r1b_contamination.json",
+    "audit_sha256": "5558b9add990a371a14cafa37431d331f17bfef10eaae289d29dc5361a7eec5b",
+    "quarantined_candidates": 2983,
+    "selected_added_rows_clean": true
+  },
+  "coverage": {
+    "added_rule_rows": 18550,
+    "inherited_r1_rows": 1450,
+    "r1_is_exact_subset": true
+  },
+  "dataset_hash": "d1092cd16f604c25ed6d5034bf0fed33afbe975af4048fbd2a0cd93d7b25e564",
+  "mode": "full",
+  "phase": 3,
+  "rung": "r1b",
+  "source": {
+    "r1_path": "data/phase2/sft_rule.jsonl",
+    "r1_sha256": "0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e",
+    "train_path": "data/phase1_2/splits/train.parquet",
+    "train_sha256": "a753b3de8cbf85aabf71dc06ab960b371c586ff764e8f221c83a889d09676057"
+  },
+  "status": "complete",
+  "version": 1
+}

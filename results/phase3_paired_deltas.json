@@ -1,0 +1,38 @@
+{
+  "adjacent_pairs": [
+    {
+      "from": "r0",
+      "status": "pending",
+      "to": "r1"
+    },
+    {
+      "from": "r1",
+      "status": "pending",
+      "to": "r2"
+    },
+    {
+      "from": "r2",
+      "status": "pending",
+      "to": "r3"
+    },
+    {
+      "from": "r3",
+      "status": "pending",
+      "to": "r4"
+    }
+  ],
+  "mode": "full",
+  "optional_ablation_pairs": [
+    {
+      "from": "r1",
+      "status": "pending",
+      "to": "r1b"
+    },
+    {
+      "from": "r2",
+      "status": "pending",
+      "to": "r1b"
+    }
+  ],
+  "phase": 3
+}

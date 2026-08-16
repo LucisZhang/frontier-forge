@@ -23,18 +23,25 @@ The Phase 2 factory sent 6,000 deterministic frozen TRAIN records to
 quarantined 214 TEST-overlap hits. Exact account-reconciled API spend was
 $12.700690 against the $20 cap; see the [data card](results/phase2_data_card.md)
 and run `phase2_teacher_factory_v1_s20260816` in [results/runs.jsonl](results/runs.jsonl).
-Phase 3 has not started; training and serving remain intentionally unimplemented.
+Phase 3's local implementation is now prepared: pinned R0–R4 configs, the optional
+R1b 20k-rule-label ablation, TRL/Unsloth agreement gating, verifier-reward GRPO,
+frozen paired evaluation, honest GPU ledgers, and separate BF16/GPTQ exports. Full
+RTX 4090 runs and every resulting headline remain pending human launch; local smoke
+records are excluded from the production `results/runs.jsonl` ledger. See the
+[Phase 3 report](results/phase3_report.md) and [human launch plan](results/phase3_launch_plan.md).
 
 ## Local verification
 
 ```bash
-uv sync --locked
+uv sync --locked --group train
 make test
 make gateway-test
 make phase1-2
 SMOKE=1 make teacher-data
 SMOKE=1 make teacher-audit
 make teacher-audit
+SMOKE=1 make phase3-smoke
+make phase3-context-audit
 SMOKE=1 make ingest
 SMOKE=1 make splits
 SMOKE=1 make calibrate-difficulty

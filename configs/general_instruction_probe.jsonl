@@ -1,0 +1,8 @@
+{"id":"arithmetic_01","prompt":"Return only the integer result of 17 + 25.","expected":"42"}
+{"id":"arithmetic_02","prompt":"Return only the integer result of 9 * 8.","expected":"72"}
+{"id":"string_01","prompt":"Return only the word 'forge' in uppercase.","expected":"FORGE"}
+{"id":"string_02","prompt":"Return only the reverse of the ASCII string abcde.","expected":"edcba"}
+{"id":"logic_01","prompt":"Return only true or false: every square is a rectangle.","expected":"true"}
+{"id":"logic_02","prompt":"Return only true or false: 11 is an even number.","expected":"false"}
+{"id":"format_01","prompt":"Return exactly this JSON and nothing else: {\"ok\":true}","expected":"{\"ok\":true}"}
+{"id":"format_02","prompt":"Return the three letters A, B, C separated by commas and no spaces.","expected":"A,B,C"}

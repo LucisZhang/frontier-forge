@@ -1,0 +1,85 @@
+version: 1
+phase: 3
+rung: r3
+stage: dpo
+question: Does DPO on verifier-ranked near misses improve over distilled SFT?
+seeds: [0]
+headline: false
+
+model:
+  full:
+    id: Qwen/Qwen3.5-4B-Base
+    revision: 1001bb4d826a52d1f399e183466143f4da7b741b
+    dtype: bfloat16
+  smoke:
+    id: Qwen/Qwen2.5-0.5B
+    revision: 060db6499f32faf8b98477b0a26969ef7d8b9987
+    dtype: float32
+
+lineage:
+  parent_rung: r2
+  parent_config: configs/r2_sft_distilled.yaml
+  adapter_required: true
+
+data:
+  kind: dpo
+  path: data/phase2/dpo_pairs.jsonl
+  rows: 1450
+  sha256: 5b8d32b2e02aeae4f1b60bad6e1ae94ad453f0c18238852e5a09f5839c375522
+  phase2_dataset_hash: 28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4
+  smoke_path: data/smoke/phase2/dpo_pairs.jsonl
+
+prompt:
+  path: configs/train_prompts/triage_v2_compact.txt
+  input_contract_version: 2
+  scorer_version: 2
+  narrative_char_cap_full: 3250
+  narrative_char_cap_smoke: 800
+
+training:
+  reference_backend: trl
+  quantization_full: qlora_nf4
+  quantization_smoke: none
+  learning_rate: 0.00001
+  epochs: 1
+  batch_size: 1
+  gradient_accumulation_steps: 16
+  max_length: 2048
+  max_prompt_length: 1800
+  beta: 0.1
+  save_steps: 50
+  smoke_max_steps: 1
+  smoke_max_rows: 2
+  smoke_max_length: 1024
+  smoke_max_prompt_length: 900
+
+evaluation:
+  test_splits:
+    test_iid:
+      path: data/phase1_2/splits/test_iid.parquet
+      rows: 104443
+      payload_sha256: c196fd9ac620640dbb9fa545a46830300a4699fcda5d2606b018f5417765d6e6
+      membership_sha256: 049dce9c635a4280eea7b19948807ed20975d134b9e36655645320afad7fbb21
+    test_drift:
+      path: data/phase1_2/splits/test_drift.parquet
+      rows: 80000
+      payload_sha256: 6ea9f6210898fb9a72c1bc66146c1e033af00cd5c125607e4e953aff7333dd80
+      membership_sha256: 5b3d77cee9e3852747f44ee36d8a91fa421b3f24bf28d3fba418aed75fd95946
+  rows_per_split: 1000
+  smoke_rows_per_split: 2
+  selection_seed: 20260816
+  bootstrap_resamples: 1000
+  bootstrap_seed: 20260816
+  batch_size: 4
+  smoke_batch_size: 1
+  max_prompt_tokens: 2048
+  smoke_max_prompt_tokens: 1024
+  max_new_tokens: 384
+  smoke_max_new_tokens: 96
+  general_probe_path: configs/general_instruction_probe.jsonl
+
+budget:
+  gpu_type: RTX4090
+  projected_gpu_hours_per_run: 12.0
+  hourly_usd: 0.50
+  project_gpu_hour_ceiling: 90.0

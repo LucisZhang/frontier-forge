@@ -1,0 +1,122 @@
+{
+  "audits": {
+    "frozen_evaluation": {
+      "test_drift": {
+        "first_violation_ids": [],
+        "limit_tokens": 2048,
+        "max_complaint_id": 12271647,
+        "max_tokens": 1587,
+        "rows": 1000,
+        "violations": 0
+      },
+      "test_iid": {
+        "first_violation_ids": [],
+        "limit_tokens": 2048,
+        "max_complaint_id": 6294887,
+        "max_tokens": 1747,
+        "rows": 1000,
+        "violations": 0
+      }
+    },
+    "lora_scope": {
+      "first_targeted_modules": [
+        "model.language_model.layers.0.mlp.down_proj",
+        "model.language_model.layers.0.mlp.gate_proj",
+        "model.language_model.layers.0.mlp.up_proj",
+        "model.language_model.layers.1.mlp.down_proj",
+        "model.language_model.layers.1.mlp.gate_proj",
+        "model.language_model.layers.1.mlp.up_proj",
+        "model.language_model.layers.10.mlp.down_proj",
+        "model.language_model.layers.10.mlp.gate_proj",
+        "model.language_model.layers.10.mlp.up_proj",
+        "model.language_model.layers.11.mlp.down_proj"
+      ],
+      "first_unexpected_modules": [],
+      "language_model_modules": 128,
+      "method": "meta-tensor PEFT adapter injection; no model weights loaded",
+      "targeted_modules": 128,
+      "unexpected_modules": 0,
+      "violations": 0,
+      "vision_modules": 0
+    },
+    "r1_sft": {
+      "first_violation_ids": [],
+      "limit_tokens": 2048,
+      "max_complaint_id": 3829741,
+      "max_tokens": 1599,
+      "rows": 1450,
+      "violations": 0
+    },
+    "r1b_sft": {
+      "first_violation_ids": [],
+      "limit_tokens": 2048,
+      "max_complaint_id": 2469566,
+      "max_tokens": 1907,
+      "rows": 20000,
+      "violations": 0
+    },
+    "r2_sft": {
+      "first_violation_ids": [],
+      "limit_tokens": 2048,
+      "max_complaint_id": 3829741,
+      "max_tokens": 1682,
+      "rows": 1450,
+      "violations": 0
+    },
+    "r3_dpo": {
+      "chosen": {
+        "first_violation_ids": [],
+        "limit_tokens": 2048,
+        "max_complaint_id": 3829741,
+        "max_tokens": 1682,
+        "rows": 1450,
+        "violations": 0
+      },
+      "prompt": {
+        "first_violation_ids": [],
+        "limit_tokens": 1800,
+        "max_complaint_id": 3829741,
+        "max_tokens": 1530,
+        "rows": 1450,
+        "violations": 0
+      },
+      "rejected": {
+        "first_violation_ids": [],
+        "limit_tokens": 2048,
+        "max_complaint_id": 3829741,
+        "max_tokens": 1598,
+        "rows": 1450,
+        "violations": 0
+      }
+    },
+    "r4_grpo_prompt": {
+      "first_violation_ids": [],
+      "limit_tokens": 1800,
+      "max_complaint_id": 3829741,
+      "max_tokens": 1530,
+      "rows": 1450,
+      "violations": 0
+    }
+  },
+  "config_hashes": {
+    "r0": "5c9a3634985cc66ab7e2c6c1d79eba578326db18a30874e91f0e7754d12a4b76",
+    "r1": "06e3f0c235f69960ed199eb636b2a448f15633eca74ba402a9a97de11a314405",
+    "r1b": "aad4c613a265ade6b181dbc0785583e68248ab5da6bba91efe5be758b4fc8dbd",
+    "r2": "f99a324bd04ea4560ad07426e9da7f0f1cb058471cd9f79f87e89199c7480369",
+    "r3": "a4136b124e6ca70c499b7b2b130e291f56de8edfbfa363cc934b7721a3b9a22a",
+    "r4": "aea445589c0ed9339f3888a429d2cf4040b2d3f6c7858f6329ec577c2768745d"
+  },
+  "git_sha": "e90dbecc0b9813be07a0dca067c2c3af043948a8",
+  "narrative_char_cap_full": 3250,
+  "notes": "Audit only; no model weights loaded and no frozen source artifact modified.",
+  "phase": 3,
+  "recorded_at": "2026-08-16T08:57:17.425832+00:00",
+  "status": "complete",
+  "tokenizer": {
+    "dtype": "bfloat16",
+    "id": "Qwen/Qwen3.5-4B-Base",
+    "revision": "1001bb4d826a52d1f399e183466143f4da7b741b"
+  },
+  "version": 1,
+  "violation_count": 0
+}

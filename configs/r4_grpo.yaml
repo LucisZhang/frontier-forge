@@ -1,0 +1,98 @@
+version: 1
+phase: 3
+rung: r4
+stage: grpo
+question: Does verifier-reward GRPO improve over DPO without reward hacking?
+seeds: [0, 1, 2]
+headline: true
+
+model:
+  full:
+    id: Qwen/Qwen3.5-4B-Base
+    revision: 1001bb4d826a52d1f399e183466143f4da7b741b
+    dtype: bfloat16
+  smoke:
+    id: Qwen/Qwen2.5-0.5B
+    revision: 060db6499f32faf8b98477b0a26969ef7d8b9987
+    dtype: float32
+
+lineage:
+  parent_rung: r3
+  parent_config: configs/r3_dpo.yaml
+  adapter_required: true
+
+data:
+  kind: grpo
+  path: data/phase2/sft_rule.jsonl
+  rows: 1450
+  sha256: 0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e
+  phase2_dataset_hash: 28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4
+  smoke_path: data/smoke/phase2/sft_rule.jsonl
+
+prompt:
+  path: configs/train_prompts/triage_v2_compact.txt
+  input_contract_version: 2
+  scorer_version: 2
+  narrative_char_cap_full: 3250
+  narrative_char_cap_smoke: 800
+
+training:
+  reference_backend: trl
+  quantization_full: qlora_nf4
+  quantization_smoke: none
+  learning_rate: 0.000005
+  max_steps: 100
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  max_prompt_length: 1800
+  max_completion_length: 384
+  num_generations: 4
+  beta: 0.0
+  save_steps: 25
+  smoke_max_steps: 1
+  smoke_max_rows: 2
+  smoke_max_prompt_length: 1024
+  smoke_max_completion_length: 64
+  smoke_num_generations: 2
+
+reward:
+  implementation: forge.verify.verifier.score
+  scorer_version: 2
+  probes: [length_inflation, format_exploitation, degenerate_abstention]
+
+evaluation:
+  test_splits:
+    test_iid:
+      path: data/phase1_2/splits/test_iid.parquet
+      rows: 104443
+      payload_sha256: c196fd9ac620640dbb9fa545a46830300a4699fcda5d2606b018f5417765d6e6
+      membership_sha256: 049dce9c635a4280eea7b19948807ed20975d134b9e36655645320afad7fbb21
+    test_drift:
+      path: data/phase1_2/splits/test_drift.parquet
+      rows: 80000
+      payload_sha256: 6ea9f6210898fb9a72c1bc66146c1e033af00cd5c125607e4e953aff7333dd80
+      membership_sha256: 5b3d77cee9e3852747f44ee36d8a91fa421b3f24bf28d3fba418aed75fd95946
+  rows_per_split: 1000
+  smoke_rows_per_split: 2
+  selection_seed: 20260816
+  bootstrap_resamples: 1000
+  bootstrap_seed: 20260816
+  batch_size: 4
+  smoke_batch_size: 1
+  max_prompt_tokens: 2048
+  smoke_max_prompt_tokens: 1024
+  max_new_tokens: 384
+  smoke_max_new_tokens: 96
+  general_probe_path: configs/general_instruction_probe.jsonl
+
+export:
+  merge_dtype: bfloat16
+  deployment_quantization: gptq_int4
+  group_size: 128
+  calibration_rows: 128
+
+budget:
+  gpu_type: RTX4090
+  projected_gpu_hours_per_run: 15.0
+  hourly_usd: 0.50
+  project_gpu_hour_ceiling: 90.0

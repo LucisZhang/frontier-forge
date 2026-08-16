@@ -1,0 +1,10 @@
+{
+  "status": "pending_human_gpu_runs",
+  "phase": 3,
+  "reference_backend": "trl",
+  "candidate_backend": "unsloth",
+  "rung": "r1",
+  "agreement_rule": "paired task-success delta 95% bootstrap CI includes zero",
+  "default_backend_after_check": null,
+  "notes": "The remote R1 TRL and Unsloth runs have not been launched."
+}

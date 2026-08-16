@@ -7,7 +7,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
   "duckdb==1.5.5",
   "jsonschema>=4.25,<5",
-  "numpy>=2.3,<3",
+  "numpy==2.2.6",
   "pyyaml==6.0.3",
 ]
 
@@ -16,6 +16,34 @@ dev = [
   "pytest>=8.4,<9",
   "ruff>=0.12,<1",
   "yamllint>=1.37,<2",
+]
+train = [
+  "accelerate==1.14.0",
+  "datasets>=4.0,<5",
+  "peft==0.20.0",
+  "pyarrow==25.0.0",
+  "torch==2.13.0",
+  "torchvision==0.28.0",
+  "transformers==5.15.0",
+  "trl==1.10.0",
+]
+remote-reference = [
+  "bitsandbytes==0.50.1; sys_platform == 'linux'",
+  "gptqmodel==7.3.2; sys_platform == 'linux'",
+]
+unsloth-train = [
+  "bitsandbytes==0.50.1; sys_platform == 'linux'",
+  "unsloth==2026.8.18; sys_platform == 'linux'",
+  "trl==0.24.0",
+]
+
+[tool.uv]
+default-groups = ["dev", "train"]
+conflicts = [
+  [
+    { group = "train" },
+    { group = "unsloth-train" },
+  ],
 ]
 
 [build-system]
