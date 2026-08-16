@@ -81,12 +81,12 @@ gpu_hours="$("${reference_python}" -c "print((${finish_epoch} - ${start_epoch}) 
   --config "${config}" --backend "${backend}" --seed "${seed}" \
   --started-at "${FORGE_STARTED_AT}" --finished-at "${finished_at}" \
   --gpu-hours "${gpu_hours}" --hourly-usd "${FORGE_GPU_HOURLY_USD}"
+completed=1
 
 if [[ "${rung}" == "r1" && "${backend}" == "unsloth" ]]; then
   "${reference_python}" -m forge.train.crosscheck --seed "${seed}"
 fi
 "${reference_python}" -m forge.train.report
 
-completed=1
 trap - EXIT INT TERM
 echo "Phase 3 rung complete: ${rung} ${backend} seed ${seed}, gpu_hours=${gpu_hours}"

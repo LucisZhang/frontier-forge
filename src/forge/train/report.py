@@ -17,6 +17,7 @@ from forge.train.config import (
     runs_path,
 )
 from forge.train.evaluate import bootstrap_ci
+from forge.train.ledger import billable_records
 
 
 def _records(*, smoke: bool) -> list[dict[str, Any]]:
@@ -33,7 +34,8 @@ def _failed_gpu_attempts(*, smoke: bool) -> list[dict[str, Any]]:
     path = REPO_ROOT / "results" / "phase3_gpu_ledger.jsonl"
     if not path.is_file():
         return []
-    return [json.loads(line) for line in path.read_text().splitlines() if line]
+    records = [json.loads(line) for line in path.read_text().splitlines() if line]
+    return [record for record in billable_records(records) if record["status"] == "failed"]
 
 
 def _config_map() -> dict[str, dict[str, Any]]:

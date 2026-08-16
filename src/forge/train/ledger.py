@@ -3,9 +3,35 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Iterable
+from typing import Any
 
 from forge.train.artifacts import append_jsonl_once
 from forge.train.config import REPO_ROOT, canonical_hash, git_sha, load_config
+
+
+def billable_records(records: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Return ledger rows that represent distinct wall-clock GPU attempts.
+
+    A successful finalization and a later wrapper failure can share the same
+    config/start timestamp.  The completed receipt owns that interval; retaining
+    the failed row is useful evidence, but charging both would double-count it.
+    """
+    rows = list(records)
+    completed_attempts = {
+        (str(record["config_hash"]), str(record["started_at"]))
+        for record in rows
+        if record.get("status") == "complete"
+    }
+    return [
+        record
+        for record in rows
+        if record.get("status") == "complete"
+        or (
+            record.get("status") == "failed"
+            and (str(record["config_hash"]), str(record["started_at"])) not in completed_attempts
+        )
+    ]
 
 
 def record_failure(

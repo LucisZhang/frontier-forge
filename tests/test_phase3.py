@@ -20,7 +20,9 @@ from forge.train.config import (
 from forge.train.data import compact_model_input
 from forge.train.evaluate import bootstrap_ci
 from forge.train.grpo import RewardAudit
-from forge.train.preflight import check_config, require_r1_reference_receipt
+from forge.train.ledger import billable_records
+from forge.train.preflight import actual_gpu_hours, check_config, require_r1_reference_receipt
+from forge.train.report import _failed_gpu_attempts
 from forge.train.runtime import lora_config, versioned_training_argument
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -216,6 +218,52 @@ def test_remote_launch_scripts_are_syntax_valid_and_human_triggered() -> None:
     assert "--hourly-usd" in worker
     assert "forge.train.finalize" in worker
     assert "forge.train.ledger" in worker
+    assert worker.index("completed=1") < worker.index("forge.train.report")
+
+
+def test_gpu_ledger_deduplicates_post_finalize_wrapper_failure(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    unique_failed = {
+        "ledger_id": "failed_before_finalize",
+        "status": "failed",
+        "rung": "r0",
+        "seed": 0,
+        "config_hash": "r0-config",
+        "started_at": "2026-08-16T10:24:58Z",
+        "gpu_hours": 0.05,
+    }
+    complete = {
+        "ledger_id": "r0_base_s0",
+        "status": "complete",
+        "config_hash": "r0-config",
+        "started_at": "2026-08-16T10:41:24Z",
+        "gpu_hours": 0.98,
+    }
+    overlapping_failed = {
+        "ledger_id": "failed_after_finalize",
+        "status": "failed",
+        "rung": "r0",
+        "seed": 0,
+        "config_hash": "r0-config",
+        "started_at": "2026-08-16T10:41:24Z",
+        "gpu_hours": 0.99,
+    }
+    records = [unique_failed, complete, overlapping_failed]
+    ledger = tmp_path / "results" / "phase3_gpu_ledger.jsonl"
+    ledger.parent.mkdir()
+    ledger.write_text("".join(json.dumps(record) + "\n" for record in records))
+
+    assert [record["ledger_id"] for record in billable_records(records)] == [
+        "failed_before_finalize",
+        "r0_base_s0",
+    ]
+    monkeypatch.setattr("forge.train.preflight.REPO_ROOT", tmp_path)
+    monkeypatch.setattr("forge.train.report.REPO_ROOT", tmp_path)
+    assert actual_gpu_hours() == pytest.approx(1.03)
+    assert [record["ledger_id"] for record in _failed_gpu_attempts(smoke=False)] == [
+        "failed_before_finalize"
+    ]
 
 
 def test_full_launch_refuses_dirty_phase3_runtime_tree(monkeypatch: pytest.MonkeyPatch) -> None:

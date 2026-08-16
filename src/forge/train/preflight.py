@@ -20,6 +20,7 @@ from forge.train.config import (
     sha256_file,
 )
 from forge.train.data import validate_training_data
+from forge.train.ledger import billable_records
 
 
 def backend_policy() -> dict[str, Any]:
@@ -75,7 +76,7 @@ def actual_gpu_hours() -> float:
     if not path.is_file():
         return 0.0
     records = [json.loads(line) for line in path.read_text().splitlines() if line]
-    return sum(float(record["gpu_hours"]) for record in records)
+    return sum(float(record["gpu_hours"]) for record in billable_records(records))
 
 
 def check_budget(config: Mapping[str, Any]) -> dict[str, float]:
