@@ -71,7 +71,7 @@ launch_env=(
 )
 for name in \
   http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY \
-  REQUESTS_CA_BUNDLE SSL_CERT_FILE; do
+  REQUESTS_CA_BUNDLE SSL_CERT_FILE HF_HUB_DISABLE_XET; do
   if [[ -n "${!name:-}" ]]; then
     launch_env+=("${name}=${!name}")
   fi
