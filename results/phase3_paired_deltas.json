@@ -1,9 +1,18 @@
 {
   "adjacent_pairs": [
     {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.6444875,
+        0.6835
+      ],
       "from": "r0",
-      "status": "pending",
-      "to": "r1"
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.6635,
+      "paired_rows": 2000,
+      "status": "complete",
+      "to": "r1",
+      "to_backend": "trl"
     },
     {
       "from": "r1",

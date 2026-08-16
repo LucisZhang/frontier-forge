@@ -7,7 +7,7 @@ Mode: **FULL GPU**.
 | Rung | Seed | Backend | Task success | 95% CI | Schema valid | Tool accuracy | GPU hours | USD |
 |---|---:|---|---:|---|---:|---:|---:|---:|
 | R0 | 0 | trl | 0.0% | [0.0%, 0.0%] | 0.0% | 0.0% | 0.983 | $0.295 |
-| R1 | — | — | pending | — | — | — | — | — |
+| R1 | 0 | trl | 66.3% | [64.2%, 68.4%] | 100.0% | 94.0% | 3.479 | $1.044 |
 | R1B | — | — | optional; pending | — | — | — | — | — |
 | R2 | — | — | pending | — | — | — | — | — |
 | R3 | — | — | pending | — | — | — | — | — |
@@ -15,7 +15,7 @@ Mode: **FULL GPU**.
 
 ## Adjacent paired deltas
 
-- R0 → R1: pending.
+- R0 → R1: 66.3% paired delta, 95% CI [64.4%, 68.3%], n=2000.
 - R1 → R2: pending.
 - R2 → R3: pending.
 - R3 → R4: pending.
@@ -36,6 +36,7 @@ R4 probes are pending the human-launched GRPO run and frozen evaluation.
 ## Failure and negative-result register
 
 - R0 seed 0 failure counts (nonexclusive): invalid_tool_arguments=2000, schema_invalid=2000, wrong_ambiguity=13, wrong_tool=2000, wrong_urgency=967.
+- R1 seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=119, wrong_urgency=634.
 - Failed GPU attempt failed_cb153427dfb8b8ae6340: R0 seed 0, 0.048 GPU-hours, $0.014, exit code 0.
 - Failed GPU attempt failed_4bf236eb91be22c65963: R0 seed 0, 0.004 GPU-hours, $0.001, exit code 1.
 
