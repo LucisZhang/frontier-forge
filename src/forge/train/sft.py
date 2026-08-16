@@ -10,6 +10,7 @@ from forge.train.common import begin_run, complete_training_receipt, completed_r
 from forge.train.config import adapter_path, checkpoint_root, load_config, select_seed
 from forge.train.data import load_sft_dataset
 from forge.train.runtime import (
+    activate_unsloth_runtime,
     latest_checkpoint,
     load_base_model,
     load_tokenizer,
@@ -17,6 +18,16 @@ from forge.train.runtime import (
     runtime_device,
     seed_everything,
 )
+
+
+def processor_eos_token(processing_class: Any) -> str:
+    """Resolve the real EOS token from a tokenizer or multimodal processor."""
+    value = getattr(processing_class, "eos_token", None)
+    if not isinstance(value, str) or not value:
+        value = getattr(getattr(processing_class, "tokenizer", None), "eos_token", None)
+    if not isinstance(value, str) or not value:
+        raise RuntimeError("Unsloth processing class does not expose a usable EOS token")
+    return value
 
 
 def _trl_train(
@@ -83,9 +94,10 @@ def _unsloth_train(
     from forge.train.preflight import require_backend_allowed
 
     require_backend_allowed(config, backend="unsloth", smoke=False)
+    unsloth = activate_unsloth_runtime()
     from trl import SFTConfig, SFTTrainer
-    from unsloth import FastLanguageModel
 
+    FastLanguageModel = unsloth.FastLanguageModel
     seed_everything(seed)
     spec = config["model"]["full"]
     training = config["training"]
@@ -120,6 +132,7 @@ def _unsloth_train(
         per_device_train_batch_size=int(training["batch_size"]),
         gradient_accumulation_steps=int(training["gradient_accumulation_steps"]),
         max_length=int(training["max_length"]),
+        eos_token=processor_eos_token(tokenizer),
         completion_only_loss=True,
         logging_steps=1,
         save_strategy="steps",

@@ -9,6 +9,7 @@ from forge.train.common import begin_run, complete_training_receipt, completed_r
 from forge.train.config import adapter_path, checkpoint_root, load_config, select_seed
 from forge.train.data import load_dpo_dataset
 from forge.train.runtime import (
+    activate_unsloth_runtime,
     latest_checkpoint,
     load_parent_adapter_model,
     load_tokenizer,
@@ -20,6 +21,8 @@ from forge.train.runtime import (
 
 
 def run(config_path: str, *, seed: int | None, smoke: bool, backend: str = "trl") -> dict[str, Any]:
+    if backend == "unsloth":
+        activate_unsloth_runtime()
     from trl import DPOConfig, DPOTrainer
 
     config = load_config(config_path)

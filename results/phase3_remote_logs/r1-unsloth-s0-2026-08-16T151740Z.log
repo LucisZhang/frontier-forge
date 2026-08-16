@@ -1,0 +1,68 @@
+[
+  {
+    "backend": "unsloth",
+    "budget": {
+      "actual_gpu_hours": 4.5136111111111115,
+      "ceiling_gpu_hours": 90.0,
+      "planning_rate_usd_per_gpu_hour": 0.5,
+      "projected_next_gpu_hours": 5.0,
+      "projected_next_planning_usd": 2.5,
+      "projected_total_gpu_hours": 9.51361111111111
+    },
+    "config_hash": "06e3f0c235f69960ed199eb636b2a448f15633eca74ba402a9a97de11a314405",
+    "context_audit_status": "complete",
+    "launch_code_tree_clean": true,
+    "launch_hardware": {
+      "cuda_version": "13.0",
+      "name": "NVIDIA GeForce RTX 4090",
+      "total_memory_bytes": 25250627584,
+      "visible_device_count": 1
+    },
+    "mode": "full",
+    "phase2_dataset_hash": "28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4",
+    "prompt_sha256": "bf1d31236ece8abee77587b8652f42ef4afb5b65a54309d35e56646e420515c3",
+    "r1_reference": {
+      "predictions": "data/full/phase3/eval/r1/trl/s0/predictions.jsonl",
+      "run_id": "r1_sft_rule_s0"
+    },
+    "rung": "r1",
+    "seed": 0,
+    "stage": "sft",
+    "training_data_path": "data/phase2/sft_rule.jsonl",
+    "training_data_sha256": "0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e"
+  }
+]
+/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/unsloth/__init__.py:1531: UserWarning: WARNING: Unsloth should be imported before [trl, transformers, peft] to ensure all optimizations are applied. Your code may run slower or encounter memory issues without these optimizations.
+
+Please restructure your imports with 'import unsloth' at the top of your file.
+  from ._gpu_init import *
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.8.18: Fast Qwen3_5 patching. Transformers: 5.5.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.516 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.11.0+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.6.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]Loading weights:   0%|          | 1/723 [00:00<02:42,  4.45it/s]Loading weights:   3%|▎         | 22/723 [00:00<00:08, 82.86it/s]Loading weights:   6%|▋         | 46/723 [00:00<00:05, 134.46it/s]Loading weights:  11%|█         | 79/723 [00:00<00:03, 197.81it/s]Loading weights:  14%|█▍        | 104/723 [00:00<00:02, 211.94it/s]Loading weights:  19%|█▊        | 134/723 [00:00<00:02, 233.44it/s]Loading weights:  23%|██▎       | 167/723 [00:00<00:02, 261.01it/s]Loading weights:  27%|██▋       | 198/723 [00:00<00:01, 274.48it/s]Loading weights:  31%|███▏      | 227/723 [00:01<00:01, 255.83it/s]Loading weights:  35%|███▌      | 254/723 [00:01<00:01, 258.35it/s]Loading weights:  40%|███▉      | 287/723 [00:01<00:01, 275.81it/s]Loading weights:  44%|████▎     | 316/723 [00:01<00:01, 262.07it/s]Loading weights:  48%|████▊     | 346/723 [00:01<00:01, 271.45it/s]Loading weights:  52%|█████▏    | 379/723 [00:01<00:01, 284.42it/s]Loading weights:  56%|█████▋    | 408/723 [00:01<00:01, 276.91it/s]Loading weights:  64%|██████▍   | 464/723 [00:01<00:00, 356.70it/s]Loading weights:  86%|████████▋ | 624/723 [00:01<00:00, 712.68it/s]Loading weights: 100%|██████████| 723/723 [00:02<00:00, 361.38it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/sft.py", line 193, in <module>
+    main()
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/sft.py", line 189, in main
+    run(args.config, seed=args.seed, smoke=args.smoke, backend=args.backend)
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/sft.py", line 159, in run
+    result, _trainer, _tokenizer, resume = _unsloth_train(
+                                           ^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/sft.py", line 132, in _unsloth_train
+    trainer = SFTTrainer(
+              ^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv-unsloth/lib/python3.12/site-packages/trl/trainer/sft_trainer.py", line 632, in __init__
+    raise ValueError(
+ValueError: The specified `eos_token` ('<EOS_TOKEN>') is not found in the vocabulary of the given `processing_class` (Qwen3VLProcessor). Ensure that the `eos_token` exists in the vocabulary before using it as an EOS token.
+Unsloth: Qwen/Qwen3.5-4B-Base had a bad pad_token (<|endoftext|>). Using pad_token = <|vision_pad|>.
+Unsloth: Explicit target_modules are constrained by the finetune_(vision|language|attention|mlp) filters; adapters attach only where both select.
+recorded failed GPU attempt: failed_473a7d89258a9b30f52c (0.011h)

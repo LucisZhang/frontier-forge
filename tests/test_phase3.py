@@ -24,6 +24,7 @@ from forge.train.ledger import billable_records
 from forge.train.preflight import actual_gpu_hours, check_config, require_r1_reference_receipt
 from forge.train.report import _failed_gpu_attempts
 from forge.train.runtime import lora_config, versioned_training_argument
+from forge.train.sft import processor_eos_token
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -126,6 +127,34 @@ def test_versioned_training_argument_only_passes_supported_fields() -> None:
         "max_prompt_length": 1800
     }
     assert versioned_training_argument(CurrentConfig, "max_prompt_length", 1800) == {}
+
+
+def test_unsloth_processor_uses_real_eos_token() -> None:
+    class InnerTokenizer:
+        eos_token = "<|endoftext|>"
+
+    class Processor:
+        eos_token = None
+        tokenizer = InnerTokenizer()
+
+    assert processor_eos_token(Processor()) == "<|endoftext|>"
+    with pytest.raises(RuntimeError, match="usable EOS token"):
+        processor_eos_token(object())
+
+
+def test_unsloth_is_activated_before_trl_imports() -> None:
+    for name, trainer_import in (
+        ("sft.py", "from trl import SFTConfig"),
+        ("dpo.py", "from trl import DPOConfig"),
+        ("grpo.py", "from trl import GRPOConfig"),
+    ):
+        source = (ROOT / "src" / "forge" / "train" / name).read_text()
+        backend_section = source.split("def _unsloth_train", 1)[-1] if name == "sft.py" else source
+        assert backend_section.index("activate_unsloth_runtime()") < backend_section.index(
+            trainer_import
+        )
+    sft_source = (ROOT / "src" / "forge" / "train" / "sft.py").read_text()
+    assert "eos_token=processor_eos_token(tokenizer)" in sft_source
 
 
 def test_full_sft_lora_excludes_qwen35_vision_tower() -> None:

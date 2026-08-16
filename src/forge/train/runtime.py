@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib
 import importlib.metadata
 import inspect
 import os
@@ -13,6 +14,11 @@ from typing import Any
 import numpy as np
 
 from forge.train.config import adapter_path, load_config, model_spec
+
+
+def activate_unsloth_runtime() -> Any:
+    """Patch ML libraries before TRL, Transformers, or PEFT are imported."""
+    return importlib.import_module("unsloth")
 
 
 def package_versions() -> dict[str, str]:
@@ -174,9 +180,10 @@ def load_parent_adapter_model(
 def load_unsloth_parent_adapter_model(
     config: Mapping[str, Any], *, seed: int, trainable: bool, backend: str = "unsloth"
 ) -> Any:
+    unsloth = activate_unsloth_runtime()
     from peft import PeftModel
-    from unsloth import FastLanguageModel
 
+    FastLanguageModel = unsloth.FastLanguageModel
     parent_path = config["lineage"].get("parent_config")
     if not parent_path:
         raise ValueError(f"{config['rung']} has no parent adapter")
