@@ -181,6 +181,43 @@ band before Phase 2 starts.
 
 ---
 
+## Phase 1.2 — Escalation-rule fix (local, ~half day)
+
+**Why**: human-delegated review of the strong-action rows found the escalation
+trigger matches keywords over `issue + narrative` concatenation, so CFPB *product
+taxonomy strings* containing "identity theft" (e.g. "Credit monitoring or identity
+theft protection services") mislabel routine service complaints as
+`escalate_to_regulator` (~5,737 rows population-wide; 82/813 of the v2-changed
+escalations), and their `reason: issue` argument emits the product name as a
+nonsensical regulator reason. Must land before Phase 2 freezes labels.
+
+**Deliverables** (label rules v3 + dataset hash bump; split membership untouched)
+1. Scope escalation (and refund) keyword matching to the **narrative only**; stop
+   matching against `source_issue`. Drop the two product-name issue strings and the
+   legacy `Loan modification,collection,foreclosure` label from any trigger role.
+2. `tools.priority` in configs/label_rules.yaml: either parse it and assert it
+   matches the code's precedence, or delete it. No dead config.
+3. Re-derive labels (v3), re-emit the changed-row audit; ADD a stratified
+   strong-action sample (all changed escalate/refund rows up to 50, not
+   hash-ranked luck) to the reviewer artifact.
+4. Re-score the existing 100 calibration receipts offline against v3 labels (no
+   new API calls) and report the band delta in
+   `results/phase1_2_calibration_rescore.md`.
+5. Document as known limitations (do NOT fix now): negation-blind matching
+   (~18 changed rows contain negated "identity theft"), and the single-action
+   taxonomy (escalation outranks refund, so dual-remedy complaints get one action).
+
+**Gate**
+- [ ] v3 trigger scope narrative-only, product-name strings removed
+- [ ] dead config resolved  - [ ] stratified strong-action audit emitted
+- [ ] calibration re-score reported from existing receipts (still in/near band)
+- [ ] split membership hashes unchanged  - [ ] tests green, CI green after push
+
+**Constraints**: no new API spend; no Phase 2 work; label freeze happens only
+after this phase's human review.
+
+---
+
 ## Phase 2 — Teacher distillation data factory (local + API, 3–4 days)
 
 **Goal**: two SFT corpora + DPO preference pairs, with a documented filter funnel.
