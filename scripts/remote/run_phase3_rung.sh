@@ -43,6 +43,8 @@ record_failure() {
   exit "${exit_code}"
 }
 trap record_failure EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
 "${reference_python}" -m forge.train.preflight \
   --config "${config}" --seed "${seed}" --backend "${backend}" --launch
@@ -86,5 +88,5 @@ fi
 "${reference_python}" -m forge.train.report
 
 completed=1
-trap - EXIT
+trap - EXIT INT TERM
 echo "Phase 3 rung complete: ${rung} ${backend} seed ${seed}, gpu_hours=${gpu_hours}"

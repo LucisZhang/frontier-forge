@@ -64,10 +64,20 @@ if tmux has-session -t "${session}" 2>/dev/null; then
   exit 2
 fi
 started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+launch_env=(
+  "FORGE_STARTED_AT=${started_at}"
+  "FORGE_TRAIN_PYTHON=${train_python}"
+  "FORGE_GPU_HOURLY_USD=${FORGE_GPU_HOURLY_USD}"
+)
+for name in \
+  http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY \
+  REQUESTS_CA_BUNDLE SSL_CERT_FILE; do
+  if [[ -n "${!name:-}" ]]; then
+    launch_env+=("${name}=${!name}")
+  fi
+done
 tmux new-session -d -s "${session}" \
-  env FORGE_STARTED_AT="${started_at}" \
-  FORGE_TRAIN_PYTHON="${train_python}" \
-  FORGE_GPU_HOURLY_USD="${FORGE_GPU_HOURLY_USD}" \
+  env "${launch_env[@]}" \
   ./scripts/remote/run_phase3_rung.sh "${config}" "${seed}" "${backend}"
 
 echo "launched ${rung} seed ${seed} with ${backend} in tmux session ${session}"

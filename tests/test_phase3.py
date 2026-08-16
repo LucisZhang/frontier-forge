@@ -208,7 +208,10 @@ def test_remote_launch_scripts_are_syntax_valid_and_human_triggered() -> None:
     assert ".venv-unsloth/bin/python" in launcher
     assert "FORGE_TRAIN_PYTHON" in launcher
     assert "FORGE_GPU_HOURLY_USD" in launcher
+    assert "http_proxy" in launcher
+    assert "REQUESTS_CA_BUNDLE" in launcher
     assert 'reference_python=".venv/bin/python"' in worker
+    assert "trap 'exit 130' INT" in worker
     assert "--hourly-usd" in worker
     assert "forge.train.finalize" in worker
     assert "forge.train.ledger" in worker
