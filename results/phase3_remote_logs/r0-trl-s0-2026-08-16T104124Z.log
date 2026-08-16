@@ -1,0 +1,50 @@
+[
+  {
+    "backend": "trl",
+    "budget": {
+      "actual_gpu_hours": 0.05194444444444444,
+      "ceiling_gpu_hours": 90.0,
+      "planning_rate_usd_per_gpu_hour": 0.5,
+      "projected_next_gpu_hours": 2.0,
+      "projected_next_planning_usd": 1.0,
+      "projected_total_gpu_hours": 2.0519444444444446
+    },
+    "config_hash": "5c9a3634985cc66ab7e2c6c1d79eba578326db18a30874e91f0e7754d12a4b76",
+    "context_audit_status": "complete",
+    "launch_code_tree_clean": true,
+    "launch_hardware": {
+      "cuda_version": "13.0",
+      "name": "NVIDIA GeForce RTX 4090",
+      "total_memory_bytes": 25250627584,
+      "visible_device_count": 1
+    },
+    "mode": "full",
+    "phase2_dataset_hash": "28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4",
+    "prompt_sha256": "bf1d31236ece8abee77587b8652f42ef4afb5b65a54309d35e56646e420515c3",
+    "rung": "r0",
+    "seed": 0,
+    "stage": "eval"
+  }
+]
+W0816 18:41:42.936000 12712 .venv/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0816 18:41:42.972000 12712 .venv/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 2 files:  50%|█████     | 1/2 [11:13<11:13, 673.06s/it]Fetching 2 files: 100%|██████████| 2/2 [14:10<00:00, 381.30s/it]Fetching 2 files: 100%|██████████| 2/2 [14:10<00:00, 425.06s/it]
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]Loading weights:   0%|          | 1/723 [00:00<02:03,  5.83it/s]Loading weights:   4%|▎         | 26/723 [00:00<00:06, 114.68it/s]Loading weights:   6%|▌         | 41/723 [00:00<00:05, 125.43it/s]Loading weights:   9%|▉         | 65/723 [00:00<00:04, 161.29it/s]Loading weights:  12%|█▏        | 86/723 [00:00<00:03, 177.08it/s]Loading weights:  15%|█▍        | 105/723 [00:00<00:03, 165.05it/s]Loading weights:  18%|█▊        | 132/723 [00:00<00:03, 187.93it/s]Loading weights:  21%|██        | 152/723 [00:00<00:03, 177.94it/s]Loading weights:  24%|██▍       | 173/723 [00:01<00:02, 186.25it/s]Loading weights:  28%|██▊       | 199/723 [00:01<00:02, 199.88it/s]Loading weights:  30%|███       | 220/723 [00:01<00:02, 197.35it/s]Loading weights:  33%|███▎      | 240/723 [00:01<00:02, 178.11it/s]Loading weights:  36%|███▌      | 259/723 [00:01<00:02, 175.16it/s]Loading weights:  40%|███▉      | 287/723 [00:01<00:02, 197.39it/s]Loading weights:  43%|████▎     | 308/723 [00:01<00:02, 186.65it/s]Loading weights:  46%|████▌     | 330/723 [00:01<00:02, 183.98it/s]Loading weights:  49%|████▉     | 354/723 [00:02<00:01, 197.02it/s]Loading weights:  52%|█████▏    | 374/723 [00:02<00:01, 183.37it/s]Loading weights:  55%|█████▍    | 395/723 [00:02<00:01, 189.77it/s]Loading weights:  57%|█████▋    | 415/723 [00:02<00:01, 182.96it/s]Loading weights:  64%|██████▍   | 466/723 [00:02<00:00, 271.39it/s]Loading weights:  81%|████████  | 587/723 [00:02<00:00, 529.37it/s]Loading weights:  98%|█████████▊| 710/723 [00:02<00:00, 721.93it/s]Loading weights: 100%|██████████| 723/723 [00:02<00:00, 269.79it/s]
+evaluation complete: rung=r0 backend=trl seed=0 task_success=0.0000 ci95=[0.0, 0.0]
+appended immutable Phase 3 run: r0_base_s0
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/report.py", line 372, in <module>
+    main()
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/report.py", line 368, in main
+    generate(smoke=args.smoke)
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/report.py", line 359, in generate
+    write_text_atomic(report_path, _report_text(by_rung, deltas, smoke=smoke))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/report.py", line 264, in _report_text
+    f"Failed GPU attempt {attempt['ledger_id']}: {attempt['rung'].upper()} "
+                                                  ~~~~~~~^^^^^^^^
+KeyError: 'rung'
+recorded failed GPU attempt: failed_f07656fcc4bbe1eb5fa4 (0.983h)

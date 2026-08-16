@@ -1,0 +1,28 @@
+[
+  {
+    "backend": "trl",
+    "budget": {
+      "actual_gpu_hours": 0.0,
+      "ceiling_gpu_hours": 90.0,
+      "planning_rate_usd_per_gpu_hour": 0.5,
+      "projected_next_gpu_hours": 2.0,
+      "projected_next_planning_usd": 1.0,
+      "projected_total_gpu_hours": 2.0
+    },
+    "config_hash": "5c9a3634985cc66ab7e2c6c1d79eba578326db18a30874e91f0e7754d12a4b76",
+    "context_audit_status": "complete",
+    "launch_code_tree_clean": true,
+    "launch_hardware": {
+      "cuda_version": "13.0",
+      "name": "NVIDIA GeForce RTX 4090",
+      "total_memory_bytes": 25250627584,
+      "visible_device_count": 1
+    },
+    "mode": "full",
+    "phase2_dataset_hash": "28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4",
+    "prompt_sha256": "bf1d31236ece8abee77587b8652f42ef4afb5b65a54309d35e56646e420515c3",
+    "rung": "r0",
+    "seed": 0,
+    "stage": "eval"
+  }
+]

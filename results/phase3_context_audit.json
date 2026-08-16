@@ -106,11 +106,11 @@
     "r3": "a4136b124e6ca70c499b7b2b130e291f56de8edfbfa363cc934b7721a3b9a22a",
     "r4": "aea445589c0ed9339f3888a429d2cf4040b2d3f6c7858f6329ec577c2768745d"
   },
-  "git_sha": "e90dbecc0b9813be07a0dca067c2c3af043948a8",
+  "git_sha": "15d9a2d238e55bb040ac3f2822e60b1e45d9c73a",
   "narrative_char_cap_full": 3250,
   "notes": "Audit only; no model weights loaded and no frozen source artifact modified.",
   "phase": 3,
-  "recorded_at": "2026-08-16T08:57:17.425832+00:00",
+  "recorded_at": "2026-08-16T10:40:37.535098+00:00",
   "status": "complete",
   "tokenizer": {
     "dtype": "bfloat16",

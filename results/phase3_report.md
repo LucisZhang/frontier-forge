@@ -2,15 +2,11 @@
 
 Mode: **FULL GPU**.
 
-Status: **REMOTE RUNS PENDING HUMAN LAUNCH**.
-
-The implementation and launch contracts are prepared, but no full Phase 3 GPU metric, cost, backend-agreement result, or exported-weight hash exists yet. No headline is drafted from smoke data.
-
 ## Ladder
 
 | Rung | Seed | Backend | Task success | 95% CI | Schema valid | Tool accuracy | GPU hours | USD |
 |---|---:|---|---:|---|---:|---:|---:|---:|
-| R0 | — | — | pending | — | — | — | — | — |
+| R0 | 0 | trl | 0.0% | [0.0%, 0.0%] | 0.0% | 0.0% | 0.983 | $0.295 |
 | R1 | — | — | pending | — | — | — | — | — |
 | R1B | — | — | optional; pending | — | — | — | — | — |
 | R2 | — | — | pending | — | — | — | — | — |
@@ -39,7 +35,9 @@ R4 probes are pending the human-launched GRPO run and frozen evaluation.
 
 ## Failure and negative-result register
 
-No full-run negative result is available yet; none is inferred from smoke runs.
+- R0 seed 0 failure counts (nonexclusive): invalid_tool_arguments=2000, schema_invalid=2000, wrong_ambiguity=13, wrong_tool=2000, wrong_urgency=967.
+- Failed GPU attempt failed_cb153427dfb8b8ae6340: R0 seed 0, 0.048 GPU-hours, $0.014, exit code 0.
+- Failed GPU attempt failed_4bf236eb91be22c65963: R0 seed 0, 0.004 GPU-hours, $0.001, exit code 1.
 
 ## Export
 
