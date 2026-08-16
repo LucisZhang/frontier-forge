@@ -1,0 +1,39 @@
+{
+  "artifact": {
+    "path": "/Users/hsiangkuochang/frontier-forge/data/smoke/ingest/labeled_rows.parquet",
+    "rows": 50,
+    "rows_by_ambiguity": {
+      "false": 50
+    },
+    "rows_by_output_split": {
+      "cal": 13,
+      "test_drift": 12,
+      "test_iid": 12,
+      "train": 13
+    },
+    "rows_by_tool": {
+      "route_to_company": 50
+    },
+    "sha256": "2876cccc9e9e48a9092034a57782b24dc5d1a5f7bb6bd06a8733584a55be5e70",
+    "size_bytes": 4981
+  },
+  "fingerprint": "01320f8b07e1a049c04d872fbc02b5e58006ef7bc64047dd97abe8d79b1d3a3e",
+  "frozen": false,
+  "label_rules": {
+    "path": "/Users/hsiangkuochang/frontier-forge/configs/label_rules.yaml",
+    "sha256": "216199a541c360645927fb195d12c0da779e3e4f4743c6dcda189c63aa0e1812",
+    "version": 3
+  },
+  "source_snapshot": {
+    "kind": "synthetic-smoke",
+    "sha256": "5d05ebf1eb7c77c50a20fe4c9cfb40f7ed0d6ea3fd1ee6c9d655ef9b98cda337"
+  },
+  "sources": [
+    {
+      "rows": 50,
+      "source_split": "synthetic-smoke"
+    }
+  ],
+  "task_schema_sha256": "f29e2ef18b7a5c90a00ac6fbf867e6c7907290e0f0e77974e0c3e38895a4bf16",
+  "version": 1
+}

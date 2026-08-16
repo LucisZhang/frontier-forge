@@ -4,7 +4,10 @@
 
 # data & model artifacts (never in git; synced via scripts/remote/sync.sh)
 # root-anchored: must not swallow source packages like src/forge/data/
-/data/
+# exception: manifest.json files are small provenance receipts and ARE tracked
+/data/**
+!/data/**/
+!/data/**/manifest.json
 /checkpoints/
 *.gguf
 *.safetensors

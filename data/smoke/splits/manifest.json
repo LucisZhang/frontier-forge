@@ -1,0 +1,75 @@
+{
+  "audit": {
+    "path": "/Users/hsiangkuochang/frontier-forge/data/smoke/phase1_label_audit.md",
+    "rows": 50,
+    "seed": 20260815,
+    "sha256": "aec79e6df00b6da136c11fe6781565b6fc6b5f899af6a07d381315bf79651220"
+  },
+  "fingerprint": "d9e0793f7bc6d8151a9d44e8d1f118b04a9122154549d89890fbf925313e3697",
+  "frozen": false,
+  "input": {
+    "manifest_sha256": "3814f568895c39fdcafcd2bbef887ab379a7d4c2737b98a0921d3acefaa182f9",
+    "path": "/Users/hsiangkuochang/frontier-forge/data/smoke/ingest/labeled_rows.parquet",
+    "sha256": "2876cccc9e9e48a9092034a57782b24dc5d1a5f7bb6bd06a8733584a55be5e70"
+  },
+  "protocol": {
+    "cross_split_complaint_id_overlap": 0,
+    "membership": "exact nlp-eval-lab temporal split membership",
+    "test_drift": "disjoint union of 2023, 2024, 2025, and 2026-H1 drift slices"
+  },
+  "splits": {
+    "cal": {
+      "date_max": "2022-02-20",
+      "date_min": "2022-01-03",
+      "display_name": "CAL",
+      "path": "/Users/hsiangkuochang/frontier-forge/data/smoke/splits/cal.parquet",
+      "rows": 13,
+      "sha256": "5a3d4f74010e192151c1b86eafb592fb2ac7a4abf59ab537f9c594b9b4a545fe",
+      "size_bytes": 3973,
+      "source_rows": {
+        "cal": 13
+      },
+      "unique_complaint_ids": 13
+    },
+    "test_drift": {
+      "date_max": "2023-02-18",
+      "date_min": "2023-01-05",
+      "display_name": "TEST-DRIFT",
+      "path": "/Users/hsiangkuochang/frontier-forge/data/smoke/splits/test_drift.parquet",
+      "rows": 12,
+      "sha256": "5ebfd66238dfd8c61512d963bc60122d6d0d4deea7d8ff6e13f330feb823d1c7",
+      "size_bytes": 4015,
+      "source_rows": {
+        "test_drift_2023": 12
+      },
+      "unique_complaint_ids": 12
+    },
+    "test_iid": {
+      "date_max": "2022-08-17",
+      "date_min": "2022-07-04",
+      "display_name": "TEST-IID",
+      "path": "/Users/hsiangkuochang/frontier-forge/data/smoke/splits/test_iid.parquet",
+      "rows": 12,
+      "sha256": "d14c80dc064181ffcc9674b6e6616a0248a6520d1e5d273b8e5e8f950eab95ab",
+      "size_bytes": 3982,
+      "source_rows": {
+        "test_iid": 12
+      },
+      "unique_complaint_ids": 12
+    },
+    "train": {
+      "date_max": "2021-02-19",
+      "date_min": "2021-01-02",
+      "display_name": "TRAIN",
+      "path": "/Users/hsiangkuochang/frontier-forge/data/smoke/splits/train.parquet",
+      "rows": 13,
+      "sha256": "4057750472e24fdccb8e10101114d5dc55810e4b5d7a8c5f874b052c39184a9e",
+      "size_bytes": 3985,
+      "source_rows": {
+        "train": 13
+      },
+      "unique_complaint_ids": 13
+    }
+  },
+  "version": 1
+}

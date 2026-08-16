@@ -1,0 +1,90 @@
+{
+  "artifact": {
+    "path": "/Users/hsiangkuochang/frontier-forge/data/ingest/labeled_rows.parquet",
+    "rows": 571415,
+    "rows_by_ambiguity": {
+      "false": 562224,
+      "true": 9191
+    },
+    "rows_by_output_split": {
+      "cal": 86972,
+      "test_drift": 80000,
+      "test_iid": 104443,
+      "train": 300000
+    },
+    "rows_by_tool": {
+      "close_no_action": 985,
+      "escalate_to_regulator": 55533,
+      "request_more_info": 9191,
+      "route_to_company": 468244,
+      "start_refund_workflow": 37462
+    },
+    "sha256": "57c3fa152000869aec8eceec25698261662a3979877780a4d19db95b5d442666",
+    "size_bytes": 194653291
+  },
+  "fingerprint": "acb487cf7b37e281053846ca065266ddcc13edc68936e1ca3dda0c7d1f30d248",
+  "frozen": true,
+  "label_rules": {
+    "path": "/Users/hsiangkuochang/frontier-forge/configs/label_rules.yaml",
+    "sha256": "55f218c2bbeecf2e5472b567548b5b5c3c82f12639b9ba6d559357fd23d7935f",
+    "version": 1
+  },
+  "source_snapshot": {
+    "derived_input_sha256": "170f66cd95f8ba2ff47929d3cbe903030400a960e3d1657df53484290a22d89f",
+    "path": "/Users/hsiangkuochang/nlp-eval-lab/data/raw/complaints.csv.zip",
+    "sha256": "b4d1eac8ef9f2e7710224848d321f355c480ff95baa742a2f6d1e3c704705600"
+  },
+  "sources": [
+    {
+      "output_split": "train",
+      "path": "/Users/hsiangkuochang/nlp-eval-lab/data/splits/train.parquet",
+      "rows": 300000,
+      "sha256": "939186e72a78c680107dd3ae0087485fabd5f50dc1cca8dab8ca0205956a342b",
+      "source_split": "train"
+    },
+    {
+      "output_split": "cal",
+      "path": "/Users/hsiangkuochang/nlp-eval-lab/data/splits/cal.parquet",
+      "rows": 86972,
+      "sha256": "d7c24d6db05f337ac3fca1922b16c4324775e2007833af1eae684ddc37533c94",
+      "source_split": "cal"
+    },
+    {
+      "output_split": "test_iid",
+      "path": "/Users/hsiangkuochang/nlp-eval-lab/data/splits/test_iid.parquet",
+      "rows": 104443,
+      "sha256": "1e02e1e544f1def7a037f8cad94a545a3596dba941101ed73d7a3063a30435a2",
+      "source_split": "test_iid"
+    },
+    {
+      "output_split": "test_drift",
+      "path": "/Users/hsiangkuochang/nlp-eval-lab/data/splits/test_drift_2023.parquet",
+      "rows": 20000,
+      "sha256": "debbd70416a816faa04b51cac994697b07bc70914e1f3e9d49b27b443a5a5475",
+      "source_split": "test_drift_2023"
+    },
+    {
+      "output_split": "test_drift",
+      "path": "/Users/hsiangkuochang/nlp-eval-lab/data/splits/test_drift_2024.parquet",
+      "rows": 20000,
+      "sha256": "b61db6317217e664d69df19aaa7d84737f0e6d8b3169729795bf18616375c6ec",
+      "source_split": "test_drift_2024"
+    },
+    {
+      "output_split": "test_drift",
+      "path": "/Users/hsiangkuochang/nlp-eval-lab/data/splits/test_drift_2025.parquet",
+      "rows": 20000,
+      "sha256": "3c4ea70e7d489ba37963cca3512ea09d952b3c85a587752c96a1a13d5760f56f",
+      "source_split": "test_drift_2025"
+    },
+    {
+      "output_split": "test_drift",
+      "path": "/Users/hsiangkuochang/nlp-eval-lab/data/splits/test_drift_2026h1.parquet",
+      "rows": 20000,
+      "sha256": "c0cecbdb41aa24b29dba171f42ad593441af9fe355d358e4367596468901a264",
+      "source_split": "test_drift_2026h1"
+    }
+  ],
+  "task_schema_sha256": "f29e2ef18b7a5c90a00ac6fbf867e6c7907290e0f0e77974e0c3e38895a4bf16",
+  "version": 1
+}

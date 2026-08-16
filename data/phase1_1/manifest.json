@@ -1,0 +1,79 @@
+{
+  "audit": {
+    "full_changed_rows_by_split": {
+      "cal": 1181,
+      "test_drift": 617,
+      "test_iid": 1224,
+      "train": 4590
+    },
+    "path": "/Users/hsiangkuochang/frontier-forge/results/phase1_1_label_audit.md",
+    "rows_emitted": 200,
+    "selection_cap": 200,
+    "selection_seed": 20260815,
+    "sha256": "ba8e49fa0188916e6b1ac72b90a3b1f72dc11e60e7714475a355dc6d996b32d2"
+  },
+  "dataset_hash": "de34e40bee09fb452b12aba2659533fc491be94bed6361c639be343221e0393d",
+  "fingerprint": "ff2597ea674490de7779e36929ca9b613968bdb63203c606037bddc3d0e54b76",
+  "label_rules": {
+    "path": "/Users/hsiangkuochang/frontier-forge/configs/label_rules.yaml",
+    "sha256": "d15b9690e7870bd0b11ef832f90b68beca4130fc84a2fb2da83b02b9ee8008d7",
+    "version": 2
+  },
+  "phase1_source": {
+    "manifest_path": "/Users/hsiangkuochang/frontier-forge/data/splits/manifest.json",
+    "manifest_sha256": "8e29ed9a75f8b25d9d7f25c54e53aa24634438299239b9a9bd4b4ee24a874a45"
+  },
+  "protocol": {
+    "label_derivation_versioned_under_d3_1": true,
+    "membership_frozen": true,
+    "membership_hash_algorithm": "sha256(sorted decimal complaint_id + newline)",
+    "phase2_data_generation_started": false
+  },
+  "splits": {
+    "cal": {
+      "labels_changed_from_v1": 1181,
+      "membership_matches_phase1": true,
+      "membership_sha256": "f7290f5a4f97a2a020b7ed53711227010764cd48700280fc5742b5d95635e765",
+      "path": "/Users/hsiangkuochang/frontier-forge/data/phase1_1/splits/cal.parquet",
+      "payload_sha256": "c70ff32a7e412f0e0a3974c14d0b3a81afeb14568b155c77eca131c196d9ef83",
+      "phase1_membership_sha256": "f7290f5a4f97a2a020b7ed53711227010764cd48700280fc5742b5d95635e765",
+      "rows": 86972,
+      "size_bytes": 26965128,
+      "unique_complaint_ids": 86972
+    },
+    "test_drift": {
+      "labels_changed_from_v1": 617,
+      "membership_matches_phase1": true,
+      "membership_sha256": "5b3d77cee9e3852747f44ee36d8a91fa421b3f24bf28d3fba418aed75fd95946",
+      "path": "/Users/hsiangkuochang/frontier-forge/data/phase1_1/splits/test_drift.parquet",
+      "payload_sha256": "ac934c2e39aca10357b3e812a4e3e39c51b86625c274a84b31e1eadfdfe0a545",
+      "phase1_membership_sha256": "5b3d77cee9e3852747f44ee36d8a91fa421b3f24bf28d3fba418aed75fd95946",
+      "rows": 80000,
+      "size_bytes": 29600806,
+      "unique_complaint_ids": 80000
+    },
+    "test_iid": {
+      "labels_changed_from_v1": 1224,
+      "membership_matches_phase1": true,
+      "membership_sha256": "049dce9c635a4280eea7b19948807ed20975d134b9e36655645320afad7fbb21",
+      "path": "/Users/hsiangkuochang/frontier-forge/data/phase1_1/splits/test_iid.parquet",
+      "payload_sha256": "b541864f5cddfe0ceb2799f48b63b351154dcfd2a4fc5e1fff387ae9028a264e",
+      "phase1_membership_sha256": "049dce9c635a4280eea7b19948807ed20975d134b9e36655645320afad7fbb21",
+      "rows": 104443,
+      "size_bytes": 31522805,
+      "unique_complaint_ids": 104443
+    },
+    "train": {
+      "labels_changed_from_v1": 4590,
+      "membership_matches_phase1": true,
+      "membership_sha256": "7f63a4afb0b94b5adb7e30d761941e8d76e65f345dc16de85493a1e32134b483",
+      "path": "/Users/hsiangkuochang/frontier-forge/data/phase1_1/splits/train.parquet",
+      "payload_sha256": "aaff41d7323343b4c238c52c5dd8325a304996049c0fb237a1a9a471e1833256",
+      "phase1_membership_sha256": "7f63a4afb0b94b5adb7e30d761941e8d76e65f345dc16de85493a1e32134b483",
+      "rows": 300000,
+      "size_bytes": 106524048,
+      "unique_complaint_ids": 300000
+    }
+  },
+  "version": 2
+}

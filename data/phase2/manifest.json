@@ -1,0 +1,235 @@
+{
+  "artifacts": {
+    "dpo_pairs": {
+      "path": "data/phase2/dpo_pairs.jsonl",
+      "rows": 1450,
+      "sha256": "5b8d32b2e02aeae4f1b60bad6e1ae94ad453f0c18238852e5a09f5839c375522",
+      "size_bytes": 14284377
+    },
+    "filter_funnel_log": {
+      "path": "data/phase2/filter_funnel.jsonl",
+      "rows": 6000,
+      "sha256": "88299cfd11127d09607bfbd7c203a624edff5f3329f47a8ce6f00d722304f7a1",
+      "size_bytes": 941147
+    },
+    "raw_teacher_generations": {
+      "path": "data/phase2/raw_teacher_generations.jsonl",
+      "rows": 6000,
+      "sha256": "f4b545d94cbb58b4dccd9585b65c6e52667ad38d2bf5aeaf2b5ee68e07204cd9",
+      "size_bytes": 31364370
+    },
+    "sft_distilled": {
+      "path": "data/phase2/sft_distilled.jsonl",
+      "rows": 1450,
+      "sha256": "38e2f9f9b990abcf1ea7908fa47e539d8b5864cd9533a3ebcdbcd05d1bbc3fe9",
+      "size_bytes": 13631378
+    },
+    "sft_rule": {
+      "path": "data/phase2/sft_rule.jsonl",
+      "rows": 1450,
+      "sha256": "0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e",
+      "size_bytes": 11135404
+    }
+  },
+  "audit_reproduction": {
+    "command": "make teacher-audit",
+    "network_calls": 0
+  },
+  "config_path": "configs/teacher_data.yaml",
+  "config_sha256": "085d7cff01bbe7a5e3addd5a85cd4a1aa863550cb9e032ae1d5c93f13ff8542e",
+  "contamination": {
+    "policy": "any exact normalized n-gram overlap quarantines the TRAIN sample",
+    "quarantine_path": "results/phase2_contamination_quarantine.json",
+    "quarantine_sha256": "3df6e93574997aee320f48e9a93ad7f103e4121391644df058279d602966ad38",
+    "quarantined_rows": 214,
+    "test_rows_scanned": {
+      "test_drift": 80000,
+      "test_iid": 104443
+    },
+    "token_ngram": 13
+  },
+  "cost": {
+    "account_reconciled": true,
+    "api_usd": 12.70069,
+    "current_key_usage_snapshot_usd": 12.917487,
+    "gpu_usd": 0.0,
+    "pre_phase2_current_key_usage_usd": 0.216797,
+    "project_envelope_usd": [
+      20.0,
+      50.0
+    ],
+    "provider_receipted_unique_api_usd": 12.667514,
+    "run_cap_usd": 20.0,
+    "transport_replay_api_usd": 0.033176,
+    "within_run_cap": true
+  },
+  "coverage": {
+    "complaint_ids_sha256": "2e1b4b0c603355d3bd5fd9b60936fc7bc46daad3389a8210b0775ba4310b519e",
+    "rule_equals_distilled_equals_dpo": true,
+    "shared_complaint_ids": 1450
+  },
+  "dpo": {
+    "pairs": 1450,
+    "perturbation_counts": {
+      "ambiguity_flip": 510,
+      "tool_choice_substitution": 479,
+      "urgency_cycle": 461
+    },
+    "perturbation_taxonomy": [
+      "urgency_cycle",
+      "tool_choice_substitution",
+      "ambiguity_flip"
+    ],
+    "rejected_source": "deterministic_perturbed_near_miss"
+  },
+  "filter_funnel": [
+    {
+      "count": 6000,
+      "retention_from_previous": 1.0,
+      "retention_from_selected": 1.0,
+      "stage": "selected TRAIN inputs"
+    },
+    {
+      "count": 6000,
+      "retention_from_previous": 1.0,
+      "retention_from_selected": 1.0,
+      "stage": "teacher response recorded"
+    },
+    {
+      "count": 6000,
+      "retention_from_previous": 1.0,
+      "retention_from_selected": 1.0,
+      "stage": "schema valid"
+    },
+    {
+      "count": 1664,
+      "retention_from_previous": 0.2773333333333333,
+      "retention_from_selected": 0.2773333333333333,
+      "stage": "verifier accepted"
+    },
+    {
+      "count": 1664,
+      "retention_from_previous": 1.0,
+      "retention_from_selected": 0.2773333333333333,
+      "stage": "MinHash unique"
+    },
+    {
+      "count": 1450,
+      "retention_from_previous": 0.8713942307692307,
+      "retention_from_selected": 0.24166666666666667,
+      "stage": "contamination clean"
+    }
+  ],
+  "generation": {
+    "attempt_records": 6000,
+    "finished_at": "2026-08-16T04:50:55.981691+00:00",
+    "prompt_path": "configs/teacher_prompts/phase2_teacher_v1.txt",
+    "prompt_sha256": "6c5c5e48f77b2595729eb249da1a11947a5998a4a8a3b0856b1532e01b55b64e",
+    "raw_log_sha256": "f4b545d94cbb58b4dccd9585b65c6e52667ad38d2bf5aeaf2b5ee68e07204cd9",
+    "run_fingerprint": "a1df1241ca4b935f1a61e24b0992a31c1390b2e8412a9f7d618f9b74a36b08d9",
+    "selected_complaint_ids_sha256": "2185bde50185fc9c73d9c80354dd338f1b20db3341447d7932dc5cec67032644",
+    "selected_rows": 6000,
+    "started_at": "2026-08-16T04:23:36.520674+00:00",
+    "teacher_model_id": "anthropic/claude-haiku-4.5"
+  },
+  "minhash": {
+    "bands": 16,
+    "duplicates_removed": 0,
+    "permutations": 64,
+    "similarity_threshold": 0.85,
+    "token_ngram": 5
+  },
+  "mode": "live",
+  "phase": 2,
+  "phase2_dataset_hash": "28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4",
+  "receipts": {
+    "cost_ledger_sha256": "47a1dd7d2a3085afc2c822862c5868c983ebdde3d94b7d50f800447156915533",
+    "data_card_sha256": "356d5efbc462a367a9bf19e7f0e2db801437377689bf3102f29000a7567dcbc7",
+    "transport_incident_path": "results/phase2_transport_incident.json",
+    "transport_incident_sha256": "c5ff791e5718ab24668942a4740bccf869c2f863379d7a5c19bd0c81a24dfc29"
+  },
+  "source": {
+    "dataset_hash": "2f2498c95ea224e48cfc7ee9c705ecef00563c616b0ec14512800706cd8f2573",
+    "dataset_manifest_sha256": "dc8299726faf20a8d300f510a69f05566f150a319c6dcf43c5f9241cc3c28407",
+    "input_contract_version": 2,
+    "label_rules_sha256": "216199a541c360645927fb195d12c0da779e3e4f4743c6dcda189c63aa0e1812",
+    "label_rules_version": 3,
+    "scorer_version": 2,
+    "train_payload_sha256": "a753b3de8cbf85aabf71dc06ab960b371c586ff764e8f221c83a889d09676057"
+  },
+  "status": "complete",
+  "teacher_vs_rule_disagreement": {
+    "decision_fields": {
+      "ambiguity_flag": {
+        "disagreements": 306,
+        "matches": 5694
+      },
+      "tool_arguments_structural": {
+        "disagreements": 0,
+        "matches": 6000
+      },
+      "tool_choice": {
+        "disagreements": 3474,
+        "matches": 2526
+      },
+      "urgency": {
+        "disagreements": 3792,
+        "matches": 2208
+      }
+    },
+    "denominator": 6000,
+    "population": "schema-valid teacher outputs before verifier rejection",
+    "secondary_fields": {
+      "company_normalized_match": {
+        "disagreements": 3,
+        "matches": 5997
+      },
+      "issue_normalized_match": {
+        "disagreements": 754,
+        "matches": 5246
+      },
+      "product_match": {
+        "disagreements": 132,
+        "matches": 5868
+      },
+      "tool_arguments_semantic_valid": {
+        "disagreements": 0,
+        "matches": 6000
+      }
+    },
+    "tool_choice_matrix": {
+      "close_no_action": {
+        "close_no_action": 1,
+        "escalate_to_regulator": 10,
+        "route_to_company": 3
+      },
+      "escalate_to_regulator": {
+        "close_no_action": 1,
+        "escalate_to_regulator": 447,
+        "request_more_info": 3,
+        "route_to_company": 13,
+        "start_refund_workflow": 1
+      },
+      "request_more_info": {
+        "escalate_to_regulator": 2,
+        "request_more_info": 9,
+        "route_to_company": 1
+      },
+      "route_to_company": {
+        "close_no_action": 31,
+        "escalate_to_regulator": 2734,
+        "request_more_info": 298,
+        "route_to_company": 1970,
+        "start_refund_workflow": 100
+      },
+      "start_refund_workflow": {
+        "close_no_action": 5,
+        "escalate_to_regulator": 224,
+        "request_more_info": 2,
+        "route_to_company": 46,
+        "start_refund_workflow": 99
+      }
+    }
+  },
+  "version": 2
+}
