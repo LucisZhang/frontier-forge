@@ -1,6 +1,6 @@
 # Phase 1.2 label-rules-v3 changed-row audit
 
-Status: **HUMAN REVIEW REQUIRED**. Labels are compared against the immutable v2 dataset; split membership is unchanged.
+Status: **HUMAN REVIEW COMPLETE — LABELS FROZEN FOR PHASE 2**. Labels are compared against the immutable v2 dataset; split membership is unchanged. The accepted v3 labels retain the reviewed false negatives below as known limitations rather than silently changing derivation after the D3.1 freeze.
 
 ## Scope and population
 
@@ -291,11 +291,26 @@ Sample transitions: escalate_to_regulator -> route_to_company=24, escalate_to_re
 
 - Negation-blind matching remains. The delegated review estimated about 18 affected rows containing negated `identity theft`; v3 does not repair them.
 - The taxonomy remains single-action. Escalation outranks refund, so a dual-remedy narrative emits only `escalate_to_regulator`.
+- High-urgency lexical coverage is incomplete. No `urgency.high_keywords` entry covers FCRA, FDCPA, Section 1681-style statutory allegations, or police-report evidence of identity theft. Because `escalate_to_regulator` is reachable only through `urgency: high`, that escalation category is lexically unreachable on this evidence alone. The reviewer marked four such false negatives in the stratified sample: CAL/5066761 (police-report identity-theft evidence), TEST-DRIFT/6386376 (FCRA/FDCPA), TEST-DRIFT/7124573 (Fair Credit Reporting Act plus a request for CFPB investigation), and TEST-DRIFT/7473064 (Fair Credit Reporting Act and consumer-protection allegations).
+
+## Final stratified-review result
+
+The human review marked 7/50 rows WRONG: **14.0%** (43/50 correct). All seven errors were false negatives under the intended action policy:
+
+- Escalation false negatives: 4/50 — CAL/5066761, TEST-DRIFT/6386376, TEST-DRIFT/7124573, and TEST-DRIFT/7473064. Their police-report or statutory consumer-protection evidence is not represented in `urgency.high_keywords`, so v3 cannot select the higher-priority escalation action from that evidence alone.
+- Refund-workflow false negatives: 3/50 — TRAIN/1518667 (missing $51,000 disbursement), TRAIN/2194615 (the wrong funding account was debited), and TEST-DRIFT/18872785 (`pay it back`). None of those semantic refund requests matches the five literal `tools.refund_phrases`.
+
+This 14.0% figure is **not comparable** to the earlier v2 4% figure. The v3 review deliberately stratified 50 rows from the changed strong-action population and balanced action transitions; the v2 figure came from a different audit population, selection protocol, and error opportunity. It is neither a regression estimate nor a like-for-like delta.
+
+## D3.1 label-freeze declaration
+
+Human review accepts label rules v3, including the three limitations above, as the immutable label lineage for Phase 2. Dataset hash `2f2498c95ea224e48cfc7ee9c705ecef00563c616b0ec14512800706cd8f2573` and label-rules SHA-256 `216199a541c360645927fb195d12c0da779e3e4f4743c6dcda189c63aa0e1812` are frozen before Phase 2 data generation. Split membership remains frozen separately under D10. Phase 2 artifacts must pin this lineage; no existing v3 label, split payload, snapshot hash, or run record may be edited.
 
 ## Reviewer checklist
 
-- [ ] Product/service taxonomy strings no longer cause escalation without narrative evidence.
-- [ ] Every sampled refund action is supported by refund language in the narrative.
-- [ ] Every sampled post-fix tool choice follows the asserted priority order.
-- [ ] The two documented known limitations remain visible and unfixed.
-- [ ] Any further correction becomes a new label-rules version.
+- [x] Product/service taxonomy strings no longer cause escalation without narrative evidence.
+- [x] Every sampled refund action is supported by refund language in the narrative.
+- [x] Every sampled post-fix tool choice follows the asserted priority order.
+- [x] All three documented known limitations remain visible and unfixed.
+- [x] Final review result and non-comparability note recorded.
+- [x] D3.1 label freeze declared before Phase 2 data generation.

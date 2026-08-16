@@ -2,9 +2,9 @@
 
 ## Gate result
 
-**PASS — inside band.** The same 100 recorded model outputs score **21.0%** task success against label rules v3 (95% Wilson CI 14.2%–30.0%), versus **21.0%** against v2 (delta +0.0 percentage points).
+**UNAFFECTED / NO DISCRIMINATIVE POWER.** The same 100 recorded model outputs score **21.0%** task success against label rules v3 (95% Wilson CI 14.2%–30.0%), versus **21.0%** against v2 (delta +0.0 percentage points). All 100 calibration gold labels were unchanged under v3, so this re-score cannot corroborate, validate, or distinguish the v3 rule change; it only proves that the recorded calibration slice was unaffected.
 
-No API request was made: this is an offline re-score of immutable Phase 1.1 receipts, not a new calibration run or a Phase-3 R0 result.
+No API request was made: this is an offline re-score of immutable Phase 1.1 receipts, not a new calibration run or a Phase-3 R0 result. The unchanged point estimate remains numerically inside the pre-existing 20–50% calibration band, but it is not evidence for the quality of v3 because 0/100 rows exercised the changed labels.
 
 ## Decision-check delta
 
@@ -55,4 +55,4 @@ No API request was made: this is an offline re-score of immutable Phase 1.1 rece
 - Negation-blind keyword matching remains (the delegated review estimated about 18 affected rows containing negated `identity theft`).
 - The single-action taxonomy remains: escalation outranks refund for dual-remedy narratives.
 
-**HUMAN REVIEW REQUIRED before label freeze or Phase 2 starts.**
+**HUMAN REVIEW COMPLETE.** The final label review is recorded in `results/phase1_2_label_audit.md`; label rules v3 are frozen under D3.1 before Phase 2 data generation.
