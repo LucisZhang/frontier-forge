@@ -1,0 +1,55 @@
+{
+  "budget_usd": 15.0,
+  "cal_path": "/Users/hsiangkuochang/frontier-forge/data/phase1_1/splits/cal.parquet",
+  "cal_sha256": "c70ff32a7e412f0e0a3974c14d0b3a81afeb14568b155c77eca131c196d9ef83",
+  "calls_recorded": 100,
+  "dataset_hash": "de34e40bee09fb452b12aba2659533fc491be94bed6361c639be343221e0393d",
+  "dataset_manifest_path": "/Users/hsiangkuochang/frontier-forge/data/phase1_1/manifest.json",
+  "finished_at": "2026-08-16T02:43:41.396294+00:00",
+  "input_contract_version": 2,
+  "input_fields_visible_to_model": [
+    "complaint_id",
+    "narrative",
+    "source_product",
+    "source_issue",
+    "source_company"
+  ],
+  "metrics": {
+    "ambiguity_flag_match": 0.9,
+    "mean_reward": 0.6940000000000001,
+    "samples": 100,
+    "schema_valid": 1.0,
+    "scorer_version": 2,
+    "secondary_metrics": {
+      "abstention_correct": 0.9,
+      "company_normalized_match": 1.0,
+      "issue_normalized_match": 0.81,
+      "product_match": 1.0,
+      "tool_arguments_semantic_valid": 1.0
+    },
+    "task_success": 0.21,
+    "task_success_ci95_wilson": [
+      0.141656540619153,
+      0.29979968834089865
+    ],
+    "task_success_count": 21,
+    "tool_arguments_structural_valid": 1.0,
+    "tool_choice_match": 0.31,
+    "urgency_match": 0.26
+  },
+  "missing_cost_complaint_ids": [],
+  "model": "anthropic/claude-haiku-4.5",
+  "prompt_path": "/Users/hsiangkuochang/frontier-forge/configs/teacher_prompts/phase1_1_api_calibration_v2.txt",
+  "prompt_sha256": "433ab8819aa5e3f5898131b5e459d20757023cdc9aa84790c97355e3fd31c5fd",
+  "receipts_path": "/Users/hsiangkuochang/frontier-forge/results/phase1_1_api_calibration_receipts.jsonl",
+  "receipts_sha256": "00e37c6dbcfbff9e0175be1a59dbe3225abf8742deda8e0fad986072999bb10d",
+  "reported_api_usd": 0.21679700000000007,
+  "run_fingerprint": "a3ed932a34541a9fadf2c043ece48ad2d750c0a545fb1ed4279701623340476f",
+  "scorer_version": 2,
+  "selected_rows": 100,
+  "selection_seed": 20260815,
+  "started_at": "2026-08-16T02:39:06.668443+00:00",
+  "status": "complete",
+  "version": 2,
+  "within_budget": true
+}

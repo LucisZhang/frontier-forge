@@ -11,11 +11,13 @@ Sequel to [nlp-eval-lab](https://github.com/LucisZhang/nlp-eval-lab), which mapp
 the cost-quality frontier of classical / fine-tuned / frontier-API tiers. This
 project pushes a small model across that frontier and productionizes the result.
 
-**Status**: Phase 1 task machinery is implemented locally: the C1 schema,
-deterministic rule labels and verifier, pinned-snapshot ingest, frozen temporal
-splits, human-audit artifacts, and calibration plumbing. Human review is still
-required before accepting the label candidate or final difficulty settings. Training
-and serving remain intentionally unimplemented.
+**Status**: Phase 1.1 calibration remediation is implemented. Input contract v2,
+scorer v2, label rules v2, unchanged split membership, and the fair-baseline prompt
+are covered by local tests and audit artifacts. The receipt-backed API stand-in
+scored 21.0% on 100 CAL rows, inside the locked 20–50% target band; see run
+`phase1_1_api_calibration_v2_s20260815` in [results/runs.jsonl](results/runs.jsonl)
+and the [calibration report](results/phase1_1_calibration_report.md). Human review is
+required before Phase 2. Training and serving remain intentionally unimplemented.
 
 ## Local verification
 

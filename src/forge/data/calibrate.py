@@ -34,6 +34,7 @@ DEFAULT_API_LEDGER_PATH = REPO_ROOT / "results" / "phase1_1_api_calibration_ledg
 PHASE1_API_LEDGER_PATH = REPO_ROOT / "results" / "phase1_api_calibration_ledger.json"
 SMOKE_REPORT_PATH = REPO_ROOT / "data" / "smoke" / "phase1_1_calibration_report.md"
 CALIBRATION_SEED = 20260815
+CALIBRATION_RUN_ID = "phase1_1_api_calibration_v2_s20260815"
 FULL_SAMPLE_CAP = 200
 SMOKE_SAMPLE_CAP = 20
 
@@ -393,6 +394,7 @@ def _render_report(
             f"- Scorer version: `{SCORER_VERSION}`",
             f"- Input contract version: `{INPUT_CONTRACT_VERSION}`",
             f"- Visible input fields: `{', '.join(MODEL_INPUT_FIELDS)}`",
+            (f"- Append-only run record: `results/runs.jsonl` entry `{CALIBRATION_RUN_ID}`"),
             "- Offline report command: `make calibrate-difficulty`",
         ]
     )
