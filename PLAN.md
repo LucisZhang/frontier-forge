@@ -196,7 +196,11 @@ band before Phase 2 starts.
 4. DPO pairs: chosen = high-scoring teacher output; rejected = low-scoring teacher
    attempt or perturbed near-miss (perturbation taxonomy documented).
 5. Data card `results/phase2_data_card.md`: sizes, funnel retention, contamination
-   results, cost ledger (api_usd vs the $20–50 envelope [D6]).
+   results, cost ledger (api_usd vs the $20–50 envelope [D6]), and a teacher-vs-rule
+   disagreement breakdown per decision field (Phase 1.1 found urgency keyword-vs-
+   semantics divergence: fair-prompted Haiku matched only 26% — quantify and discuss;
+   downstream reports must state that urgency ground truth is rule policy, not human
+   judgment).
 
 **Verification**: `make teacher-data SMOKE=1` (10 samples, mock teacher) green;
 `make teacher-audit` reproduces the funnel numbers from raw logs.
