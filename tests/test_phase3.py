@@ -245,6 +245,8 @@ def test_remote_launch_scripts_are_syntax_valid_and_human_triggered() -> None:
     assert "http_proxy" in launcher
     assert "REQUESTS_CA_BUNDLE" in launcher
     assert "HF_HUB_DISABLE_XET" in launcher
+    assert "PYTORCH_ALLOC_CONF" in launcher
+    assert "expandable_segments:True" in launcher
     assert "UNSLOTH_COMPILE_LOCATION" in launcher
     assert 'reference_python=".venv/bin/python"' in worker
     assert "trap 'exit 130' INT" in worker

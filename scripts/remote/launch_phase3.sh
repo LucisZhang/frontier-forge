@@ -68,6 +68,7 @@ launch_env=(
   "FORGE_STARTED_AT=${started_at}"
   "FORGE_TRAIN_PYTHON=${train_python}"
   "FORGE_GPU_HOURLY_USD=${FORGE_GPU_HOURLY_USD}"
+  "PYTORCH_ALLOC_CONF=${PYTORCH_ALLOC_CONF:-expandable_segments:True,max_split_size_mb:256,garbage_collection_threshold:0.7}"
 )
 if [[ "${backend}" == "unsloth" ]]; then
   launch_env+=(
