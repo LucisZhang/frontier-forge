@@ -257,7 +257,11 @@ versioned files in `configs/teacher_prompts/`, not inline strings.
 **Goal**: the [D5] ladder, every rung a runs.jsonl record with CIs and cost.
 
 **Deliverables**
-1. One YAML per rung in `configs/` (r0…r4), seeds pinned; `train-sft/dpo/grpo`
+1. One YAML per rung in `configs/` (r0…r4), seeds pinned. Optional ablation R1b
+   (run if the GPU-hour ledger permits): rule-label SFT scaled to ~20k TRAIN rows
+   (rule labels are free; contamination-screen the added rows with the Phase 2
+   auditor) vs R1's 1,450 — answers "cheap labels at scale vs scarce distilled
+   data" and guards against understating SFT via the matched-coverage constraint; `train-sft/dpo/grpo`
    launchers work in SMOKE=1 (0.5B model, ≤100 rows, Mac MPS/CPU) and full mode
    (pod, tmux, resumable, metrics JSON on exit).
 2. TRL reference path first; one Unsloth cross-check run vs TRL on R1 must agree
