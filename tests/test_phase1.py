@@ -4,12 +4,18 @@ import json
 from pathlib import Path
 
 import pytest
+import yaml
 
 from forge.data.api_calibrate import _metrics as api_metrics
 from forge.data.calibrate import evaluate_stand_in, stand_in_prediction
 from forge.data.ingest import run_ingest, sha256_file
 from forge.data.input_contract import INPUT_CONTRACT_VERSION, build_model_input
-from forge.data.labels import derive_label, load_rules
+from forge.data.labels import TOOL_PRECEDENCE, derive_label, load_rules
+from forge.data.phase1_2 import (
+    ChangedRow,
+    _stratified_strong_action_sample,
+    run_phase1_2_labels,
+)
 from forge.data.relabel import run_relabel
 from forge.data.splits import SPLITS, run_splits
 from forge.data.spot_label import _parse_teacher_content, _reported_cost
@@ -52,7 +58,19 @@ def test_schema_has_exact_locked_product_and_tool_enums() -> None:
 def test_label_rules_cover_every_schema_product() -> None:
     rules = load_rules()
 
+    assert rules.version == 3
     assert set(rules.product_map.values()) == set(PRODUCTS)
+    assert rules.tool_priority == TOOL_PRECEDENCE
+
+
+def test_tool_priority_config_must_match_code_precedence(tmp_path: Path) -> None:
+    raw = yaml.safe_load((ROOT / "configs" / "label_rules.yaml").read_text())
+    raw["tools"]["priority"][0:2] = reversed(raw["tools"]["priority"][0:2])
+    path = tmp_path / "bad-priority.yaml"
+    path.write_text(yaml.safe_dump(raw, sort_keys=False))
+
+    with pytest.raises(ValueError, match=r"tools\.priority must exactly match"):
+        load_rules(path)
 
 
 def test_high_urgency_routes_to_regulator() -> None:
@@ -63,6 +81,43 @@ def test_high_urgency_routes_to_regulator() -> None:
     assert label["urgency"] == "high"
     assert label["tool_call"]["name"] == "escalate_to_regulator"
     assert is_schema_valid(label)
+
+
+@pytest.mark.parametrize(
+    "source_issue",
+    (
+        "Credit monitoring or identity theft protection services",
+        "Identity theft protection or other monitoring services",
+        "Loan modification,collection,foreclosure",
+    ),
+)
+def test_source_issue_taxonomy_cannot_trigger_escalation(source_issue: str) -> None:
+    label = derive_label(
+        source_row(
+            issue=source_issue,
+            narrative=(
+                "The consumer describes a routine service problem, provides account history, "
+                "and asks the company for a written response."
+            ),
+        )
+    )
+
+    assert label["urgency"] != "high"
+    assert label["tool_call"]["name"] == "route_to_company"
+
+
+def test_source_issue_refund_word_cannot_trigger_refund_workflow() -> None:
+    label = derive_label(
+        source_row(
+            issue="Lost or stolen refund",
+            narrative=(
+                "The consumer describes a routine service problem, provides account history, "
+                "and asks the company for a written response."
+            ),
+        )
+    )
+
+    assert label["tool_call"]["name"] == "route_to_company"
 
 
 def test_short_narrative_abstains_and_requests_details() -> None:
@@ -307,9 +362,14 @@ def test_relabel_versions_labels_without_changing_membership(tmp_path: Path) -> 
     output_dir = tmp_path / "phase1_1"
     manifest_path = output_dir / "manifest.json"
     audit_path = tmp_path / "phase1_1_audit.md"
+    v2_rules = yaml.safe_load((ROOT / "configs" / "label_rules.yaml").read_text())
+    v2_rules["version"] = 2
+    v2_rules_path = tmp_path / "label_rules_v2.yaml"
+    v2_rules_path.write_text(yaml.safe_dump(v2_rules, sort_keys=False))
     first, first_noop = run_relabel(
         phase1_split_dir=phase1_dir,
         phase1_manifest_path=phase1_manifest_path,
+        rules_path=v2_rules_path,
         output_dir=output_dir,
         manifest_path=manifest_path,
         audit_path=audit_path,
@@ -317,6 +377,7 @@ def test_relabel_versions_labels_without_changing_membership(tmp_path: Path) -> 
     second, second_noop = run_relabel(
         phase1_split_dir=phase1_dir,
         phase1_manifest_path=phase1_manifest_path,
+        rules_path=v2_rules_path,
         output_dir=output_dir,
         manifest_path=manifest_path,
         audit_path=audit_path,
@@ -327,6 +388,98 @@ def test_relabel_versions_labels_without_changing_membership(tmp_path: Path) -> 
     assert first == second
     assert first["version"] == 2
     assert all(item["membership_matches_phase1"] for item in first["splits"].values())
+
+    phase1_2_dir = tmp_path / "phase1_2" / "splits"
+    phase1_2_manifest_path = tmp_path / "phase1_2" / "manifest.json"
+    phase1_2_audit_path = tmp_path / "phase1_2_audit.md"
+    third, third_noop = run_phase1_2_labels(
+        phase1_split_dir=phase1_dir,
+        phase1_manifest_path=phase1_manifest_path,
+        phase1_1_split_dir=output_dir,
+        phase1_1_manifest_path=manifest_path,
+        output_dir=phase1_2_dir,
+        manifest_path=phase1_2_manifest_path,
+        audit_path=phase1_2_audit_path,
+    )
+    fourth, fourth_noop = run_phase1_2_labels(
+        phase1_split_dir=phase1_dir,
+        phase1_manifest_path=phase1_manifest_path,
+        phase1_1_split_dir=output_dir,
+        phase1_1_manifest_path=manifest_path,
+        output_dir=phase1_2_dir,
+        manifest_path=phase1_2_manifest_path,
+        audit_path=phase1_2_audit_path,
+    )
+
+    assert not third_noop
+    assert fourth_noop
+    assert third == fourth
+    assert third["version"] == 3
+    assert third["dataset_hash"] != first["dataset_hash"]
+    assert all(item["membership_matches_phase1"] for item in third["splits"].values())
+
+
+def test_strong_action_audit_stratifies_rare_transitions() -> None:
+    rows: list[ChangedRow] = []
+    for complaint_id in range(100, 180):
+        rows.append(
+            ChangedRow(
+                split=SPLITS[complaint_id % len(SPLITS)],
+                complaint_id=complaint_id,
+                date_received="2022-01-01",
+                source_product="Credit reporting",
+                source_issue=f"issue-{complaint_id % 3}",
+                source_company="Acme",
+                narrative="Routine complaint narrative with enough detail for routing.",
+                old_label={
+                    "urgency": "high",
+                    "tool_call": {"name": "escalate_to_regulator"},
+                },
+                new_label={
+                    "urgency": "low",
+                    "tool_call": {"name": "route_to_company"},
+                },
+            )
+        )
+    for complaint_id in (900, 901):
+        rows.append(
+            ChangedRow(
+                split="cal",
+                complaint_id=complaint_id,
+                date_received="2022-01-01",
+                source_product="Money transfers",
+                source_issue="Lost or stolen refund",
+                source_company="Acme",
+                narrative="Routine complaint narrative with enough detail for routing.",
+                old_label={
+                    "urgency": "low",
+                    "tool_call": {"name": "start_refund_workflow"},
+                },
+                new_label={
+                    "urgency": "low",
+                    "tool_call": {"name": "route_to_company"},
+                },
+            )
+        )
+
+    population, selected = _stratified_strong_action_sample(rows, cap=10)
+
+    assert len(population) == 82
+    assert len(selected) == 10
+    assert {row.complaint_id for row in selected} >= {900, 901}
+    assert {row.transition for row in selected} == {
+        "escalate_to_regulator -> route_to_company",
+        "start_refund_workflow -> route_to_company",
+    }
+
+
+def test_phase1_2_runner_has_no_network_dependencies() -> None:
+    source = (ROOT / "src" / "forge" / "data" / "phase1_2.py").read_text()
+
+    assert "import socket" not in source
+    assert "import urllib" not in source
+    assert "import requests" not in source
+    assert "import httpx" not in source
 
 
 def test_non_smoke_split_rerun_refuses_changed_frozen_audit(tmp_path: Path) -> None:

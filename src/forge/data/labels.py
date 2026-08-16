@@ -18,6 +18,14 @@ from forge.verify.schema import MISSING_FIELDS, PRODUCTS, is_schema_valid, schem
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_RULES_PATH = REPO_ROOT / "configs" / "label_rules.yaml"
 _WHITESPACE = re.compile(r"\s+")
+TOOL_PRECEDENCE = (
+    "request_more_info",
+    "close_no_action",
+    "escalate_to_regulator",
+    "start_refund_workflow",
+    "route_to_company",
+    "close_no_action_fallback",
+)
 
 
 def normalize_text(value: object) -> str:
@@ -45,6 +53,7 @@ class LabelRules:
     high_keywords: tuple[str, ...]
     medium_keywords: tuple[str, ...]
     default_urgency: str
+    tool_priority: tuple[str, ...]
     no_action_phrases: tuple[str, ...]
     refund_phrases: tuple[str, ...]
 
@@ -76,6 +85,11 @@ def load_rules(path: Path = DEFAULT_RULES_PATH) -> LabelRules:
     default_urgency = str(urgency["default"])
     if default_urgency not in {"low", "medium", "high"}:
         raise ValueError(f"invalid default urgency: {default_urgency!r}")
+    tool_priority = tuple(str(value) for value in tools["priority"])
+    if tool_priority != TOOL_PRECEDENCE:
+        raise ValueError(
+            f"tools.priority must exactly match the labeler's precedence: {list(TOOL_PRECEDENCE)!r}"
+        )
 
     return LabelRules(
         version=int(raw["version"]),
@@ -87,6 +101,7 @@ def load_rules(path: Path = DEFAULT_RULES_PATH) -> LabelRules:
         high_keywords=_normalized_terms(urgency["high_keywords"]),
         medium_keywords=_normalized_terms(urgency["medium_keywords"]),
         default_urgency=default_urgency,
+        tool_priority=tool_priority,
         no_action_phrases=_normalized_terms(tools["no_action_phrases"]),
         refund_phrases=_normalized_terms(tools["refund_phrases"]),
     )
@@ -101,7 +116,7 @@ def _ordered_missing(fields: set[str], rules: LabelRules) -> list[str]:
 
 
 def derive_label(row: Mapping[str, Any], rules: LabelRules | None = None) -> dict[str, Any]:
-    """Derive one v1 task label from an upstream CFPB row.
+    """Derive one versioned task label from an upstream CFPB row.
 
     The function has no I/O and no wall-clock dependency. Unknown source products
     fail closed because silently inventing a taxonomy mapping would invalidate the
@@ -121,6 +136,7 @@ def derive_label(row: Mapping[str, Any], rules: LabelRules | None = None) -> dic
     company: str | None = company_text or None
     narrative = normalize_text(row.get("narrative"))
     rule_text = comparison_text(f"{issue} {narrative}")
+    narrative_text = comparison_text(narrative)
 
     missing: set[str] = set()
     if not issue:
@@ -139,7 +155,10 @@ def derive_label(row: Mapping[str, Any], rules: LabelRules | None = None) -> dic
         missing.add("details")
 
     ambiguity = bool(missing)
-    if _contains_any(rule_text, rules.high_keywords):
+    # Strong-action evidence is narrative-only in label rules v3. Source issue
+    # taxonomies can contain strings such as "identity theft" or "foreclosure"
+    # without the consumer narrative alleging either event.
+    if _contains_any(narrative_text, rules.high_keywords):
         urgency = "high"
     elif _contains_any(rule_text, rules.medium_keywords):
         urgency = "medium"
@@ -166,7 +185,7 @@ def derive_label(row: Mapping[str, Any], rules: LabelRules | None = None) -> dic
             "name": "escalate_to_regulator",
             "arguments": {"complaint_id": complaint_id, "reason": issue},
         }
-    elif _contains_any(rule_text, rules.refund_phrases):
+    elif _contains_any(narrative_text, rules.refund_phrases):
         # company cannot be None here: that condition takes the abstention path.
         tool_call = {
             "name": "start_refund_workflow",

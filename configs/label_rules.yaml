@@ -1,4 +1,4 @@
-version: 2
+version: 3
 taxonomy:
   provenance: nlp-eval-lab/taxonomy_map.yaml@v1
   product_map:
@@ -23,8 +23,13 @@ taxonomy:
     Vehicle loan or lease: vehicle_loan
     Virtual currency: money_service
 
-# Rules are applied in the listed priority. Keyword matching is Unicode NFKC,
-# whitespace-collapsed, and case-insensitive over issue + narrative.
+# Keyword matching is Unicode NFKC, whitespace-collapsed, and case-insensitive.
+# Ambiguity, medium urgency, and no-action phrases use issue + narrative. Strong
+# actions are narrower in v3: high-urgency escalation and refund phrases use the
+# narrative only. Source taxonomy strings such as "Credit monitoring or identity
+# theft protection services", "Identity theft protection or other monitoring
+# services", and legacy "Loan modification,collection,foreclosure" are context,
+# never strong-action evidence by themselves.
 ambiguity:
   min_narrative_chars: 40
   # Phrase triggers are weak evidence. They may add a missing-details signal
@@ -61,6 +66,7 @@ urgency:
   default: low
 
 tools:
+  # Parsed by forge.data.labels and asserted against the code's branch order.
   priority:
     - request_more_info
     - close_no_action
@@ -80,6 +86,11 @@ tools:
     - money back
     - reverse the charge
     - chargeback
+
+# Known v3 limitations (documented, intentionally not fixed in Phase 1.2):
+# - keyword matching is negation-blind, including negated "identity theft" text;
+# - the taxonomy emits one action, and escalation outranks refund for complaints
+#   whose narrative supports both remedies.
 
 teacher_spot_labels:
   model: anthropic/claude-haiku-4.5

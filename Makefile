@@ -3,7 +3,7 @@ SHELL := /bin/sh
 SMOKE ?= 0
 export SMOKE
 
-C3_TARGETS := test lint gateway-test gateway-tsan \
+C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 	ingest splits calibrate-difficulty \
 	teacher-data teacher-audit \
 	train-sft train-dpo train-grpo eval export-model \
@@ -44,13 +44,17 @@ ingest:
 ifeq ($(SMOKE),1)
 splits: ingest
 	@uv run python -m forge.data.splits --smoke
-else
-splits:
-	@uv run python -m forge.data.relabel
-endif
 
 calibrate-difficulty: splits
-	@uv run python -m forge.data.calibrate $(if $(filter 1,$(SMOKE)),--smoke,)
+	@uv run python -m forge.data.calibrate --smoke
+else
+splits: phase1-2
+
+calibrate-difficulty: phase1-2
+endif
+
+phase1-2:
+	@uv run python -m forge.data.phase1_2
 
 sync-up:
 	@./scripts/remote/sync.sh up
