@@ -11,13 +11,16 @@ Sequel to [nlp-eval-lab](https://github.com/LucisZhang/nlp-eval-lab), which mapp
 the cost-quality frontier of classical / fine-tuned / frontier-API tiers. This
 project pushes a small model across that frontier and productionizes the result.
 
-**Status**: Phase 1.1 calibration remediation is implemented. Input contract v2,
-scorer v2, label rules v2, unchanged split membership, and the fair-baseline prompt
-are covered by local tests and audit artifacts. The receipt-backed API stand-in
-scored 21.0% on 100 CAL rows, inside the locked 20–50% target band; see run
-`phase1_1_api_calibration_v2_s20260815` in [results/runs.jsonl](results/runs.jsonl)
-and the [calibration report](results/phase1_1_calibration_report.md). Human review is
-required before Phase 2. Training and serving remain intentionally unimplemented.
+**Status**: Phase 1.2 is implemented. Label rules v3 scope escalation/refund
+keywords to complaint narratives, assert configured tool precedence, and preserve
+all four frozen split memberships. Re-derivation changed 5,762 labels, including
+5,740 strong-action transitions; see the [reviewer audit](results/phase1_2_label_audit.md).
+The existing 100 API receipts remain at 21.0% after the offline v3 re-score (0 new
+calls); see run `phase1_2_api_calibration_v3_offline_rescore_s20260815` in
+[results/runs.jsonl](results/runs.jsonl) and the
+[re-score report](results/phase1_2_calibration_rescore.md). Human review is required
+before label freeze or Phase 2. Training and serving remain intentionally
+unimplemented.
 
 ## Local verification
 
@@ -25,6 +28,7 @@ required before Phase 2. Training and serving remain intentionally unimplemented
 uv sync --locked
 make test
 make gateway-test
+make phase1-2
 SMOKE=1 make ingest
 SMOKE=1 make splits
 SMOKE=1 make calibrate-difficulty
