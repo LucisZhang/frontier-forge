@@ -1,8 +1,8 @@
 {
-  "phase": 3,
-  "status": "reference_only",
-  "default_backend": "trl",
-  "unsloth_allowed_after_r1": false,
   "agreement_receipt": "results/phase3_backend_agreement.json",
-  "notes": "D4 keeps TRL as default until the full R1 paired agreement gate passes."
+  "default_backend": "trl",
+  "notes": "Paired CI excludes zero; TRL remains the default and the result is retained.",
+  "phase": 3,
+  "status": "agreement_failed",
+  "unsloth_allowed_after_r1": false
 }

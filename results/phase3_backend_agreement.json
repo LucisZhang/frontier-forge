@@ -1,10 +1,22 @@
 {
-  "status": "pending_human_gpu_runs",
-  "phase": 3,
-  "reference_backend": "trl",
-  "candidate_backend": "unsloth",
-  "rung": "r1",
   "agreement_rule": "paired task-success delta 95% bootstrap CI includes zero",
-  "default_backend_after_check": null,
-  "notes": "The remote R1 TRL and Unsloth runs have not been launched."
+  "bootstrap_resamples": 1000,
+  "bootstrap_seed": 20260816,
+  "candidate_backend": "unsloth",
+  "config_hash": "06e3f0c235f69960ed199eb636b2a448f15633eca74ba402a9a97de11a314405",
+  "config_path": "configs/r1_sft_rule.yaml",
+  "default_backend_after_check": "trl",
+  "git_sha": "87358e57b2c008ca66daa3cc8162d3c8b944560c",
+  "mean_task_success_delta_unsloth_minus_trl": -0.0385,
+  "notes": "Negative agreement is retained and keeps TRL as the default.",
+  "paired_delta_ci95": [
+    -0.0485,
+    -0.0275
+  ],
+  "paired_rows": 2000,
+  "phase": 3,
+  "recorded_at": "2026-08-16T16:47:47.074780+00:00",
+  "reference_backend": "trl",
+  "rung": "r1",
+  "status": "agreement_failed"
 }

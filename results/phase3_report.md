@@ -8,6 +8,7 @@ Mode: **FULL GPU**.
 |---|---:|---|---:|---|---:|---:|---:|---:|
 | R0 | 0 | trl | 0.0% | [0.0%, 0.0%] | 0.0% | 0.0% | 0.983 | $0.295 |
 | R1 | 0 | trl | 66.3% | [64.2%, 68.4%] | 100.0% | 94.0% | 3.479 | $1.044 |
+| R1 | 0 | unsloth | 62.5% | [60.4%, 64.8%] | 100.0% | 92.5% | 1.281 | $0.384 |
 | R1B | — | — | optional; pending | — | — | — | — | — |
 | R2 | — | — | pending | — | — | — | — | — |
 | R3 | — | — | pending | — | — | — | — | — |
@@ -27,7 +28,7 @@ Mode: **FULL GPU**.
 
 ## Backend agreement
 
-R1 TRL/Unsloth status: **pending_human_gpu_runs**. Default after check: `trl (reference)`.
+R1 TRL/Unsloth status: **agreement_failed**. Default after check: `trl`.
 
 ## Reward-hacking probes
 
@@ -37,8 +38,11 @@ R4 probes are pending the human-launched GRPO run and frozen evaluation.
 
 - R0 seed 0 failure counts (nonexclusive): invalid_tool_arguments=2000, schema_invalid=2000, wrong_ambiguity=13, wrong_tool=2000, wrong_urgency=967.
 - R1 seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=119, wrong_urgency=634.
+- R1 seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=149, wrong_urgency=715.
 - Failed GPU attempt failed_cb153427dfb8b8ae6340: R0 seed 0, 0.048 GPU-hours, $0.014, exit code 0.
 - Failed GPU attempt failed_4bf236eb91be22c65963: R0 seed 0, 0.004 GPU-hours, $0.001, exit code 1.
+- Failed GPU attempt failed_473a7d89258a9b30f52c: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
+- Failed GPU attempt failed_0875f0f4e54bb56f80ec: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
 
 ## Export
 
