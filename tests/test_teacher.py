@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 import duckdb
+import pytest
 
 from forge.data.labels import derive_label
 from forge.teacher.filters import (
@@ -12,7 +13,7 @@ from forge.teacher.filters import (
     minhash_deduplicate,
     perturb_near_miss,
 )
-from forge.teacher.freeze import DEFAULT_CONFIG_PATH, verify_frozen_source
+from forge.teacher.freeze import DEFAULT_CONFIG_PATH, PayloadMissing, verify_frozen_source
 from forge.teacher.generate import _call_with_retry, _mock_record
 from forge.verify.schema import is_schema_valid
 
@@ -59,7 +60,8 @@ def _write_test_parquet(path: Path, rows: list[tuple[int, str]]) -> None:
 
 
 def test_phase2_config_pins_the_declared_frozen_lineage() -> None:
-    frozen = verify_frozen_source(DEFAULT_CONFIG_PATH)
+    # Manifest-level checks (tracked in git) must always run and pass.
+    frozen = verify_frozen_source(DEFAULT_CONFIG_PATH, check_payloads=False)
 
     assert frozen["dataset_hash"] == (
         "2f2498c95ea224e48cfc7ee9c705ecef00563c616b0ec14512800706cd8f2573"
@@ -67,6 +69,15 @@ def test_phase2_config_pins_the_declared_frozen_lineage() -> None:
     assert frozen["label_rules_version"] == 3
     assert frozen["splits"]["train"]["rows"] == 300_000
     assert frozen["planned_max_api_usd"] == 19.2
+
+    # Payload-level checks (gitignored data files) only run where the data
+    # is present; skip when absent, but fail on a real hash mismatch.
+    try:
+        payload_frozen = verify_frozen_source(DEFAULT_CONFIG_PATH, check_payloads=True)
+    except PayloadMissing:
+        pytest.skip("data payloads not present in this environment")
+    else:
+        assert payload_frozen["splits"]["train"]["rows"] == 300_000
 
 
 def test_mock_teacher_record_retains_required_provenance() -> None:

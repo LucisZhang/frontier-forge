@@ -35,9 +35,25 @@ def load_teacher_config(path: Path = DEFAULT_CONFIG_PATH) -> dict[str, Any]:
     return raw
 
 
-def _require_hash(path: Path, expected: object, label: str) -> None:
+class PayloadMissing(FileNotFoundError):
+    """Raised when a data payload file required for hash verification is absent.
+
+    Manifest files are tracked in git and must always be present, but payload
+    files (e.g. parquet splits) are gitignored and may not exist in every
+    environment (such as CI). Callers that only need manifest-level
+    verification can catch this error or request ``check_payloads=False``.
+    """
+
+
+def _require_hash(
+    path: Path,
+    expected: object,
+    label: str,
+    *,
+    missing_error: type[FileNotFoundError] = FileNotFoundError,
+) -> None:
     if not path.is_file():
-        raise FileNotFoundError(f"{label} is missing: {path}")
+        raise missing_error(f"{label} is missing: {path}")
     actual = sha256_file(path)
     if actual != expected:
         raise ValueError(f"{label} SHA-256 mismatch: expected {expected}, got {actual}")
@@ -47,8 +63,16 @@ def verify_frozen_source(
     config_path: Path = DEFAULT_CONFIG_PATH,
     *,
     repo_root: Path = REPO_ROOT,
+    check_payloads: bool = True,
 ) -> dict[str, Any]:
-    """Verify every hash that Phase 2 is allowed to read from Phase 1.2."""
+    """Verify every hash that Phase 2 is allowed to read from Phase 1.2.
+
+    Manifest-level checks (dataset manifest, label rules, freeze declaration)
+    are always run, since those files are tracked in git. Payload-level
+    checks (the actual split parquet files) are only run when
+    ``check_payloads`` is True; if a payload file is absent, ``PayloadMissing``
+    is raised instead of ``FileNotFoundError``.
+    """
 
     config_path = Path(config_path)
     config = load_teacher_config(config_path)
@@ -89,7 +113,13 @@ def verify_frozen_source(
     split_config = {"train": source["train"], **source["test_splits"]}
     for name, item in split_config.items():
         path = resolve_path(item["path"], root=repo_root)
-        _require_hash(path, item["payload_sha256"], f"{name} payload")
+        if check_payloads:
+            _require_hash(
+                path,
+                item["payload_sha256"],
+                f"{name} payload",
+                missing_error=PayloadMissing,
+            )
         declared = manifest.get("splits", {}).get(name, {})
         checks = {
             "rows": item["rows"],
