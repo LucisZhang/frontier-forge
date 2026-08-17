@@ -60,14 +60,32 @@
   "mode": "full",
   "optional_ablation_pairs": [
     {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.306,
+        0.345
+      ],
       "from": "r1",
-      "status": "pending",
-      "to": "r1b"
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.327,
+      "paired_rows": 2000,
+      "status": "complete",
+      "to": "r1b",
+      "to_backend": "trl"
     },
     {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.448475,
+        0.4895
+      ],
       "from": "r2",
-      "status": "pending",
-      "to": "r1b"
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.469,
+      "paired_rows": 2000,
+      "status": "complete",
+      "to": "r1b",
+      "to_backend": "trl"
     }
   ],
   "phase": 3
