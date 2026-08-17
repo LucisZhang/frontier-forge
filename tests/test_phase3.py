@@ -19,7 +19,7 @@ from forge.train.config import (
 )
 from forge.train.data import compact_model_input
 from forge.train.evaluate import bootstrap_ci
-from forge.train.export import _save_processor_assets
+from forge.train.export import _require_complete_merged_export, _save_processor_assets
 from forge.train.grpo import RewardAudit
 from forge.train.ledger import billable_records
 from forge.train.preflight import actual_gpu_hours, check_config, require_r1_reference_receipt
@@ -246,6 +246,21 @@ def test_full_export_preserves_pinned_processor_assets(
         "output_dir": tmp_path,
     }
     assert (tmp_path / "processor_config.json").is_file()
+
+
+def test_full_export_only_reuses_complete_merged_weights(tmp_path: Path) -> None:
+    for name in ("config.json", "tokenizer.json", "tokenizer_config.json"):
+        (tmp_path / name).write_text("{}")
+    (tmp_path / "model-00001-of-00001.safetensors").write_bytes(b"weights")
+    (tmp_path / "model.safetensors.index.json").write_text(
+        json.dumps({"weight_map": {"model.weight": "model-00001-of-00001.safetensors"}})
+    )
+
+    _require_complete_merged_export(tmp_path)
+
+    (tmp_path / "model-00001-of-00001.safetensors").unlink()
+    with pytest.raises(RuntimeError, match="missing weight shards"):
+        _require_complete_merged_export(tmp_path)
 
 
 def test_bootstrap_ci_is_fixed_seed_and_bounded() -> None:

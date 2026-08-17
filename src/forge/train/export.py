@@ -6,6 +6,7 @@ import argparse
 import importlib.metadata
 import json
 from datetime import UTC, datetime
+from pathlib import Path
 from typing import Any
 
 from forge.train.artifacts import sha256_tree, write_json_atomic
@@ -139,6 +140,22 @@ def _save_processor_assets(config: dict[str, Any], output_dir: Any) -> None:
     processor.save_pretrained(output_dir)
 
 
+def _require_complete_merged_export(output_dir: Path) -> None:
+    required = {
+        output_dir / "config.json",
+        output_dir / "model.safetensors.index.json",
+        output_dir / "tokenizer.json",
+        output_dir / "tokenizer_config.json",
+    }
+    missing = sorted(str(path.name) for path in required if not path.is_file())
+    if missing:
+        raise RuntimeError(f"partial merged BF16 export is missing: {', '.join(missing)}")
+    index = json.loads((output_dir / "model.safetensors.index.json").read_text())
+    shards = {str(value) for value in index.get("weight_map", {}).values()}
+    if not shards or any(not (output_dir / shard).is_file() for shard in shards):
+        raise RuntimeError("partial merged BF16 export has missing weight shards")
+
+
 def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str, Any]:
     import gc
 
@@ -160,16 +177,20 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
     fp_dir = root / "merged_bf16"
     int4_dir = root / "gptq_int4"
     tokenizer = load_tokenizer(config, smoke=False)
-    base = load_base_model(config, smoke=False, for_training=False, quantized_training=False)
-    merged = PeftModel.from_pretrained(base, source, is_trainable=False).merge_and_unload()
-    fp_dir.mkdir(parents=True, exist_ok=False)
-    merged.save_pretrained(fp_dir, safe_serialization=True, max_shard_size="4GB")
+    if fp_dir.is_dir():
+        _require_complete_merged_export(fp_dir)
+        print(f"reusing complete merged BF16 export: {relative_path(fp_dir)}")
+    else:
+        base = load_base_model(config, smoke=False, for_training=False, quantized_training=False)
+        merged = PeftModel.from_pretrained(base, source, is_trainable=False).merge_and_unload()
+        fp_dir.mkdir(parents=True, exist_ok=False)
+        merged.save_pretrained(fp_dir, safe_serialization=True, max_shard_size="4GB")
+        del merged, base
+        gc.collect()
+        torch.cuda.empty_cache()
     tokenizer.save_pretrained(fp_dir)
     _save_processor_assets(config, fp_dir)
     fp_hash = sha256_tree(fp_dir)
-    del merged, base
-    gc.collect()
-    torch.cuda.empty_cache()
     quant_config = GPTQConfig(
         bits=4,
         group_size=int(config["export"]["group_size"]),
