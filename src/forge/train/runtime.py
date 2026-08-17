@@ -73,11 +73,15 @@ def _dtype(name: str) -> Any:
     return {"bfloat16": torch.bfloat16, "float16": torch.float16, "float32": torch.float32}[name]
 
 
-def load_tokenizer(config: Mapping[str, Any], *, smoke: bool) -> Any:
+def load_tokenizer(
+    config: Mapping[str, Any], *, smoke: bool, local_files_only: bool = False
+) -> Any:
     from transformers import AutoTokenizer
 
     spec = model_spec(config, smoke=smoke)
-    tokenizer = AutoTokenizer.from_pretrained(spec["id"], revision=spec["revision"])
+    tokenizer = AutoTokenizer.from_pretrained(
+        spec["id"], revision=spec["revision"], local_files_only=local_files_only
+    )
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"

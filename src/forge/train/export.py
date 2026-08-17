@@ -136,12 +136,9 @@ def _save_processor_assets(config: dict[str, Any], output_dir: Any) -> None:
     from transformers import AutoProcessor
 
     spec = model_spec(config, smoke=False)
-    try:
-        processor = AutoProcessor.from_pretrained(
-            spec["id"], revision=spec["revision"], local_files_only=True
-        )
-    except OSError:
-        processor = AutoProcessor.from_pretrained(spec["id"], revision=spec["revision"])
+    processor = AutoProcessor.from_pretrained(
+        spec["id"], revision=spec["revision"], local_files_only=True
+    )
     processor.save_pretrained(output_dir)
 
 
@@ -181,7 +178,7 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
         raise RuntimeError("existing full export belongs to another config")
     fp_dir = root / "merged_bf16"
     int4_dir = root / "gptq_int4"
-    tokenizer = load_tokenizer(config, smoke=False)
+    tokenizer = load_tokenizer(config, smoke=False, local_files_only=True)
     if fp_dir.is_dir():
         _require_complete_merged_export(fp_dir)
         print(f"reusing complete merged BF16 export: {relative_path(fp_dir)}")
