@@ -12,14 +12,14 @@ Mode: **FULL GPU**.
 | R1B | — | — | optional; pending | — | — | — | — | — |
 | R2 | 0 | trl | 52.1% | [50.0%, 54.4%] | 100.0% | 84.3% | 3.606 | $1.082 |
 | R3 | 0 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.925 | $0.578 |
-| R4 | — | — | pending | — | — | — | — | — |
+| R4 | 0 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 2.108 | $0.632 |
 
 ## Adjacent paired deltas
 
 - R0 → R1: 66.3% paired delta, 95% CI [64.4%, 68.3%], n=2000.
 - R1 → R2: -14.2% paired delta, 95% CI [-15.7%, -12.6%], n=2000.
 - R2 → R3: 3.8% paired delta, 95% CI [2.6%, 5.1%], n=2000.
-- R3 → R4: pending.
+- R3 → R4: 0.0% paired delta, 95% CI [0.0%, 0.0%], n=2000.
 
 ## Optional R1b ablation deltas
 
@@ -32,7 +32,9 @@ R1 TRL/Unsloth status: **agreement_failed**. Default after check: `trl`.
 
 ## Reward-hacking probes
 
-R4 probes are pending the human-launched GRPO run and frozen evaluation.
+- Length inflation reward increases: 0 rows.
+- Markdown-format exploit reward increases: 0 rows.
+- Model abstention rate: 0.1%; always-abstain task success: 0.4%.
 
 ## Failure and negative-result register
 
@@ -42,6 +44,7 @@ R4 probes are pending the human-launched GRPO run and frozen evaluation.
 - R1 seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=149, wrong_urgency=715.
 - R2 seed 0 failure counts (nonexclusive): schema_invalid=1, secondary_field_mismatch_only=79, wrong_ambiguity=8, wrong_tool=314, wrong_urgency=897.
 - R3 seed 0 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
+- R4 seed 0 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
 - Failed GPU attempt failed_cb153427dfb8b8ae6340: R0 seed 0, 0.048 GPU-hours, $0.014, exit code 0.
 - Failed GPU attempt failed_4bf236eb91be22c65963: R0 seed 0, 0.004 GPU-hours, $0.001, exit code 1.
 - Failed GPU attempt failed_473a7d89258a9b30f52c: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
@@ -50,7 +53,7 @@ R4 probes are pending the human-launched GRPO run and frozen evaluation.
 
 ## Export
 
-Merged BF16 and deployment GPTQ-int4 hashes are pending a human-launched R4 export.
+- trl seed 0: merged BF16 `1304ebf174da98f3b761f482bd2d88b58d66e30bc9cef66abb6104ab70ef6bbc`; GPTQ int4 `3d3bed316134e3d583b7be16a8a89d4de2bf2f40c34365623d0e1c2edec10958`.
 
 ## Draft headline
 
