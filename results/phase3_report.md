@@ -14,6 +14,7 @@ Mode: **FULL GPU**.
 | R3 | 0 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.925 | $0.578 |
 | R4 | 0 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 2.108 | $0.632 |
 | R4 | 1 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.529 | $0.459 |
+| R4 | 2 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.526 | $0.458 |
 
 ## Adjacent paired deltas
 
@@ -47,11 +48,14 @@ R1 TRL/Unsloth status: **agreement_failed**. Default after check: `trl`.
 - R3 seed 0 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
 - R4 seed 0 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
 - R4 seed 1 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
+- R4 seed 2 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
 - Failed GPU attempt failed_cb153427dfb8b8ae6340: R0 seed 0, 0.048 GPU-hours, $0.014, exit code 0.
 - Failed GPU attempt failed_4bf236eb91be22c65963: R0 seed 0, 0.004 GPU-hours, $0.001, exit code 1.
 - Failed GPU attempt failed_473a7d89258a9b30f52c: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
 - Failed GPU attempt failed_0875f0f4e54bb56f80ec: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
 - Failed GPU attempt failed_490447c0d78bbbdf9ebe: R3 seed 0, 0.010 GPU-hours, $0.003, exit code 1.
+- Failed GPU attempt failed_089154b82e9781dc29f9: R4 seed 2, 0.035 GPU-hours, $0.010, exit code 130.
+- Failed GPU attempt failed_5a9dc15687f7738379c3: R4 seed 2, 0.018 GPU-hours, $0.005, exit code 130.
 
 ## Export
 
@@ -59,7 +63,7 @@ R1 TRL/Unsloth status: **agreement_failed**. Default after check: `trl`.
 
 ## Draft headline
 
-Withheld until the full ladder, three R4 seeds, CIs, and costs are recorded.
+Draft: verifier-reward GRPO reached 56.0% mean task success across three seeds (range 56.0%–56.0%) using 5.164 measured RTX4090 GPU-hours ($1.549) for the R4 runs.
 
 ## Reproduction
 

@@ -1,0 +1,33 @@
+[
+  {
+    "backend": "trl",
+    "budget": {
+      "actual_gpu_hours": 15.02888888888889,
+      "ceiling_gpu_hours": 90.0,
+      "planning_rate_usd_per_gpu_hour": 0.5,
+      "projected_next_gpu_hours": 15.0,
+      "projected_next_planning_usd": 7.5,
+      "projected_total_gpu_hours": 30.02888888888889
+    },
+    "config_hash": "aea445589c0ed9339f3888a429d2cf4040b2d3f6c7858f6329ec577c2768745d",
+    "context_audit_status": "complete",
+    "launch_code_tree_clean": true,
+    "launch_hardware": {
+      "cuda_version": "13.0",
+      "name": "NVIDIA GeForce RTX 4090",
+      "total_memory_bytes": 25250627584,
+      "visible_device_count": 1
+    },
+    "mode": "full",
+    "parent_adapter": "checkpoints/full/r3/trl/s0/adapter",
+    "phase2_dataset_hash": "28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4",
+    "prompt_sha256": "bf1d31236ece8abee77587b8652f42ef4afb5b65a54309d35e56646e420515c3",
+    "rung": "r4",
+    "seed": 2,
+    "stage": "grpo",
+    "training_data_path": "data/phase2/sft_rule.jsonl",
+    "training_data_sha256": "0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e"
+  }
+]
+W0817 10:27:51.172000 53701 .venv/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0817 10:27:51.201000 53701 .venv/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
