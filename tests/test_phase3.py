@@ -230,9 +230,12 @@ def test_full_export_preserves_pinned_processor_assets(
 
     class AutoProcessor:
         @classmethod
-        def from_pretrained(cls, model_id: str, *, revision: str) -> Processor:
+        def from_pretrained(
+            cls, model_id: str, *, revision: str, local_files_only: bool
+        ) -> Processor:
             calls["model_id"] = model_id
             calls["revision"] = revision
+            calls["local_files_only"] = local_files_only
             return Processor()
 
     monkeypatch.setattr("transformers.AutoProcessor", AutoProcessor)
@@ -243,6 +246,7 @@ def test_full_export_preserves_pinned_processor_assets(
     assert calls == {
         "model_id": FULL_MODEL_ID,
         "revision": FULL_MODEL_REVISION,
+        "local_files_only": True,
         "output_dir": tmp_path,
     }
     assert (tmp_path / "processor_config.json").is_file()

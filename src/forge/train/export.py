@@ -136,7 +136,12 @@ def _save_processor_assets(config: dict[str, Any], output_dir: Any) -> None:
     from transformers import AutoProcessor
 
     spec = model_spec(config, smoke=False)
-    processor = AutoProcessor.from_pretrained(spec["id"], revision=spec["revision"])
+    try:
+        processor = AutoProcessor.from_pretrained(
+            spec["id"], revision=spec["revision"], local_files_only=True
+        )
+    except OSError:
+        processor = AutoProcessor.from_pretrained(spec["id"], revision=spec["revision"])
     processor.save_pretrained(output_dir)
 
 
