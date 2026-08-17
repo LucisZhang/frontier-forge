@@ -130,6 +130,15 @@ def _calibration_texts(config: dict[str, Any], tokenizer: Any) -> list[str]:
     return texts
 
 
+def _save_processor_assets(config: dict[str, Any], output_dir: Any) -> None:
+    """Preserve Qwen 3.5 processor metadata required by GPTQModel reloads."""
+    from transformers import AutoProcessor
+
+    spec = model_spec(config, smoke=False)
+    processor = AutoProcessor.from_pretrained(spec["id"], revision=spec["revision"])
+    processor.save_pretrained(output_dir)
+
+
 def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str, Any]:
     import gc
 
@@ -156,6 +165,7 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
     fp_dir.mkdir(parents=True, exist_ok=False)
     merged.save_pretrained(fp_dir, safe_serialization=True, max_shard_size="4GB")
     tokenizer.save_pretrained(fp_dir)
+    _save_processor_assets(config, fp_dir)
     fp_hash = sha256_tree(fp_dir)
     del merged, base
     gc.collect()

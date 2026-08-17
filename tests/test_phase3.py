@@ -19,6 +19,7 @@ from forge.train.config import (
 )
 from forge.train.data import compact_model_input
 from forge.train.evaluate import bootstrap_ci
+from forge.train.export import _save_processor_assets
 from forge.train.grpo import RewardAudit
 from forge.train.ledger import billable_records
 from forge.train.preflight import actual_gpu_hours, check_config, require_r1_reference_receipt
@@ -215,6 +216,36 @@ def test_grpo_reward_is_exact_scorer_v2_reward() -> None:
     assert rewards == [1.0]
     assert audit.summary()["scorer_version"] == 2
     assert audit.summary()["completions_scored"] == 1
+
+
+def test_full_export_preserves_pinned_processor_assets(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    calls: dict[str, object] = {}
+
+    class Processor:
+        def save_pretrained(self, output_dir: Path) -> None:
+            calls["output_dir"] = output_dir
+            (output_dir / "processor_config.json").write_text("{}")
+
+    class AutoProcessor:
+        @classmethod
+        def from_pretrained(cls, model_id: str, *, revision: str) -> Processor:
+            calls["model_id"] = model_id
+            calls["revision"] = revision
+            return Processor()
+
+    monkeypatch.setattr("transformers.AutoProcessor", AutoProcessor)
+    config = load_config("configs/r4_grpo.yaml")
+
+    _save_processor_assets(config, tmp_path)
+
+    assert calls == {
+        "model_id": FULL_MODEL_ID,
+        "revision": FULL_MODEL_REVISION,
+        "output_dir": tmp_path,
+    }
+    assert (tmp_path / "processor_config.json").is_file()
 
 
 def test_bootstrap_ci_is_fixed_seed_and_bounded() -> None:
