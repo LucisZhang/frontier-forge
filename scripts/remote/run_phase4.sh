@@ -102,7 +102,7 @@ for config in "${configs[@]}"; do
     continue
   fi
   wait_for_gpu_idle
-  server_log="results/phase4/logs/${run_id}.server.log"
+  server_log="results/phase4/logs/${run_id}-${FORGE_STARTED_AT//:/}.server.log"
   mapfile -d '' command < <("${python_bin}" -m forge.bench.server_args \
     --config "${config}" --executable "${vllm_bin}" --null)
   echo "starting ${run_id}; command arguments are pinned by ${config}"

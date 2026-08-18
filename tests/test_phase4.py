@@ -224,6 +224,7 @@ def test_phase4_remote_scripts_are_safe_for_the_shared_pod() -> None:
     assert "waiting without launching" in worker
     assert "sleep 60" in worker
     assert 'kill -TERM -- "-${server_pid}"' in worker
+    assert 'server_log="results/phase4/logs/${run_id}-${FORGE_STARTED_AT//:/}.server.log"' in worker
     assert "FORGE_GPU_HOURLY_USD" in combined
     assert "0.30" in combined
     for cache_variable in (
