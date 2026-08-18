@@ -8,6 +8,14 @@ fi
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "${repo_root}"
+uv_bin="${UV_BIN:-$(command -v uv || true)}"
+if [[ -z "${uv_bin}" && -x /root/.local/bin/uv ]]; then
+  uv_bin=/root/.local/bin/uv
+fi
+if [[ ! -x "${uv_bin}" ]]; then
+  echo "an existing uv executable is required; Phase 4 will not install outside the repo" >&2
+  exit 2
+fi
 mkdir -p .uv-cache-phase4 .tmp-phase4 .cache/huggingface
 export UV_CACHE_DIR="${repo_root}/.uv-cache-phase4"
 export TMPDIR="${repo_root}/.tmp-phase4"
@@ -15,11 +23,11 @@ export HF_HOME="${repo_root}/.cache/huggingface"
 export HUGGINGFACE_HUB_CACHE="${HF_HOME}/hub"
 
 if [[ ! -x .venv-phase4/bin/python ]]; then
-  uv venv .venv-phase4 --python 3.12 --seed
+  "${uv_bin}" venv .venv-phase4 --python 3.12 --seed
 fi
 
 VIRTUAL_ENV="${repo_root}/.venv-phase4" \
-  uv sync --active --locked --no-default-groups --group remote-serve
+  "${uv_bin}" sync --active --locked --no-default-groups --group remote-serve
 
 .venv-phase4/bin/python - <<'PY'
 from huggingface_hub import snapshot_download

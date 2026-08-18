@@ -224,7 +224,8 @@ def test_phase4_remote_scripts_are_safe_for_the_shared_pod() -> None:
     assert 'kill -TERM -- "-${server_pid}"' in worker
     assert "FORGE_GPU_HOURLY_USD" in combined
     assert "0.30" in combined
-    assert "uv sync --active --locked --no-default-groups --group remote-serve" in bootstrap
+    sync_command = '"${uv_bin}" sync --active --locked --no-default-groups --group remote-serve'
+    assert sync_command in bootstrap
     assert "shutdown" not in combined.lower()
     assert "reboot" not in combined.lower()
 
