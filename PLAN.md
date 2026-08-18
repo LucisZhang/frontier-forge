@@ -318,6 +318,17 @@ be marked superseded/inconclusive — never reported as "GRPO produced no signal
    R4) with the R1b-centric cost-quality story; fix the duplicated "R1 seed 0"
    failure-register label (second entry is the Unsloth run); add the GRPO incident
    writeup (mechanism, detection, fix) to the negative-result register.
+6. Add an "Interpretation guards" section to phase3_report.md covering the R2
+   distillation loss: both corpora share identical decision-field labels on the
+   same 1,450 rows (rejection sampling), so the 14.2pp gap comes from the teacher's
+   semantic phrasing transferring a policy prior that diverges from the keyword
+   rules on new inputs (teacher pre-filter urgency agreement was 36.8%). State the
+   boundary condition explicitly: this project shows distillation adds no value
+   WHEN perfect rule-generated labels are free and unlimited; it does NOT
+   generalize to the common industry setting where gold labels are scarce and no
+   labeling rules exist — there, teacher quality is decisive. A stronger teacher
+   (e.g. Sonnet-class) would judge MORE semantically, diverging further from the
+   keyword policy, so upgrading the teacher is not expected to close this gap.
 
 **Gate**
 - [ ] rollout-sample archive shows clean JSON completions  - [ ] guards in place
