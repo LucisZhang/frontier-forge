@@ -51,6 +51,17 @@ def _load_receipts(*, smoke: bool) -> tuple[list[dict[str, Any]], list[dict[str,
         requests = REPO_ROOT / receipt["request_artifact"]["path"]
         if sha256_file(requests) != receipt["request_artifact"]["sha256"]:
             raise RuntimeError(f"request artifact hash mismatch: {requests}")
+        evidence = receipt.get("speculative_method_evidence")
+        if not smoke and receipt["model"].get("speculative_enabled"):
+            if not isinstance(evidence, dict):
+                raise RuntimeError(f"speculative method evidence is missing: {path}")
+            evidence_path = REPO_ROOT / evidence["path"]
+            if sha256_file(evidence_path) != evidence["sha256"]:
+                raise RuntimeError(f"speculative method evidence hash mismatch: {evidence_path}")
+            for failure in evidence["prior_failures"]:
+                failure_path = REPO_ROOT / failure["path"]
+                if sha256_file(failure_path) != failure["sha256"]:
+                    raise RuntimeError(f"prior failure evidence hash mismatch: {failure_path}")
         receipts.append(receipt)
     if missing:
         raise RuntimeError(f"Phase 4 raw artifacts are incomplete: {', '.join(missing)}")
@@ -226,6 +237,13 @@ def _spec_svg(rows: list[dict[str, Any]]) -> str:
 
 def _spec_section(receipts: list[dict[str, Any]], *, figure_path: Path) -> list[str]:
     rows = _spec_rows(receipts)
+    enabled = next(
+        item
+        for item in receipts
+        if item["experiment"] == "spec_decode" and item["model"].get("speculative_enabled")
+    )
+    speculative = enabled.get("speculative") or {}
+    evidence = enabled.get("speculative_method_evidence") or {}
     write_text_atomic(figure_path, _spec_svg(rows))
     wins = [row["qps"] for row in rows if row["verdict"] == "win"]
     boundary = f"highest tested winning QPS = {max(wins):g}" if wins else "no win in tested range"
@@ -235,6 +253,25 @@ def _spec_section(receipts: list[dict[str, Any]], *, figure_path: Path) -> list[
         "A point is a win only when speculative decoding has no worse client p95 E2E "
         "and no lower verifier-successful request throughput than the matched baseline. "
         f"Boundary: **{boundary}**.",
+        "",
+        "Method run: **{method}** (`{model}`, {tokens} draft tokens). D1.2 selected the "
+        "external-draft fallback because `{reason}`; the archived export audit reports "
+        "native MTP usable = `{usable}`. The vLLM compatibility hook is pinned to "
+        "version `{version}` and source SHA-256 `{source_hash}`.".format(
+            method=speculative.get("method", "unrecorded"),
+            model=speculative.get("draft_model", "model-native MTP"),
+            tokens=speculative.get("num_speculative_tokens", "n/a"),
+            reason=evidence.get("reason", "smoke_config_only"),
+            usable=evidence.get("native_mtp_usable", "not evaluated in smoke"),
+            version=(evidence.get("vllm_contract") or {}).get("version", "0.17.0"),
+            source_hash=(evidence.get("vllm_contract") or {}).get(
+                "speculative_source_sha256", "smoke-only"
+            ),
+        ),
+        "",
+        "Prior failed attempts remain archived: "
+        + ", ".join(f"`{item['path']}`" for item in evidence.get("prior_failures", []))
+        + ("." if evidence.get("prior_failures") else "not loaded in SMOKE."),
         "",
         f"![Speculative decoding boundary]({figure_path.name})",
         "",
@@ -430,6 +467,11 @@ def build_report(*, smoke: bool) -> dict[str, Any]:
             for receipt in receipts
         },
         "config_hashes": {config["run_id"]: config["_config_hash"] for config in configs},
+        "supplemental_evidence": {
+            receipt["run_id"]: receipt["speculative_method_evidence"]
+            for receipt in receipts
+            if receipt.get("speculative_method_evidence") is not None
+        },
         "generator_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
     }
     write_json_atomic(manifest_path, manifest)

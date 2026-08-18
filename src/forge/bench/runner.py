@@ -27,6 +27,7 @@ from .config import (
     workload_contract_hash,
 )
 from .loadgen import VERIFIER_INPUT_NORMALIZATION, run_load_benchmark
+from .mtp_audit import require_fallback_audit
 from .preflight import (
     VERIFICATION_PATH,
     benchmark_git_sha,
@@ -82,6 +83,8 @@ def _full_run_record(receipt: dict[str, Any]) -> dict[str, Any]:
         "git_sha": receipt["git_sha"],
         "dataset_hash": receipt["workload"]["sha256"],
         "model": receipt["model"],
+        "speculative": receipt.get("speculative"),
+        "speculative_method_evidence": receipt.get("speculative_method_evidence"),
         "metrics": summary,
         "cost": receipt["cost"],
         "started_at": receipt["started_at"],
@@ -180,6 +183,10 @@ def run(config_path: str | Path, *, base_url: str, smoke: bool) -> dict[str, Any
     hourly_usd = _require_hourly_rate(config, smoke=smoke)
     workload_receipt = build_workload(config_path, smoke=smoke)
     artifact_verification = None if smoke else require_verified_artifact(config)
+    speculative = config.get("speculative")
+    speculative_method_evidence = None
+    if not smoke and isinstance(speculative, Mapping) and speculative.get("enabled"):
+        speculative_method_evidence = require_fallback_audit(config)
     started_at = datetime.now(UTC)
     start_clock = time.perf_counter()
     identity = asyncio.run(_server_identity(base_url))
@@ -211,6 +218,8 @@ def run(config_path: str | Path, *, base_url: str, smoke: bool) -> dict[str, Any
         "config_hash": config["_config_hash"],
         "git_sha": benchmark_git_sha(),
         "model": config["model"],
+        "speculative": speculative,
+        "speculative_method_evidence": speculative_method_evidence,
         "server": {
             "base_url": base_url,
             "identity": identity,

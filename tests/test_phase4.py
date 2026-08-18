@@ -60,6 +60,13 @@ def test_phase4_configs_cover_the_locked_matrix() -> None:
         workload_contract_hash(configs[0])
     }
     assert {config["hardware"]["hourly_usd"] for config in configs} == {0.30}
+    spec = next(
+        config
+        for config in configs
+        if config["experiment"] == "spec_decode" and config["speculative"]["enabled"]
+    )
+    assert spec["speculative"]["method"] == "draft_model"
+    assert spec["speculative"]["method_selection"]["selected"] == "external_draft_fallback"
     corrected = next(config for config in configs if config["run_id"].endswith("_v2"))
     assert corrected["supersedes"]["run_id"] == "phase4_serve_r1b_bf16"
     assert corrected["supersedes"]["raw_artifact"].endswith("phase4_serve_r1b_bf16.json")
@@ -289,6 +296,7 @@ def test_phase4_remote_scripts_are_safe_for_the_shared_pod() -> None:
     launcher = (ROOT / "scripts/remote/launch_phase4.sh").read_text()
     worker = (ROOT / "scripts/remote/run_phase4.sh").read_text()
     bootstrap = (ROOT / "scripts/remote/bootstrap_phase4.sh").read_text()
+    compatibility = (ROOT / "scripts/remote/vllm_compat/sitecustomize.py").read_text()
     combined = launcher + worker
 
     assert "nvidia-smi pmon -c 1" in launcher
@@ -296,6 +304,12 @@ def test_phase4_remote_scripts_are_safe_for_the_shared_pod() -> None:
     assert 'session="forge-phase4"' in launcher
     assert "waiting without launching" in worker
     assert "--validate-existing" in worker
+    assert "forge.bench.mtp_audit" in worker
+    assert "verify_vllm_qwen35_compat.py" in worker
+    assert "FORGE_VLLM_QWEN35_EXTERNAL_DRAFT_COMPAT=1" in worker
+    assert 'EXPECTED_VERSION = "0.17.0"' in compatibility
+    assert "EXPECTED_SPECULATIVE_SOURCE_SHA256" in compatibility
+    assert "external draft_model" in compatibility
     assert "sleep 60" in worker
     assert 'kill -TERM -- "-${server_pid}"' in worker
     assert 'server_log="results/phase4/logs/${run_id}-${FORGE_STARTED_AT//:/}.server.log"' in worker

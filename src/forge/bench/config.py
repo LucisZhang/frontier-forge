@@ -134,12 +134,47 @@ def validate_phase4_config(config: Mapping[str, Any], *, path: Path | None = Non
         if type(enabled) is not bool:
             raise ValueError(f"{label}: speculative.enabled must be boolean")
         if enabled:
-            if speculative.get("draft_model") != "Qwen/Qwen3.5-0.8B-Base":
-                raise ValueError(f"{label}: D1.1 pins the 0.8B Qwen3.5-family draft")
+            method = speculative.get("method")
+            if method not in {"mtp", "draft_model"}:
+                raise ValueError(f"{label}: speculative.method must be mtp or draft_model")
             _require_positive_int(
                 speculative.get("num_speculative_tokens"),
                 f"{label}: speculative.num_speculative_tokens",
             )
+            if method == "mtp":
+                if speculative.get("draft_model") is not None:
+                    raise ValueError(f"{label}: native MTP must not declare an external draft")
+            else:
+                if speculative.get("draft_model") != "Qwen/Qwen3.5-0.8B-Base":
+                    raise ValueError(f"{label}: D1.1 pins the 0.8B Qwen3.5-family draft")
+                revision = speculative.get("draft_revision")
+                if not isinstance(revision, str) or len(revision) != 40:
+                    raise ValueError(f"{label}: external draft revision must be a full Git SHA")
+                selection = speculative.get("method_selection")
+                if not isinstance(selection, Mapping):
+                    raise ValueError(f"{label}: D1.2 fallback requires method-selection evidence")
+                if selection.get("selected") != "external_draft_fallback":
+                    raise ValueError(f"{label}: D1.2 fallback selection is not recorded")
+                for key in (
+                    "reason",
+                    "native_mtp_audit",
+                    "compatibility_patch",
+                    "compatibility_vllm_version",
+                    "compatibility_source_sha256",
+                ):
+                    if not isinstance(selection.get(key), str) or not selection[key]:
+                        raise ValueError(f"{label}: method_selection.{key} must be nonempty")
+                if selection["compatibility_vllm_version"] != server.get("vllm_version"):
+                    raise ValueError(f"{label}: compatibility patch must pin the serving vLLM")
+                if len(selection["compatibility_source_sha256"]) != 64:
+                    raise ValueError(f"{label}: compatibility source hash must be a SHA-256")
+                failures = selection.get("prior_failure_receipts")
+                if (
+                    not isinstance(failures, list)
+                    or len(failures) < 2
+                    or any(not isinstance(item, str) or not item for item in failures)
+                ):
+                    raise ValueError(f"{label}: D1.2 requires the prior failures to stay recorded")
     if experiment == "structured":
         structured = config.get("structured")
         if not isinstance(structured, Mapping):

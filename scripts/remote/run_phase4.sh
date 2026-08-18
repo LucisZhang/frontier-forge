@@ -81,6 +81,23 @@ PY
   return 1
 }
 
+spec_config="configs/phase4/spec_r1b_bf16_qwen08b.yaml"
+compat_root="$(pwd)/scripts/remote/vllm_compat"
+compat_pythonpath="${compat_root}${PYTHONPATH:+:${PYTHONPATH}}"
+"${python_bin}" -m forge.bench.mtp_audit \
+  --config "${spec_config}" \
+  --output results/phase4/r1b_native_mtp_audit.json \
+  --vllm-speculative-source \
+    .venv-phase4/lib/python3.12/site-packages/vllm/config/speculative.py \
+  --vllm-mtp-loader-source \
+    .venv-phase4/lib/python3.12/site-packages/vllm/model_executor/models/qwen3_5_mtp.py
+env \
+  FORGE_VLLM_QWEN35_EXTERNAL_DRAFT_COMPAT=1 \
+  "PYTHONPATH=${compat_pythonpath}" \
+  "${python_bin}" scripts/remote/verify_vllm_qwen35_compat.py \
+    --model Qwen/Qwen3.5-0.8B-Base \
+    --revision dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68
+
 "${python_bin}" -m forge.bench.preflight --verify-artifacts
 
 configs=(
@@ -89,7 +106,7 @@ configs=(
   configs/phase4/serve_r3eq_bf16.yaml
   configs/phase4/serve_r3eq_gptq_int4.yaml
   configs/phase4/spec_r1b_bf16_baseline.yaml
-  configs/phase4/spec_r1b_bf16_qwen08b.yaml
+  "${spec_config}"
   configs/phase4/structured_r1b_bf16_xgrammar.yaml
   configs/phase4/structured_r1b_bf16_outlines.yaml
 )
@@ -106,7 +123,15 @@ for config in "${configs[@]}"; do
   mapfile -d '' command < <("${python_bin}" -m forge.bench.server_args \
     --config "${config}" --executable "${vllm_bin}" --null)
   echo "starting ${run_id}; command arguments are pinned by ${config}"
-  setsid "${command[@]}" >"${server_log}" 2>&1 &
+  speculative_method="$("${python_bin}" -c 'import sys; from forge.bench.config import load_phase4_config; print(load_phase4_config(sys.argv[1]).get("speculative", {}).get("method", ""))' "${config}")"
+  if [[ "${speculative_method}" == "draft_model" ]]; then
+    setsid env \
+      FORGE_VLLM_QWEN35_EXTERNAL_DRAFT_COMPAT=1 \
+      "PYTHONPATH=${compat_pythonpath}" \
+      "${command[@]}" >"${server_log}" 2>&1 &
+  else
+    setsid "${command[@]}" >"${server_log}" 2>&1 &
+  fi
   server_pid=$!
   wait_for_server "${server_log}"
   case "${run_id}" in

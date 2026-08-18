@@ -54,18 +54,21 @@ def server_command(config_path: str | Path, *, executable: str) -> list[str]:
         command.extend(["--quantization", "gptq"])
     speculative = config.get("speculative", {})
     if speculative.get("enabled"):
+        speculative_config = {
+            "method": speculative["method"],
+            "num_speculative_tokens": speculative["num_speculative_tokens"],
+        }
+        if speculative["method"] == "draft_model":
+            speculative_config.update(
+                {
+                    "model": speculative["draft_model"],
+                    "revision": speculative["draft_revision"],
+                }
+            )
         command.extend(
             [
                 "--speculative-config",
-                json.dumps(
-                    {
-                        "method": "draft_model",
-                        "model": speculative["draft_model"],
-                        "revision": speculative["draft_revision"],
-                        "num_speculative_tokens": speculative["num_speculative_tokens"],
-                    },
-                    separators=(",", ":"),
-                ),
+                json.dumps(speculative_config, separators=(",", ":")),
             ]
         )
     return command
