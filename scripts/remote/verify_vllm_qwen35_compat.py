@@ -7,8 +7,8 @@ import importlib.metadata
 import json
 import os
 
-from transformers import AutoConfig
 from vllm.config.speculative import SpeculativeConfig
+from vllm.transformers_utils.configs.qwen3_5 import Qwen3_5Config
 
 
 def main() -> None:
@@ -18,7 +18,7 @@ def main() -> None:
     args = parser.parse_args()
     if os.environ.get("FORGE_VLLM_QWEN35_EXTERNAL_DRAFT_COMPAT_ACTIVE") != "1":
         raise RuntimeError("sitecustomize compatibility hook is not active")
-    draft_config = AutoConfig.from_pretrained(
+    draft_config = Qwen3_5Config.from_pretrained(
         args.model,
         revision=args.revision,
         local_files_only=True,
