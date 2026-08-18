@@ -17,6 +17,20 @@ before serving (failure receipt: results/phase4/phase4_spec_decode_r1b_bf16_qwen
 Draft model is amended to `Qwen/Qwen3.5-0.8B-Base`, the smallest vocab-compatible
 same-family base. No other decision changes; the failed attempt stays on record.
 
+### D1.2 Amendment (2026-08-18, human-approved method priority for spec-decode)
+vLLM unconditionally selects `method='mtp'` for Qwen3.5 targets because the family
+ships native MTP speculative structures; loading an external 0.8B draft into that
+path fails (receipt: results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json).
+The experiment goal (D8: a win/lose boundary across QPS) is method-agnostic, so:
+1. PREFERRED: run speculative decoding via the model's native MTP method with no
+   external draft, if the R1b merged export retains usable MTP weights. This is
+   the production-representative configuration for this family.
+2. FALLBACK ONLY if (1) is impossible (export lacks MTP weights — archive the
+   evidence): the in-repo, version-guarded compatibility patch preventing the
+   draft_model→MTP rewrite for vLLM 0.17.0, external draft per D1.1.
+Whichever path runs, the report must name the method, why, and what failed before.
+The D1/D1.1 external-draft choice becomes moot under path (1).
+
 ## D2. Teacher: frontier API via OpenRouter
 Reuse nlp-eval-lab's Tier-C setup and account. Teacher identity matters less than
 data provenance: every distilled sample carries teacher model version + prompt hash.
