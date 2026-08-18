@@ -144,6 +144,23 @@ def validate_phase4_config(config: Mapping[str, Any], *, path: Path | None = Non
             if method == "mtp":
                 if speculative.get("draft_model") is not None:
                     raise ValueError(f"{label}: native MTP must not declare an external draft")
+                if speculative.get("num_speculative_tokens") != 1:
+                    raise ValueError(f"{label}: one exported MTP layer requires one draft token")
+                selection = speculative.get("method_selection")
+                if not isinstance(selection, Mapping):
+                    raise ValueError(f"{label}: D1.3 native MTP requires method-selection evidence")
+                if selection.get("selected") != "native_mtp":
+                    raise ValueError(f"{label}: D1.3 native MTP selection is not recorded")
+                for key in ("reason", "base_index_audit", "reexport_manifest"):
+                    if not isinstance(selection.get(key), str) or not selection[key]:
+                        raise ValueError(f"{label}: method_selection.{key} must be nonempty")
+                failures = selection.get("prior_failure_receipts")
+                if (
+                    not isinstance(failures, list)
+                    or len(failures) < 3
+                    or any(not isinstance(item, str) or not item for item in failures)
+                ):
+                    raise ValueError(f"{label}: D1.3 requires all prior failures to stay recorded")
             else:
                 if speculative.get("draft_model") != "Qwen/Qwen3.5-0.8B-Base":
                     raise ValueError(f"{label}: D1.1 pins the 0.8B Qwen3.5-family draft")

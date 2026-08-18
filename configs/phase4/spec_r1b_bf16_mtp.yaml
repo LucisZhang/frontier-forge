@@ -1,33 +1,30 @@
 version: 1
 phase: 4
 experiment: spec_decode
-run_id: phase4_spec_decode_r1b_bf16_qwen08b_patched
+run_id: phase4_spec_decode_r1b_bf16_native_mtp
 model:
   variant: r1b
   precision: bfloat16
-  served_name: forge-r1b-bf16-qwen08b-patched-spec
-  artifact_path: checkpoints/full/r1b/trl/s0/export/merged_bf16
-  artifact_sha256: 7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435
-  export_manifest: results/phase3_export_manifest_r1b_trl_s0.json
+  served_name: forge-r1b-bf16-native-mtp
+  artifact_path: checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved
+  artifact_sha256: 7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce
+  export_manifest: results/phase4/r1b_mtp_reexport_manifest.json
   training_time_quantization: qlora_nf4
   deployment_quantization: none
   speculative_enabled: true
 speculative:
   enabled: true
-  method: draft_model
-  draft_model: Qwen/Qwen3.5-0.8B-Base
-  draft_revision: dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68
-  num_speculative_tokens: 5
+  method: mtp
+  num_speculative_tokens: 1
   method_selection:
-    selected: external_draft_fallback
-    reason: r1b_merged_export_declares_mtp_but_contains_no_mtp_weight_keys
-    native_mtp_audit: results/phase4/r1b_native_mtp_audit.json
-    compatibility_patch: scripts/remote/vllm_compat/sitecustomize.py
-    compatibility_vllm_version: 0.17.0
-    compatibility_source_sha256: 3c7b6b19d80854619eb01068d70f5e83ce6f17798c643493c836eee4514d76f5
+    selected: native_mtp
+    reason: fixed_revision_base_index_contains_mtp_and_r1b_adapter_does_not_modify_mtp
+    base_index_audit: results/phase4/qwen35_4b_base_mtp_index_audit.json
+    reexport_manifest: results/phase4/r1b_mtp_reexport_manifest.json
     prior_failure_receipts:
       - results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json
       - results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json
+      - results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_patched_failure.json
 server:
   vllm_version: 0.17.0
   host: 127.0.0.1

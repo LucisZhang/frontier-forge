@@ -27,7 +27,7 @@ from .config import (
     workload_contract_hash,
 )
 from .loadgen import VERIFIER_INPUT_NORMALIZATION, run_load_benchmark
-from .mtp_audit import require_fallback_audit
+from .mtp_audit import require_speculative_method_evidence
 from .preflight import (
     VERIFICATION_PATH,
     benchmark_git_sha,
@@ -35,6 +35,7 @@ from .preflight import (
     require_verified_artifact,
 )
 from .structured import run_structured_benchmark
+from .system_load import metrics_contaminated
 from .workload import build_workload
 
 
@@ -92,6 +93,7 @@ def _full_run_record(receipt: dict[str, Any]) -> dict[str, Any]:
         "raw_artifact": receipt["raw_artifact"],
         "verifier_disclosure": receipt["verifier_disclosure"],
         "supersedes": receipt.get("supersedes"),
+        "contaminated_sweeps": receipt.get("contaminated_sweeps", []),
     }
 
 
@@ -186,23 +188,55 @@ def run(config_path: str | Path, *, base_url: str, smoke: bool) -> dict[str, Any
     speculative = config.get("speculative")
     speculative_method_evidence = None
     if not smoke and isinstance(speculative, Mapping) and speculative.get("enabled"):
-        speculative_method_evidence = require_fallback_audit(config)
+        speculative_method_evidence = require_speculative_method_evidence(config)
     started_at = datetime.now(UTC)
     start_clock = time.perf_counter()
     identity = asyncio.run(_server_identity(base_url))
-    if config["experiment"] in {"serve", "spec_decode"}:
-        points, request_records = asyncio.run(
-            run_load_benchmark(config, base_url=base_url, smoke=smoke)
+    contaminated_sweeps: list[dict[str, Any]] = []
+    attempt = 0
+    while True:
+        attempt += 1
+        if config["experiment"] in {"serve", "spec_decode"}:
+            points, request_records = asyncio.run(
+                run_load_benchmark(config, base_url=base_url, smoke=smoke)
+            )
+            metrics: dict[str, Any] = {
+                "points": points,
+                "max_stable_concurrency": _max_stable_concurrency(points),
+            }
+        else:
+            structured, request_records = asyncio.run(
+                run_structured_benchmark(config, base_url=base_url, smoke=smoke)
+            )
+            metrics = structured
+        if smoke or not metrics_contaminated(metrics, experiment=str(config["experiment"])):
+            break
+        contaminated_path = raw_path.with_name(
+            f"{raw_path.stem}.contaminated-{attempt:02d}.requests.jsonl"
         )
-        metrics: dict[str, Any] = {
-            "points": points,
-            "max_stable_concurrency": _max_stable_concurrency(points),
-        }
-    else:
-        structured, request_records = asyncio.run(
-            run_structured_benchmark(config, base_url=base_url, smoke=smoke)
+        write_jsonl_atomic(contaminated_path, request_records)
+        contaminated_sweeps.append(
+            {
+                "attempt": attempt,
+                "reason": "sampled_load1_exceeded_half_logical_core_count",
+                "metrics": metrics,
+                "request_artifact": {
+                    "path": relative_path(contaminated_path),
+                    "sha256": sha256_file(contaminated_path),
+                    "rows": len(request_records),
+                },
+            }
         )
-        metrics = structured
+        cores = os.cpu_count() or 1
+        threshold = cores / 2
+        retained_path = relative_path(contaminated_path)
+        print(f"Phase 4 sweep contaminated on attempt {attempt}; retained {retained_path}")
+        while os.getloadavg()[0] > threshold:
+            print(
+                f"host load1={os.getloadavg()[0]:.2f} exceeds threshold={threshold:.2f}; "
+                "waiting 30s before clean rerun"
+            )
+            time.sleep(30)
     elapsed = time.perf_counter() - start_clock
     finished_at = datetime.now(UTC)
     requests_path = phase4_requests_path(config, smoke=smoke)
@@ -252,6 +286,10 @@ def run(config_path: str | Path, *, base_url: str, smoke: bool) -> dict[str, Any
             "client": "monotonic wall clock around streamed OpenAI HTTP request",
             "server": "delta of vLLM Prometheus histograms over each measurement point",
             "vram": "device-total nvidia-smi samples on the server host",
+            "co_tenancy": (
+                "server-host getloadavg plus /proc/stat CPU utilization; any load1 sample "
+                "above half logical core count contaminates and reruns the entire sweep"
+            ),
             "warmup_excluded": True,
         },
         "verifier_disclosure": {
@@ -263,6 +301,7 @@ def run(config_path: str | Path, *, base_url: str, smoke: bool) -> dict[str, Any
         "artifact_verification": artifact_verification,
         "artifact_verification_path": (None if smoke else relative_path(VERIFICATION_PATH)),
         "metrics": metrics,
+        "contaminated_sweeps": contaminated_sweeps,
         "request_artifact": {
             "path": relative_path(requests_path),
             "sha256": sha256_file(requests_path),

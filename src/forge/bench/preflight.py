@@ -106,6 +106,7 @@ def host_disclosure() -> dict[str, Any]:
     result: dict[str, Any] = {
         "platform": platform.platform(),
         "python": platform.python_version(),
+        "logical_cpu_count": os.cpu_count(),
     }
     try:
         query = subprocess.run(

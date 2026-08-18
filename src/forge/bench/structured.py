@@ -14,6 +14,7 @@ from forge.verify.verifier import score
 
 from .loadgen import VramSampler, normalize_verifier_input
 from .metrics import parse_prometheus, percentile, prometheus_delta, summarize_vllm_metrics
+from .system_load import SystemLoadSampler
 from .workload import load_workload
 
 
@@ -446,23 +447,28 @@ async def run_structured_benchmark(
         health.raise_for_status()
         before_text = (await client.get(f"{base_url.rstrip('/')}/metrics")).text
         sampler = VramSampler(enabled=not smoke)
-        sampler_task = asyncio.create_task(sampler.run())
-        compile_results = await _compile_bench(
-            client,
-            base_url=base_url,
-            model=str(config["model"]["served_name"]),
-            field_counts=[int(item) for item in settings["schema_field_counts"]],
-            steady_repetitions=repetitions,
-            max_tokens=int(settings["schema_max_tokens"]),
-        )
-        constraint_summary, constraint_records = await _constraint_tax_bench(
-            client,
-            base_url=base_url,
-            model=str(config["model"]["served_name"]),
-            rows=rows,
-        )
-        sampler.stop()
-        await sampler_task
+        system_load = SystemLoadSampler(enabled=True)
+        vram_task = asyncio.create_task(sampler.run())
+        load_task = asyncio.create_task(system_load.run())
+        try:
+            compile_results = await _compile_bench(
+                client,
+                base_url=base_url,
+                model=str(config["model"]["served_name"]),
+                field_counts=[int(item) for item in settings["schema_field_counts"]],
+                steady_repetitions=repetitions,
+                max_tokens=int(settings["schema_max_tokens"]),
+            )
+            constraint_summary, constraint_records = await _constraint_tax_bench(
+                client,
+                base_url=base_url,
+                model=str(config["model"]["served_name"]),
+                rows=rows,
+            )
+        finally:
+            sampler.stop()
+            system_load.stop()
+            await asyncio.gather(vram_task, load_task)
         after_text = (await client.get(f"{base_url.rstrip('/')}/metrics")).text
     server_metrics = summarize_vllm_metrics(
         prometheus_delta(parse_prometheus(before_text), parse_prometheus(after_text))
@@ -474,6 +480,7 @@ async def run_structured_benchmark(
             "constraint_tax_and_mitigation": constraint_summary,
             "server": server_metrics,
             "vram": sampler.summary(),
+            "co_tenancy": system_load.summary(),
         },
         constraint_records,
     )

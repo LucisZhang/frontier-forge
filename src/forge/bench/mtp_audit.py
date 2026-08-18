@@ -180,6 +180,88 @@ def require_fallback_audit(config: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def require_native_mtp_evidence(config: Mapping[str, Any]) -> dict[str, Any]:
+    """Validate D1.3 base-index and MTP-preserving re-export evidence."""
+
+    speculative = config.get("speculative")
+    if not isinstance(speculative, Mapping) or speculative.get("method") != "mtp":
+        raise RuntimeError("native-MTP evidence requires speculative.method=mtp")
+    selection = speculative.get("method_selection")
+    if not isinstance(selection, Mapping) or selection.get("selected") != "native_mtp":
+        raise RuntimeError("D1.3 native-MTP selection is not recorded")
+    audit_path = REPO_ROOT / str(selection["base_index_audit"])
+    manifest_path = REPO_ROOT / str(selection["reexport_manifest"])
+    if not audit_path.is_file():
+        raise FileNotFoundError(f"D1.3 base index audit is missing: {audit_path}")
+    if not manifest_path.is_file():
+        raise FileNotFoundError(f"D1.3 MTP re-export manifest is missing: {manifest_path}")
+    audit = json.loads(audit_path.read_text())
+    manifest = json.loads(manifest_path.read_text())
+    if audit.get("status") != "complete" or audit.get("decision_branch") != "native_mtp_reexport":
+        raise RuntimeError("D1.3 base index audit does not select native MTP")
+    if not audit.get("mtp_weight_keys") or audit.get("mtp_weight_key_count") != len(
+        audit["mtp_weight_keys"]
+    ):
+        raise RuntimeError("D1.3 base index audit has inconsistent MTP key evidence")
+    export = manifest.get("full_precision_export")
+    if not isinstance(export, Mapping):
+        raise RuntimeError("D1.3 re-export manifest has no full-precision export")
+    if (
+        export.get("path") != config["model"]["artifact_path"]
+        or export.get("sha256") != config["model"]["artifact_sha256"]
+    ):
+        raise RuntimeError("D1.3 re-export manifest does not match the configured artifact")
+    preserved = manifest.get("preserved_mtp")
+    if not isinstance(preserved, Mapping) or preserved.get("weight_keys") != audit.get(
+        "mtp_weight_keys"
+    ):
+        raise RuntimeError("D1.3 preserved MTP keys do not match the base index audit")
+    if manifest.get("source_adapter", {}).get("mtp_weight_keys") != []:
+        raise RuntimeError("D1.3 re-export is invalid because the adapter contains MTP keys")
+    prior_failures = []
+    for item in selection["prior_failure_receipts"]:
+        path = REPO_ROOT / str(item)
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        prior_failures.append({"path": relative_path(path), "sha256": sha256_file(path)})
+    return {
+        "path": relative_path(manifest_path),
+        "sha256": sha256_file(manifest_path),
+        "decision": "native_mtp",
+        "reason": selection["reason"],
+        "native_mtp_usable": True,
+        "base_index_audit": {
+            "path": relative_path(audit_path),
+            "sha256": sha256_file(audit_path),
+            "repository": audit["repository"],
+            "revision": audit["revision"],
+            "index_sha256": audit["index_sha256"],
+            "mtp_weight_key_count": audit["mtp_weight_key_count"],
+        },
+        "export": dict(export),
+        "preserved_mtp": dict(preserved),
+        "source_adapter": manifest["source_adapter"],
+        "vllm_contract": {
+            "version": config["server"]["vllm_version"],
+            "method": "model_native_mtp",
+            "m_rope_patch": False,
+            "version_change": False,
+        },
+        "prior_failures": prior_failures,
+    }
+
+
+def require_speculative_method_evidence(config: Mapping[str, Any]) -> dict[str, Any]:
+    """Dispatch to the locked evidence contract for the selected spec method."""
+
+    speculative = config.get("speculative")
+    if not isinstance(speculative, Mapping):
+        raise RuntimeError("speculative configuration is missing")
+    if speculative.get("method") == "mtp":
+        return require_native_mtp_evidence(config)
+    return require_fallback_audit(config)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", required=True)

@@ -1,0 +1,52 @@
+{
+  "base_index_audit": {
+    "path": "results/phase4/qwen35_4b_base_mtp_index_audit.json",
+    "repository": "Qwen/Qwen3.5-4B-Base",
+    "revision": "1001bb4d826a52d1f399e183466143f4da7b741b",
+    "sha256": "6f09d52e75df98e6b868a6ad00f4569f60f3c6d4b4007804f595596303231bd4"
+  },
+  "finished_at": "2026-08-18T16:28:47.031493+00:00",
+  "full_precision_export": {
+    "dtype": "bfloat16",
+    "method": "peft_merge_plus_base_mtp_weight_preservation",
+    "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved",
+    "sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce"
+  },
+  "notes": "The existing merged export is immutable; this sibling export restores only base MTP tensors because the R1b LoRA adapter contains no MTP keys.",
+  "operation": "mtp_preserving_r1b_reexport",
+  "phase": 4,
+  "preserved_mtp": {
+    "bundle_sha256": "47f6645d9a1d677c89450c45be7df2c7c4cea6b3dd6a60992dc48a82f92a7716",
+    "source": "exact byte ranges from fixed-revision base checkpoint shards",
+    "weight_key_count": 15,
+    "weight_keys": [
+      "mtp.fc.weight",
+      "mtp.layers.0.input_layernorm.weight",
+      "mtp.layers.0.mlp.down_proj.weight",
+      "mtp.layers.0.mlp.gate_proj.weight",
+      "mtp.layers.0.mlp.up_proj.weight",
+      "mtp.layers.0.post_attention_layernorm.weight",
+      "mtp.layers.0.self_attn.k_norm.weight",
+      "mtp.layers.0.self_attn.k_proj.weight",
+      "mtp.layers.0.self_attn.o_proj.weight",
+      "mtp.layers.0.self_attn.q_norm.weight",
+      "mtp.layers.0.self_attn.q_proj.weight",
+      "mtp.layers.0.self_attn.v_proj.weight",
+      "mtp.norm.weight",
+      "mtp.pre_fc_norm_embedding.weight",
+      "mtp.pre_fc_norm_hidden.weight"
+    ]
+  },
+  "source_adapter": {
+    "mtp_weight_keys": [],
+    "path": "checkpoints/full/r1b/trl/s0/adapter",
+    "weights_path": "checkpoints/full/r1b/trl/s0/adapter/adapter_model.safetensors",
+    "weights_sha256": "740b0f8384c77818a6cbd2e4c0d0c15d720d682d0419700ccd8ef188f7033105"
+  },
+  "source_export": {
+    "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435"
+  },
+  "status": "complete",
+  "version": 1
+}

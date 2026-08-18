@@ -58,6 +58,11 @@ def _load_receipts(*, smoke: bool) -> tuple[list[dict[str, Any]], list[dict[str,
             evidence_path = REPO_ROOT / evidence["path"]
             if sha256_file(evidence_path) != evidence["sha256"]:
                 raise RuntimeError(f"speculative method evidence hash mismatch: {evidence_path}")
+            base_audit = evidence.get("base_index_audit")
+            if isinstance(base_audit, dict):
+                base_audit_path = REPO_ROOT / base_audit["path"]
+                if sha256_file(base_audit_path) != base_audit["sha256"]:
+                    raise RuntimeError(f"base index audit hash mismatch: {base_audit_path}")
             for failure in evidence["prior_failures"]:
                 failure_path = REPO_ROOT / failure["path"]
                 if sha256_file(failure_path) != failure["sha256"]:
@@ -188,6 +193,9 @@ def _spec_rows(receipts: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "spec_successful_req_s": spec_success,
                 "acceptance_rate": point["server"]["speculative"]["acceptance_rate"],
                 "mean_acceptance_length": point["server"]["speculative"]["mean_acceptance_length"],
+                "load1_max": point.get("co_tenancy", {}).get("load1_max"),
+                "cpu_utilization_mean": point.get("co_tenancy", {}).get("cpu_utilization_mean"),
+                "contaminated": point.get("co_tenancy", {}).get("contaminated"),
                 "verdict": "win" if win else "lose",
             }
         )
@@ -254,19 +262,19 @@ def _spec_section(receipts: list[dict[str, Any]], *, figure_path: Path) -> list[
         "and no lower verifier-successful request throughput than the matched baseline. "
         f"Boundary: **{boundary}**.",
         "",
-        "Method run: **{method}** (`{model}`, {tokens} draft tokens). D1.2 selected the "
-        "external-draft fallback because `{reason}`; the archived export audit reports "
-        "native MTP usable = `{usable}`. The vLLM compatibility hook is pinned to "
-        "version `{version}` and source SHA-256 `{source_hash}`.".format(
+        "Method run: **{method}** (`{model}`, {tokens} draft token). D1.3 selected "
+        "the model-native path because `{reason}`; the fixed-revision base index contains "
+        "{mtp_count} `mtp.*` weights and the R1b adapter contains none. The sibling R1b "
+        "export restores those exact base tensor bytes. vLLM stays at `{version}` with "
+        "no M-RoPE patch and no version change.".format(
             method=speculative.get("method", "unrecorded"),
             model=speculative.get("draft_model", "model-native MTP"),
             tokens=speculative.get("num_speculative_tokens", "n/a"),
             reason=evidence.get("reason", "smoke_config_only"),
-            usable=evidence.get("native_mtp_usable", "not evaluated in smoke"),
-            version=(evidence.get("vllm_contract") or {}).get("version", "0.17.0"),
-            source_hash=(evidence.get("vllm_contract") or {}).get(
-                "speculative_source_sha256", "smoke-only"
+            mtp_count=(evidence.get("base_index_audit") or {}).get(
+                "mtp_weight_key_count", "not evaluated in smoke"
             ),
+            version=(evidence.get("vllm_contract") or {}).get("version", "0.17.0"),
         ),
         "",
         "Prior failed attempts remain archived: "
@@ -275,13 +283,13 @@ def _spec_section(receipts: list[dict[str, Any]], *, figure_path: Path) -> list[
         "",
         f"![Speculative decoding boundary]({figure_path.name})",
         "",
-        "| QPS | Baseline p95 s | Spec p95 s | Delta s | Baseline success req/s | Spec success req/s | Acceptance | Mean acceptance length | Verdict |",
-        "|---:|---:|---:|---:|---:|---:|---:|---:|---|",
+        "| QPS | Baseline p95 s | Spec p95 s | Delta s | Baseline success req/s | Spec success req/s | Acceptance | Mean acceptance length | Load1 max | CPU mean | Clean | Verdict |",
+        "|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|---|",
     ]
     for row in rows:
         lines.append(
             "| {qps:.3f} | {base} | {spec} | {delta} | {base_req} | {spec_req} | "
-            "{acceptance} | {length} | {verdict} |".format(
+            "{acceptance} | {length} | {load1} | {cpu} | {clean} | {verdict} |".format(
                 qps=row["qps"],
                 base=_seconds(row["baseline_p95_s"]),
                 spec=_seconds(row["spec_p95_s"]),
@@ -290,6 +298,9 @@ def _spec_section(receipts: list[dict[str, Any]], *, figure_path: Path) -> list[
                 spec_req=_number(row["spec_successful_req_s"]),
                 acceptance=_pct(row["acceptance_rate"]),
                 length=_number(row["mean_acceptance_length"]),
+                load1=_number(row["load1_max"]),
+                cpu=_pct(row["cpu_utilization_mean"]),
+                clean="no" if row["contaminated"] else "yes",
                 verdict=row["verdict"],
             )
         )
@@ -356,6 +367,32 @@ def _structured_section(receipts: list[dict[str, Any]]) -> list[str]:
                 lat_delta=_seconds(item["latency_delta_p50_s"]),
             )
         )
+    lines.extend(
+        [
+            "",
+            "### CPU co-tenancy measurements",
+            "",
+            "| Backend | Logical cores | Load1 threshold | Load1 mean/max | CPU mean/max | Samples | Clean | Contaminated attempts retained |",
+            "|---|---:|---:|---:|---:|---:|---|---:|",
+        ]
+    )
+    for receipt in structured:
+        load = receipt["metrics"].get("co_tenancy", {})
+        lines.append(
+            "| {backend} | {cores} | {threshold} | {load_mean}/{load_max} | "
+            "{cpu_mean}/{cpu_max} | {samples} | {clean} | {attempts} |".format(
+                backend=receipt["metrics"]["backend"],
+                cores=load.get("logical_cpu_count", "n/a"),
+                threshold=_number(load.get("load1_contamination_threshold")),
+                load_mean=_number(load.get("load1_mean")),
+                load_max=_number(load.get("load1_max")),
+                cpu_mean=_pct(load.get("cpu_utilization_mean")),
+                cpu_max=_pct(load.get("cpu_utilization_max")),
+                samples=load.get("samples", 0),
+                clean="no" if load.get("contaminated") else "yes",
+                attempts=len(receipt.get("contaminated_sweeps", [])),
+            )
+        )
     return lines
 
 
@@ -373,6 +410,8 @@ def _disclosure(receipts: list[dict[str, Any]], *, smoke: bool) -> list[str]:
         "",
         f"- Mode: {'SMOKE (non-headline)' if smoke else 'FULL GPU'}.",
         f"- Hardware: {hardware.get('gpu') or 'mock CPU'}; driver {hardware.get('driver_version') or 'n/a'}; device memory {hardware.get('gpu_memory_total_mib') or 'n/a'} MiB.",
+        f"- CPU co-tenancy: the pod was shared with an unrelated CPU-only task; host has {hardware.get('logical_cpu_count') or 'n/a'} logical cores. Every new spec-decode and structured sweep sampled load average and CPU utilization; any load1 sample above half the core count contaminated and reran the entire sweep. Contaminated attempts remain linked from the raw receipt.",
+        "- Historical serving sweeps completed before the CPU co-tenancy sampling requirement and are identified as such; matched spec baseline/native-MTP and both structured backends use the new clean-sweep gate.",
         f"- Serving variants and precision: {', '.join(serve_models)}.",
         f"- vLLM version: {first['server']['packages'].get('vllm') or first['server']['declared_vllm_version']}.",
         f"- Workload source: frozen `{workload['split']}` evaluation rows; workload SHA-256 `{workload['sha256']}`.",
@@ -420,13 +459,40 @@ def build_report(*, smoke: bool) -> dict[str, Any]:
         for receipt in serve
         for point in receipt["metrics"]["points"]
     )
+    latency_receipts = [
+        item for item in receipts if item["experiment"] in {"spec_decode", "structured"}
+    ]
+    co_tenancy_clean = all(
+        (
+            all(
+                point.get("co_tenancy", {}).get("samples", 0) > 0
+                and not point.get("co_tenancy", {}).get("contaminated", True)
+                for point in receipt["metrics"]["points"]
+            )
+            if receipt["experiment"] == "spec_decode"
+            else receipt["metrics"].get("co_tenancy", {}).get("samples", 0) > 0
+            and not receipt["metrics"].get("co_tenancy", {}).get("contaminated", True)
+        )
+        for receipt in latency_receipts
+    )
+    spec_enabled = next(
+        item
+        for item in receipts
+        if item["experiment"] == "spec_decode" and item["model"].get("speculative_enabled")
+    )
+    acceptance_complete = all(
+        point["server"]["speculative"].get("acceptance_rate") is not None
+        for point in spec_enabled["metrics"]["points"]
+    )
     lines.extend(
         [
             "",
             "## Phase 4 gate",
             "",
             "- [x] Disclosure block includes hardware, precision, load distribution, arrival rate, warm-up, and timing side.",
+            f"- [{'x' if co_tenancy_clean else ' '}] New latency-sensitive sweeps record CPU/load co-tenancy and final headline attempts are below the contamination threshold.",
             f"- [{'x' if costs_complete else ' '}] Cost per 1k successful tasks is computed against verifier-passing requests.",
+            f"- [{'x' if acceptance_complete else ' '}] Speculative-decoding acceptance rate is recorded at every QPS point.",
             "- [x] Speculative-decoding win/lose boundary is tabulated and plotted.",
             "- [x] Constraint-tax tool-call rates and two-pass task-success/latency deltas are reported.",
             "- [x] Report and SVG are deterministic functions of hash-checked raw artifacts.",

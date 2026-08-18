@@ -25,6 +25,7 @@ from .metrics import (
     summarize_latencies,
     summarize_vllm_metrics,
 )
+from .system_load import SystemLoadSampler
 from .workload import load_workload
 
 VERIFIER_INPUT_NORMALIZATION = (
@@ -467,20 +468,25 @@ async def run_load_benchmark(
             )
             before = parse_prometheus(await _metrics_snapshot(client, base_url))
             vram = VramSampler(enabled=not smoke)
-            sampler_task = asyncio.create_task(vram.run())
-            observations, peak_concurrency, elapsed = await _run_arrivals(
-                client,
-                base_url=base_url,
-                model=str(config["model"]["served_name"]),
-                rows=rows,
-                qps=qps,
-                max_concurrency=int(settings["max_concurrency"]),
-                deadline_s=float(settings["deadline_s"]),
-                seed=int(settings["request_seed"]) + index,
-                extra_payload=extra_payload,
-            )
-            vram.stop()
-            await sampler_task
+            system_load = SystemLoadSampler(enabled=True)
+            vram_task = asyncio.create_task(vram.run())
+            load_task = asyncio.create_task(system_load.run())
+            try:
+                observations, peak_concurrency, elapsed = await _run_arrivals(
+                    client,
+                    base_url=base_url,
+                    model=str(config["model"]["served_name"]),
+                    rows=rows,
+                    qps=qps,
+                    max_concurrency=int(settings["max_concurrency"]),
+                    deadline_s=float(settings["deadline_s"]),
+                    seed=int(settings["request_seed"]) + index,
+                    extra_payload=extra_payload,
+                )
+            finally:
+                vram.stop()
+                system_load.stop()
+                await asyncio.gather(vram_task, load_task)
             after = parse_prometheus(await _metrics_snapshot(client, base_url))
             server = summarize_vllm_metrics(prometheus_delta(before, after))
             point = summarize_point(
@@ -493,6 +499,7 @@ async def run_load_benchmark(
                 vram=vram.summary(),
             )
             point["point_index"] = index
+            point["co_tenancy"] = system_load.summary()
             points.append(point)
             request_records.extend(
                 {"point_index": index, **asdict(observation)} for observation in observations

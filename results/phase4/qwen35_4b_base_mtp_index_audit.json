@@ -1,0 +1,34 @@
+{
+  "audit_type": "no_gpu_checkpoint_index_metadata",
+  "decision_branch": "native_mtp_reexport",
+  "index_path": "results/phase4/evidence/qwen35-4b-base-1001bb4-model.safetensors.index.json",
+  "index_sha256": "eae340074abb0a5f31a6621f7ae8e8248a7c1790df04a722c4e4b70c2a6d1dbb",
+  "mtp_shards": [
+    "model.safetensors-00001-of-00002.safetensors",
+    "model.safetensors-00002-of-00002.safetensors"
+  ],
+  "mtp_weight_key_count": 15,
+  "mtp_weight_keys": [
+    "mtp.fc.weight",
+    "mtp.layers.0.input_layernorm.weight",
+    "mtp.layers.0.mlp.down_proj.weight",
+    "mtp.layers.0.mlp.gate_proj.weight",
+    "mtp.layers.0.mlp.up_proj.weight",
+    "mtp.layers.0.post_attention_layernorm.weight",
+    "mtp.layers.0.self_attn.k_norm.weight",
+    "mtp.layers.0.self_attn.k_proj.weight",
+    "mtp.layers.0.self_attn.o_proj.weight",
+    "mtp.layers.0.self_attn.q_norm.weight",
+    "mtp.layers.0.self_attn.q_proj.weight",
+    "mtp.layers.0.self_attn.v_proj.weight",
+    "mtp.norm.weight",
+    "mtp.pre_fc_norm_embedding.weight",
+    "mtp.pre_fc_norm_hidden.weight"
+  ],
+  "repository": "Qwen/Qwen3.5-4B-Base",
+  "revision": "1001bb4d826a52d1f399e183466143f4da7b741b",
+  "source_url": "https://huggingface.co/Qwen/Qwen3.5-4B-Base/resolve/1001bb4d826a52d1f399e183466143f4da7b741b/model.safetensors.index.json",
+  "status": "complete",
+  "version": 1,
+  "weight_key_count": 738
+}

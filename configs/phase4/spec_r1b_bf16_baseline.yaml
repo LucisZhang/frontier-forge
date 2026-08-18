@@ -1,17 +1,21 @@
 version: 1
 phase: 4
 experiment: spec_decode
-run_id: phase4_spec_decode_r1b_bf16_baseline
+run_id: phase4_spec_decode_r1b_bf16_baseline_v2
 model:
   variant: r1b
   precision: bfloat16
-  served_name: forge-r1b-bf16-baseline
-  artifact_path: checkpoints/full/r1b/trl/s0/export/merged_bf16
-  artifact_sha256: 7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435
-  export_manifest: results/phase3_export_manifest_r1b_trl_s0.json
+  served_name: forge-r1b-bf16-mtp-preserved-baseline
+  artifact_path: checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved
+  artifact_sha256: 7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce
+  export_manifest: results/phase4/r1b_mtp_reexport_manifest.json
   training_time_quantization: qlora_nf4
   deployment_quantization: none
   speculative_enabled: false
+supersedes:
+  run_id: phase4_spec_decode_r1b_bf16_baseline
+  raw_artifact: results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline.json
+  reason: matched baseline rerun on the MTP-preserving target with CPU co-tenancy sampling
 speculative:
   enabled: false
 server:
