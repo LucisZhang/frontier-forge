@@ -47,6 +47,9 @@ up_filters=(
   --include=/data/phase3/
   --include=/data/phase3/manifest.json
   --include=/data/phase3/r1b_sft_rule.jsonl
+  --include=/data/phase3_2/
+  --include=/data/phase3_2/manifest.json
+  --include=/data/phase3_2/r4_v2_grpo_fresh_rule.jsonl
   --exclude=*
 )
 

@@ -1,13 +1,15 @@
 # Phase 3 human launch plan
 
-Full runs are deliberately **not launched by agents**. Prepare and sync from the
-local checkout, then bootstrap a single RTX 4090 Linux pod. First review and commit
+Full runs are launched by the human unless the current session explicitly delegates
+the remote work. Prepare and sync from the local checkout, then use a single RTX 4090
+Linux pod. First review and commit
 the Phase 3 implementation. Clone or check out that exact commit on the pod; the
 launcher refuses a dirty runtime code/config tree. `sync-up` transfers the prepared
 data and receipts, not a substitute implementation snapshot.
 
 ```bash
 make prepare-r1b
+make prepare-r4-v2
 make phase3-context-audit
 make phase3-preflight
 FORGE_REMOTE_ROOT=user@host:/path/to/frontier-forge make sync-up
@@ -67,6 +69,25 @@ scripts/remote/launch_phase3.sh r4 2 trl
 scripts/remote/launch_phase3_export.sh 0 trl
 ```
 
-Planning estimates are 2h R0, 5h each R1 backend, 5h R2, 12h R3, and 15h per R4
-seed: 74h core including the cross-check. Optional R1b adds 10h, for 84h planned.
-These are planning guards, never reported as measured cost.
+Phase 3.2 supersedes the active R4 contract with the versioned
+`phase3_2_fresh_pool` run root. The 8,000-row pool must be materialized and synced
+before launch. Run seeds sequentially on TRL. Immediately before each launch, inspect
+`nvidia-smi`; on a shared pod, wait if any process is using the GPU. Use only the
+`forge-r4-trl-s*` tmux sessions and never stop or reboot the pod.
+
+```bash
+make prepare-r4-v2
+make phase3-context-audit
+export FORGE_GPU_HOURLY_USD=0.30
+scripts/remote/launch_phase3.sh r4 0 trl
+scripts/remote/launch_phase3.sh r4 1 trl
+scripts/remote/launch_phase3.sh r4 2 trl
+```
+
+The unchanged ten-step variance guard is fail-closed. If any v2 seed aborts there,
+stop and report instead of tuning. An R4 export contract opens only when a seed's
+paired delta versus R3 has a 95% CI whose lower bound is greater than zero.
+
+The Phase 3.2 config projects 3h per R4 v2 seed. Preflight combines that next-run
+projection with the append-only measured ledger and refuses a launch above 90h.
+Planning values are never reported as measured cost.

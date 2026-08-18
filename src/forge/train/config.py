@@ -153,6 +153,22 @@ def validate_config(config: Mapping[str, Any], path: Path | None = None) -> None
                 raise ValueError(f"{label}: text-only SFT must not train the vision tower")
             if lora.get("exclude_modules_regex") != r".*\.visual\..*":
                 raise ValueError(f"{label}: the Qwen3.5 vision subtree exclusion must stay pinned")
+    if rung == "r4":
+        data = config.get("data", {})
+        if revision != "phase3_2_fresh_pool":
+            raise ValueError(f"{label}: D5.1 requires the Phase 3.2 R4 v2 run revision")
+        if (
+            data.get("path") != "data/phase3_2/r4_v2_grpo_fresh_rule.jsonl"
+            or data.get("prepared_manifest") != "data/phase3_2/manifest.json"
+            or int(data.get("rows", 0)) != 8_000
+            or int(data.get("contamination_token_ngram", 0)) != 13
+        ):
+            raise ValueError(f"{label}: D5.1 fresh-pool data contract changed")
+        if (
+            int(training.get("num_generations", 0)) != 8
+            or int(training.get("reward_signal_guard_steps", 0)) != 10
+        ):
+            raise ValueError(f"{label}: D5.1 generation count and variance guard must stay pinned")
 
 
 def select_seed(config: Mapping[str, Any], requested: int | None) -> int:
@@ -252,10 +268,21 @@ def config_dataset_hash(config: Mapping[str, Any], *, smoke: bool) -> str:
                 "source": config.get("data", {}).get("smoke_path", "frozen-test-smoke"),
             }
         )
-    if config["rung"] == "r1b":
-        manifest_path = resolve_path(config["data"]["prepared_manifest"])
+    data = config.get("data", {})
+    if "prepared_manifest" in data:
+        manifest_path = resolve_path(data["prepared_manifest"])
         if not manifest_path.is_file():
-            raise FileNotFoundError("R1b prepared manifest is missing; run make prepare-r1b")
+            target = "prepare-r1b" if config["rung"] == "r1b" else "prepare-r4-v2"
+            raise FileNotFoundError(
+                f"{config['rung'].upper()} prepared manifest is missing; run make {target}"
+            )
         manifest = json.loads(manifest_path.read_text())
+        if (
+            manifest.get("status") != "complete"
+            or manifest.get("config_hash") != config["_config_hash"]
+        ):
+            raise ValueError(
+                f"{config['rung'].upper()} prepared manifest does not match its config"
+            )
         return str(manifest["dataset_hash"])
-    return str(config.get("data", {}).get("phase2_dataset_hash", PHASE2_DATASET_HASH))
+    return str(data.get("phase2_dataset_hash", PHASE2_DATASET_HASH))

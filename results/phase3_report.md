@@ -23,6 +23,14 @@ Mode: **FULL GPU**.
 - R2 → R3: 3.8% paired delta, 95% CI [2.6%, 5.1%], n=2000.
 - R3 → R4: pending.
 
+## R4 v2 fresh-pool verdict
+
+- Seed 0: pending.
+- Seed 1: pending.
+- Seed 2: pending.
+- Final R4 v2 verdict: pending all three frozen-eval records.
+- Ten-step reward-variance gate: pending the delegated GPU runs.
+
 ## Optional R1b ablation deltas
 
 - R1 → R1B: 32.7% paired delta, 95% CI [30.6%, 34.5%], n=2000.
@@ -34,7 +42,7 @@ R1 TRL/Unsloth status: **agreement_failed**. Default after check: `trl`.
 
 ## Reward-hacking probes
 
-R4 probes are unavailable: the fixed seed-0 run stopped at the opening reward-signal guard before an adapter or evaluation record existed; seeds 1/2 were not launched under the locked stop-and-report boundary.
+R4 v2 probes are pending the fresh-pool GRPO runs and frozen evaluation. The Phase 3.1 saturation diagnostic remains historical incident evidence.
 
 ## Failure and negative-result register
 
@@ -62,7 +70,7 @@ R4 probes are unavailable: the fixed seed-0 run stopped at the opening reward-si
 
 ## R4 best-seed export contract
 
-Blocked by reward saturation: fixed seed 0 stopped at the ten-step guard; seeds 1/2 were not launched. A human-approved change to the locked experiment contract is required before any R4 best-seed selection can exist.
+Pending all three Phase 3.2 TRL seeds and their paired deltas versus R3. The Phase 3.1 saturation abort remains documented but is no longer the active contract.
 
 ## Interpretation guards
 

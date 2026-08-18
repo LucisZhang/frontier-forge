@@ -16,7 +16,7 @@ C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 STUB_TARGETS := serve-bench spec-decode-bench structured-bench bench-report \
 	gateway-bench demo-build reproduce-headline
 
-.PHONY: $(C3_TARGETS) ci-lint prepare-r1b phase3-context-audit phase3-report \
+.PHONY: $(C3_TARGETS) ci-lint prepare-r1b prepare-r4-v2 phase3-context-audit phase3-report \
 	phase3-preflight phase3-smoke
 
 test:
@@ -67,6 +67,9 @@ teacher-audit:
 
 prepare-r1b:
 	@uv run python -m forge.train.ablation $(if $(filter 1,$(SMOKE)),--smoke,)
+
+prepare-r4-v2:
+	@uv run python -m forge.train.fresh_pool $(if $(filter 1,$(SMOKE)),--smoke,)
 
 phase3-context-audit:
 	@uv run --group train python -m forge.train.context_audit
@@ -122,6 +125,7 @@ phase3-smoke:
 	@$(MAKE) train-sft SMOKE=1 CONFIG=configs/r1b_sft_rule_20k.yaml
 	@$(MAKE) train-sft SMOKE=1 CONFIG=configs/r2_sft_distilled.yaml
 	@$(MAKE) train-dpo SMOKE=1 CONFIG=configs/r3_dpo.yaml
+	@$(MAKE) prepare-r4-v2 SMOKE=1
 	@$(MAKE) train-grpo SMOKE=1 CONFIG=configs/r4_grpo.yaml SEED=0
 	@$(MAKE) eval SMOKE=1
 	@$(MAKE) export-model SMOKE=1 CONFIG=configs/r1b_sft_rule_20k.yaml SEED=0

@@ -121,23 +121,34 @@ def paired_deltas(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) -> d
     adjacent_pairs = (("r0", "r1"), ("r1", "r2"), ("r2", "r3"), ("r3", "r4"))
     ablation_pairs = (("r1", "r1b"), ("r2", "r1b"))
 
-    def summarize_pair(left: str, right: str) -> dict[str, Any]:
-        left_record = _seed_zero_record(by_rung[left])
-        right_record = _seed_zero_record(by_rung[right])
+    def summarize_records(
+        left: str,
+        right: str,
+        *,
+        left_record: dict[str, Any] | None,
+        right_record: dict[str, Any] | None,
+    ) -> dict[str, Any]:
         if left_record is None or right_record is None:
             return {"from": left, "to": right, "status": "pending"}
         left_backend = str(left_record.get("backend", "trl"))
         right_backend = str(right_record.get("backend", "trl"))
+        left_seed = int(left_record["seed"])
+        right_seed = int(right_record["seed"])
         left_path = (
-            evaluation_root(configs[left], seed=0, smoke=smoke, backend=left_backend)
+            evaluation_root(configs[left], seed=left_seed, smoke=smoke, backend=left_backend)
             / "predictions.jsonl"
         )
         right_path = (
-            evaluation_root(configs[right], seed=0, smoke=smoke, backend=right_backend)
+            evaluation_root(configs[right], seed=right_seed, smoke=smoke, backend=right_backend)
             / "predictions.jsonl"
         )
         if not left_path.is_file() or not right_path.is_file():
-            return {"from": left, "to": right, "status": "predictions_missing"}
+            return {
+                "from": left,
+                "to": right,
+                "to_seed": right_seed,
+                "status": "predictions_missing",
+            }
         left_values = _prediction_map(left_path)
         right_values = _prediction_map(right_path)
         if left_values.keys() != right_values.keys():
@@ -154,6 +165,8 @@ def paired_deltas(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) -> d
         return {
             "from": left,
             "to": right,
+            "from_seed": left_seed,
+            "to_seed": right_seed,
             "status": "complete",
             "paired_rows": len(deltas),
             "mean_task_success_delta": sum(deltas) / len(deltas),
@@ -163,11 +176,82 @@ def paired_deltas(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) -> d
             "bootstrap_resamples": 1000,
         }
 
+    def summarize_pair(left: str, right: str) -> dict[str, Any]:
+        return summarize_records(
+            left,
+            right,
+            left_record=_seed_zero_record(by_rung[left]),
+            right_record=_seed_zero_record(by_rung[right]),
+        )
+
+    current_r4_hash = configs["r4"]["_config_hash"]
+    current_r4 = {
+        int(record["seed"]): record
+        for record in _active_records(by_rung["r4"])
+        if record.get("backend", "trl") == "trl" and record.get("config_hash") == current_r4_hash
+    }
+    r3 = _seed_zero_record(by_rung["r3"])
+    r4_seed_deltas = [
+        {
+            **summarize_records(
+                "r3",
+                "r4",
+                left_record=r3,
+                right_record=current_r4.get(seed),
+            ),
+            "to_seed": seed,
+        }
+        for seed in (0, 1, 2)
+    ]
+    aggregate: dict[str, Any] = {"from": "r3", "to": "r4", "status": "pending"}
+    if all(item["status"] == "complete" for item in r4_seed_deltas) and r3 is not None:
+        r3_backend = str(r3.get("backend", "trl"))
+        r3_values = _prediction_map(
+            evaluation_root(configs["r3"], seed=int(r3["seed"]), smoke=smoke, backend=r3_backend)
+            / "predictions.jsonl"
+        )
+        seed_values = []
+        for seed in (0, 1, 2):
+            path = (
+                evaluation_root(configs["r4"], seed=seed, smoke=smoke, backend="trl")
+                / "predictions.jsonl"
+            )
+            values = _prediction_map(path)
+            if values.keys() != r3_values.keys():
+                raise ValueError(f"R3->R4 seed {seed} does not share the frozen eval rows")
+            seed_values.append(values)
+        deltas = [
+            sum(values[key] for values in seed_values) / len(seed_values) - r3_values[key]
+            for key in sorted(r3_values)
+        ]
+        ci = bootstrap_ci(
+            deltas,
+            resamples=int(configs["r4"]["evaluation"]["bootstrap_resamples"]),
+            seed=int(configs["r4"]["evaluation"]["bootstrap_seed"]),
+        )
+        verdict = "win" if ci[0] > 0.0 else "loss" if ci[1] < 0.0 else "tie"
+        aggregate = {
+            "from": "r3",
+            "to": "r4",
+            "status": "complete",
+            "seeds": [0, 1, 2],
+            "paired_rows": len(deltas),
+            "mean_task_success_delta": sum(deltas) / len(deltas),
+            "ci95": ci,
+            "bootstrap_resamples": 1000,
+            "verdict": verdict,
+            "verdict_rule": (
+                "win if CI lower bound > 0; loss if CI upper bound < 0; otherwise tie"
+            ),
+        }
+
     return {
         "phase": 3,
         "mode": "smoke" if smoke else "full",
         "adjacent_pairs": [summarize_pair(*pair) for pair in adjacent_pairs],
         "optional_ablation_pairs": [summarize_pair(*pair) for pair in ablation_pairs],
+        "r4_v2_seed_deltas": r4_seed_deltas,
+        "r4_v2_aggregate": aggregate,
     }
 
 
@@ -194,13 +278,20 @@ def _export_manifest_path(record: dict[str, Any], *, smoke: bool) -> Path:
     )
 
 
-def _best_r4_record(records: list[dict[str, Any]]) -> dict[str, Any] | None:
+def _best_r4_record(
+    records: list[dict[str, Any]], *, eligible_seeds: set[int] | None = None
+) -> dict[str, Any] | None:
+    current = load_config("configs/r4_grpo.yaml")
     candidates = [
         record
         for record in _active_records(records)
-        if record.get("backend", "trl") == "trl" and int(record["seed"]) in {0, 1, 2}
+        if record.get("backend", "trl") == "trl"
+        and int(record["seed"]) in {0, 1, 2}
+        and record.get("config_hash") == current["_config_hash"]
+        and (eligible_seeds is None or int(record["seed"]) in eligible_seeds)
     ]
-    if {int(record["seed"]) for record in candidates} != {0, 1, 2}:
+    required = {0, 1, 2} if eligible_seeds is None else eligible_seeds
+    if {int(record["seed"]) for record in candidates} != required:
         return None
     return max(
         candidates,
@@ -212,9 +303,26 @@ def _best_r4_record(records: list[dict[str, Any]]) -> dict[str, Any] | None:
     )
 
 
-def _export_selection(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) -> dict[str, Any]:
+def _r4_v2_signal_receipts(*, smoke: bool) -> dict[int, dict[str, Any]]:
+    if smoke:
+        return {}
+    config = load_config("configs/r4_grpo.yaml")
+    revision = str(config.get("run_revision", "unversioned"))
+    receipts = {}
+    for seed in (0, 1, 2):
+        path = REPO_ROOT / "results" / f"phase3_r4_reward_signal_{revision}_s{seed}.json"
+        if path.is_file():
+            receipts[seed] = json.loads(path.read_text())
+    return receipts
+
+
+def _export_selection(
+    by_rung: dict[str, list[dict[str, Any]]],
+    deltas: dict[str, Any],
+    *,
+    smoke: bool,
+) -> dict[str, Any]:
     r1b = _seed_zero_record(by_rung["r1b"])
-    r4_best = _best_r4_record(by_rung["r4"])
     serving: dict[str, Any] = {"status": "pending", "rung": "r1b", "seed": 0}
     if r1b is not None:
         path = _export_manifest_path(r1b, smoke=smoke)
@@ -229,28 +337,54 @@ def _export_selection(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) 
                 }
             )
     r4_contract: dict[str, Any] = {
-        "status": "pending",
+        "status": "pending-r4-v2",
         "selection_metric": "task_success_then_mean_reward_then_lowest_seed",
+        "eligibility_rule": "paired delta versus R3 has CI95 lower bound greater than zero",
         "required_seeds": [0, 1, 2],
+        "paired_deltas": deltas["r4_v2_seed_deltas"],
     }
-    if r4_best is not None:
+    complete_deltas = [item for item in deltas["r4_v2_seed_deltas"] if item["status"] == "complete"]
+    signal_receipts = _r4_v2_signal_receipts(smoke=smoke)
+    failed_signals = {
+        seed: receipt
+        for seed, receipt in signal_receipts.items()
+        if receipt.get("status") != "passed-nonzero-reward-variance"
+    }
+    if failed_signals:
         r4_contract.update(
             {
-                "status": "complete",
-                "run_id": r4_best["run_id"],
-                "seed": int(r4_best["seed"]),
-                "task_success": float(r4_best["metrics"]["task_success"]),
-                "mean_reward": float(r4_best["metrics"]["mean_reward"]),
+                "status": "aborted-r4-v2-guard",
+                "failed_signal_seeds": sorted(failed_signals),
             }
         )
-    elif (diagnostic := _r4_reward_signal_diagnostic(smoke=smoke)) is not None:
-        r4_contract.update(
-            {
-                "status": "blocked-reward-saturation",
-                "blocker_path": "results/phase3_r4_reward_signal_diagnostic.json",
-                "attempted_seeds": [int(diagnostic["seed"])],
-                "unlaunched_seeds": list(diagnostic["disposition"]["unlaunched_seeds"]),
-            }
+    elif len(complete_deltas) == 3:
+        eligible_seeds = {
+            int(item["to_seed"]) for item in complete_deltas if float(item["ci95"][0]) > 0.0
+        }
+        if eligible_seeds:
+            r4_best = _best_r4_record(by_rung["r4"], eligible_seeds=eligible_seeds)
+            if r4_best is None:
+                raise RuntimeError("R4 v2 eligible seeds do not have matching active records")
+            selected_delta = next(
+                item for item in complete_deltas if int(item["to_seed"]) == int(r4_best["seed"])
+            )
+            r4_contract.update(
+                {
+                    "status": "eligible-ci-significant-win",
+                    "run_id": r4_best["run_id"],
+                    "seed": int(r4_best["seed"]),
+                    "task_success": float(r4_best["metrics"]["task_success"]),
+                    "mean_reward": float(r4_best["metrics"]["mean_reward"]),
+                    "paired_delta": float(selected_delta["mean_task_success_delta"]),
+                    "paired_ci95": list(selected_delta["ci95"]),
+                }
+            )
+        else:
+            r4_contract["status"] = "not-eligible-no-ci-significant-win"
+    diagnostic = _r4_reward_signal_diagnostic(smoke=smoke)
+    if diagnostic is not None:
+        r4_contract["historical_phase3_1_diagnostic"] = (
+            "results/phase3_r4_reward_signal_diagnostic.json"
         )
     return {
         "version": 1,
@@ -324,6 +458,45 @@ def _report_text(
                 f"n={item['paired_rows']}."
             )
 
+    lines.extend(["", "## R4 v2 fresh-pool verdict", ""])
+    for item in deltas["r4_v2_seed_deltas"]:
+        seed = int(item["to_seed"])
+        if item["status"] != "complete":
+            lines.append(f"- Seed {seed}: {item['status']}.")
+        else:
+            ci = item["ci95"]
+            lines.append(
+                f"- Seed {seed} vs R3: "
+                f"{_fmt_percent(float(item['mean_task_success_delta']))} paired delta, "
+                f"95% CI [{_fmt_percent(float(ci[0]))}, {_fmt_percent(float(ci[1]))}], "
+                f"n={item['paired_rows']}."
+            )
+    aggregate = deltas["r4_v2_aggregate"]
+    if aggregate["status"] != "complete":
+        lines.append("- Final R4 v2 verdict: pending all three frozen-eval records.")
+    else:
+        ci = aggregate["ci95"]
+        lines.append(
+            f"- Final R4 v2 verdict: **{str(aggregate['verdict']).upper()}**; "
+            f"three-seed mean paired delta "
+            f"{_fmt_percent(float(aggregate['mean_task_success_delta']))}, 95% CI "
+            f"[{_fmt_percent(float(ci[0]))}, {_fmt_percent(float(ci[1]))}]."
+        )
+    signal_receipts = _r4_v2_signal_receipts(smoke=smoke)
+    if smoke:
+        lines.append("- Ten-step reward-variance gate: full-run evidence only; smoke is exempt.")
+    elif not signal_receipts:
+        lines.append("- Ten-step reward-variance gate: pending the delegated GPU runs.")
+    else:
+        for seed in sorted(signal_receipts):
+            receipt = signal_receipts[seed]
+            observed = receipt.get("guard", {}).get("observed", {})
+            lines.append(
+                f"- Seed {seed} reward-variance gate: `{receipt.get('status')}`; "
+                f"opening observations={len(observed)}, "
+                f"passed={str(bool(receipt.get('passed_opening_steps'))).lower()}."
+            )
+
     lines.extend(["", "## Optional R1b ablation deltas", ""])
     for item in deltas["optional_ablation_pairs"]:
         if item["status"] != "complete":
@@ -350,14 +523,10 @@ def _report_text(
     r4 = _seed_zero_record(by_rung["r4"])
     reward_diagnostic = _r4_reward_signal_diagnostic(smoke=smoke)
     if r4 is None:
-        if reward_diagnostic is None:
-            lines.append("R4 probes are pending the authorized GRPO rerun and frozen evaluation.")
-        else:
-            lines.append(
-                "R4 probes are unavailable: the fixed seed-0 run stopped at the opening "
-                "reward-signal guard before an adapter or evaluation record existed; seeds "
-                "1/2 were not launched under the locked stop-and-report boundary."
-            )
+        lines.append(
+            "R4 v2 probes are pending the fresh-pool GRPO runs and frozen evaluation. "
+            "The Phase 3.1 saturation diagnostic remains historical incident evidence."
+        )
     else:
         probes = r4["metrics"]["reward_hacking_probes"]
         length_rows = probes["length_inflation"]["reward_increase_rows"]
@@ -461,21 +630,28 @@ def _report_text(
             )
 
     lines.extend(["", "## R4 best-seed export contract", ""])
-    r4_best = _best_r4_record(by_rung["r4"])
-    if r4_best is None:
-        if reward_diagnostic is None:
-            lines.append("Pending all three active TRL reruns for seeds 0/1/2.")
-        else:
-            lines.append(
-                "Blocked by reward saturation: fixed seed 0 stopped at the ten-step guard; "
-                "seeds 1/2 were not launched. A human-approved change to the locked experiment "
-                "contract is required before any R4 best-seed selection can exist."
-            )
+    r4_contract = _export_selection(by_rung, deltas, smoke=smoke)["r4_best_seed_export_contract"]
+    if r4_contract["status"] == "eligible-ci-significant-win":
+        lines.append(
+            f"Eligible: `{r4_contract['run_id']}` (seed {r4_contract['seed']}) beat R3 with "
+            f"paired 95% CI [{_fmt_percent(float(r4_contract['paired_ci95'][0]))}, "
+            f"{_fmt_percent(float(r4_contract['paired_ci95'][1]))}]. The contract permits a "
+            "later export; Phase 3.2 does not perform it."
+        )
+    elif r4_contract["status"] == "not-eligible-no-ci-significant-win":
+        lines.append(
+            "No seed beat R3 with a paired 95% CI excluding zero; no R4 export contract is "
+            "opened. R1b remains the Phase 4 serving artifact."
+        )
+    elif r4_contract["status"] == "aborted-r4-v2-guard":
+        lines.append(
+            "R4 v2 stopped at the unchanged reward-variance guard; no export contract is "
+            "opened and no tuning is authorized."
+        )
     else:
         lines.append(
-            f"Select `{r4_best['run_id']}` (seed {r4_best['seed']}) by task success, then "
-            "mean verifier reward, then lowest seed as the deterministic tie-break. R1b remains "
-            "the Phase 4 serving artifact."
+            "Pending all three Phase 3.2 TRL seeds and their paired deltas versus R3. The "
+            "Phase 3.1 saturation abort remains documented but is no longer the active contract."
         )
 
     lines.extend(["", "## Interpretation guards", ""])
@@ -552,7 +728,7 @@ def generate(*, smoke: bool) -> tuple[Path, Path]:
         delta_path = REPO_ROOT / "results" / "phase3_paired_deltas.json"
         selection_path = REPO_ROOT / "results" / "phase3_export_selection.json"
     write_json_atomic(delta_path, deltas)
-    write_json_atomic(selection_path, _export_selection(by_rung, smoke=smoke))
+    write_json_atomic(selection_path, _export_selection(by_rung, deltas, smoke=smoke))
     write_text_atomic(report_path, _report_text(by_rung, deltas, smoke=smoke))
     print(f"Phase 3 report regenerated: {report_path.relative_to(REPO_ROOT)}")
     return report_path, delta_path

@@ -8,11 +8,13 @@
       ],
       "from": "r0",
       "from_backend": "trl",
+      "from_seed": 0,
       "mean_task_success_delta": 0.6635,
       "paired_rows": 2000,
       "status": "complete",
       "to": "r1",
-      "to_backend": "trl"
+      "to_backend": "trl",
+      "to_seed": 0
     },
     {
       "bootstrap_resamples": 1000,
@@ -22,11 +24,13 @@
       ],
       "from": "r1",
       "from_backend": "trl",
+      "from_seed": 0,
       "mean_task_success_delta": -0.142,
       "paired_rows": 2000,
       "status": "complete",
       "to": "r2",
-      "to_backend": "trl"
+      "to_backend": "trl",
+      "to_seed": 0
     },
     {
       "bootstrap_resamples": 1000,
@@ -36,11 +40,13 @@
       ],
       "from": "r2",
       "from_backend": "trl",
+      "from_seed": 0,
       "mean_task_success_delta": 0.038,
       "paired_rows": 2000,
       "status": "complete",
       "to": "r3",
-      "to_backend": "trl"
+      "to_backend": "trl",
+      "to_seed": 0
     },
     {
       "from": "r3",
@@ -58,11 +64,13 @@
       ],
       "from": "r1",
       "from_backend": "trl",
+      "from_seed": 0,
       "mean_task_success_delta": 0.327,
       "paired_rows": 2000,
       "status": "complete",
       "to": "r1b",
-      "to_backend": "trl"
+      "to_backend": "trl",
+      "to_seed": 0
     },
     {
       "bootstrap_resamples": 1000,
@@ -72,12 +80,39 @@
       ],
       "from": "r2",
       "from_backend": "trl",
+      "from_seed": 0,
       "mean_task_success_delta": 0.469,
       "paired_rows": 2000,
       "status": "complete",
       "to": "r1b",
-      "to_backend": "trl"
+      "to_backend": "trl",
+      "to_seed": 0
     }
   ],
-  "phase": 3
+  "phase": 3,
+  "r4_v2_aggregate": {
+    "from": "r3",
+    "status": "pending",
+    "to": "r4"
+  },
+  "r4_v2_seed_deltas": [
+    {
+      "from": "r3",
+      "status": "pending",
+      "to": "r4",
+      "to_seed": 0
+    },
+    {
+      "from": "r3",
+      "status": "pending",
+      "to": "r4",
+      "to_seed": 1
+    },
+    {
+      "from": "r3",
+      "status": "pending",
+      "to": "r4",
+      "to_seed": 2
+    }
+  ]
 }

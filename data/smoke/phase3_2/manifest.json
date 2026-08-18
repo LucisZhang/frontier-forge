@@ -1,0 +1,49 @@
+{
+  "artifact": {
+    "path": "data/smoke/phase3_2/r4_v2_grpo_fresh_rule.jsonl",
+    "rows": 8,
+    "rule_labels_attached": true,
+    "sha256": "734bb578cfba1f28e441ed89136fbd4dd41bd4ea4927e4ccaee33c7cb83f373f"
+  },
+  "config_hash": "78abf15cfc926a8fcdfdbf4729db6a20e6b3fe50907264b3de28bf73f2f62f00",
+  "config_path": "configs/r4_grpo.yaml",
+  "contamination": {
+    "audit_path": "data/smoke/phase3_2/contamination_audit.json",
+    "audit_sha256": "f3bcd44bd6fa3ccb43e82ea9a266bfd4ddf49c1c41c70a015162fbe00555c260",
+    "quarantined_candidates": 0,
+    "selected_rows_clean": true,
+    "test_rows_scanned": {
+      "test_drift": 12,
+      "test_iid": 12
+    }
+  },
+  "dataset_hash": "42542cec94644efa254a2eb8aab84cb92746be4b7ec5dc69e03350d76add116d",
+  "disjointness": {
+    "fresh_overlap_phase2": 0,
+    "fresh_overlap_previous_training": 0,
+    "fresh_unique_rows": 8,
+    "phase2_is_subset_of_previous_training": true,
+    "phase2_unique_rows": 6,
+    "previously_trained_unique_rows": 10
+  },
+  "mode": "smoke",
+  "phase": 3.2,
+  "run_revision": "phase3_2_fresh_pool",
+  "rung": "r4",
+  "selection": {
+    "candidate_rows": 9,
+    "clean_candidate_rows": 9,
+    "selected_rows": 8,
+    "selection_seed": 20260818
+  },
+  "source": {
+    "phase2_path": "data/smoke/phase2/sft_rule.jsonl",
+    "phase2_sha256": "cf1c0fb7bbd9ff0ce47efa6a83e05aeeadc594ed1360a5b80c9f45374112dde4",
+    "previous_training_path": "data/smoke/phase3/r1b_sft_rule.jsonl",
+    "previous_training_sha256": "a2af3f5491edca588d457eb94803f354221fa32591b34d9cb223d26425efbe59",
+    "train_path": "data/smoke/splits/train.parquet",
+    "train_sha256": "4057750472e24fdccb8e10101114d5dc55810e4b5d7a8c5f874b052c39184a9e"
+  },
+  "status": "complete",
+  "version": 1
+}

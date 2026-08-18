@@ -11,21 +11,35 @@
     "status": "complete"
   },
   "r4_best_seed_export_contract": {
-    "attempted_seeds": [
-      0
+    "eligibility_rule": "paired delta versus R3 has CI95 lower bound greater than zero",
+    "historical_phase3_1_diagnostic": "results/phase3_r4_reward_signal_diagnostic.json",
+    "paired_deltas": [
+      {
+        "from": "r3",
+        "status": "pending",
+        "to": "r4",
+        "to_seed": 0
+      },
+      {
+        "from": "r3",
+        "status": "pending",
+        "to": "r4",
+        "to_seed": 1
+      },
+      {
+        "from": "r3",
+        "status": "pending",
+        "to": "r4",
+        "to_seed": 2
+      }
     ],
-    "blocker_path": "results/phase3_r4_reward_signal_diagnostic.json",
     "required_seeds": [
       0,
       1,
       2
     ],
     "selection_metric": "task_success_then_mean_reward_then_lowest_seed",
-    "status": "blocked-reward-saturation",
-    "unlaunched_seeds": [
-      1,
-      2
-    ]
+    "status": "pending-r4-v2"
   },
   "version": 1
 }

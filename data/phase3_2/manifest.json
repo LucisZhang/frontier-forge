@@ -1,0 +1,49 @@
+{
+  "artifact": {
+    "path": "data/phase3_2/r4_v2_grpo_fresh_rule.jsonl",
+    "rows": 8000,
+    "rule_labels_attached": true,
+    "sha256": "565228c2fb7d5f8f1a34f1a9e51a3c3765707834fa760d65b4055df71252c127"
+  },
+  "config_hash": "78abf15cfc926a8fcdfdbf4729db6a20e6b3fe50907264b3de28bf73f2f62f00",
+  "config_path": "configs/r4_grpo.yaml",
+  "contamination": {
+    "audit_path": "results/phase3_2_r4_v2_contamination.json",
+    "audit_sha256": "2f5823e46e4318291f3bd76ceb28ffd3a6132de6f2ccd58f5223eeb7c77cd94a",
+    "quarantined_candidates": 1246,
+    "selected_rows_clean": true,
+    "test_rows_scanned": {
+      "test_drift": 80000,
+      "test_iid": 104443
+    }
+  },
+  "dataset_hash": "1ddee716127496935d1c236951eba6ef2efb3aa622914688904adb494741bd6f",
+  "disjointness": {
+    "fresh_overlap_phase2": 0,
+    "fresh_overlap_previous_training": 0,
+    "fresh_unique_rows": 8000,
+    "phase2_is_subset_of_previous_training": true,
+    "phase2_unique_rows": 1450,
+    "previously_trained_unique_rows": 20000
+  },
+  "mode": "full",
+  "phase": 3.2,
+  "run_revision": "phase3_2_fresh_pool",
+  "rung": "r4",
+  "selection": {
+    "candidate_rows": 12000,
+    "clean_candidate_rows": 10754,
+    "selected_rows": 8000,
+    "selection_seed": 20260818
+  },
+  "source": {
+    "phase2_path": "data/phase2/sft_rule.jsonl",
+    "phase2_sha256": "0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e",
+    "previous_training_path": "data/phase3/r1b_sft_rule.jsonl",
+    "previous_training_sha256": "cd4a2df77f4213b31ee97190bc25cc011b0d0bb5101561d66a2de4fb63975e6d",
+    "train_path": "data/phase1_2/splits/train.parquet",
+    "train_sha256": "a753b3de8cbf85aabf71dc06ab960b371c586ff764e8f221c83a889d09676057"
+  },
+  "status": "complete",
+  "version": 1
+}

@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from forge.train.artifacts import write_json_atomic
-from forge.train.common import begin_run, complete_training_receipt, completed_receipt
+from forge.train.common import begin_run, complete_training_receipt, completed_receipt, utc_now
 from forge.train.config import (
     REPO_ROOT,
     adapter_path,
@@ -222,6 +222,63 @@ def _require_clean_rollout_sample(path: Path) -> dict[str, Any]:
     return sample
 
 
+def reward_signal_receipt_path(
+    config: Mapping[str, Any], *, seed: int, smoke: bool, backend: str
+) -> Path:
+    revision = str(config.get("run_revision", "unversioned"))
+    if smoke:
+        return (
+            checkpoint_root(config, seed=seed, smoke=True, backend=backend) / "reward_signal.json"
+        )
+    return REPO_ROOT / "results" / f"phase3_r4_reward_signal_{revision}_s{seed}.json"
+
+
+def _write_reward_signal_receipt(
+    config: Mapping[str, Any],
+    *,
+    seed: int,
+    smoke: bool,
+    backend: str,
+    guard: RewardSignalGuard,
+    audit: RewardAudit,
+    status: str,
+    error: Exception | None = None,
+) -> dict[str, Any]:
+    summary = guard.summary()
+    receipt = {
+        "version": 1,
+        "status": status,
+        "phase": 3.2 if config.get("run_revision") == "phase3_2_fresh_pool" else 3,
+        "rung": "r4",
+        "run_revision": config.get("run_revision"),
+        "mode": "smoke" if smoke else "full",
+        "seed": seed,
+        "backend": backend,
+        "config_path": config["_config_path"],
+        "config_hash": config["_config_hash"],
+        "git_sha": git_sha(),
+        "guard": summary,
+        "passed_opening_steps": (
+            len(summary["observed"]) == guard.opening_steps and summary["all_zero_std"] is False
+        ),
+        "reward_audit": audit.summary(),
+        "recorded_at": utc_now(),
+        "error": (
+            {"type": type(error).__name__, "message": str(error)} if error is not None else None
+        ),
+    }
+    write_json_atomic(
+        reward_signal_receipt_path(
+            config,
+            seed=seed,
+            smoke=smoke,
+            backend=backend,
+        ),
+        receipt,
+    )
+    return receipt
+
+
 def run(config_path: str, *, seed: int | None, smoke: bool, backend: str = "trl") -> dict[str, Any]:
     if backend == "unsloth":
         activate_unsloth_runtime()
@@ -311,7 +368,9 @@ def run(config_path: str, *, seed: int | None, smoke: bool, backend: str = "trl"
         **args_kwargs,
     )
     rollout_sample_path = (
-        REPO_ROOT / "results" / "phase3_r4_rollout_sample_phase3_1_s0.json"
+        REPO_ROOT
+        / "results"
+        / f"phase3_r4_rollout_sample_{config.get('run_revision', 'unversioned')}_s0.json"
         if log_opening_completions
         else None
     )
@@ -345,9 +404,45 @@ def run(config_path: str, *, seed: int | None, smoke: bool, backend: str = "trl"
     callback_holder["trainer"] = trainer
     trainer.add_callback(signal_callback)
     resume = latest_checkpoint(trainer_dir)
-    result = trainer.train(resume_from_checkpoint=str(resume) if resume else None)
-    if rollout_sample_path is not None:
-        _require_clean_rollout_sample(rollout_sample_path)
+    try:
+        result = trainer.train(resume_from_checkpoint=str(resume) if resume else None)
+        if rollout_sample_path is not None:
+            _require_clean_rollout_sample(rollout_sample_path)
+        if not smoke:
+            guard_summary = signal_guard.summary()
+            if (
+                len(guard_summary["observed"]) != signal_guard.opening_steps
+                or guard_summary["all_zero_std"] is not False
+            ):
+                raise RuntimeError(
+                    "GRPO reward-signal guard did not prove nonzero variance across the "
+                    "complete opening window"
+                )
+    except Exception as error:
+        _write_reward_signal_receipt(
+            config,
+            seed=selected_seed,
+            smoke=smoke,
+            backend=backend,
+            guard=signal_guard,
+            audit=audit,
+            status=(
+                "aborted-zero-reward-variance"
+                if "frac_reward_zero_std stayed 1.0" in str(error)
+                else "failed-before-guard-proof"
+            ),
+            error=error,
+        )
+        raise
+    _write_reward_signal_receipt(
+        config,
+        seed=selected_seed,
+        smoke=smoke,
+        backend=backend,
+        guard=signal_guard,
+        audit=audit,
+        status=("smoke-not-applicable" if smoke else "passed-nonzero-reward-variance"),
+    )
     output = adapter_path(config, seed=selected_seed, smoke=smoke, backend=backend)
     trainer.save_model(str(output))
     tokenizer.save_pretrained(output)

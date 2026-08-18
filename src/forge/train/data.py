@@ -65,17 +65,28 @@ def validate_training_data(config: Mapping[str, Any], *, smoke: bool) -> Path:
     path = training_data_path(config, smoke=smoke)
     if not path.is_file():
         raise FileNotFoundError(f"training corpus is missing: {path}")
-    if not smoke and config["rung"] != "r1b":
+    prepared_manifest = config["data"].get("prepared_manifest")
+    if not smoke and prepared_manifest is None:
         if sha256_file(path) != config["data"]["sha256"]:
             raise ValueError(f"frozen training corpus hash mismatch: {path}")
         rows = sum(1 for line in path.read_text().splitlines() if line)
         if rows != int(config["data"]["rows"]):
             raise ValueError(f"frozen training corpus row mismatch: {path}")
-    if not smoke and config["rung"] == "r1b":
-        manifest = json.loads(resolve_path(config["data"]["prepared_manifest"]).read_text())
+    if not smoke and prepared_manifest is not None:
+        manifest_path = resolve_path(prepared_manifest)
+        if not manifest_path.is_file():
+            raise FileNotFoundError(f"prepared training-data manifest is missing: {manifest_path}")
+        manifest = json.loads(manifest_path.read_text())
         artifact = manifest["artifact"]
-        if sha256_file(path) != artifact["sha256"] or int(artifact["rows"]) != 20_000:
-            raise ValueError("R1b artifact differs from its contamination-screened manifest")
+        if (
+            manifest.get("status") != "complete"
+            or manifest.get("config_hash") != config["_config_hash"]
+            or sha256_file(path) != artifact["sha256"]
+            or int(artifact["rows"]) != int(config["data"]["rows"])
+        ):
+            raise ValueError(
+                f"{config['rung'].upper()} artifact differs from its prepared manifest"
+            )
     return path
 
 

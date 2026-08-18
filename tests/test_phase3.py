@@ -35,6 +35,7 @@ from forge.train.grpo import (
     _completion_text,
     _require_clean_rollout_sample,
     assert_synthetic_gold_reward,
+    reward_signal_receipt_path,
 )
 from forge.train.ledger import billable_records, record_attempt
 from forge.train.preflight import actual_gpu_hours, check_config, require_r1_reference_receipt
@@ -283,22 +284,26 @@ def test_grpo_reward_signal_guard_aborts_after_ten_all_zero_std_steps() -> None:
     assert healthy.summary()["all_zero_std"] is False
 
 
-def test_r4_fix_has_versioned_paths_ids_and_chat_template_contract() -> None:
+def test_r4_v2_has_fresh_pool_paths_ids_and_unchanged_guards() -> None:
     config = load_config("configs/r4_grpo.yaml")
     source = (ROOT / "src/forge/train/grpo.py").read_text()
 
-    assert config["run_revision"] == "phase3_1_reward_fix"
+    assert config["run_revision"] == "phase3_2_fresh_pool"
+    assert config["data"]["path"] == "data/phase3_2/r4_v2_grpo_fresh_rule.jsonl"
+    assert config["data"]["rows"] == 8_000
+    assert config["data"]["contamination_token_ngram"] == 13
+    assert config["training"]["num_generations"] == 8
     assert config["training"]["reward_signal_guard_steps"] == 10
     assert config["training"]["completion_logging_steps"] == 3
     assert checkpoint_root(config, seed=0, smoke=False, backend="trl").parts[-4:] == (
         "r4",
-        "phase3_1_reward_fix",
+        "phase3_2_fresh_pool",
         "trl",
         "s0",
     )
     assert evaluation_root(config, seed=0, smoke=False, backend="trl").parts[-4:] == (
         "r4",
-        "phase3_1_reward_fix",
+        "phase3_2_fresh_pool",
         "trl",
         "s0",
     )
@@ -310,10 +315,39 @@ def test_r4_fix_has_versioned_paths_ids_and_chat_template_contract() -> None:
             smoke=False,
             run_revision=config["run_revision"],
         )
-        == "r4_grpo_phase3_1_reward_fix_s0"
+        == "r4_grpo_phase3_2_fresh_pool_s0"
+    )
+    assert reward_signal_receipt_path(config, seed=2, smoke=False, backend="trl") == (
+        ROOT / "results/phase3_r4_reward_signal_phase3_2_fresh_pool_s2.json"
     )
     assert '"chat_template_kwargs"' in source
     assert '{"enable_thinking": False}' in source
+
+
+def test_r4_v2_manifest_proves_disjoint_clean_rule_labeled_pool() -> None:
+    config = load_config("configs/r4_grpo.yaml")
+    manifest = json.loads((ROOT / "data/phase3_2/manifest.json").read_text())
+
+    assert manifest["status"] == "complete"
+    assert manifest["config_hash"] == config["_config_hash"]
+    assert manifest["run_revision"] == "phase3_2_fresh_pool"
+    assert manifest["artifact"]["rows"] == 8_000
+    assert manifest["artifact"]["rule_labels_attached"] is True
+    assert manifest["disjointness"] == {
+        "fresh_overlap_phase2": 0,
+        "fresh_overlap_previous_training": 0,
+        "fresh_unique_rows": 8_000,
+        "phase2_is_subset_of_previous_training": True,
+        "phase2_unique_rows": 1_450,
+        "previously_trained_unique_rows": 20_000,
+    }
+    assert manifest["contamination"]["selected_rows_clean"] is True
+    assert manifest["contamination"]["test_rows_scanned"] == {
+        "test_drift": 80_000,
+        "test_iid": 104_443,
+    }
+    assert len(manifest["artifact"]["sha256"]) == 64
+    assert len(manifest["dataset_hash"]) == 64
 
 
 def test_original_r4_runs_are_preserved_and_marked_superseded_inconclusive() -> None:
@@ -342,7 +376,7 @@ def test_r1b_reuses_the_pinned_r4_deployment_export_contract() -> None:
     }
 
 
-def test_phase3_1_remote_receipts_are_durable_and_report_blocker_honestly() -> None:
+def test_phase3_1_receipts_remain_durable_during_the_r4_v2_contract() -> None:
     r1b = load_config("configs/r1b_sft_rule_20k.yaml")
     export_path = durable_export_manifest_path(r1b, seed=0, backend="trl")
     export_receipt = json.loads(export_path.read_text())
@@ -371,8 +405,18 @@ def test_phase3_1_remote_receipts_are_durable_and_report_blocker_honestly() -> N
         sha256_file(ROOT / diagnostic["evidence"]["rollout_sample_path"])
         == (diagnostic["evidence"]["rollout_sample_sha256"])
     )
-    assert selection["r4_best_seed_export_contract"]["status"] == ("blocked-reward-saturation")
-    assert "Blocked by reward saturation" in report
+    contract = selection["r4_best_seed_export_contract"]
+    assert contract["status"] in {
+        "pending-r4-v2",
+        "aborted-r4-v2-guard",
+        "eligible-ci-significant-win",
+        "not-eligible-no-ci-significant-win",
+    }
+    assert contract["historical_phase3_1_diagnostic"] == (
+        "results/phase3_r4_reward_signal_diagnostic.json"
+    )
+    assert "Phase 3.1 guard result" in report
+    assert "R4 v2 fresh-pool verdict" in report
 
 
 def test_full_export_preserves_pinned_processor_assets(
@@ -595,3 +639,4 @@ def test_phase3_make_targets_are_implemented() -> None:
         assert str(path) in smoke_recipe
     assert "$(MAKE) eval" in smoke_recipe
     assert "$(MAKE) export-model" in smoke_recipe
+    assert "$(MAKE) prepare-r4-v2 SMOKE=1" in smoke_recipe

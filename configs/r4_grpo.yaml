@@ -5,7 +5,7 @@ stage: grpo
 question: Does verifier-reward GRPO improve over DPO without reward hacking?
 seeds: [0, 1, 2]
 headline: true
-run_revision: phase3_1_reward_fix
+run_revision: phase3_2_fresh_pool
 
 model:
   full:
@@ -24,11 +24,21 @@ lineage:
 
 data:
   kind: grpo
-  path: data/phase2/sft_rule.jsonl
-  rows: 1450
-  sha256: 0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e
-  phase2_dataset_hash: 28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4
-  smoke_path: data/smoke/phase2/sft_rule.jsonl
+  path: data/phase3_2/r4_v2_grpo_fresh_rule.jsonl
+  rows: 8000
+  prepared_manifest: data/phase3_2/manifest.json
+  source_train_path: data/phase1_2/splits/train.parquet
+  source_train_payload_sha256: a753b3de8cbf85aabf71dc06ab960b371c586ff764e8f221c83a889d09676057
+  required_previous_training_path: data/phase3/r1b_sft_rule.jsonl
+  required_previous_training_sha256: cd4a2df77f4213b31ee97190bc25cc011b0d0bb5101561d66a2de4fb63975e6d
+  required_previous_training_rows: 20000
+  required_phase2_path: data/phase2/sft_rule.jsonl
+  required_phase2_sha256: 0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e
+  required_phase2_rows: 1450
+  candidate_rows: 12000
+  selection_seed: 20260818
+  contamination_token_ngram: 13
+  smoke_path: data/smoke/phase3_2/r4_v2_grpo_fresh_rule.jsonl
 
 prompt:
   path: configs/train_prompts/triage_v2_compact.txt
@@ -47,7 +57,7 @@ training:
   gradient_accumulation_steps: 8
   max_prompt_length: 1800
   max_completion_length: 384
-  num_generations: 4
+  num_generations: 8
   beta: 0.0
   save_steps: 25
   smoke_max_steps: 1
@@ -96,6 +106,6 @@ export:
 
 budget:
   gpu_type: RTX4090
-  projected_gpu_hours_per_run: 15.0
+  projected_gpu_hours_per_run: 3.0
   hourly_usd: 0.50
   project_gpu_hour_ceiling: 90.0
