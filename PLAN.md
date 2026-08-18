@@ -291,6 +291,46 @@ before launching the next run.
 
 ---
 
+## Phase 3.1 — R4 rerun after reward-pipeline defect + R1b export (local fix; ~7 GPU-h remote)
+
+**Why**: diagnosis proved the R4 zero-update was an instrumentation bug, not an
+algorithmic null. evaluate.py passes `enable_thinking=False` to the chat template;
+grpo.py never set `chat_template_kwargs`, so rollouts carried a `\n</think>\n\n`
+prefix that made the verifier's bare `json.loads` fail → reward constantly 0.0 →
+zero advantage → zero gradient (trainer_state: 100 steps of reward_std 0.0,
+grad_norm 0.0). The original R4 records stay in runs.jsonl (append-only) but must
+be marked superseded/inconclusive — never reported as "GRPO produced no signal".
+
+**Deliverables**
+1. Fix: pass `chat_template_kwargs={"enable_thinking": False}` into GRPOConfig via
+   the versioned_training_argument helper. Secondary hardening (not a substitute):
+   `_completion_text` strips through a trailing think block if present.
+2. Guards: abort the run if `frac_reward_zero_std == 1.0` over the first 10 steps;
+   smoke gate asserts a synthetic gold completion earns reward > 0; first rerun
+   enables completion logging for the opening steps and archives a sample so the
+   rollout text is verifiably clean JSON.
+3. Rerun R4 seeds 0/1/2 (TRL backend per the agreement gate), full eval + paired
+   deltas vs R3, reward-hacking probes, export contract for the best seed.
+4. Export R1b seed 0: merged BF16 + GPTQ int4, hashed — this is the Phase 4
+   serving artifact (the existing r4/s0 export equals R3 weights and is NOT the
+   best model).
+5. Report repairs: replace the draft headline (currently celebrates the defective
+   R4) with the R1b-centric cost-quality story; fix the duplicated "R1 seed 0"
+   failure-register label (second entry is the Unsloth run); add the GRPO incident
+   writeup (mechanism, detection, fix) to the negative-result register.
+
+**Gate**
+- [ ] rollout-sample archive shows clean JSON completions  - [ ] guards in place
+- [ ] R4 rerun recorded (3 seeds) with honest deltas vs R3, whatever they are
+- [ ] original R4 records marked superseded-inconclusive, not deleted
+- [ ] R1b BF16 + GPTQ exports hashed  - [ ] report/headline repaired
+- [ ] tests + CI green; GPU ledger updated (projection still far under 90h)
+
+**Constraints**: human launches GPU runs. No other rung is retrained. R1b's
+99.1% number is already final — do not touch its training.
+
+---
+
 ## Phase 4 — Serving & inference engineering (remote GPU, ~1 week)
 
 **Goal**: production-vocabulary numbers [D8] + the structured-output deep dive [D9].
