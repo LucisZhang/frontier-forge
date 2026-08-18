@@ -226,6 +226,9 @@ def test_phase4_remote_scripts_are_safe_for_the_shared_pod() -> None:
     assert "0.30" in combined
     sync_command = '"${uv_bin}" sync --active --locked --no-default-groups --group remote-serve'
     assert sync_command in bootstrap
+    assert "FORGE_UV_MIRROR_URL" in bootstrap
+    assert "--require-hashes" in bootstrap
+    assert "--no-emit-project" in bootstrap
     assert "shutdown" not in combined.lower()
     assert "reboot" not in combined.lower()
 

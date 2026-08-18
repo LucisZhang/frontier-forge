@@ -26,6 +26,23 @@ if [[ ! -x .venv-phase4/bin/python ]]; then
   "${uv_bin}" venv .venv-phase4 --python 3.12 --seed
 fi
 
+if [[ -n "${FORGE_UV_MIRROR_URL:-}" ]]; then
+  requirements_path=".tmp-phase4/remote-serve-requirements.txt"
+  "${uv_bin}" export \
+    --locked \
+    --no-default-groups \
+    --group remote-serve \
+    --format requirements-txt \
+    --no-emit-project \
+    --output-file "${requirements_path}"
+  VIRTUAL_ENV="${repo_root}/.venv-phase4" \
+    "${uv_bin}" pip install \
+      --python .venv-phase4/bin/python \
+      --index-url "${FORGE_UV_MIRROR_URL}" \
+      --require-hashes \
+      --requirements "${requirements_path}"
+fi
+
 VIRTUAL_ENV="${repo_root}/.venv-phase4" \
   "${uv_bin}" sync --active --locked --no-default-groups --group remote-serve
 
