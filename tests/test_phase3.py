@@ -419,6 +419,47 @@ def test_phase3_1_receipts_remain_durable_during_the_r4_v2_contract() -> None:
     assert "R4 v2 fresh-pool verdict" in report
 
 
+def test_phase3_2_guard_abort_is_final_without_a_fabricated_seed2_delta() -> None:
+    config = load_config("configs/r4_grpo.yaml")
+    revision = config["run_revision"]
+    receipts = {
+        seed: json.loads(
+            (ROOT / f"results/phase3_r4_reward_signal_{revision}_s{seed}.json").read_text()
+        )
+        for seed in (0, 1, 2)
+    }
+    deltas = json.loads((ROOT / "results/phase3_paired_deltas.json").read_text())
+    selection = json.loads((ROOT / "results/phase3_export_selection.json").read_text())
+    report = (ROOT / "results/phase3_report.md").read_text()
+
+    assert receipts[0]["status"] == "passed-nonzero-reward-variance"
+    assert receipts[1]["status"] == "passed-nonzero-reward-variance"
+    assert receipts[2]["status"] == "aborted-zero-reward-variance"
+    assert receipts[2]["guard"]["observed"] == {str(step): 1.0 for step in range(1, 11)}
+
+    seed_deltas = {int(item["to_seed"]): item for item in deltas["r4_v2_seed_deltas"]}
+    assert seed_deltas[0]["status"] == "complete"
+    assert seed_deltas[1]["status"] == "complete"
+    assert seed_deltas[2]["status"] == "aborted-zero-reward-variance"
+    assert seed_deltas[2]["paired_rows"] == 0
+    assert "mean_task_success_delta" not in seed_deltas[2]
+    assert deltas["r4_v2_aggregate"] == {
+        "from": "r3",
+        "to": "r4",
+        "status": "aborted-zero-reward-variance",
+        "verdict": "aborted",
+        "aborted_seeds": [2],
+        "completed_seeds": [0, 1],
+        "reason": (
+            "The unchanged ten-step reward-variance guard stopped R4 v2; no "
+            "three-seed aggregate or missing paired delta is fabricated."
+        ),
+    }
+    assert selection["r4_best_seed_export_contract"]["status"] == "aborted-r4-v2-guard"
+    assert "Final R4 v2 verdict: **ABORTED BY LOCKED GUARD**" in report
+    assert "no frozen evaluation or paired delta exists" in report
+
+
 def test_full_export_preserves_pinned_processor_assets(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:

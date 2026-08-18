@@ -12,23 +12,49 @@
   },
   "r4_best_seed_export_contract": {
     "eligibility_rule": "paired delta versus R3 has CI95 lower bound greater than zero",
+    "failed_signal_seeds": [
+      2
+    ],
     "historical_phase3_1_diagnostic": "results/phase3_r4_reward_signal_diagnostic.json",
     "paired_deltas": [
       {
+        "bootstrap_resamples": 1000,
+        "ci95": [
+          -0.001,
+          0.0065
+        ],
         "from": "r3",
-        "status": "pending",
+        "from_backend": "trl",
+        "from_seed": 0,
+        "mean_task_success_delta": 0.0025,
+        "paired_rows": 2000,
+        "status": "complete",
         "to": "r4",
+        "to_backend": "trl",
         "to_seed": 0
       },
       {
+        "bootstrap_resamples": 1000,
+        "ci95": [
+          -0.0015,
+          0.0065
+        ],
         "from": "r3",
-        "status": "pending",
+        "from_backend": "trl",
+        "from_seed": 0,
+        "mean_task_success_delta": 0.0025,
+        "paired_rows": 2000,
+        "status": "complete",
         "to": "r4",
+        "to_backend": "trl",
         "to_seed": 1
       },
       {
         "from": "r3",
-        "status": "pending",
+        "guard_status": "aborted-zero-reward-variance",
+        "paired_rows": 0,
+        "reason": "GRPO reward-signal guard aborted: frac_reward_zero_std stayed 1.0 for the first 10 steps",
+        "status": "aborted-zero-reward-variance",
         "to": "r4",
         "to_seed": 2
       }
@@ -39,7 +65,7 @@
       2
     ],
     "selection_metric": "task_success_then_mean_reward_then_lowest_seed",
-    "status": "pending-r4-v2"
+    "status": "aborted-r4-v2-guard"
   },
   "version": 1
 }

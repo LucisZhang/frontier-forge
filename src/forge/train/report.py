@@ -191,8 +191,10 @@ def paired_deltas(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) -> d
         if record.get("backend", "trl") == "trl" and record.get("config_hash") == current_r4_hash
     }
     r3 = _seed_zero_record(by_rung["r3"])
-    r4_seed_deltas = [
-        {
+    signal_receipts = _r4_v2_signal_receipts(smoke=smoke)
+    r4_seed_deltas = []
+    for seed in (0, 1, 2):
+        delta = {
             **summarize_records(
                 "r3",
                 "r4",
@@ -201,10 +203,44 @@ def paired_deltas(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) -> d
             ),
             "to_seed": seed,
         }
-        for seed in (0, 1, 2)
-    ]
+        receipt = signal_receipts.get(seed)
+        if (
+            delta["status"] == "pending"
+            and receipt is not None
+            and receipt.get("status") == "aborted-zero-reward-variance"
+        ):
+            delta = {
+                "from": "r3",
+                "to": "r4",
+                "to_seed": seed,
+                "status": "aborted-zero-reward-variance",
+                "paired_rows": 0,
+                "guard_status": receipt["status"],
+                "reason": receipt.get("error", {}).get("message"),
+            }
+        r4_seed_deltas.append(delta)
     aggregate: dict[str, Any] = {"from": "r3", "to": "r4", "status": "pending"}
-    if all(item["status"] == "complete" for item in r4_seed_deltas) and r3 is not None:
+    aborted_seeds = [
+        int(item["to_seed"])
+        for item in r4_seed_deltas
+        if item["status"] == "aborted-zero-reward-variance"
+    ]
+    if aborted_seeds:
+        aggregate = {
+            "from": "r3",
+            "to": "r4",
+            "status": "aborted-zero-reward-variance",
+            "verdict": "aborted",
+            "aborted_seeds": aborted_seeds,
+            "completed_seeds": [
+                int(item["to_seed"]) for item in r4_seed_deltas if item["status"] == "complete"
+            ],
+            "reason": (
+                "The unchanged ten-step reward-variance guard stopped R4 v2; no "
+                "three-seed aggregate or missing paired delta is fabricated."
+            ),
+        }
+    elif all(item["status"] == "complete" for item in r4_seed_deltas) and r3 is not None:
         r3_backend = str(r3.get("backend", "trl"))
         r3_values = _prediction_map(
             evaluation_root(configs["r3"], seed=int(r3["seed"]), smoke=smoke, backend=r3_backend)
@@ -461,7 +497,12 @@ def _report_text(
     lines.extend(["", "## R4 v2 fresh-pool verdict", ""])
     for item in deltas["r4_v2_seed_deltas"]:
         seed = int(item["to_seed"])
-        if item["status"] != "complete":
+        if item["status"] == "aborted-zero-reward-variance":
+            lines.append(
+                f"- Seed {seed}: aborted by the locked ten-step reward-variance guard; "
+                "no frozen evaluation or paired delta exists."
+            )
+        elif item["status"] != "complete":
             lines.append(f"- Seed {seed}: {item['status']}.")
         else:
             ci = item["ci95"]
@@ -472,7 +513,14 @@ def _report_text(
                 f"n={item['paired_rows']}."
             )
     aggregate = deltas["r4_v2_aggregate"]
-    if aggregate["status"] != "complete":
+    if aggregate["status"] == "aborted-zero-reward-variance":
+        seeds = ", ".join(str(seed) for seed in aggregate["aborted_seeds"])
+        lines.append(
+            "- Final R4 v2 verdict: **ABORTED BY LOCKED GUARD**; "
+            f"seed(s) {seeds} stopped before frozen evaluation. The completed seed deltas "
+            "are retained but not aggregated, and no retry or reward tuning is authorized."
+        )
+    elif aggregate["status"] != "complete":
         lines.append("- Final R4 v2 verdict: pending all three frozen-eval records.")
     else:
         ci = aggregate["ci95"]
@@ -568,6 +616,18 @@ def _report_text(
             "to secondary fields excluded from scorer-v2 reward. The guard aborted the run, "
             "and seeds 1/2 were not launched rather than bypassing the locked reward/data "
             "contract."
+        )
+    for seed, receipt in sorted(_r4_v2_signal_receipts(smoke=smoke).items()):
+        if receipt.get("status") != "aborted-zero-reward-variance":
+            continue
+        observed = receipt["guard"]["observed"]
+        reward_audit = receipt["reward_audit"]
+        negatives.append(
+            f"Phase 3.2 guard result: seed {seed} stopped after "
+            f"{len(observed)} opening steps all had zero within-group reward variance "
+            f"(mean verifier reward {float(reward_audit['mean_reward']):.3f} across "
+            f"{int(reward_audit['completions_scored'])} completions). Per the locked plan, "
+            "there is no retry, frozen-eval record, paired delta, or three-seed aggregate."
         )
     comparison_results = deltas["adjacent_pairs"] + deltas["optional_ablation_pairs"]
     for item in comparison_results:

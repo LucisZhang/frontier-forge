@@ -1,0 +1,82 @@
+[
+  {
+    "backend": "trl",
+    "budget": {
+      "actual_gpu_hours": 35.89416666666667,
+      "ceiling_gpu_hours": 90.0,
+      "planning_rate_usd_per_gpu_hour": 0.5,
+      "projected_next_gpu_hours": 3.0,
+      "projected_next_planning_usd": 1.5,
+      "projected_total_gpu_hours": 38.89416666666667
+    },
+    "config_hash": "78abf15cfc926a8fcdfdbf4729db6a20e6b3fe50907264b3de28bf73f2f62f00",
+    "context_audit_status": "complete",
+    "launch_code_tree_clean": true,
+    "launch_hardware": {
+      "cuda_version": "13.0",
+      "name": "NVIDIA GeForce RTX 4090",
+      "total_memory_bytes": 25250627584,
+      "visible_device_count": 1
+    },
+    "mode": "full",
+    "parent_adapter": "checkpoints/full/r3/trl/s0/adapter",
+    "phase2_dataset_hash": "28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4",
+    "prompt_sha256": "bf1d31236ece8abee77587b8652f42ef4afb5b65a54309d35e56646e420515c3",
+    "rung": "r4",
+    "seed": 2,
+    "stage": "grpo",
+    "training_data_path": "data/phase3_2/r4_v2_grpo_fresh_rule.jsonl",
+    "training_data_sha256": "565228c2fb7d5f8f1a34f1a9e51a3c3765707834fa760d65b4055df71252c127"
+  }
+]
+W0818 15:04:31.276000 52544 .venv/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0818 15:04:31.305000 52544 .venv/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]Loading weights:   0%|          | 1/723 [00:00<02:40,  4.50it/s]Loading weights:   3%|▎         | 22/723 [00:00<00:08, 84.45it/s]Loading weights:   6%|▋         | 46/723 [00:00<00:04, 137.73it/s]Loading weights:  11%|█         | 80/723 [00:00<00:03, 202.64it/s]Loading weights:  15%|█▌        | 112/723 [00:00<00:02, 240.12it/s]Loading weights:  20%|█▉        | 142/723 [00:00<00:02, 256.69it/s]Loading weights:  24%|██▎       | 171/723 [00:00<00:02, 263.62it/s]Loading weights:  28%|██▊       | 201/723 [00:00<00:01, 268.14it/s]Loading weights:  33%|███▎      | 235/723 [00:01<00:01, 285.98it/s]Loading weights:  37%|███▋      | 265/723 [00:01<00:01, 263.49it/s]Loading weights:  42%|████▏     | 301/723 [00:01<00:01, 284.92it/s]Loading weights:  46%|████▌     | 331/723 [00:01<00:01, 273.86it/s]Loading weights:  50%|████▉     | 360/723 [00:01<00:01, 275.35it/s]Loading weights:  54%|█████▍    | 393/723 [00:01<00:01, 289.90it/s]Loading weights:  59%|█████▊    | 423/723 [00:01<00:01, 278.76it/s]Loading weights:  78%|███████▊  | 566/723 [00:01<00:00, 599.59it/s]Loading weights:  99%|█████████▉| 716/723 [00:01<00:00, 846.93it/s]Loading weights: 100%|██████████| 723/723 [00:01<00:00, 371.58it/s]
+[transformers] The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248044, 'pad_token_id': 248044}.
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|          | 1/100 [00:24<40:56, 24.81s/it]                                                 1%|          | 1/100 [00:24<40:56, 24.81s/it]  2%|▏         | 2/100 [00:51<42:16, 25.88s/it]                                                 2%|▏         | 2/100 [00:51<42:16, 25.88s/it]  3%|▎         | 3/100 [01:15<40:27, 25.03s/it]                                                 3%|▎         | 3/100 [01:15<40:27, 25.03s/it]  4%|▍         | 4/100 [01:39<39:11, 24.50s/it]                                                 4%|▍         | 4/100 [01:39<39:11, 24.50s/it]  5%|▌         | 5/100 [02:03<38:56, 24.59s/it]                                                 5%|▌         | 5/100 [02:03<38:56, 24.59s/it]  6%|▌         | 6/100 [02:27<38:09, 24.35s/it]                                                 6%|▌         | 6/100 [02:27<38:09, 24.35s/it]  7%|▋         | 7/100 [02:50<36:59, 23.87s/it]                                                 7%|▋         | 7/100 [02:50<36:59, 23.87s/it]  8%|▊         | 8/100 [03:16<37:20, 24.35s/it]                                                 8%|▊         | 8/100 [03:16<37:20, 24.35s/it]  9%|▉         | 9/100 [03:40<36:49, 24.28s/it]                                                 9%|▉         | 9/100 [03:40<36:49, 24.28s/it] 10%|█         | 10/100 [04:03<36:10, 24.11s/it]                                                 10%|█         | 10/100 [04:03<36:10, 24.11s/it]Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 476, in <module>
+    main()
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 472, in main
+    run(args.config, seed=args.seed, smoke=args.smoke, backend=args.backend)
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 408, in run
+    result = trainer.train(resume_from_checkpoint=str(resume) if resume else None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 1449, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 1531, in _inner_training_loop
+    self._run_epoch(
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 1800, in _run_epoch
+    self._maybe_log_save_evaluate(
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 2109, in _maybe_log_save_evaluate
+    self.log(logs, start_time)
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/trl/trainer/grpo_trainer.py", line 3361, in log
+    super().log(logs, start_time)
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 3915, in log
+    self.control = self.callback_handler.on_log(self.args, self.state, self.control, logs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer_callback.py", line 535, in on_log
+    return self.call_event("on_log", args, state, control, logs=logs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer_callback.py", line 545, in call_event
+    result = getattr(callback, event)(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 170, in on_log
+    guard.observe(step, logs or {})
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 139, in observe
+    raise RuntimeError(
+RuntimeError: GRPO reward-signal guard aborted: frac_reward_zero_std stayed 1.0 for the first 10 steps
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '5e-06', 'num_tokens': '7128', 'completions/mean_length': '70', 'completions/min_length': '70', 'completions/max_length': '70', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '70', 'completions/min_terminated_length': '70', 'completions/max_terminated_length': '70', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.00048', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '24.68', 'epoch': '0.000125'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.95e-06', 'num_tokens': '1.623e+04', 'completions/mean_length': '66.25', 'completions/min_length': '64', 'completions/max_length': '70', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '66.25', 'completions/min_terminated_length': '64', 'completions/max_terminated_length': '70', 'rewards/reward/mean': '0.8', 'rewards/reward/std': '0', 'reward': '0.8', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.01912', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '26.59', 'epoch': '0.00025'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.9e-06', 'num_tokens': '2.331e+04', 'completions/mean_length': '70', 'completions/min_length': '70', 'completions/max_length': '70', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '70', 'completions/min_terminated_length': '70', 'completions/max_terminated_length': '70', 'rewards/reward/mean': '0.8', 'rewards/reward/std': '0', 'reward': '0.8', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.0004189', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '23.97', 'epoch': '0.000375'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.85e-06', 'num_tokens': '3.057e+04', 'completions/mean_length': '57', 'completions/min_length': '57', 'completions/max_length': '57', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '57', 'completions/min_terminated_length': '57', 'completions/max_terminated_length': '57', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.0005812', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '23.65', 'epoch': '0.0005'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.8e-06', 'num_tokens': '3.804e+04', 'completions/mean_length': '74', 'completions/min_length': '74', 'completions/max_length': '74', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '74', 'completions/min_terminated_length': '74', 'completions/max_terminated_length': '74', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.0006273', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '24.7', 'epoch': '0.000625'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.75e-06', 'num_tokens': '4.457e+04', 'completions/mean_length': '79', 'completions/min_length': '79', 'completions/max_length': '79', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '79', 'completions/min_terminated_length': '79', 'completions/max_terminated_length': '79', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.002609', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '23.86', 'epoch': '0.00075'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.7e-06', 'num_tokens': '5.072e+04', 'completions/mean_length': '69', 'completions/min_length': '69', 'completions/max_length': '69', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '69', 'completions/min_terminated_length': '69', 'completions/max_terminated_length': '69', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.001688', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '22.83', 'epoch': '0.000875'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.65e-06', 'num_tokens': '5.935e+04', 'completions/mean_length': '64', 'completions/min_length': '64', 'completions/max_length': '64', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '64', 'completions/min_terminated_length': '64', 'completions/max_terminated_length': '64', 'rewards/reward/mean': '0.8', 'rewards/reward/std': '0', 'reward': '0.8', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.0009475', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '25.35', 'epoch': '0.001'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.6e-06', 'num_tokens': '6.615e+04', 'completions/mean_length': '67', 'completions/min_length': '67', 'completions/max_length': '67', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '67', 'completions/min_terminated_length': '67', 'completions/max_terminated_length': '67', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.0007221', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '24.07', 'epoch': '0.001125'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.55e-06', 'num_tokens': '7.314e+04', 'completions/mean_length': '74', 'completions/min_length': '74', 'completions/max_length': '74', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '74', 'completions/min_terminated_length': '74', 'completions/max_terminated_length': '74', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.003507', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '23.7', 'epoch': '0.00125'}
+ 10%|█         | 10/100 [04:04<36:38, 24.43s/it]
+recorded failed GPU training attempt: failed_e2c802d85d0e409d82d3 (0.072h)

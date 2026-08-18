@@ -1,0 +1,40 @@
+{
+  "backend": "trl",
+  "config_hash": "78abf15cfc926a8fcdfdbf4729db6a20e6b3fe50907264b3de28bf73f2f62f00",
+  "config_path": "configs/r4_grpo.yaml",
+  "error": null,
+  "git_sha": "fa0cf443c15faf1a4e3dfabc3b9a3371853409cb",
+  "guard": {
+    "all_zero_std": false,
+    "observed": {
+      "1": 1.0,
+      "10": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 0.0,
+      "6": 1.0,
+      "7": 1.0,
+      "8": 1.0,
+      "9": 1.0
+    },
+    "opening_steps": 10
+  },
+  "mode": "full",
+  "passed_opening_steps": true,
+  "phase": 3.2,
+  "recorded_at": "2026-08-18T06:16:37.438170+00:00",
+  "reward_audit": {
+    "abstention_rate": 0.0,
+    "completions_scored": 800,
+    "mean_completion_chars": 325.28375,
+    "mean_reward": 0.8715,
+    "rollout_sample_path": null,
+    "scorer_version": 2
+  },
+  "run_revision": "phase3_2_fresh_pool",
+  "rung": "r4",
+  "seed": 1,
+  "status": "passed-nonzero-reward-variance",
+  "version": 1
+}

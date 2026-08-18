@@ -1,0 +1,43 @@
+{
+  "backend": "trl",
+  "config_hash": "78abf15cfc926a8fcdfdbf4729db6a20e6b3fe50907264b3de28bf73f2f62f00",
+  "config_path": "configs/r4_grpo.yaml",
+  "error": {
+    "message": "GRPO reward-signal guard aborted: frac_reward_zero_std stayed 1.0 for the first 10 steps",
+    "type": "RuntimeError"
+  },
+  "git_sha": "fa0cf443c15faf1a4e3dfabc3b9a3371853409cb",
+  "guard": {
+    "all_zero_std": true,
+    "observed": {
+      "1": 1.0,
+      "10": 1.0,
+      "2": 1.0,
+      "3": 1.0,
+      "4": 1.0,
+      "5": 1.0,
+      "6": 1.0,
+      "7": 1.0,
+      "8": 1.0,
+      "9": 1.0
+    },
+    "opening_steps": 10
+  },
+  "mode": "full",
+  "passed_opening_steps": false,
+  "phase": 3.2,
+  "recorded_at": "2026-08-18T07:08:45.222925+00:00",
+  "reward_audit": {
+    "abstention_rate": 0.0,
+    "completions_scored": 80,
+    "mean_completion_chars": 289.45,
+    "mean_reward": 0.9400000000000001,
+    "rollout_sample_path": null,
+    "scorer_version": 2
+  },
+  "run_revision": "phase3_2_fresh_pool",
+  "rung": "r4",
+  "seed": 2,
+  "status": "aborted-zero-reward-variance",
+  "version": 1
+}

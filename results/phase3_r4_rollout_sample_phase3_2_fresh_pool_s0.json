@@ -1,0 +1,20 @@
+{
+  "backend": "trl",
+  "config_hash": "78abf15cfc926a8fcdfdbf4729db6a20e6b3fe50907264b3de28bf73f2f62f00",
+  "config_path": "configs/r4_grpo.yaml",
+  "git_sha": "fa0cf443c15faf1a4e3dfabc3b9a3371853409cb",
+  "hardening_required": false,
+  "normalized_completion": "{\"ambiguity_flag\":false,\"company\":\"CAPITAL ONE FINANCIAL CORPORATION\",\"issue\":\"Managing an account\",\"product\":\"deposit_account\",\"tool_call\":{\"arguments\":{\"company\":\"CAPITAL ONE FINANCIAL CORPORATION\",\"issue\":\"Managing an account\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+  "phase": 3,
+  "raw_completion": "{\"ambiguity_flag\":false,\"company\":\"CAPITAL ONE FINANCIAL CORPORATION\",\"issue\":\"Managing an account\",\"product\":\"deposit_account\",\"tool_call\":{\"arguments\":{\"company\":\"CAPITAL ONE FINANCIAL CORPORATION\",\"issue\":\"Managing an account\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}\n",
+  "raw_completion_sha256": "ef9816551d9dea9e0bd27c9c4cbcad563301074aea0f46a2a0ed6474273bd263",
+  "raw_json_valid": true,
+  "run_revision": "phase3_2_fresh_pool",
+  "rung": "r4",
+  "seed": 0,
+  "source_completion_logs": "checkpoints/full/r4/phase3_2_fresh_pool/trl/s0/trainer/completions",
+  "status": "clean_json",
+  "think_block_marker_present": false,
+  "verifier_reward": 0.8,
+  "version": 1
+}
