@@ -54,6 +54,16 @@ data) → R3 = R2 + DPO → R4 = R3 + GRPO (rule-based reward). Frozen eval set,
 bootstrap CIs, paired deltas, cost per run. A negative result at any rung (e.g.
 GRPO loses to DPO) is a valid, reportable outcome.
 
+### D5.1 Amendment (2026-08-18, human-approved after two R4 aborts)
+R4's original design trained GRPO on the same 1,450-row Phase 2 corpus its R3
+parent had memorized (SFT+DPO), saturating every reward at 1.0 → zero advantage
+→ guard abort. This is an experimental-design defect, not an algorithmic result.
+**R4 v2**: GRPO from R3 on a FRESH prompt pool — ~8k TRAIN rows disjoint from all
+previously trained rows (1,450 Phase 2 + 18,550 R1b additions), contamination-
+screened with the Phase 2 auditor; frozen eval unchanged; num_generations 4→8.
+Both prior R4 attempts remain in the ledger as superseded (bug; saturation).
+Whatever v2 yields — win, loss, or tie vs R3 — is final and reportable.
+
 ## D6. Hardware: RTX 4090 24GB rental as the workhorse
 AutoDL (~¥1.6–2.6/h) or Vast.ai/RunPod (~$0.35–0.65/h). Escalate to 48GB
 (L40S/A6000) only if GRPO memory-pressure is demonstrated. No A100/H100, no

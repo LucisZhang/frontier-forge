@@ -342,6 +342,36 @@ be marked superseded/inconclusive — never reported as "GRPO produced no signal
 
 ---
 
+## Phase 3.2 — R4 v2: GRPO on a fresh prompt pool (local prep; ~7 GPU-h remote)
+
+**Why**: see D5.1. Reward pipeline is fixed (Phase 3.1); the remaining defect was
+training on memorized prompts.
+
+**Deliverables**
+1. Fresh GRPO prompt pool: ~8k TRAIN rows disjoint from the 1,450 Phase 2 rows
+   and the 18,550 R1b additions; contamination-screened (Phase 2 auditor); rule
+   labels attached; manifest + hash under data/phase3_2/.
+2. r4 config v2: fresh pool path, num_generations 8, guards unchanged. The
+   10-step variance guard stays — with R3 at ~52–56% on unseen rows it should
+   pass naturally; if it aborts again, stop and report (do not tune to force
+   signal).
+3. Rerun R4 seeds 0/1/2 from R3 (TRL), frozen eval, paired deltas vs R3,
+   reward-hacking probes; export contract only if a seed beats R3 with CI
+   excluding zero.
+4. Report: final R4 verdict whatever it is; ladder table updated; the two prior
+   aborts stay documented as the path to a working experiment.
+
+**Gate**
+- [ ] pool disjointness + contamination proofs  - [ ] guard passes ≥10 steps with
+      nonzero reward variance (or documented abort)
+- [ ] 3 seeds recorded with deltas vs R3  - [ ] report updated
+- [ ] tests + CI green; ledger updated (projection well under 90h)
+
+**Constraints**: human approves any further contract change; shared-pod rules
+from the session prompt apply (no shutdown, GPU-idle check, own tmux prefix).
+
+---
+
 ## Phase 4 — Serving & inference engineering (remote GPU, ~1 week)
 
 **Goal**: production-vocabulary numbers [D8] + the structured-output deep dive [D9].
