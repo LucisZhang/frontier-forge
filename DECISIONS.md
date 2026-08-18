@@ -10,6 +10,13 @@ Latest available at kickoff (reference: Qwen3.5-4B-Base). vLLM compatibility is 
 hard requirement. Base — not instruct — so the before/after effect of post-training
 is legible. Draft model for speculative decoding: same family, 0.5B.
 
+### D1.1 Amendment (2026-08-18, forced technical correction)
+The "same family 0.5B" draft is impossible: Qwen3.5-4B's vocab is 248,320 while
+the 0.5B checkpoint (Qwen2.5 generation) has 151,936 — vLLM rejects the pairing
+before serving (failure receipt: results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json).
+Draft model is amended to `Qwen/Qwen3.5-0.8B-Base`, the smallest vocab-compatible
+same-family base. No other decision changes; the failed attempt stays on record.
+
 ## D2. Teacher: frontier API via OpenRouter
 Reuse nlp-eval-lab's Tier-C setup and account. Teacher identity matters less than
 data provenance: every distilled sample carries teacher model version + prompt hash.
