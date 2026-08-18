@@ -226,6 +226,18 @@ def test_phase4_remote_scripts_are_safe_for_the_shared_pod() -> None:
     assert 'kill -TERM -- "-${server_pid}"' in worker
     assert "FORGE_GPU_HOURLY_USD" in combined
     assert "0.30" in combined
+    for cache_variable in (
+        "XDG_CACHE_HOME",
+        "VLLM_CACHE_ROOT",
+        "VLLM_CONFIG_ROOT",
+        "CUDA_CACHE_PATH",
+        "CUPY_CACHE_DIR",
+        "NUMBA_CACHE_DIR",
+        "TORCH_EXTENSIONS_DIR",
+        "HF_HOME",
+        "HF_HUB_OFFLINE",
+    ):
+        assert cache_variable in launcher
     sync_command = '"${uv_bin}" sync --active --locked --no-default-groups --group remote-serve'
     assert sync_command in bootstrap
     assert "FORGE_UV_MIRROR_URL" in bootstrap

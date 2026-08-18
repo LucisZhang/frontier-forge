@@ -35,6 +35,13 @@ fi
 
 repo_root="$(pwd)"
 started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+mkdir -p \
+  .cache/cuda \
+  .cache/cupy \
+  .cache/numba \
+  .cache/torch-extensions \
+  .cache/vllm \
+  .cache/vllm-config
 tmux new-session -d -s "${session}" \
   env \
   "FORGE_STARTED_AT=${started_at}" \
@@ -42,8 +49,16 @@ tmux new-session -d -s "${session}" \
   "FORGE_BENCH_GIT_SHA=${FORGE_BENCH_GIT_SHA}" \
   "UV_CACHE_DIR=${repo_root}/.uv-cache-phase4" \
   "TMPDIR=${repo_root}/.tmp-phase4" \
+  "XDG_CACHE_HOME=${repo_root}/.cache" \
+  "VLLM_CACHE_ROOT=${repo_root}/.cache/vllm" \
+  "VLLM_CONFIG_ROOT=${repo_root}/.cache/vllm-config" \
+  "CUDA_CACHE_PATH=${repo_root}/.cache/cuda" \
+  "CUPY_CACHE_DIR=${repo_root}/.cache/cupy" \
+  "NUMBA_CACHE_DIR=${repo_root}/.cache/numba" \
+  "TORCH_EXTENSIONS_DIR=${repo_root}/.cache/torch-extensions" \
   "HF_HOME=${repo_root}/.cache/huggingface" \
   "HUGGINGFACE_HUB_CACHE=${repo_root}/.cache/huggingface/hub" \
+  "HF_HUB_OFFLINE=1" \
   ./scripts/remote/run_phase4.sh
 
 echo "launched Phase 4 in tmux session ${session}"
