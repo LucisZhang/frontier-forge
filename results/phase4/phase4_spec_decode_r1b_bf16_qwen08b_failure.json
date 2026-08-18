@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "phase": 4,
+  "experiment": "spec_decode",
+  "run_id": "phase4_spec_decode_r1b_bf16_qwen08b_attempt1_failed_vllm_mtp_rewrite",
+  "intended_run_id": "phase4_spec_decode_r1b_bf16_qwen08b",
+  "status": "failed-before-server-ready",
+  "config_path": "configs/phase4/spec_r1b_bf16_qwen08b.yaml",
+  "config_hash": "9a0ebe2dde2d291a6cc9b792cc182103f528022f4a52902e04546e812827552a",
+  "git_sha": "1711a6051604bd3aa3946dfa514e729df4952c21",
+  "dataset_hash": null,
+  "model": {
+    "target": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "target_artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "target_hidden_size": 2560,
+    "draft": "Qwen/Qwen3.5-0.8B-Base",
+    "draft_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "draft_hidden_size": 1024,
+    "num_speculative_tokens": 5
+  },
+  "server": {
+    "vllm_version": "0.17.0",
+    "configured_method": "draft_model",
+    "observed_method": "mtp"
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "hourly_usd": 0.3,
+    "gpu_memory_used_after_failure_mib": 0,
+    "other_gpu_processes_observed": false
+  },
+  "failure": {
+    "type": "vllm_qwen35_draft_forced_mtp_hidden_mismatch",
+    "message": "vLLM rewrote the explicit Qwen3.5 draft_model into qwen3_5_mtp, then tried to load 0.8B hidden-size-1024 weights into the target's hidden-size-2560 MTP structure.",
+    "exception": "RuntimeError: The size of tensor a (2560) must match the size of tensor b (1024) at non-singleton dimension 1"
+  },
+  "locked_decision_gate": {
+    "decision": "D1.1 pins Qwen/Qwen3.5-0.8B-Base as the separate draft model and requires vLLM compatibility.",
+    "configuration_level_fix_available": false,
+    "latest_vllm_main_checked": true,
+    "latest_vllm_source": "https://github.com/vllm-project/vllm/blob/main/vllm/config/speculative.py",
+    "action": "Stopped without patching vLLM or substituting another speculation method; a human-approved amendment is required."
+  },
+  "cost": {
+    "elapsed_s_from_log_timestamps": 5,
+    "gpu_hours": 0.001388888888888889,
+    "hourly_usd": 0.3,
+    "usd": 0.00041666666666666664,
+    "api_usd": 0.0
+  },
+  "started_at": "2026-08-18T13:04:35Z",
+  "finished_at": "2026-08-18T13:04:40Z",
+  "raw_artifact": "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json",
+  "evidence": {
+    "server_log": {
+      "path": "results/phase4/logs/phase4_spec_decode_r1b_bf16_qwen08b-2026-08-18T130346Z.server.log",
+      "sha256": "79f40580af940e0e7b4282c4aa05082c7e2bba4dc0e917c631f37f70701accd3"
+    },
+    "worker_log": {
+      "path": "results/phase4/logs/phase4-worker-2026-08-18T130346Z.log",
+      "sha256": "761b0327bd2382c0196eabdd2f4af1f458b4fe1628f3cba3368da43b2d7ea131"
+    }
+  }
+}
