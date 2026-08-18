@@ -92,9 +92,9 @@
     "r4_grpo_prompt": {
       "first_violation_ids": [],
       "limit_tokens": 1800,
-      "max_complaint_id": 3829741,
-      "max_tokens": 1530,
-      "rows": 1450,
+      "max_complaint_id": 2727775,
+      "max_tokens": 1751,
+      "rows": 8000,
       "violations": 0
     }
   },
@@ -104,13 +104,13 @@
     "r1b": "aad4c613a265ade6b181dbc0785583e68248ab5da6bba91efe5be758b4fc8dbd",
     "r2": "f99a324bd04ea4560ad07426e9da7f0f1cb058471cd9f79f87e89199c7480369",
     "r3": "a4136b124e6ca70c499b7b2b130e291f56de8edfbfa363cc934b7721a3b9a22a",
-    "r4": "4a1a4f0ebe3df3e7d9906562a2810ee7a856580e725a8cf7644a8dcf2f410c39"
+    "r4": "78abf15cfc926a8fcdfdbf4729db6a20e6b3fe50907264b3de28bf73f2f62f00"
   },
-  "git_sha": "7a89269fe324bdcc129e0d69526d2bce87f91a50",
+  "git_sha": "e7cf509d7d0dbc26b3dffc58eda5cfa9747ca3cc",
   "narrative_char_cap_full": 3250,
   "notes": "Audit only; no model weights loaded and no frozen source artifact modified.",
   "phase": 3,
-  "recorded_at": "2026-08-18T01:07:11.282846+00:00",
+  "recorded_at": "2026-08-18T03:21:32.449143+00:00",
   "status": "complete",
   "tokenizer": {
     "dtype": "bfloat16",
