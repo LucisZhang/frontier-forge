@@ -31,6 +31,22 @@ The experiment goal (D8: a win/lose boundary across QPS) is method-agnostic, so:
 Whichever path runs, the report must name the method, why, and what failed before.
 The D1/D1.1 external-draft choice becomes moot under path (1).
 
+### D1.3 Amendment (2026-08-18, human-approved after M-RoPE blocker)
+D1.2 path 1 failed (R1b export has zero mtp.* keys despite the config declaring
+1 MTP layer) and path 2 failed (vLLM 0.17.0 rejects M-RoPE external drafts).
+NO M-RoPE compatibility patch and NO vLLM version change — we do not maintain a
+private inference-stack fork for one experiment. Evidence-gated priority:
+1. Metadata audit (no GPU): does the Qwen3.5-4B-Base checkpoint index contain
+   mtp.* weights? If YES → the export dropped them; produce an MTP-preserving
+   re-export of R1b (~1 GPU-h) and run the native-MTP sweep.
+2. If the base itself lacks mtp.* weights (archive the index evidence) → switch
+   the speculative method to vLLM-native n-gram / prompt-lookup speculation
+   (draft-free, supported, and well-matched to templated JSON output). The D8
+   deliverable becomes the n-gram win/lose boundary across QPS + acceptance rate.
+3. If both fail, close spec-decode as blocked with the accumulated receipts.
+PROCESS RULE: spec-decode no longer gates the rest of Phase 4 — structured-output
+benches and the full report proceed regardless of which branch resolves.
+
 ## D2. Teacher: frontier API via OpenRouter
 Reuse nlp-eval-lab's Tier-C setup and account. Teacher identity matters less than
 data provenance: every distilled sample carries teacher model version + prompt hash.
