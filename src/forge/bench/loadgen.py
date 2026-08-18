@@ -15,6 +15,7 @@ from typing import Any
 import httpx
 
 from forge.teacher.filters import breakdown_dict
+from forge.train.grpo import _completion_text
 from forge.verify.verifier import score
 
 from .config import load_phase4_config
@@ -25,6 +26,16 @@ from .metrics import (
     summarize_vllm_metrics,
 )
 from .workload import load_workload
+
+VERIFIER_INPUT_NORMALIZATION = (
+    "forge.train.grpo._completion_text: keep the suffix after the final </think>, then strip"
+)
+
+
+def normalize_verifier_input(output: object) -> str:
+    """Apply the same completion normalization used by the locked Phase 3 scorer path."""
+
+    return _completion_text(output)
 
 
 @dataclass
@@ -45,6 +56,7 @@ class RequestObservation:
     error: str | None
     deadline_missed: bool
     output: str
+    verifier_input: str
     verifier: dict[str, Any] | None
     response_headers: dict[str, str]
 
@@ -218,7 +230,10 @@ async def _stream_one(
     itl = None
     if ttft is not None and output_tokens > 1:
         itl = max(0.0, e2e - ttft) / (output_tokens - 1)
-    scored = breakdown_dict(score({"label": row["label"]}, output)) if error is None else None
+    verifier_input = normalize_verifier_input(output)
+    scored = (
+        breakdown_dict(score({"label": row["label"]}, verifier_input)) if error is None else None
+    )
     return RequestObservation(
         request_id=str(row["request_id"]),
         complaint_id=int(row["complaint_id"]),
@@ -236,6 +251,7 @@ async def _stream_one(
         error=error,
         deadline_missed=error is not None and error.startswith("deadline_exceeded"),
         output=output,
+        verifier_input=verifier_input,
         verifier=scored,
         response_headers=headers,
     )

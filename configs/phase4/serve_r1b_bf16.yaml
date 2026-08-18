@@ -1,7 +1,13 @@
 version: 1
 phase: 4
 experiment: serve
-run_id: phase4_serve_r1b_bf16
+run_id: phase4_serve_r1b_bf16_v2
+supersedes:
+  run_id: phase4_serve_r1b_bf16
+  raw_artifact: results/phase4/raw/phase4_serve_r1b_bf16.json
+  reason: >-
+    The original harness passed the raw </think>-prefixed completion directly to the
+    verifier instead of applying the locked Phase 3 completion normalization.
 model:
   variant: r1b
   precision: bfloat16

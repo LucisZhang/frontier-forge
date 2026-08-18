@@ -331,7 +331,7 @@ def _disclosure(receipts: list[dict[str, Any]], *, smoke: bool) -> list[str]:
         for item in receipts
         if item["experiment"] == "serve"
     ]
-    return [
+    lines = [
         "## Disclosure",
         "",
         f"- Mode: {'SMOKE (non-headline)' if smoke else 'FULL GPU'}.",
@@ -344,9 +344,18 @@ def _disclosure(receipts: list[dict[str, Any]], *, smoke: bool) -> list[str]:
         f"- Arrival process: Poisson, fixed seed {workload['request_seed']}; offered sweep {workload['arrival_rates_qps']} QPS; concurrency cap {workload['max_concurrency']}.",
         f"- Warm-up: {workload['warmup_requests']} requests excluded; measurement: {workload['measurement_requests']} requests per QPS point.",
         f"- Timing sides: client = {first['timing_disclosure']['client']}; server = {first['timing_disclosure']['server']}.",
+        f"- Verifier: `{first['verifier_disclosure']['implementation']}`; input normalization = {first['verifier_disclosure']['input_normalization']}; request artifacts preserve both raw and normalized outputs.",
         "- Stable means all declared error-rate, deadline-miss, achieved-QPS, and p95-inflation checks pass; max stable concurrency is the largest observed in-flight count among such points.",
         "- Cost per 1k successful tasks uses verifier-passing requests in the denominator, never token count.",
     ]
+    for receipt in receipts:
+        supersedes = receipt.get("supersedes")
+        if supersedes:
+            lines.append(
+                f"- Superseded measurement retained: `{supersedes['run_id']}` at "
+                f"`{supersedes['raw_artifact']}`; reason: {supersedes['reason']}"
+            )
+    return lines
 
 
 def build_report(*, smoke: bool) -> dict[str, Any]:

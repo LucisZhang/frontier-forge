@@ -24,7 +24,7 @@ from .config import (
     workload_contract,
     workload_contract_hash,
 )
-from .loadgen import run_load_benchmark
+from .loadgen import VERIFIER_INPUT_NORMALIZATION, run_load_benchmark
 from .preflight import (
     VERIFICATION_PATH,
     benchmark_git_sha,
@@ -85,6 +85,8 @@ def _full_run_record(receipt: dict[str, Any]) -> dict[str, Any]:
         "started_at": receipt["started_at"],
         "finished_at": receipt["finished_at"],
         "raw_artifact": receipt["raw_artifact"],
+        "verifier_disclosure": receipt["verifier_disclosure"],
+        "supersedes": receipt.get("supersedes"),
     }
 
 
@@ -182,6 +184,12 @@ def run(config_path: str | Path, *, base_url: str, smoke: bool) -> dict[str, Any
             "vram": "device-total nvidia-smi samples on the server host",
             "warmup_excluded": True,
         },
+        "verifier_disclosure": {
+            "implementation": "forge.verify.verifier.score",
+            "input_normalization": VERIFIER_INPUT_NORMALIZATION,
+            "raw_and_normalized_outputs_preserved": True,
+        },
+        "supersedes": config.get("supersedes"),
         "artifact_verification": artifact_verification,
         "artifact_verification_path": (None if smoke else relative_path(VERIFICATION_PATH)),
         "metrics": metrics,

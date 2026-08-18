@@ -12,7 +12,7 @@ import httpx
 from forge.teacher.filters import breakdown_dict
 from forge.verify.verifier import score
 
-from .loadgen import VramSampler
+from .loadgen import VramSampler, normalize_verifier_input
 from .metrics import parse_prometheus, percentile, prometheus_delta, summarize_vllm_metrics
 from .workload import load_workload
 
@@ -236,7 +236,7 @@ def _tool_name(response: Mapping[str, Any]) -> str | None:
 
 
 def _safe_score(label: Mapping[str, Any], content: object) -> dict[str, Any]:
-    return breakdown_dict(score({"label": label}, content))
+    return breakdown_dict(score({"label": label}, normalize_verifier_input(content)))
 
 
 async def _compile_bench(
@@ -335,10 +335,12 @@ async def _constraint_tax_bench(
             max_tokens=int(row["max_tokens"]),
             extra={**common, "structured_outputs": {"json": schema}},
         )
-        before_score = _safe_score(row["label"], simultaneous["content"])
+        simultaneous_verifier_input = normalize_verifier_input(simultaneous["content"])
+        before_score = _safe_score(row["label"], simultaneous_verifier_input)
         pass1 = unconstrained
         selected_tool = _tool_name(pass1)
         pass2: dict[str, Any] | None = None
+        pass2_verifier_input: str | None = None
         after_score: dict[str, Any] | None = None
         if selected_tool is not None:
             messages = [
@@ -364,7 +366,8 @@ async def _constraint_tax_bench(
                     }
                 },
             )
-            after_score = _safe_score(row["label"], pass2["content"])
+            pass2_verifier_input = normalize_verifier_input(pass2["content"])
+            after_score = _safe_score(row["label"], pass2_verifier_input)
         expected_tool = str(row["label"]["tool_call"]["name"])
         records.append(
             {
@@ -375,9 +378,11 @@ async def _constraint_tax_bench(
                 "simultaneous_tool_name": _tool_name(simultaneous),
                 "unconstrained": unconstrained,
                 "simultaneous_constraint_and_tool": simultaneous,
+                "simultaneous_verifier_input": simultaneous_verifier_input,
                 "simultaneous_score": before_score,
                 "two_pass_selected_tool": selected_tool,
                 "two_pass_second": pass2,
+                "two_pass_verifier_input": pass2_verifier_input,
                 "two_pass_score": after_score,
             }
         )

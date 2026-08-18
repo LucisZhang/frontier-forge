@@ -14,7 +14,11 @@ from forge.bench.config import (
     phase4_config_paths,
     workload_contract_hash,
 )
-from forge.bench.loadgen import poisson_offsets, run_load_benchmark
+from forge.bench.loadgen import (
+    normalize_verifier_input,
+    poisson_offsets,
+    run_load_benchmark,
+)
 from forge.bench.metrics import parse_prometheus, prometheus_delta, summarize_vllm_metrics
 from forge.bench.report import _spec_svg
 from forge.bench.server_args import server_command
@@ -54,6 +58,9 @@ def test_phase4_configs_cover_the_locked_matrix() -> None:
         workload_contract_hash(configs[0])
     }
     assert {config["hardware"]["hourly_usd"] for config in configs} == {0.30}
+    corrected = next(config for config in configs if config["run_id"].endswith("_v2"))
+    assert corrected["supersedes"]["run_id"] == "phase4_serve_r1b_bf16"
+    assert corrected["supersedes"]["raw_artifact"].endswith("phase4_serve_r1b_bf16.json")
 
 
 def test_phase4_quantization_and_r3_equivalence_are_not_conflated() -> None:
@@ -133,6 +140,8 @@ def test_vllm_commands_pin_precision_speculation_and_structured_backends() -> No
     outlines = server_command("configs/phase4/structured_r1b_bf16_outlines.yaml", executable="vllm")
 
     assert int4[int4.index("--quantization") + 1] == "gptq"
+    assert int4[int4.index("--dtype") + 1] == "float16"
+    assert spec[spec.index("--dtype") + 1] == "bfloat16"
     assert "--language-model-only" in int4
     assert "--no-enable-log-requests" in int4
     assert "--disable-log-requests" not in int4
@@ -145,6 +154,13 @@ def test_vllm_commands_pin_precision_speculation_and_structured_backends() -> No
     }
     structured = json.loads(outlines[outlines.index("--structured-outputs-config") + 1])
     assert structured == {"backend": "outlines", "disable_fallback": True}
+
+
+def test_verifier_input_normalization_matches_the_locked_phase3_path() -> None:
+    payload = '{"product":"mortgage"}'
+
+    assert normalize_verifier_input(f"reasoning\n</think>\n\n{payload}\n") == payload
+    assert normalize_verifier_input(payload) == payload
 
 
 def test_local_smoke_loadgen_separates_timings_and_uses_verifier() -> None:
@@ -163,6 +179,7 @@ def test_local_smoke_loadgen_separates_timings_and_uses_verifier() -> None:
     assert points[0]["server"]["measurement_side"] == "server_prometheus"
     assert points[0]["verifier_successes"] == len(requests)
     assert points[0]["cost_per_1k_successful_tasks_usd"] is not None
+    assert all(item["verifier_input"] == item["output"] for item in requests)
 
 
 def test_local_structured_smoke_exercises_tax_and_two_pass() -> None:
@@ -183,6 +200,8 @@ def test_local_structured_smoke_exercises_tax_and_two_pass() -> None:
     assert tax["simultaneous_schema_tool_call_rate"] == 0.0
     assert tax["two_pass_task_success"] == 1.0
     assert len(records) == 2
+    assert all(item["simultaneous_verifier_input"] for item in records)
+    assert all(item["two_pass_verifier_input"] for item in records)
 
 
 def test_spec_boundary_svg_is_deterministic_and_marks_both_verdicts() -> None:

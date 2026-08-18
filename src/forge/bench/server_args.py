@@ -26,7 +26,7 @@ def server_command(config_path: str | Path, *, executable: str) -> list[str]:
         "--port",
         str(server["port"]),
         "--dtype",
-        "bfloat16",
+        "float16" if model["precision"] == "gptq_int4" else "bfloat16",
         "--max-model-len",
         str(server["max_model_len"]),
         "--max-num-seqs",
