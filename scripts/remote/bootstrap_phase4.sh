@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ "$(uname -s)" != "Linux" ]]; then
+  echo "Phase 4 vLLM bootstrap is Linux CUDA pod-only" >&2
+  exit 2
+fi
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "${repo_root}"
+mkdir -p .uv-cache-phase4 .tmp-phase4 .cache/huggingface
+export UV_CACHE_DIR="${repo_root}/.uv-cache-phase4"
+export TMPDIR="${repo_root}/.tmp-phase4"
+export HF_HOME="${repo_root}/.cache/huggingface"
+export HUGGINGFACE_HUB_CACHE="${HF_HOME}/hub"
+
+if [[ ! -x .venv-phase4/bin/python ]]; then
+  uv venv .venv-phase4 --python 3.12 --seed
+fi
+
+VIRTUAL_ENV="${repo_root}/.venv-phase4" \
+  uv sync --active --locked --no-default-groups --group remote-serve
+
+.venv-phase4/bin/python - <<'PY'
+from huggingface_hub import snapshot_download
+
+snapshot_download(
+    repo_id="Qwen/Qwen2.5-0.5B",
+    revision="060db6499f32faf8b98477b0a26969ef7d8b9987",
+    allow_patterns=[
+        "*.json",
+        "*.jinja",
+        "*.safetensors",
+        "*.model",
+    ],
+)
+PY
+
+.venv-phase4/bin/python -m forge.bench.preflight
+.venv-phase4/bin/vllm --version
+echo "Phase 4 vLLM environment ready inside ${repo_root}/.venv-phase4"

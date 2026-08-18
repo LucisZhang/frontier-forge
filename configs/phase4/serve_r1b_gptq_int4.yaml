@@ -1,0 +1,47 @@
+version: 1
+phase: 4
+experiment: serve
+run_id: phase4_serve_r1b_gptq_int4
+model:
+  variant: r1b
+  precision: gptq_int4
+  served_name: forge-r1b-gptq-int4
+  artifact_path: checkpoints/full/r1b/trl/s0/export/gptq_int4
+  artifact_sha256: c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2
+  export_manifest: results/phase3_export_manifest_r1b_trl_s0.json
+  training_time_quantization: qlora_nf4
+  deployment_quantization: gptq_int4
+server:
+  vllm_version: 0.17.0
+  host: 127.0.0.1
+  port: 8000
+  max_model_len: 4096
+  max_num_seqs: 32
+  gpu_memory_utilization: 0.90
+  language_model_only: true
+  generation_config: vllm
+  structured_backend: auto
+  tool_call_parser: hermes
+workload:
+  dataset_manifest: data/phase1_2/manifest.json
+  split: mixed
+  rows: 96
+  selection_seed: 20260816
+  input_token_targets: [800, 1400, 2000]
+  input_token_weights: [0.4, 0.4, 0.2]
+  output_token_caps: [192, 256]
+  output_token_weights: [0.5, 0.5]
+  warmup_requests: 6
+  measurement_requests: 20
+  arrival_rates_qps: [0.25, 0.5, 1.0, 2.0, 4.0]
+  max_concurrency: 32
+  deadline_s: 60
+  request_seed: 20260818
+stability:
+  max_error_rate: 0.05
+  max_deadline_miss_rate: 0.05
+  min_achieved_qps_ratio: 0.85
+  max_p95_inflation: 4.0
+hardware:
+  gpu_type: RTX4090
+  hourly_usd: 0.30

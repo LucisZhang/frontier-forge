@@ -18,6 +18,10 @@ wheels/
 
 # python
 .venv/
+.venv-phase4/
+.uv-cache-phase4/
+.tmp-phase4/
+.cache/
 __pycache__/
 *.pyc
 .pytest_cache/

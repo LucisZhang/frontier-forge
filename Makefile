@@ -13,11 +13,10 @@ C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 	serve-bench spec-decode-bench structured-bench bench-report \
 	gateway-bench sync-up sync-down demo-build reproduce-headline
 
-STUB_TARGETS := serve-bench spec-decode-bench structured-bench bench-report \
-	gateway-bench demo-build reproduce-headline
+STUB_TARGETS := gateway-bench demo-build reproduce-headline
 
 .PHONY: $(C3_TARGETS) ci-lint prepare-r1b prepare-r4-v2 phase3-context-audit phase3-report \
-	phase3-preflight phase3-smoke
+	phase3-preflight phase3-smoke phase4-preflight phase4-smoke
 
 test:
 	uv run pytest
@@ -130,6 +129,63 @@ phase3-smoke:
 	@$(MAKE) eval SMOKE=1
 	@$(MAKE) export-model SMOKE=1 CONFIG=configs/r1b_sft_rule_20k.yaml SEED=0
 	@$(MAKE) phase3-report SMOKE=1
+
+phase4-preflight:
+ifeq ($(SMOKE),1)
+	@uv run python -m forge.bench.preflight
+else
+	@.venv-phase4/bin/python -m forge.bench.preflight
+endif
+
+serve-bench:
+ifeq ($(SMOKE),1)
+	@uv run python -m forge.bench.smoke \
+		--config $(if $(strip $(CONFIG)),$(CONFIG),configs/phase4/serve_r1b_bf16.yaml)
+else
+	@test -n "$(CONFIG)" || { echo "serve-bench requires CONFIG" >&2; exit 2; }
+	@.venv-phase4/bin/python -m forge.bench.runner \
+		--config "$(CONFIG)" --base-url "$(if $(strip $(SERVER_URL)),$(SERVER_URL),http://127.0.0.1:8000)"
+endif
+
+spec-decode-bench:
+ifeq ($(SMOKE),1)
+	@uv run python -m forge.bench.smoke \
+		--config $(if $(strip $(CONFIG)),$(CONFIG),configs/phase4/spec_r1b_bf16_baseline.yaml)
+else
+	@test -n "$(CONFIG)" || { echo "spec-decode-bench requires CONFIG" >&2; exit 2; }
+	@.venv-phase4/bin/python -m forge.bench.runner \
+		--config "$(CONFIG)" --base-url "$(if $(strip $(SERVER_URL)),$(SERVER_URL),http://127.0.0.1:8000)"
+endif
+
+structured-bench:
+ifeq ($(SMOKE),1)
+	@uv run python -m forge.bench.smoke \
+		--config $(if $(strip $(CONFIG)),$(CONFIG),configs/phase4/structured_r1b_bf16_xgrammar.yaml)
+else
+	@test -n "$(CONFIG)" || { echo "structured-bench requires CONFIG" >&2; exit 2; }
+	@.venv-phase4/bin/python -m forge.bench.runner \
+		--config "$(CONFIG)" --base-url "$(if $(strip $(SERVER_URL)),$(SERVER_URL),http://127.0.0.1:8000)"
+endif
+
+bench-report:
+ifeq ($(SMOKE),1)
+	@uv run python -m forge.bench.report --smoke
+else
+	@.venv-phase4/bin/python -m forge.bench.report
+endif
+
+phase4-smoke:
+	@test "$(SMOKE)" = "1" || { echo "phase4-smoke requires SMOKE=1" >&2; exit 2; }
+	@$(MAKE) phase4-preflight SMOKE=1
+	@$(MAKE) serve-bench SMOKE=1 CONFIG=configs/phase4/serve_r1b_bf16.yaml
+	@$(MAKE) serve-bench SMOKE=1 CONFIG=configs/phase4/serve_r1b_gptq_int4.yaml
+	@$(MAKE) serve-bench SMOKE=1 CONFIG=configs/phase4/serve_r3eq_bf16.yaml
+	@$(MAKE) serve-bench SMOKE=1 CONFIG=configs/phase4/serve_r3eq_gptq_int4.yaml
+	@$(MAKE) spec-decode-bench SMOKE=1 CONFIG=configs/phase4/spec_r1b_bf16_baseline.yaml
+	@$(MAKE) spec-decode-bench SMOKE=1 CONFIG=configs/phase4/spec_r1b_bf16_qwen05b.yaml
+	@$(MAKE) structured-bench SMOKE=1 CONFIG=configs/phase4/structured_r1b_bf16_xgrammar.yaml
+	@$(MAKE) structured-bench SMOKE=1 CONFIG=configs/phase4/structured_r1b_bf16_outlines.yaml
+	@$(MAKE) bench-report SMOKE=1
 
 sync-up:
 	@./scripts/remote/sync.sh up

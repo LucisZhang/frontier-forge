@@ -115,20 +115,21 @@ def test_remote_training_packages_are_linux_only_and_lockable() -> None:
         "unsloth==2026.8.18; sys_platform == 'linux'",
         "trl==0.24.0",
     ]
-    assert project["tool"]["uv"]["conflicts"] == [[{"group": "train"}, {"group": "unsloth-train"}]]
+    assert [{"group": "train"}, {"group": "unsloth-train"}] in project["tool"]["uv"]["conflicts"]
 
 
-def test_locked_reference_and_unsloth_forks_are_exact() -> None:
+def test_locked_training_and_serving_forks_are_exact() -> None:
     lock = tomllib.loads((ROOT / "uv.lock").read_text())
     versions: dict[str, set[str]] = {}
     for package in lock["package"]:
         versions.setdefault(package["name"], set()).add(package["version"])
 
-    assert versions["torch"] == {"2.11.0", "2.13.0"}
-    assert versions["transformers"] == {"5.5.0", "5.15.0"}
+    assert versions["torch"] == {"2.10.0", "2.11.0", "2.13.0"}
+    assert versions["transformers"] == {"4.57.6", "5.5.0", "5.15.0"}
     assert versions["trl"] == {"0.24.0", "1.10.0"}
     assert versions["unsloth"] == {"2026.8.18"}
     assert versions["optimum"] == {"2.2.0"}
+    assert versions["vllm"] == {"0.17.0"}
 
 
 def test_versioned_training_argument_only_passes_supported_fields() -> None:

@@ -1,0 +1,53 @@
+version: 1
+phase: 4
+experiment: serve
+run_id: phase4_serve_r3eq_bf16
+model:
+  variant: r3_equivalent_legacy_r4_zero_update
+  precision: bfloat16
+  served_name: forge-r3eq-bf16
+  artifact_path: checkpoints/full/r4/trl/s0/export/merged_bf16
+  artifact_sha256: 1304ebf174da98f3b761f482bd2d88b58d66e30bc9cef66abb6104ab70ef6bbc
+  export_manifest: checkpoints/full/r4/trl/s0/export/export_manifest.json
+  training_time_quantization: qlora_nf4
+  deployment_quantization: none
+  comparison_only: true
+  equivalence_evidence:
+    left_adapter_weights: checkpoints/full/r3/trl/s0/adapter/adapter_model.safetensors
+    right_adapter_weights: checkpoints/full/r4/trl/s0/adapter/adapter_model.safetensors
+    adapter_weights_sha256: 0188166e07cef16097267da5a68f45bfa3c54d08c68c25cd22b1f5649da37f66
+    interpretation: The superseded original R4 seed-0 run had zero gradient; its adapter weights are byte-identical to R3 seed 0.
+server:
+  vllm_version: 0.17.0
+  host: 127.0.0.1
+  port: 8000
+  max_model_len: 4096
+  max_num_seqs: 32
+  gpu_memory_utilization: 0.90
+  language_model_only: true
+  generation_config: vllm
+  structured_backend: auto
+  tool_call_parser: hermes
+workload:
+  dataset_manifest: data/phase1_2/manifest.json
+  split: mixed
+  rows: 96
+  selection_seed: 20260816
+  input_token_targets: [800, 1400, 2000]
+  input_token_weights: [0.4, 0.4, 0.2]
+  output_token_caps: [192, 256]
+  output_token_weights: [0.5, 0.5]
+  warmup_requests: 6
+  measurement_requests: 20
+  arrival_rates_qps: [0.25, 0.5, 1.0, 2.0, 4.0]
+  max_concurrency: 32
+  deadline_s: 60
+  request_seed: 20260818
+stability:
+  max_error_rate: 0.05
+  max_deadline_miss_rate: 0.05
+  min_achieved_qps_ratio: 0.85
+  max_p95_inflation: 4.0
+hardware:
+  gpu_type: RTX4090
+  hourly_usd: 0.30
