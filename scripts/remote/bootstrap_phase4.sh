@@ -50,13 +50,14 @@ VIRTUAL_ENV="${repo_root}/.venv-phase4" \
 from huggingface_hub import snapshot_download
 
 snapshot_download(
-    repo_id="Qwen/Qwen2.5-0.5B",
-    revision="060db6499f32faf8b98477b0a26969ef7d8b9987",
+    repo_id="Qwen/Qwen3.5-0.8B-Base",
+    revision="dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
     allow_patterns=[
         "*.json",
         "*.jinja",
         "*.safetensors",
         "*.model",
+        "*.txt",
     ],
 )
 PY

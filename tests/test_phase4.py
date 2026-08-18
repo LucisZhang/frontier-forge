@@ -21,10 +21,12 @@ from forge.bench.loadgen import (
 )
 from forge.bench.metrics import parse_prometheus, prometheus_delta, summarize_vllm_metrics
 from forge.bench.report import _spec_svg
+from forge.bench.runner import validate_existing_receipt
 from forge.bench.server_args import server_command
 from forge.bench.smoke_server import SmokeServer
 from forge.bench.structured import run_structured_benchmark
 from forge.bench.workload import _allocation, build_workload, load_workload
+from forge.train.config import sha256_file
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -136,7 +138,7 @@ vllm:spec_decode_num_drafts_total 10
 
 def test_vllm_commands_pin_precision_speculation_and_structured_backends() -> None:
     int4 = server_command("configs/phase4/serve_r1b_gptq_int4.yaml", executable="vllm")
-    spec = server_command("configs/phase4/spec_r1b_bf16_qwen05b.yaml", executable="vllm")
+    spec = server_command("configs/phase4/spec_r1b_bf16_qwen08b.yaml", executable="vllm")
     outlines = server_command("configs/phase4/structured_r1b_bf16_outlines.yaml", executable="vllm")
 
     assert int4[int4.index("--quantization") + 1] == "gptq"
@@ -148,8 +150,8 @@ def test_vllm_commands_pin_precision_speculation_and_structured_backends() -> No
     spec_value = json.loads(spec[spec.index("--speculative-config") + 1])
     assert spec_value == {
         "method": "draft_model",
-        "model": "Qwen/Qwen2.5-0.5B",
-        "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+        "model": "Qwen/Qwen3.5-0.8B-Base",
+        "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
         "num_speculative_tokens": 5,
     }
     structured = json.loads(outlines[outlines.index("--structured-outputs-config") + 1])
@@ -161,6 +163,58 @@ def test_verifier_input_normalization_matches_the_locked_phase3_path() -> None:
 
     assert normalize_verifier_input(f"reasoning\n</think>\n\n{payload}\n") == payload
     assert normalize_verifier_input(payload) == payload
+
+
+def test_existing_full_receipt_can_be_reused_after_integrity_validation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    config_path = "configs/phase4/serve_r1b_bf16.yaml"
+    config = load_phase4_config(config_path)
+    raw_path = tmp_path / "receipt.json"
+    requests_path = tmp_path / "requests.jsonl"
+    workload_path = tmp_path / "workload.jsonl"
+    requests_path.write_text('{"request": 1}\n')
+    workload_path.write_text('{"workload": 1}\n')
+    git_sha = "e1150dc39384141dd25c8b52796c1bffaa730c53"
+    raw_path.write_text(
+        json.dumps(
+            {
+                "status": "complete",
+                "mode": "full",
+                "phase": 4,
+                "experiment": config["experiment"],
+                "run_id": config["run_id"],
+                "config_path": config["_config_path"],
+                "config_hash": config["_config_hash"],
+                "git_sha": git_sha,
+                "model": config["model"],
+                "raw_artifact": raw_path.name,
+                "request_artifact": {
+                    "path": requests_path.name,
+                    "sha256": sha256_file(requests_path),
+                },
+                "workload": {
+                    "path": workload_path.name,
+                    "contract_hash": workload_contract_hash(config),
+                    "sha256": sha256_file(workload_path),
+                },
+                "cost": {"hourly_usd": 0.30},
+            }
+        )
+    )
+    monkeypatch.setattr("forge.bench.runner.phase4_raw_path", lambda *_args, **_kwargs: raw_path)
+    monkeypatch.setattr(
+        "forge.bench.runner.phase4_requests_path", lambda *_args, **_kwargs: requests_path
+    )
+    monkeypatch.setattr(
+        "forge.bench.runner.phase4_workload_path", lambda *_args, **_kwargs: workload_path
+    )
+    monkeypatch.setattr("forge.bench.runner.relative_path", lambda path: Path(path).name)
+
+    receipt = validate_existing_receipt(config_path)
+
+    assert receipt["run_id"] == "phase4_serve_r1b_bf16_v2"
+    assert receipt["git_sha"] == git_sha
 
 
 def test_local_smoke_loadgen_separates_timings_and_uses_verifier() -> None:
@@ -241,6 +295,7 @@ def test_phase4_remote_scripts_are_safe_for_the_shared_pod() -> None:
     assert "nvidia-smi pmon -c 1" in worker
     assert 'session="forge-phase4"' in launcher
     assert "waiting without launching" in worker
+    assert "--validate-existing" in worker
     assert "sleep 60" in worker
     assert 'kill -TERM -- "-${server_pid}"' in worker
     assert 'server_log="results/phase4/logs/${run_id}-${FORGE_STARTED_AT//:/}.server.log"' in worker

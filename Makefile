@@ -182,7 +182,7 @@ phase4-smoke:
 	@$(MAKE) serve-bench SMOKE=1 CONFIG=configs/phase4/serve_r3eq_bf16.yaml
 	@$(MAKE) serve-bench SMOKE=1 CONFIG=configs/phase4/serve_r3eq_gptq_int4.yaml
 	@$(MAKE) spec-decode-bench SMOKE=1 CONFIG=configs/phase4/spec_r1b_bf16_baseline.yaml
-	@$(MAKE) spec-decode-bench SMOKE=1 CONFIG=configs/phase4/spec_r1b_bf16_qwen05b.yaml
+	@$(MAKE) spec-decode-bench SMOKE=1 CONFIG=configs/phase4/spec_r1b_bf16_qwen08b.yaml
 	@$(MAKE) structured-bench SMOKE=1 CONFIG=configs/phase4/structured_r1b_bf16_xgrammar.yaml
 	@$(MAKE) structured-bench SMOKE=1 CONFIG=configs/phase4/structured_r1b_bf16_outlines.yaml
 	@$(MAKE) bench-report SMOKE=1

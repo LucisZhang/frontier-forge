@@ -134,8 +134,8 @@ def validate_phase4_config(config: Mapping[str, Any], *, path: Path | None = Non
         if type(enabled) is not bool:
             raise ValueError(f"{label}: speculative.enabled must be boolean")
         if enabled:
-            if speculative.get("draft_model") != "Qwen/Qwen2.5-0.5B":
-                raise ValueError(f"{label}: D1 pins the 0.5B Qwen-family draft")
+            if speculative.get("draft_model") != "Qwen/Qwen3.5-0.8B-Base":
+                raise ValueError(f"{label}: D1.1 pins the 0.8B Qwen3.5-family draft")
             _require_positive_int(
                 speculative.get("num_speculative_tokens"),
                 f"{label}: speculative.num_speculative_tokens",

@@ -89,7 +89,7 @@ configs=(
   configs/phase4/serve_r3eq_bf16.yaml
   configs/phase4/serve_r3eq_gptq_int4.yaml
   configs/phase4/spec_r1b_bf16_baseline.yaml
-  configs/phase4/spec_r1b_bf16_qwen05b.yaml
+  configs/phase4/spec_r1b_bf16_qwen08b.yaml
   configs/phase4/structured_r1b_bf16_xgrammar.yaml
   configs/phase4/structured_r1b_bf16_outlines.yaml
 )
@@ -97,8 +97,8 @@ configs=(
 for config in "${configs[@]}"; do
   run_id="$("${python_bin}" -c 'import sys; from forge.bench.config import load_phase4_config; print(load_phase4_config(sys.argv[1])["run_id"])' "${config}")"
   if [[ -f "results/phase4/raw/${run_id}.json" ]]; then
-    echo "raw artifact already exists; runner will validate and reuse ${run_id}"
-    "${python_bin}" -m forge.bench.runner --config "${config}"
+    echo "raw artifact already exists; validating immutable receipt ${run_id}"
+    "${python_bin}" -m forge.bench.runner --config "${config}" --validate-existing
     continue
   fi
   wait_for_gpu_idle

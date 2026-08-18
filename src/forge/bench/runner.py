@@ -8,6 +8,7 @@ import importlib.metadata
 import json
 import os
 import time
+from collections.abc import Mapping
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,7 @@ from .config import (
     load_phase4_config,
     phase4_raw_path,
     phase4_requests_path,
+    phase4_workload_path,
     workload_contract,
     workload_contract_hash,
 )
@@ -101,6 +103,65 @@ def _require_hourly_rate(config: dict[str, Any], *, smoke: bool) -> float:
     if actual != expected:
         raise RuntimeError(f"hourly rate mismatch: config={expected}, environment={actual}")
     return actual
+
+
+def validate_existing_receipt(config_path: str | Path) -> dict[str, Any]:
+    """Validate a completed full-run receipt without rewriting its provenance."""
+
+    config = load_phase4_config(config_path)
+    raw_path = phase4_raw_path(config, smoke=False)
+    if not raw_path.is_file():
+        raise RuntimeError(f"Phase 4 raw artifact is missing: {raw_path}")
+    receipt = json.loads(raw_path.read_text())
+    expected_fields = {
+        "status": "complete",
+        "mode": "full",
+        "phase": 4,
+        "experiment": config["experiment"],
+        "run_id": config["run_id"],
+        "config_path": config["_config_path"],
+        "config_hash": config["_config_hash"],
+        "model": config["model"],
+        "raw_artifact": relative_path(raw_path),
+    }
+    for field, expected in expected_fields.items():
+        if receipt.get(field) != expected:
+            raise RuntimeError(
+                f"existing Phase 4 receipt has conflicting {field}: "
+                f"expected {expected!r}, got {receipt.get(field)!r}"
+            )
+    git_sha = receipt.get("git_sha")
+    if not isinstance(git_sha, str) or len(git_sha) != 40:
+        raise RuntimeError("existing Phase 4 receipt must preserve a full git SHA")
+
+    request_artifact = receipt.get("request_artifact")
+    if not isinstance(request_artifact, Mapping):
+        raise RuntimeError("existing Phase 4 receipt is missing request artifact metadata")
+    requests_path = phase4_requests_path(config, smoke=False)
+    if request_artifact.get("path") != relative_path(requests_path):
+        raise RuntimeError("existing Phase 4 request artifact path conflicts with the config")
+    if not requests_path.is_file() or request_artifact.get("sha256") != sha256_file(requests_path):
+        raise RuntimeError("existing Phase 4 request artifact hash verification failed")
+
+    workload = receipt.get("workload")
+    if not isinstance(workload, Mapping):
+        raise RuntimeError("existing Phase 4 receipt is missing workload metadata")
+    workload_path = phase4_workload_path(config, smoke=False)
+    if workload.get("path") != relative_path(workload_path):
+        raise RuntimeError("existing Phase 4 workload path conflicts with the config")
+    if workload.get("contract_hash") != workload_contract_hash(config):
+        raise RuntimeError("existing Phase 4 workload contract hash conflicts with the config")
+    if not workload_path.is_file() or workload.get("sha256") != sha256_file(workload_path):
+        raise RuntimeError("existing Phase 4 workload hash verification failed")
+
+    expected_rate = float(config["hardware"]["hourly_usd"])
+    if receipt.get("cost", {}).get("hourly_usd") != expected_rate:
+        raise RuntimeError("existing Phase 4 receipt hourly rate conflicts with the config")
+    print(
+        "Validated existing Phase 4 receipt without rewriting provenance: "
+        f"{relative_path(raw_path)} ({git_sha})"
+    )
+    return receipt
 
 
 def run(config_path: str | Path, *, base_url: str, smoke: bool) -> dict[str, Any]:
@@ -224,8 +285,14 @@ def main() -> None:
     parser.add_argument("--config", required=True)
     parser.add_argument("--base-url", default="http://127.0.0.1:8000")
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--validate-existing", action="store_true")
     args = parser.parse_args()
-    run(args.config, base_url=args.base_url, smoke=args.smoke)
+    if args.validate_existing:
+        if args.smoke:
+            parser.error("--validate-existing is only for immutable full-run receipts")
+        validate_existing_receipt(args.config)
+    else:
+        run(args.config, base_url=args.base_url, smoke=args.smoke)
 
 
 if __name__ == "__main__":

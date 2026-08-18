@@ -1,11 +1,11 @@
 version: 1
 phase: 4
 experiment: spec_decode
-run_id: phase4_spec_decode_r1b_bf16_qwen05b
+run_id: phase4_spec_decode_r1b_bf16_qwen08b
 model:
   variant: r1b
   precision: bfloat16
-  served_name: forge-r1b-bf16-qwen05b-spec
+  served_name: forge-r1b-bf16-qwen08b-spec
   artifact_path: checkpoints/full/r1b/trl/s0/export/merged_bf16
   artifact_sha256: 7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435
   export_manifest: results/phase3_export_manifest_r1b_trl_s0.json
@@ -14,8 +14,8 @@ model:
   speculative_enabled: true
 speculative:
   enabled: true
-  draft_model: Qwen/Qwen2.5-0.5B
-  draft_revision: 060db6499f32faf8b98477b0a26969ef7d8b9987
+  draft_model: Qwen/Qwen3.5-0.8B-Base
+  draft_revision: dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68
   num_speculative_tokens: 5
 server:
   vllm_version: 0.17.0
