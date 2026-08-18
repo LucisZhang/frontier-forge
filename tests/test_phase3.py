@@ -426,10 +426,12 @@ def test_remote_launch_scripts_are_syntax_valid_and_human_triggered() -> None:
     assert "http_proxy" in launcher
     assert "REQUESTS_CA_BUNDLE" in launcher
     assert "HF_HUB_DISABLE_XET" in launcher
+    assert "HF_HUB_OFFLINE=1" in launcher
+    assert "TRANSFORMERS_OFFLINE=1" in launcher
     assert "PYTORCH_ALLOC_CONF" in launcher
     assert "expandable_segments:True" in launcher
     assert "UNSLOTH_COMPILE_LOCATION" in launcher
-    assert "--query-compute-apps" in launcher
+    assert "nvidia-smi pmon -c 1" in launcher
     assert 'session="forge-' in launcher
     assert 'reference_python=".venv/bin/python"' in worker
     assert "trap 'exit 130' INT" in worker
@@ -437,9 +439,11 @@ def test_remote_launch_scripts_are_syntax_valid_and_human_triggered() -> None:
     assert "forge.train.finalize" in worker
     assert "forge.train.ledger" in worker
     assert worker.index("completed=1") < worker.index("forge.train.report")
-    assert "--query-compute-apps" in export_launcher
+    assert "nvidia-smi pmon -c 1" in export_launcher
     assert 'session="forge-export-' in export_launcher
     assert "configs/r1b_sft_rule_20k.yaml" in export_launcher
+    assert "HF_HUB_OFFLINE=1" in export_launcher
+    assert "TRANSFORMERS_OFFLINE=1" in export_launcher
     assert "--operation export --status complete" in export_worker
     assert export_worker.index("completed=1") < export_worker.index("forge.train.report")
 

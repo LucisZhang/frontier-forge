@@ -27,7 +27,7 @@ fi
   'import sys; rate=float(sys.argv[1]); assert rate > 0, "hourly rate must be positive"' \
   "${FORGE_GPU_HOURLY_USD}"
 
-gpu_processes="$(nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader,nounits)"
+gpu_processes="$(nvidia-smi pmon -c 1 | awk '$1 !~ /^#/ && $2 ~ /^[0-9]+$/ {print $1, $2, $3, $10}')"
 if [[ -n "${gpu_processes//[[:space:]]/}" ]]; then
   echo "GPU is already in use; refusing to launch a shared-pod export task:" >&2
   echo "${gpu_processes}" >&2
@@ -46,6 +46,8 @@ started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 launch_env=(
   "FORGE_STARTED_AT=${started_at}"
   "FORGE_GPU_HOURLY_USD=${FORGE_GPU_HOURLY_USD}"
+  "HF_HUB_OFFLINE=1"
+  "TRANSFORMERS_OFFLINE=1"
   "PYTORCH_ALLOC_CONF=${PYTORCH_ALLOC_CONF:-expandable_segments:True,max_split_size_mb:256,garbage_collection_threshold:0.7}"
 )
 for name in \

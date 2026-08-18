@@ -74,11 +74,13 @@ def _dtype(name: str) -> Any:
 
 
 def load_tokenizer(
-    config: Mapping[str, Any], *, smoke: bool, local_files_only: bool = False
+    config: Mapping[str, Any], *, smoke: bool, local_files_only: bool | None = None
 ) -> Any:
     from transformers import AutoTokenizer
 
     spec = model_spec(config, smoke=smoke)
+    if local_files_only is None:
+        local_files_only = not smoke
     tokenizer = AutoTokenizer.from_pretrained(
         spec["id"], revision=spec["revision"], local_files_only=local_files_only
     )
@@ -100,11 +102,14 @@ def load_base_model(
     from transformers import AutoConfig, AutoModelForCausalLM
 
     spec = model_spec(config, smoke=smoke)
-    auto_config = AutoConfig.from_pretrained(spec["id"], revision=spec["revision"])
+    auto_config = AutoConfig.from_pretrained(
+        spec["id"], revision=spec["revision"], local_files_only=not smoke
+    )
     kwargs: dict[str, Any] = {
         "revision": spec["revision"],
         "dtype": _dtype(str(spec["dtype"])),
         "low_cpu_mem_usage": True,
+        "local_files_only": not smoke,
     }
     if quantized_training:
         if smoke:
