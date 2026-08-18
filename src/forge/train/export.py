@@ -25,6 +25,12 @@ from forge.train.data import narrative_char_limit, prompt_messages
 from forge.train.runtime import load_base_model, load_tokenizer, package_versions
 
 
+def durable_export_manifest_path(config: dict[str, Any], *, seed: int, backend: str) -> Path:
+    """Return the small, Git-trackable receipt for a remote full export."""
+
+    return REPO_ROOT / "results" / f"phase3_export_manifest_{config['rung']}_{backend}_s{seed}.json"
+
+
 def _smoke_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str, Any]:
     import torch
     from safetensors.torch import load_file
@@ -184,9 +190,11 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
     contract_config, export_settings = _export_contract(config)
     root = checkpoint_root(config, seed=seed, smoke=False, backend=backend) / "export"
     receipt_path = root / "export_manifest.json"
+    durable_receipt_path = durable_export_manifest_path(config, seed=seed, backend=backend)
     if receipt_path.is_file():
         receipt = json.loads(receipt_path.read_text())
         if receipt.get("config_hash") == config["_config_hash"]:
+            write_json_atomic(durable_receipt_path, receipt)
             print(f"full export already complete: {relative_path(receipt_path)}")
             return receipt
         raise RuntimeError("existing full export belongs to another config")
@@ -255,6 +263,7 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
         "notes": "QLoRA training and GPTQ deployment quantization are separate recorded facts.",
     }
     write_json_atomic(receipt_path, receipt)
+    write_json_atomic(durable_receipt_path, receipt)
     print(f"full export complete: fp={fp_hash} gptq_int4={int4_hash}")
     return receipt
 

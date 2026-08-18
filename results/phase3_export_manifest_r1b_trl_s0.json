@@ -1,0 +1,48 @@
+{
+  "backend": "trl",
+  "config_hash": "aad4c613a265ade6b181dbc0785583e68248ab5da6bba91efe5be758b4fc8dbd",
+  "config_path": "configs/r1b_sft_rule_20k.yaml",
+  "deployment_int4_export": {
+    "calibration_rows": 128,
+    "group_size": 128,
+    "method": "gptq_int4",
+    "path": "checkpoints/full/r1b/trl/s0/export/gptq_int4",
+    "sha256": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2"
+  },
+  "export_contract_config_hash": "4a1a4f0ebe3df3e7d9906562a2810ee7a856580e725a8cf7644a8dcf2f410c39",
+  "export_contract_config_path": "configs/r4_grpo.yaml",
+  "finished_at": "2026-08-18T01:53:03.121310+00:00",
+  "full_precision_export": {
+    "dtype": "bfloat16",
+    "method": "peft_merge_and_unload",
+    "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435"
+  },
+  "git_sha": "ea6a2c7fa23a098ca4b7481b382aa0887fd6ce33",
+  "mode": "full",
+  "model": {
+    "dtype": "bfloat16",
+    "id": "Qwen/Qwen3.5-4B-Base",
+    "revision": "1001bb4d826a52d1f399e183466143f4da7b741b"
+  },
+  "notes": "QLoRA training and GPTQ deployment quantization are separate recorded facts.",
+  "packages": {
+    "accelerate": "1.14.0",
+    "datasets": "4.8.5",
+    "gptqmodel": "7.3.2",
+    "numpy": "2.2.6",
+    "peft": "0.20.0",
+    "pyarrow": "25.0.0",
+    "torch": "2.13.0",
+    "transformers": "5.15.0",
+    "trl": "1.10.0"
+  },
+  "phase": 3,
+  "rung": "r1b",
+  "seed": 0,
+  "source_adapter_path": "checkpoints/full/r1b/trl/s0/adapter",
+  "source_adapter_sha256": "b506c2046f28c06b7cd6ea50996964a348ffbc9a5ced20a9cfd3fb26f823243d",
+  "status": "complete",
+  "training_time_quantization": "qlora_nf4",
+  "version": 1
+}

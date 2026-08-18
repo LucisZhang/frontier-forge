@@ -18,6 +18,7 @@ from forge.train.config import (
     runs_path,
 )
 from forge.train.evaluate import bootstrap_ci
+from forge.train.export import durable_export_manifest_path
 from forge.train.ledger import billable_records
 
 
@@ -62,6 +63,18 @@ def _failed_gpu_attempts(*, smoke: bool) -> list[dict[str, Any]]:
         return []
     records = [json.loads(line) for line in path.read_text().splitlines() if line]
     return [record for record in billable_records(records) if record["status"] == "failed"]
+
+
+def _r4_reward_signal_diagnostic(*, smoke: bool) -> dict[str, Any] | None:
+    if smoke:
+        return None
+    path = REPO_ROOT / "results" / "phase3_r4_reward_signal_diagnostic.json"
+    if not path.is_file():
+        return None
+    receipt = json.loads(path.read_text())
+    if receipt.get("status") != "aborted-zero-reward-variance":
+        raise ValueError(f"unexpected R4 reward-signal diagnostic status in {path}")
+    return receipt
 
 
 def _config_map() -> dict[str, dict[str, Any]]:
@@ -171,6 +184,9 @@ def _export_manifest_path(record: dict[str, Any], *, smoke: bool) -> Path:
         if config.get("run_revision"):
             root /= str(config["run_revision"])
         return root / backend / f"s{seed}" / "export_manifest.json"
+    durable = durable_export_manifest_path(config, seed=seed, backend=backend)
+    if durable.is_file():
+        return durable
     return (
         checkpoint_root(config, seed=seed, smoke=False, backend=backend)
         / "export"
@@ -225,6 +241,15 @@ def _export_selection(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) 
                 "seed": int(r4_best["seed"]),
                 "task_success": float(r4_best["metrics"]["task_success"]),
                 "mean_reward": float(r4_best["metrics"]["mean_reward"]),
+            }
+        )
+    elif (diagnostic := _r4_reward_signal_diagnostic(smoke=smoke)) is not None:
+        r4_contract.update(
+            {
+                "status": "blocked-reward-saturation",
+                "blocker_path": "results/phase3_r4_reward_signal_diagnostic.json",
+                "attempted_seeds": [int(diagnostic["seed"])],
+                "unlaunched_seeds": list(diagnostic["disposition"]["unlaunched_seeds"]),
             }
         )
     return {
@@ -323,8 +348,16 @@ def _report_text(
 
     lines.extend(["", "## Reward-hacking probes", ""])
     r4 = _seed_zero_record(by_rung["r4"])
+    reward_diagnostic = _r4_reward_signal_diagnostic(smoke=smoke)
     if r4 is None:
-        lines.append("R4 probes are pending the authorized GRPO rerun and frozen evaluation.")
+        if reward_diagnostic is None:
+            lines.append("R4 probes are pending the authorized GRPO rerun and frozen evaluation.")
+        else:
+            lines.append(
+                "R4 probes are unavailable: the fixed seed-0 run stopped at the opening "
+                "reward-signal guard before an adapter or evaluation record existed; seeds "
+                "1/2 were not launched under the locked stop-and-report boundary."
+            )
     else:
         probes = r4["metrics"]["reward_hacking_probes"]
         length_rows = probes["length_inflation"]["reward_increase_rows"]
@@ -354,6 +387,19 @@ def _report_text(
         "a trailing think block defensively, archives an opening rollout, and aborts after ten "
         "all-zero-variance steps."
     ]
+    if reward_diagnostic is not None:
+        window = reward_diagnostic["logged_rollout_window"]
+        negatives.append(
+            "Phase 3.1 guard result: seed 0 proved the parser repair worked (clean bare JSON, "
+            "no think marker, positive verifier reward), but the first ten optimizer steps "
+            "all had mean reward 1.0, reward_std 0.0, frac_reward_zero_std 1.0, and grad_norm "
+            "0.0. In the archived opening window, all "
+            f"{window['completion_rows']} completions across {window['prompt_groups']} prompt "
+            "groups received reward 1.0 and advantage 0.0; observed variation was confined "
+            "to secondary fields excluded from scorer-v2 reward. The guard aborted the run, "
+            "and seeds 1/2 were not launched rather than bypassing the locked reward/data "
+            "contract."
+        )
     comparison_results = deltas["adjacent_pairs"] + deltas["optional_ablation_pairs"]
     for item in comparison_results:
         if item.get("status") == "complete" and float(item["mean_task_success_delta"]) < 0:
@@ -417,7 +463,14 @@ def _report_text(
     lines.extend(["", "## R4 best-seed export contract", ""])
     r4_best = _best_r4_record(by_rung["r4"])
     if r4_best is None:
-        lines.append("Pending all three active TRL reruns for seeds 0/1/2.")
+        if reward_diagnostic is None:
+            lines.append("Pending all three active TRL reruns for seeds 0/1/2.")
+        else:
+            lines.append(
+                "Blocked by reward saturation: fixed seed 0 stopped at the ten-step guard; "
+                "seeds 1/2 were not launched. A human-approved change to the locked experiment "
+                "contract is required before any R4 best-seed selection can exist."
+            )
     else:
         lines.append(
             f"Select `{r4_best['run_id']}` (seed {r4_best['seed']}) by task success, then "

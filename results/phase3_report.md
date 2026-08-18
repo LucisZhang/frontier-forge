@@ -34,11 +34,12 @@ R1 TRL/Unsloth status: **agreement_failed**. Default after check: `trl`.
 
 ## Reward-hacking probes
 
-R4 probes are pending the authorized GRPO rerun and frozen evaluation.
+R4 probes are unavailable: the fixed seed-0 run stopped at the opening reward-signal guard before an adapter or evaluation record existed; seeds 1/2 were not launched under the locked stop-and-report boundary.
 
 ## Failure and negative-result register
 
 - GRPO incident: R4 seeds 0/1/2 from the original config are superseded-inconclusive. The missing `chat_template_kwargs={"enable_thinking": False}` left a trailing `</think>` prefix in rollouts; bare `json.loads` then returned reward 0.0 for every completion, producing zero reward variance and zero gradient. The fixed rerun disables thinking at chat-template rendering, strips through a trailing think block defensively, archives an opening rollout, and aborts after ten all-zero-variance steps.
+- Phase 3.1 guard result: seed 0 proved the parser repair worked (clean bare JSON, no think marker, positive verifier reward), but the first ten optimizer steps all had mean reward 1.0, reward_std 0.0, frac_reward_zero_std 1.0, and grad_norm 0.0. In the archived opening window, all 24 completions across 6 prompt groups received reward 1.0 and advantage 0.0; observed variation was confined to secondary fields excluded from scorer-v2 reward. The guard aborted the run, and seeds 1/2 were not launched rather than bypassing the locked reward/data contract.
 - R2 lost 14.2% task success versus R1.
 - R0 trl seed 0 failure counts (nonexclusive): invalid_tool_arguments=2000, schema_invalid=2000, wrong_ambiguity=13, wrong_tool=2000, wrong_urgency=967.
 - R1 trl seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=119, wrong_urgency=634.
@@ -53,14 +54,15 @@ R4 probes are pending the authorized GRPO rerun and frozen evaluation.
 - Failed GPU training attempt failed_490447c0d78bbbdf9ebe: R3 seed 0, 0.010 GPU-hours, $0.003, exit code 1.
 - Failed GPU training attempt failed_089154b82e9781dc29f9: R4 seed 2, 0.035 GPU-hours, $0.010, exit code 130.
 - Failed GPU training attempt failed_5a9dc15687f7738379c3: R4 seed 2, 0.018 GPU-hours, $0.005, exit code 130.
+- Failed GPU training attempt failed_ccb9d60b8779c9232365: R4 seed 0, 0.354 GPU-hours, $0.106, exit code 1.
 
 ## Export
 
-R1b merged BF16 and deployment GPTQ-int4 hashes are pending the authorized Phase 3.1 export.
+- R1B trl seed 0: merged BF16 `7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435`; GPTQ int4 `c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2`.
 
 ## R4 best-seed export contract
 
-Pending all three active TRL reruns for seeds 0/1/2.
+Blocked by reward saturation: fixed seed 0 stopped at the ten-step guard; seeds 1/2 were not launched. A human-approved change to the locked experiment contract is required before any R4 best-seed selection can exist.
 
 ## Interpretation guards
 

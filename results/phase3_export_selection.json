@@ -2,20 +2,30 @@
   "mode": "full",
   "phase": 3,
   "phase4_serving_artifact": {
-    "manifest_path": "checkpoints/full/r1b/trl/s0/export/export_manifest.json",
+    "gptq_int4_sha256": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2",
+    "manifest_path": "results/phase3_export_manifest_r1b_trl_s0.json",
+    "merged_bf16_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
     "run_id": "r1b_sft_rule_20k_s0",
     "rung": "r1b",
     "seed": 0,
-    "status": "pending"
+    "status": "complete"
   },
   "r4_best_seed_export_contract": {
+    "attempted_seeds": [
+      0
+    ],
+    "blocker_path": "results/phase3_r4_reward_signal_diagnostic.json",
     "required_seeds": [
       0,
       1,
       2
     ],
     "selection_metric": "task_success_then_mean_reward_then_lowest_seed",
-    "status": "pending"
+    "status": "blocked-reward-saturation",
+    "unlaunched_seeds": [
+      1,
+      2
+    ]
   },
   "version": 1
 }

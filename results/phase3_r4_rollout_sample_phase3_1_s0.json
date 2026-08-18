@@ -1,0 +1,20 @@
+{
+  "backend": "trl",
+  "config_hash": "4a1a4f0ebe3df3e7d9906562a2810ee7a856580e725a8cf7644a8dcf2f410c39",
+  "config_path": "configs/r4_grpo.yaml",
+  "git_sha": "32c47631dafc976a634b47d0d5338fd5f4f05ecf",
+  "hardening_required": false,
+  "normalized_completion": "{\"ambiguity_flag\":false,\"company\":\"PERSIAN ACCEPTANCE CORP\",\"issue\":\"Incorrect information on your report\",\"product\":\"vehicle_loan\",\"tool_call\":{\"arguments\":{\"company\":\"PERSIAN ACCEPTANCE CORP\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+  "phase": 3,
+  "raw_completion": "{\"ambiguity_flag\":false,\"company\":\"PERSIAN ACCEPTANCE CORP\",\"issue\":\"Incorrect information on your report\",\"product\":\"vehicle_loan\",\"tool_call\":{\"arguments\":{\"company\":\"PERSIAN ACCEPTANCE CORP\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}\n",
+  "raw_completion_sha256": "c95d8573c9ecf96e57d98d4cc45582afe4a3b46c4ad6248834f88627f65aee5e",
+  "raw_json_valid": true,
+  "run_revision": "phase3_1_reward_fix",
+  "rung": "r4",
+  "seed": 0,
+  "source_completion_logs": "checkpoints/full/r4/phase3_1_reward_fix/trl/s0/trainer/completions",
+  "status": "clean_json",
+  "think_block_marker_present": false,
+  "verifier_reward": 1.0,
+  "version": 1
+}

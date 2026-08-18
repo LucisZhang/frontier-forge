@@ -1,0 +1,92 @@
+{
+  "backend": "trl",
+  "config_hash": "4a1a4f0ebe3df3e7d9906562a2810ee7a856580e725a8cf7644a8dcf2f410c39",
+  "config_path": "configs/r4_grpo.yaml",
+  "diagnosis": "The think-prefix parser defect is fixed, but the R3 parent saturates every scorer-v2 reward component on the observed same-corpus GRPO training groups. Completion diversity remains only in secondary issue or free-text fields that D3.1 deliberately excludes from RL reward, so every within-group advantage is zero.",
+  "disposition": {
+    "reason": "AGENTS.md and DECISIONS.md require stop-and-report instead of changing the locked D5 data or scorer contract; the ten-step guard is not bypassed.",
+    "unlaunched_seeds": [
+      1,
+      2
+    ]
+  },
+  "evidence": {
+    "remote_log_path": "results/phase3_remote_logs/r4-trl-s0-2026-08-18T011209Z.log",
+    "remote_log_retention": "Exact raw log retained on forge-pod; omitted from Git because terminal progress control characters add no scientific evidence beyond this structured receipt.",
+    "remote_log_sha256": "ccb21e57d1186179cc0c74fdf424d1b453d08ace421effbbe5d2e23588a0c547",
+    "rollout_sample_path": "results/phase3_r4_rollout_sample_phase3_1_s0.json",
+    "rollout_sample_sha256": "42d2b23299351d08391320c3ec47473408c29de00cdecdf1bed59b6d6f500c69",
+    "source_completion_logs": "checkpoints/full/r4/phase3_1_reward_fix/trl/s0/trainer/completions"
+  },
+  "finished_at": "2026-08-18T01:33:24Z",
+  "fix_validation": {
+    "hardening_required": false,
+    "raw_completion_sha256": "c95d8573c9ecf96e57d98d4cc45582afe4a3b46c4ad6248834f88627f65aee5e",
+    "raw_json_valid": true,
+    "think_block_marker_present": false,
+    "verifier_reward": 1.0
+  },
+  "git_sha": "32c47631dafc976a634b47d0d5338fd5f4f05ecf",
+  "gpu_receipt": {
+    "gpu_hours": 0.3541666666666667,
+    "hourly_usd": 0.3,
+    "ledger_id": "failed_ccb9d60b8779c9232365",
+    "usd": 0.10625
+  },
+  "guard": {
+    "grad_norm_values": [
+      0.0
+    ],
+    "observed_frac_reward_zero_std": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "opening_steps": 10,
+    "reward_mean_values": [
+      1.0
+    ],
+    "reward_std_values": [
+      0.0
+    ]
+  },
+  "logged_rollout_window": {
+    "advantage_values": [
+      0.0
+    ],
+    "completion_rows": 24,
+    "generations_per_group": 4,
+    "prompt_groups": 6,
+    "reward_values": [
+      1.0
+    ],
+    "secondary_only_mismatch_completions": 7,
+    "steps": [
+      1,
+      2,
+      3
+    ],
+    "unique_completion_counts_per_group": [
+      1,
+      4,
+      1,
+      3,
+      1,
+      4
+    ]
+  },
+  "phase": 3,
+  "run_id": "r4_grpo_phase3_1_reward_fix_s0",
+  "run_revision": "phase3_1_reward_fix",
+  "seed": 0,
+  "started_at": "2026-08-18T01:12:09Z",
+  "status": "aborted-zero-reward-variance",
+  "version": 1
+}

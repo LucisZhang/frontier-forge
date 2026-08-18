@@ -18,6 +18,7 @@ from forge.train.config import (
     configs_by_rung,
     evaluation_root,
     load_config,
+    sha256_file,
 )
 from forge.train.data import compact_model_input
 from forge.train.evaluate import bootstrap_ci
@@ -25,6 +26,7 @@ from forge.train.export import (
     _export_contract,
     _require_complete_merged_export,
     _save_processor_assets,
+    durable_export_manifest_path,
 )
 from forge.train.finalize import run_id
 from forge.train.grpo import (
@@ -338,6 +340,39 @@ def test_r1b_reuses_the_pinned_r4_deployment_export_contract() -> None:
         "group_size": 128,
         "calibration_rows": 128,
     }
+
+
+def test_phase3_1_remote_receipts_are_durable_and_report_blocker_honestly() -> None:
+    r1b = load_config("configs/r1b_sft_rule_20k.yaml")
+    export_path = durable_export_manifest_path(r1b, seed=0, backend="trl")
+    export_receipt = json.loads(export_path.read_text())
+    diagnostic = json.loads((ROOT / "results/phase3_r4_reward_signal_diagnostic.json").read_text())
+    selection = json.loads((ROOT / "results/phase3_export_selection.json").read_text())
+    report = (ROOT / "results/phase3_report.md").read_text()
+
+    assert export_path == ROOT / "results/phase3_export_manifest_r1b_trl_s0.json"
+    assert export_receipt["status"] == "complete"
+    assert export_receipt["full_precision_export"]["sha256"] == (
+        "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435"
+    )
+    assert export_receipt["deployment_int4_export"]["sha256"] == (
+        "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2"
+    )
+    assert diagnostic["status"] == "aborted-zero-reward-variance"
+    assert diagnostic["guard"]["observed_frac_reward_zero_std"] == [1.0] * 10
+    assert diagnostic["logged_rollout_window"]["reward_values"] == [1.0]
+    assert diagnostic["logged_rollout_window"]["advantage_values"] == [0.0]
+    assert diagnostic["disposition"]["unlaunched_seeds"] == [1, 2]
+    assert len(diagnostic["evidence"]["remote_log_sha256"]) == 64
+    assert diagnostic["evidence"]["remote_log_retention"].startswith(
+        "Exact raw log retained on forge-pod"
+    )
+    assert (
+        sha256_file(ROOT / diagnostic["evidence"]["rollout_sample_path"])
+        == (diagnostic["evidence"]["rollout_sample_sha256"])
+    )
+    assert selection["r4_best_seed_export_contract"]["status"] == ("blocked-reward-saturation")
+    assert "Blocked by reward saturation" in report
 
 
 def test_full_export_preserves_pinned_processor_assets(
