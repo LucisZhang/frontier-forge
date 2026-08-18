@@ -1,0 +1,73 @@
+{"artifacts": {"checkpoints/full/r1b/trl/s0/export/gptq_int4": {"export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json", "export_manifest_sha256": "2ef70012abe90c5489ca30d500fb994c147205cf1aa740266a603029fe9f5dba", "precision": "gptq_int4", "sha256": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2", "variants": ["r1b"]}, "checkpoints/full/r1b/trl/s0/export/merged_bf16": {"export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json", "export_manifest_sha256": "2ef70012abe90c5489ca30d500fb994c147205cf1aa740266a603029fe9f5dba", "precision": "bfloat16", "sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435", "variants": ["r1b"]}, "checkpoints/full/r4/trl/s0/export/gptq_int4": {"export_manifest": "checkpoints/full/r4/trl/s0/export/export_manifest.json", "export_manifest_sha256": "b2c2d4e536004fc05888fb48134caeba9363d4cf7febe641a22d2f30ea6ed8f7", "precision": "gptq_int4", "sha256": "3d3bed316134e3d583b7be16a8a89d4de2bf2f40c34365623d0e1c2edec10958", "variants": ["r3_equivalent_legacy_r4_zero_update"]}, "checkpoints/full/r4/trl/s0/export/merged_bf16": {"export_manifest": "checkpoints/full/r4/trl/s0/export/export_manifest.json", "export_manifest_sha256": "b2c2d4e536004fc05888fb48134caeba9363d4cf7febe641a22d2f30ea6ed8f7", "precision": "bfloat16", "sha256": "1304ebf174da98f3b761f482bd2d88b58d66e30bc9cef66abb6104ab70ef6bbc", "variants": ["r3_equivalent_legacy_r4_zero_update"]}}, "equivalence": {"r3_equivalent_legacy_r4_zero_update": {"interpretation": "The superseded original R4 seed-0 run had zero gradient; its adapter weights are byte-identical to R3 seed 0.", "left_adapter_weights": "checkpoints/full/r3/trl/s0/adapter/adapter_model.safetensors", "right_adapter_weights": "checkpoints/full/r4/trl/s0/adapter/adapter_model.safetensors", "sha256": "0188166e07cef16097267da5a68f45bfa3c54d08c68c25cd22b1f5649da37f66"}}, "git_sha": "e1150dc39384141dd25c8b52796c1bffaa730c53", "phase": 4, "status": "complete", "verified_at": "2026-08-18T11:14:32.634348+00:00", "version": 1}
+starting phase4_serve_r1b_bf16_v2; command arguments are pinned by configs/phase4/serve_r1b_bf16.yaml
+Phase 4 phase4_serve_r1b_bf16_v2 complete: results/phase4/raw/phase4_serve_r1b_bf16_v2.json
+starting phase4_serve_r1b_gptq_int4; command arguments are pinned by configs/phase4/serve_r1b_gptq_int4.yaml
+Phase 4 phase4_serve_r1b_gptq_int4 complete: results/phase4/raw/phase4_serve_r1b_gptq_int4.json
+starting phase4_serve_r3eq_bf16; command arguments are pinned by configs/phase4/serve_r3eq_bf16.yaml
+Phase 4 phase4_serve_r3eq_bf16 complete: results/phase4/raw/phase4_serve_r3eq_bf16.json
+starting phase4_serve_r3eq_gptq_int4; command arguments are pinned by configs/phase4/serve_r3eq_gptq_int4.yaml
+Phase 4 phase4_serve_r3eq_gptq_int4 complete: results/phase4/raw/phase4_serve_r3eq_gptq_int4.json
+starting phase4_spec_decode_r1b_bf16_baseline; command arguments are pinned by configs/phase4/spec_r1b_bf16_baseline.yaml
+Phase 4 phase4_spec_decode_r1b_bf16_baseline complete: results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline.json
+starting phase4_spec_decode_r1b_bf16_qwen05b; command arguments are pinned by configs/phase4/spec_r1b_bf16_qwen05b.yaml
+vLLM exited before health became ready
+(APIServer pid=77226) INFO 08-18 19:33:16 [utils.py:302] 
+(APIServer pid=77226) INFO 08-18 19:33:16 [utils.py:302]        █     █     █▄   ▄█
+(APIServer pid=77226) INFO 08-18 19:33:16 [utils.py:302]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.17.0
+(APIServer pid=77226) INFO 08-18 19:33:16 [utils.py:302]   █▄█▀ █     █     █     █  model   /root/autodl-tmp/frontier-forge/checkpoints/full/r1b/trl/s0/export/merged_bf16
+(APIServer pid=77226) INFO 08-18 19:33:16 [utils.py:302]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=77226) INFO 08-18 19:33:16 [utils.py:302] 
+(APIServer pid=77226) INFO 08-18 19:33:16 [utils.py:238] non-default args: {'model_tag': '/root/autodl-tmp/frontier-forge/checkpoints/full/r1b/trl/s0/export/merged_bf16', 'enable_auto_tool_choice': True, 'tool_call_parser': 'hermes', 'host': '127.0.0.1', 'enable_request_id_headers': True, 'model': '/root/autodl-tmp/frontier-forge/checkpoints/full/r1b/trl/s0/export/merged_bf16', 'dtype': 'bfloat16', 'max_model_len': 4096, 'served_model_name': ['forge-r1b-bf16-qwen05b-spec'], 'generation_config': 'vllm', 'language_model_only': True, 'max_num_seqs': 32, 'speculative_config': {'method': 'draft_model', 'model': 'Qwen/Qwen2.5-0.5B', 'revision': '060db6499f32faf8b98477b0a26969ef7d8b9987', 'num_speculative_tokens': 5}}
+(APIServer pid=77226) INFO 08-18 19:33:16 [model.py:531] Resolved architecture: Qwen3_5ForConditionalGeneration
+(APIServer pid=77226) INFO 08-18 19:33:16 [model.py:1554] Using max model len 4096
+(APIServer pid=77226) INFO 08-18 19:33:22 [model.py:531] Resolved architecture: Qwen2ForCausalLM
+(APIServer pid=77226) INFO 08-18 19:33:22 [model.py:1554] Using max model len 32768
+(APIServer pid=77226) Traceback (most recent call last):
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/bin/vllm", line 10, in <module>
+(APIServer pid=77226)     sys.exit(main())
+(APIServer pid=77226)              ^^^^^^
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/cli/main.py", line 73, in main
+(APIServer pid=77226)     args.dispatch_function(args)
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/cli/serve.py", line 112, in cmd
+(APIServer pid=77226)     uvloop.run(run_server(args))
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=77226)     return __asyncio.run(
+(APIServer pid=77226)            ^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=77226)     return runner.run(main)
+(APIServer pid=77226)            ^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=77226)     return self._loop.run_until_complete(task)
+(APIServer pid=77226)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=77226)     return await main
+(APIServer pid=77226)            ^^^^^^^^^^
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 471, in run_server
+(APIServer pid=77226)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 490, in run_server_worker
+(APIServer pid=77226)     async with build_async_engine_client(
+(APIServer pid=77226)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=77226)     return await anext(self.gen)
+(APIServer pid=77226)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 96, in build_async_engine_client
+(APIServer pid=77226)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=77226)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=77226)     return await anext(self.gen)
+(APIServer pid=77226)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 122, in build_async_engine_client_from_engine_args
+(APIServer pid=77226)     vllm_config = engine_args.create_engine_config(usage_context=usage_context)
+(APIServer pid=77226)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 1729, in create_engine_config
+(APIServer pid=77226)     speculative_config = self.create_speculative_config(
+(APIServer pid=77226)                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 1443, in create_speculative_config
+(APIServer pid=77226)     return SpeculativeConfig(**self.speculative_config)
+(APIServer pid=77226)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=77226)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/pydantic/_internal/_dataclasses.py", line 121, in __init__
+(APIServer pid=77226)     s.__pydantic_validator__.validate_python(ArgsKwargs(args, kwargs), self_instance=s)
+(APIServer pid=77226) pydantic_core._pydantic_core.ValidationError: 1 validation error for SpeculativeConfig
+(APIServer pid=77226)   Value error, Target and draft model should have the same vocabulary size. Target model vocab_size=248320. Draft model vocab_size=151936. Using models with different tokenizers can cause out-of-bounds errors during speculative decoding. [type=value_error, input_value=ArgsKwargs((), {'method':..., _api_process_rank=0)}), input_type=ArgsKwargs]
+(APIServer pid=77226)     For further information visit https://errors.pydantic.dev/2.13/v/value_error

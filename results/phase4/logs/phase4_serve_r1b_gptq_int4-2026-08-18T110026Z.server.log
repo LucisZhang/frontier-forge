@@ -1,0 +1,60 @@
+(APIServer pid=66466) INFO 08-18 19:05:31 [utils.py:302] 
+(APIServer pid=66466) INFO 08-18 19:05:31 [utils.py:302]        █     █     █▄   ▄█
+(APIServer pid=66466) INFO 08-18 19:05:31 [utils.py:302]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.17.0
+(APIServer pid=66466) INFO 08-18 19:05:31 [utils.py:302]   █▄█▀ █     █     █     █  model   /root/autodl-tmp/frontier-forge/checkpoints/full/r1b/trl/s0/export/gptq_int4
+(APIServer pid=66466) INFO 08-18 19:05:31 [utils.py:302]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=66466) INFO 08-18 19:05:31 [utils.py:302] 
+(APIServer pid=66466) INFO 08-18 19:05:31 [utils.py:238] non-default args: {'model_tag': '/root/autodl-tmp/frontier-forge/checkpoints/full/r1b/trl/s0/export/gptq_int4', 'enable_auto_tool_choice': True, 'tool_call_parser': 'hermes', 'host': '127.0.0.1', 'enable_request_id_headers': True, 'model': '/root/autodl-tmp/frontier-forge/checkpoints/full/r1b/trl/s0/export/gptq_int4', 'dtype': 'bfloat16', 'max_model_len': 4096, 'quantization': 'gptq', 'served_model_name': ['forge-r1b-gptq-int4'], 'generation_config': 'vllm', 'language_model_only': True, 'max_num_seqs': 32}
+(APIServer pid=66466) INFO 08-18 19:05:31 [model.py:531] Resolved architecture: Qwen3_5ForConditionalGeneration
+(APIServer pid=66466) INFO 08-18 19:05:31 [model.py:1554] Using max model len 4096
+(APIServer pid=66466) INFO 08-18 19:05:31 [gptq_marlin.py:233] Detected that the model can run with gptq_marlin, however you specified quantization=gptq explicitly, so forcing gptq. Use quantization=gptq_marlin for faster inference
+(APIServer pid=66466) INFO 08-18 19:05:31 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=2048.
+(APIServer pid=66466) INFO 08-18 19:05:31 [config.py:544] Setting attention block size to 528 tokens to ensure that attention page size is >= mamba page size.
+(APIServer pid=66466) INFO 08-18 19:05:31 [config.py:575] Padding mamba page size by 0.76% to ensure that mamba page size and attention page size are exactly equal.
+(APIServer pid=66466) WARNING 08-18 19:05:31 [gptq.py:99] Currently, the 4-bit gptq_gemm kernel for GPTQ is buggy. Please switch to gptq_marlin.
+(APIServer pid=66466) Traceback (most recent call last):
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/bin/vllm", line 10, in <module>
+(APIServer pid=66466)     sys.exit(main())
+(APIServer pid=66466)              ^^^^^^
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/cli/main.py", line 73, in main
+(APIServer pid=66466)     args.dispatch_function(args)
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/cli/serve.py", line 112, in cmd
+(APIServer pid=66466)     uvloop.run(run_server(args))
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=66466)     return __asyncio.run(
+(APIServer pid=66466)            ^^^^^^^^^^^^^^
+(APIServer pid=66466)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=66466)     return runner.run(main)
+(APIServer pid=66466)            ^^^^^^^^^^^^^^^^
+(APIServer pid=66466)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=66466)     return self._loop.run_until_complete(task)
+(APIServer pid=66466)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=66466)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=66466)     return await main
+(APIServer pid=66466)            ^^^^^^^^^^
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 471, in run_server
+(APIServer pid=66466)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 490, in run_server_worker
+(APIServer pid=66466)     async with build_async_engine_client(
+(APIServer pid=66466)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=66466)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=66466)     return await anext(self.gen)
+(APIServer pid=66466)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 96, in build_async_engine_client
+(APIServer pid=66466)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=66466)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=66466)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=66466)     return await anext(self.gen)
+(APIServer pid=66466)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 122, in build_async_engine_client_from_engine_args
+(APIServer pid=66466)     vllm_config = engine_args.create_engine_config(usage_context=usage_context)
+(APIServer pid=66466)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 1890, in create_engine_config
+(APIServer pid=66466)     config = VllmConfig(
+(APIServer pid=66466)              ^^^^^^^^^^^
+(APIServer pid=66466)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/pydantic/_internal/_dataclasses.py", line 121, in __init__
+(APIServer pid=66466)     s.__pydantic_validator__.validate_python(ArgsKwargs(args, kwargs), self_instance=s)
+(APIServer pid=66466) pydantic_core._pydantic_core.ValidationError: 1 validation error for VllmConfig
+(APIServer pid=66466)   Value error, torch.bfloat16 is not supported for quantization method gptq. Supported dtypes: [torch.float16] [type=value_error, input_value=ArgsKwargs((), {'model_co...transfer_config': None}), input_type=ArgsKwargs]
+(APIServer pid=66466)     For further information visit https://errors.pydantic.dev/2.13/v/value_error

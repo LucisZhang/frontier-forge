@@ -1,0 +1,622 @@
+{
+  "artifact_verification": {
+    "export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json",
+    "export_manifest_sha256": "2ef70012abe90c5489ca30d500fb994c147205cf1aa740266a603029fe9f5dba",
+    "precision": "bfloat16",
+    "sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "variants": [
+      "r1b"
+    ]
+  },
+  "artifact_verification_path": "results/phase4/artifact_verification.json",
+  "config_hash": "a2801cb7f3a498c420d9cbff976211d3b460a4ed61e42851d5dad6ddbd8a98ad",
+  "config_path": "configs/phase4/spec_r1b_bf16_baseline.yaml",
+  "cost": {
+    "api_usd": 0.0,
+    "gpu_hours": 0.04482031323429611,
+    "hourly_usd": 0.3,
+    "usd": 0.013446093970288833
+  },
+  "experiment": "spec_decode",
+  "finished_at": "2026-08-18T11:33:08.680329+00:00",
+  "git_sha": "e1150dc39384141dd25c8b52796c1bffaa730c53",
+  "hardware": {
+    "driver_version": "580.105.08",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "gpu_memory_total_mib": 24564,
+    "hourly_usd": 0.3,
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "python": "3.12.14",
+    "rate_source": "FORGE_GPU_HOURLY_USD"
+  },
+  "metrics": {
+    "max_stable_concurrency": 10,
+    "points": [
+      {
+        "achieved_qps_ratio": 1.162947977018086,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 0.25,
+        "client": {
+          "dispatch_delay": {
+            "count": 20,
+            "mean_s": 0.0008104348555207253,
+            "p50_s": 0.0006988607347011566,
+            "p95_s": 0.0015917651355266571
+          },
+          "e2e": {
+            "count": 20,
+            "mean_s": 0.8473381400108337,
+            "p50_s": 0.8483450934290886,
+            "p95_s": 0.9495778528973461
+          },
+          "elapsed_s": 68.79069535434246,
+          "itl": {
+            "count": 20,
+            "mean_s": 0.010230396061944562,
+            "p50_s": 0.010049994155909039,
+            "p95_s": 0.011089475846443422
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "output_tokens_per_s": 21.13657948230371,
+          "request_throughput_per_s": 0.2907369942545215,
+          "successful_task_throughput_per_s": 0.2907369942545215,
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.11386197488754987,
+            "p50_s": 0.11994900554418564,
+            "p95_s": 0.13873712029308083
+          }
+        },
+        "completed": 20,
+        "concurrency_cap": 32,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.28662789730976024,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "error_rate": 0.0,
+        "errors": 0,
+        "max_observed_in_flight": 3,
+        "point_index": 0,
+        "requests": 20,
+        "server": {
+          "e2e": {
+            "count": 20,
+            "mean_s": 0.8406492829322815,
+            "p50_s": 0.8714285714285714,
+            "p95_s": 1.0
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": null,
+            "accepted_tokens": 0,
+            "draft_tokens": 0,
+            "drafts": 0,
+            "mean_acceptance_length": null
+          },
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.10614721775054932,
+            "p50_s": 0.13461538461538464,
+            "p95_s": 0.23846153846153847
+          }
+        },
+        "stability_checks": {
+          "achieved_qps_ratio": true,
+          "deadline_miss_rate": true,
+          "error_rate": true,
+          "p95_inflation": true
+        },
+        "stable": true,
+        "verifier_successes": 20,
+        "verifier_task_success_rate": 1.0,
+        "vram": {
+          "mean_mib": 22829.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 22829.0,
+          "samples": 265
+        }
+      },
+      {
+        "achieved_qps_ratio": 1.2377110783041885,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 0.5,
+        "client": {
+          "dispatch_delay": {
+            "count": 20,
+            "mean_s": 0.0008541900664567947,
+            "p50_s": 0.0009155776351690292,
+            "p95_s": 0.001271776854991913
+          },
+          "e2e": {
+            "count": 20,
+            "mean_s": 0.8956232842057943,
+            "p50_s": 0.883449038490653,
+            "p95_s": 1.0137018721550703
+          },
+          "elapsed_s": 32.31771994382143,
+          "itl": {
+            "count": 20,
+            "mean_s": 0.010644529750968702,
+            "p50_s": 0.010358512311602765,
+            "p95_s": 0.011799829115905627
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "output_tokens_per_s": 45.88813822812779,
+          "request_throughput_per_s": 0.6188555391520942,
+          "successful_task_throughput_per_s": 0.6188555391520942,
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.11693934462964535,
+            "p50_s": 0.11726054362952709,
+            "p95_s": 0.1654268592596054
+          }
+        },
+        "completed": 20,
+        "concurrency_cap": 32,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.1346571664325893,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "error_rate": 0.0,
+        "errors": 0,
+        "max_observed_in_flight": 3,
+        "point_index": 1,
+        "requests": 20,
+        "server": {
+          "e2e": {
+            "count": 20,
+            "mean_s": 0.8888007879257203,
+            "p50_s": 0.92,
+            "p95_s": 1.375
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": null,
+            "accepted_tokens": 0,
+            "draft_tokens": 0,
+            "drafts": 0,
+            "mean_acceptance_length": null
+          },
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.1094016671180725,
+            "p50_s": 0.125,
+            "p95_s": 0.2375
+          }
+        },
+        "stability_checks": {
+          "achieved_qps_ratio": true,
+          "deadline_miss_rate": true,
+          "error_rate": true,
+          "p95_inflation": true
+        },
+        "stable": true,
+        "verifier_successes": 20,
+        "verifier_task_success_rate": 1.0,
+        "vram": {
+          "mean_mib": 22829.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 22829.0,
+          "samples": 125
+        }
+      },
+      {
+        "achieved_qps_ratio": 0.6903937057339067,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 1.0,
+        "client": {
+          "dispatch_delay": {
+            "count": 20,
+            "mean_s": 0.0007699549198150635,
+            "p50_s": 0.0006387773901224136,
+            "p95_s": 0.0013388996943831458
+          },
+          "e2e": {
+            "count": 20,
+            "mean_s": 0.8564800180494785,
+            "p50_s": 0.8479325100779533,
+            "p95_s": 0.9629247322678567
+          },
+          "elapsed_s": 28.96897789463401,
+          "itl": {
+            "count": 20,
+            "mean_s": 0.010428179775905093,
+            "p50_s": 0.010251430568580803,
+            "p95_s": 0.011133824096056654
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "output_tokens_per_s": 50.50229957443528,
+          "request_throughput_per_s": 0.6903937057339067,
+          "successful_task_throughput_per_s": 0.6903937057339067,
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.10413915906101465,
+            "p50_s": 0.09498544223606586,
+            "p95_s": 0.12324512880295516
+          }
+        },
+        "completed": 20,
+        "concurrency_cap": 32,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.12070407456097504,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "error_rate": 0.0,
+        "errors": 0,
+        "max_observed_in_flight": 2,
+        "point_index": 2,
+        "requests": 20,
+        "server": {
+          "e2e": {
+            "count": 20,
+            "mean_s": 0.8502036333084106,
+            "p50_s": 0.8714285714285714,
+            "p95_s": 1.0
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": null,
+            "accepted_tokens": 0,
+            "draft_tokens": 0,
+            "drafts": 0,
+            "mean_acceptance_length": null
+          },
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.09693465232849122,
+            "p50_s": 0.08333333333333334,
+            "p95_s": 0.23125
+          }
+        },
+        "stability_checks": {
+          "achieved_qps_ratio": false,
+          "deadline_miss_rate": true,
+          "error_rate": true,
+          "p95_inflation": true
+        },
+        "stable": false,
+        "verifier_successes": 20,
+        "verifier_task_success_rate": 1.0,
+        "vram": {
+          "mean_mib": 22829.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 22829.0,
+          "samples": 111
+        }
+      },
+      {
+        "achieved_qps_ratio": 0.7132809034013823,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 2.0,
+        "client": {
+          "dispatch_delay": {
+            "count": 20,
+            "mean_s": 0.0006628379225730896,
+            "p50_s": 0.0005659349262714386,
+            "p95_s": 0.001181197538971901
+          },
+          "e2e": {
+            "count": 20,
+            "mean_s": 1.0955859245732427,
+            "p50_s": 1.0600636154413223,
+            "p95_s": 1.3725921457633377
+          },
+          "elapsed_s": 14.019722037017345,
+          "itl": {
+            "count": 20,
+            "mean_s": 0.012919928678464823,
+            "p50_s": 0.012200943697328982,
+            "p95_s": 0.016655904787474182
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "output_tokens_per_s": 109.1319782204115,
+          "request_throughput_per_s": 1.4265618068027646,
+          "successful_task_throughput_per_s": 1.3552337164626265,
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.1198471685871482,
+            "p50_s": 0.12220419198274612,
+            "p95_s": 0.14743101671338082
+          }
+        },
+        "completed": 20,
+        "concurrency_cap": 32,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.0614900089342866,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "error_rate": 0.0,
+        "errors": 0,
+        "max_observed_in_flight": 7,
+        "point_index": 3,
+        "requests": 20,
+        "server": {
+          "e2e": {
+            "count": 20,
+            "mean_s": 1.088915503025055,
+            "p50_s": 1.1153846153846154,
+            "p95_s": 1.4615384615384617
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": null,
+            "accepted_tokens": 0,
+            "draft_tokens": 0,
+            "drafts": 0,
+            "mean_acceptance_length": null
+          },
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.11259920597076416,
+            "p50_s": 0.14285714285714285,
+            "p95_s": 0.2392857142857143
+          }
+        },
+        "stability_checks": {
+          "achieved_qps_ratio": false,
+          "deadline_miss_rate": true,
+          "error_rate": true,
+          "p95_inflation": true
+        },
+        "stable": false,
+        "verifier_successes": 19,
+        "verifier_task_success_rate": 0.95,
+        "vram": {
+          "mean_mib": 22829.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 22829.0,
+          "samples": 53
+        }
+      },
+      {
+        "achieved_qps_ratio": 1.0371364265386829,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 4.0,
+        "client": {
+          "dispatch_delay": {
+            "count": 20,
+            "mean_s": 0.0008358286693692207,
+            "p50_s": 0.0008388590067625046,
+            "p95_s": 0.0013406349346041684
+          },
+          "e2e": {
+            "count": 20,
+            "mean_s": 1.3701844282448292,
+            "p50_s": 1.4249439034610987,
+            "p95_s": 1.6924984505400062
+          },
+          "elapsed_s": 4.8209665305912495,
+          "itl": {
+            "count": 20,
+            "mean_s": 0.016112641716640754,
+            "p50_s": 0.016383603774741583,
+            "p95_s": 0.02035671897483764
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "output_tokens_per_s": 306.3701003995269,
+          "request_throughput_per_s": 4.1485457061547315,
+          "successful_task_throughput_per_s": 3.941118420846995,
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.19347783103585242,
+            "p50_s": 0.1767786182463169,
+            "p95_s": 0.31075585875660183
+          }
+        },
+        "completed": 20,
+        "concurrency_cap": 32,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.02114459004645285,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "error_rate": 0.0,
+        "errors": 0,
+        "max_observed_in_flight": 10,
+        "point_index": 4,
+        "requests": 20,
+        "server": {
+          "e2e": {
+            "count": 20,
+            "mean_s": 1.361278200149536,
+            "p50_s": 1.3636363636363638,
+            "p95_s": 1.9285714285714286
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": null,
+            "accepted_tokens": 0,
+            "draft_tokens": 0,
+            "drafts": 0,
+            "mean_acceptance_length": null
+          },
+          "ttft": {
+            "count": 20,
+            "mean_s": 0.1834722638130188,
+            "p50_s": 0.18,
+            "p95_s": 0.41666666666666663
+          }
+        },
+        "stability_checks": {
+          "achieved_qps_ratio": true,
+          "deadline_miss_rate": true,
+          "error_rate": true,
+          "p95_inflation": true
+        },
+        "stable": true,
+        "verifier_successes": 19,
+        "verifier_task_success_rate": 0.95,
+        "vram": {
+          "mean_mib": 22829.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 22829.0,
+          "samples": 19
+        }
+      }
+    ]
+  },
+  "mode": "full",
+  "model": {
+    "artifact_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "deployment_quantization": "none",
+    "export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json",
+    "precision": "bfloat16",
+    "served_name": "forge-r1b-bf16-baseline",
+    "speculative_enabled": false,
+    "training_time_quantization": "qlora_nf4",
+    "variant": "r1b"
+  },
+  "phase": 4,
+  "raw_artifact": "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline.json",
+  "request_artifact": {
+    "path": "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline.requests.jsonl",
+    "rows": 100,
+    "sha256": "038e221b02fd16f602036065f4194d9210f2c6a2362cab484917099e3a121b14"
+  },
+  "run_id": "phase4_spec_decode_r1b_bf16_baseline",
+  "server": {
+    "base_url": "http://127.0.0.1:8000",
+    "declared_vllm_version": "0.17.0",
+    "engine_args": {
+      "generation_config": "vllm",
+      "gpu_memory_utilization": 0.9,
+      "host": "127.0.0.1",
+      "language_model_only": true,
+      "max_model_len": 4096,
+      "max_num_seqs": 32,
+      "port": 8000,
+      "structured_backend": "auto",
+      "tool_call_parser": "hermes",
+      "vllm_version": "0.17.0"
+    },
+    "identity": {
+      "models_endpoint": {
+        "data": [
+          {
+            "created": 1787052627,
+            "id": "forge-r1b-bf16-baseline",
+            "max_model_len": 4096,
+            "object": "model",
+            "owned_by": "vllm",
+            "parent": null,
+            "permission": [
+              {
+                "allow_create_engine": false,
+                "allow_fine_tuning": false,
+                "allow_logprobs": true,
+                "allow_sampling": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "created": 1787052627,
+                "group": null,
+                "id": "modelperm-8f40bb338afcbf63",
+                "is_blocking": false,
+                "object": "model_permission",
+                "organization": "*"
+              }
+            ],
+            "root": "/root/autodl-tmp/frontier-forge/checkpoints/full/r1b/trl/s0/export/merged_bf16"
+          }
+        ],
+        "object": "list"
+      },
+      "version_endpoint": {
+        "version": "0.17.0"
+      }
+    },
+    "packages": {
+      "outlines": null,
+      "torch": "2.10.0",
+      "transformers": "4.57.6",
+      "vllm": "0.17.0",
+      "xgrammar": "0.1.29"
+    }
+  },
+  "started_at": "2026-08-18T11:30:27.327187+00:00",
+  "status": "complete",
+  "supersedes": null,
+  "timing_disclosure": {
+    "client": "monotonic wall clock around streamed OpenAI HTTP request",
+    "server": "delta of vLLM Prometheus histograms over each measurement point",
+    "vram": "device-total nvidia-smi samples on the server host",
+    "warmup_excluded": true
+  },
+  "verifier_disclosure": {
+    "implementation": "forge.verify.verifier.score",
+    "input_normalization": "forge.train.grpo._completion_text: keep the suffix after the final </think>, then strip",
+    "raw_and_normalized_outputs_preserved": true
+  },
+  "version": 1,
+  "workload": {
+    "arrival_process": "Poisson with fixed seed",
+    "arrival_rates_qps": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "contract_hash": "9ed3d99a9d75c357febd82b2c3ac537c066451f1dd6399caaba2e88afb4dff89",
+    "dataset_manifest": "data/phase1_2/manifest.json",
+    "deadline_s": 60,
+    "input_length_measurement": "tokenizer.apply_chat_template exact token ids",
+    "input_token_targets": [
+      800,
+      1400,
+      2000
+    ],
+    "input_token_weights": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "max_concurrency": 32,
+    "measurement_requests": 20,
+    "output_length_control": "per-request max_tokens fixed weighted distribution",
+    "output_token_caps": [
+      192,
+      256
+    ],
+    "output_token_weights": [
+      0.5,
+      0.5
+    ],
+    "path": "data/full/phase4/workload-9ed3d99a9d75c357.jsonl",
+    "request_seed": 20260818,
+    "rows": 96,
+    "selection_seed": 20260816,
+    "sha256": "4f042b56aacd6e596e112e290511717bd84737d805df67acbfbafd0845865e23",
+    "split": "mixed",
+    "warmup_requests": 6
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "phase": 4,
+  "experiment": "spec_decode",
+  "run_id": "phase4_spec_decode_r1b_bf16_qwen05b_attempt1_failed_vocab_mismatch",
+  "intended_run_id": "phase4_spec_decode_r1b_bf16_qwen05b",
+  "status": "failed-before-server-ready",
+  "config_path": "configs/phase4/spec_r1b_bf16_qwen05b.yaml",
+  "config_hash": "d8d2362055c75c8449168f395716f39c2415f76c156ece671d236f51efe790fe",
+  "git_sha": "e1150dc39384141dd25c8b52796c1bffaa730c53",
+  "dataset_hash": null,
+  "model": {
+    "target": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "target_artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "draft": "Qwen/Qwen2.5-0.5B",
+    "draft_revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "num_speculative_tokens": 5
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "hourly_usd": 0.3,
+    "gpu_memory_used_after_failure_mib": 0,
+    "other_gpu_processes_observed": false
+  },
+  "failure": {
+    "type": "vllm_speculative_vocab_mismatch",
+    "target_vocab_size": 248320,
+    "draft_vocab_size": 151936,
+    "message": "Target and draft model should have the same vocabulary size; vLLM rejected the pair before server readiness."
+  },
+  "locked_decision_gate": {
+    "decision": "D1 requires a same-family 0.5B draft model.",
+    "official_same_family_smallest_base_checked": "Qwen/Qwen3.5-0.8B-Base",
+    "same_family_0_5b_found": false,
+    "checked_at": "2026-08-18",
+    "source": "https://huggingface.co/collections/Qwen/qwen35",
+    "action": "Stopped without substituting the 0.8B model; human amendment is required."
+  },
+  "cost": {
+    "elapsed_s_from_log_timestamps": 6,
+    "gpu_hours": 0.0016666666666666668,
+    "hourly_usd": 0.3,
+    "usd": 0.0005,
+    "api_usd": 0.0
+  },
+  "started_at": "2026-08-18T11:33:16Z",
+  "finished_at": "2026-08-18T11:33:22Z",
+  "raw_artifact": "results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json",
+  "evidence": {
+    "server_log": {
+      "path": "results/phase4/logs/phase4_spec_decode_r1b_bf16_qwen05b-2026-08-18T111406Z.server.log",
+      "sha256": "efff959fec4175dfb67b71addac2f8d403b123aecd7910f65e0a0286c3e3f588"
+    },
+    "worker_log": {
+      "path": "results/phase4/logs/phase4-worker-2026-08-18T111406Z.log",
+      "sha256": "b008ee1768619d74dcccf5bbb1f6155bee41f30b19f41dc483f9543f9c5c5667"
+    }
+  }
+}
