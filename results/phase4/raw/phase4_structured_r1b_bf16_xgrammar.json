@@ -1,0 +1,690 @@
+{
+  "artifact_verification": {
+    "export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json",
+    "export_manifest_sha256": "2ef70012abe90c5489ca30d500fb994c147205cf1aa740266a603029fe9f5dba",
+    "precision": "bfloat16",
+    "sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "variants": [
+      "r1b"
+    ]
+  },
+  "artifact_verification_path": "results/phase4/artifact_verification.json",
+  "config_hash": "8111b5b1d2bf5af00842194eff90ebb2ea8aee6272bb3641dae39c3edc6c83d9",
+  "config_path": "configs/phase4/structured_r1b_bf16_xgrammar.yaml",
+  "contaminated_sweeps": [],
+  "cost": {
+    "api_usd": 0.0,
+    "gpu_hours": 0.025123648989117807,
+    "hourly_usd": 0.3,
+    "usd": 0.0075370946967353416
+  },
+  "experiment": "structured",
+  "finished_at": "2026-08-18T16:44:03.257232+00:00",
+  "git_sha": "db50ccb516528fec62b2dfa9ca82817cc477db46",
+  "hardware": {
+    "driver_version": "580.105.08",
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "gpu_memory_total_mib": 24564,
+    "hourly_usd": 0.3,
+    "logical_cpu_count": 128,
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "python": "3.12.14",
+    "rate_source": "FORGE_GPU_HOURLY_USD"
+  },
+  "metrics": {
+    "backend": "xgrammar",
+    "co_tenancy": {
+      "contaminated": false,
+      "cpu_utilization_max": 0.09542131589072722,
+      "cpu_utilization_mean": 0.06478984733584414,
+      "load15_max": 7.263671875,
+      "load15_mean": 7.102893880208334,
+      "load1_contamination_threshold": 64.0,
+      "load1_max": 10.36376953125,
+      "load1_mean": 8.249215494791667,
+      "load5_max": 7.83740234375,
+      "load5_mean": 7.373764105902778,
+      "logical_cpu_count": 128,
+      "measurement_side": "server_host_getloadavg_and_proc_stat",
+      "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+      "samples": 450
+    },
+    "constraint_tax_and_mitigation": {
+      "constraint_tax_tool_call_rate_delta": 0.0,
+      "latency_delta_p50_s": 0.811296408995986,
+      "mitigation_task_success_delta": 1.0,
+      "requests": 24,
+      "simultaneous_latency_p50_s": 0.514576768502593,
+      "simultaneous_latency_p95_s": 0.5534639427438378,
+      "simultaneous_schema_tool_call_rate": 1.0,
+      "simultaneous_task_success": 0.0,
+      "task_success_denominator": "all original requests; uncovered two-pass rows count as failure",
+      "two_pass_coverage": 1.0,
+      "two_pass_latency_p50_s": 1.325873177498579,
+      "two_pass_latency_p95_s": 1.4486379941925407,
+      "two_pass_task_success": 1.0,
+      "unconstrained_tool_call_rate": 1.0
+    },
+    "schema_compile": [
+      {
+        "cold": {
+          "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\"}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 11.7204844430089,
+          "request_id": "b3c94a04854f463fb0411b03c437c2ec",
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 25,
+            "prompt_tokens": 43,
+            "prompt_tokens_details": null,
+            "total_tokens": 68
+          }
+        },
+        "cold_compile_overhead_s": 11.412064962089062,
+        "schema_required_fields": 2,
+        "steady": [
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.31334174796938896,
+            "request_id": "11fcea835dbe47d987c99fe1eee52a06",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 25,
+              "prompt_tokens": 43,
+              "prompt_tokens_details": null,
+              "total_tokens": 68
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.30617451667785645,
+            "request_id": "0cd83d84071b4612a309c44b6858ff81",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 25,
+              "prompt_tokens": 43,
+              "prompt_tokens_details": null,
+              "total_tokens": 68
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.30841948091983795,
+            "request_id": "6c4b48e51091485c8581af79add05e6c",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 25,
+              "prompt_tokens": 43,
+              "prompt_tokens_details": null,
+              "total_tokens": 68
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.3049488477408886,
+            "request_id": "412e6c1aa8a64116914cd3114143b81b",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 25,
+              "prompt_tokens": 43,
+              "prompt_tokens_details": null,
+              "total_tokens": 68
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.3089909516274929,
+            "request_id": "6100752cd9e649eb927afb7f980a4e8a",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 25,
+              "prompt_tokens": 43,
+              "prompt_tokens_details": null,
+              "total_tokens": 68
+            }
+          }
+        ],
+        "steady_constraint_overhead_s": -0.006011448800563812,
+        "unconstrained_control": {
+          "content": "</think>\n\n{\"field_00\":\"value_00\",\"field_01\":\"value_01\"}\n",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.31443092972040176,
+          "request_id": "3bda54ea321c4df7a1aa95f6c281f5de",
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 26,
+            "prompt_tokens": 43,
+            "prompt_tokens_details": null,
+            "total_tokens": 69
+          }
+        }
+      },
+      {
+        "cold": {
+          "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\"}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.7491564005613327,
+          "request_id": "50240677c9da40658767b36af6667ee5",
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 69,
+            "prompt_tokens": 63,
+            "prompt_tokens_details": null,
+            "total_tokens": 132
+          }
+        },
+        "cold_compile_overhead_s": 0.006449401378631592,
+        "schema_required_fields": 6,
+        "steady": [
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.7422139681875706,
+            "request_id": "ac1e6507420f4b84ba0eb87a50374554",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 69,
+              "prompt_tokens": 63,
+              "prompt_tokens_details": null,
+              "total_tokens": 132
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.7415559589862823,
+            "request_id": "32e4d1a1219940338e0b62167d175e56",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 69,
+              "prompt_tokens": 63,
+              "prompt_tokens_details": null,
+              "total_tokens": 132
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.745201837271452,
+            "request_id": "f940ac8a013d4017aafd885910e84d59",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 69,
+              "prompt_tokens": 63,
+              "prompt_tokens_details": null,
+              "total_tokens": 132
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.7508969642221928,
+            "request_id": "1df764abd20e4e41bd3ed0389badf575",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 69,
+              "prompt_tokens": 63,
+              "prompt_tokens_details": null,
+              "total_tokens": 132
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.7427069991827011,
+            "request_id": "d8d566cf670446f4bd5c4feae1f8e7a1",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 69,
+              "prompt_tokens": 63,
+              "prompt_tokens_details": null,
+              "total_tokens": 132
+            }
+          }
+        ],
+        "steady_constraint_overhead_s": 0.03269839659333229,
+        "unconstrained_control": {
+          "content": "</think>\n\n{\"field_00\":\"value_00\",\"field_01\":\"value_01\",\"field_02\":\"value_02\",\"field_03\":\"value_03\",\"field_04\":\"value_04\",\"field_05\":\"value_05\"}\n",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.7100086025893688,
+          "request_id": "b0a431ab254d43fc9bbdc355cb6161fb",
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 66,
+            "prompt_tokens": 63,
+            "prompt_tokens_details": null,
+            "total_tokens": 129
+          }
+        }
+      },
+      {
+        "cold": {
+          "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\"}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 1.4176175892353058,
+          "request_id": "9a2a216b5eb741f99746c1777012537b",
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 135,
+            "prompt_tokens": 93,
+            "prompt_tokens_details": null,
+            "total_tokens": 228
+          }
+        },
+        "cold_compile_overhead_s": 0.007330983877182007,
+        "schema_required_fields": 12,
+        "steady": [
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 1.4113838225603104,
+            "request_id": "575c3fc312e043a286cac6f22c2a0cad",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 135,
+              "prompt_tokens": 93,
+              "prompt_tokens_details": null,
+              "total_tokens": 228
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 1.4102866053581238,
+            "request_id": "8514736ab38b4bae8393e006ee521b70",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 135,
+              "prompt_tokens": 93,
+              "prompt_tokens_details": null,
+              "total_tokens": 228
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 1.4086287654936314,
+            "request_id": "0b719fbd82a44fc1b7b4df8fa5d5f46a",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 135,
+              "prompt_tokens": 93,
+              "prompt_tokens_details": null,
+              "total_tokens": 228
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 1.4117274321615696,
+            "request_id": "93cd3d73fdf74e6c8620a08bd85e8601",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 135,
+              "prompt_tokens": 93,
+              "prompt_tokens_details": null,
+              "total_tokens": 228
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 1.4098069332540035,
+            "request_id": "b4ccdcd7feca4ab5a0c1ff4e19ca8678",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 135,
+              "prompt_tokens": 93,
+              "prompt_tokens_details": null,
+              "total_tokens": 228
+            }
+          }
+        ],
+        "steady_constraint_overhead_s": 0.09235919266939163,
+        "unconstrained_control": {
+          "content": "</think>\n\n{\"field_00\":\"value_00\",\"field_01\":\"value_01\",\"field_02\":\"value_02\",\"field_03\":\"value_03\",\"field_04\":\"value_04\",\"field_05\":\"value_05\",\"field_06\":\"value_06\",\"field_07\":\"value_07\",\"field_08\":\"value_08\",\"field_09\":\"value_09\",\"field_10\":\"value_10\",\"field_11\":\"value_11\"}\n",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 1.3179274126887321,
+          "request_id": "e48d27cbcefe4712939b36bd2e06d6de",
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 126,
+            "prompt_tokens": 93,
+            "prompt_tokens_details": null,
+            "total_tokens": 219
+          }
+        }
+      },
+      {
+        "cold": {
+          "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\",\"field_12\":\"value_12_a\",\"field_13\":\"value_13_b\",\"field_14\":\"value_14_a\",\"field_15\":\"value_15_b\",\"field_16\":\"value_16_a\",\"field_17\":\"value_17_b\",\"field_18\":\"value_18_a\",\"field_19\":\"value_19_b\",\"field_20\":\"value_20_a\",\"field_21\":\"value_21_b\",\"field_22\":\"value_22_a\",\"field",
+          "error": null,
+          "finish_reason": "length",
+          "latency_s": 2.625108953565359,
+          "request_id": "8c0d460af51b4d10b65863ddbf33710e",
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 256,
+            "prompt_tokens": 153,
+            "prompt_tokens_details": null,
+            "total_tokens": 409
+          }
+        },
+        "cold_compile_overhead_s": 0.013970937579870224,
+        "schema_required_fields": 24,
+        "steady": [
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\",\"field_12\":\"value_12_a\",\"field_13\":\"value_13_b\",\"field_14\":\"value_14_a\",\"field_15\":\"value_15_b\",\"field_16\":\"value_16_a\",\"field_17\":\"value_17_b\",\"field_18\":\"value_18_a\",\"field_19\":\"value_19_b\",\"field_20\":\"value_20_a\",\"field_21\":\"value_21_b\",\"field_22\":\"value_22_a\",\"field",
+            "error": null,
+            "finish_reason": "length",
+            "latency_s": 2.611138015985489,
+            "request_id": "f489164c9cac455c8e3a29085fe1c04d",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 256,
+              "prompt_tokens": 153,
+              "prompt_tokens_details": null,
+              "total_tokens": 409
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\",\"field_12\":\"value_12_a\",\"field_13\":\"value_13_b\",\"field_14\":\"value_14_a\",\"field_15\":\"value_15_b\",\"field_16\":\"value_16_a\",\"field_17\":\"value_17_b\",\"field_18\":\"value_18_a\",\"field_19\":\"value_19_b\",\"field_20\":\"value_20_a\",\"field_21\":\"value_21_b\",\"field_22\":\"value_22_a\",\"field",
+            "error": null,
+            "finish_reason": "length",
+            "latency_s": 2.61321010440588,
+            "request_id": "abc4bbe5327a49c89836de2152cfb418",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 256,
+              "prompt_tokens": 153,
+              "prompt_tokens_details": null,
+              "total_tokens": 409
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\",\"field_12\":\"value_12_a\",\"field_13\":\"value_13_b\",\"field_14\":\"value_14_a\",\"field_15\":\"value_15_b\",\"field_16\":\"value_16_a\",\"field_17\":\"value_17_b\",\"field_18\":\"value_18_a\",\"field_19\":\"value_19_b\",\"field_20\":\"value_20_a\",\"field_21\":\"value_21_b\",\"field_22\":\"value_22_a\",\"field",
+            "error": null,
+            "finish_reason": "length",
+            "latency_s": 2.612660266458988,
+            "request_id": "1fd2e26d7bd64e3face50ec88260bd02",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 256,
+              "prompt_tokens": 153,
+              "prompt_tokens_details": null,
+              "total_tokens": 409
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\",\"field_12\":\"value_12_a\",\"field_13\":\"value_13_b\",\"field_14\":\"value_14_a\",\"field_15\":\"value_15_b\",\"field_16\":\"value_16_a\",\"field_17\":\"value_17_b\",\"field_18\":\"value_18_a\",\"field_19\":\"value_19_b\",\"field_20\":\"value_20_a\",\"field_21\":\"value_21_b\",\"field_22\":\"value_22_a\",\"field",
+            "error": null,
+            "finish_reason": "length",
+            "latency_s": 2.6103939302265644,
+            "request_id": "539cb3610d2149e49dc274ce9b6ebab5",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 256,
+              "prompt_tokens": 153,
+              "prompt_tokens_details": null,
+              "total_tokens": 409
+            }
+          },
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_b\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_b\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_b\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_b\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_b\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_b\",\"field_12\":\"value_12_a\",\"field_13\":\"value_13_b\",\"field_14\":\"value_14_a\",\"field_15\":\"value_15_b\",\"field_16\":\"value_16_a\",\"field_17\":\"value_17_b\",\"field_18\":\"value_18_a\",\"field_19\":\"value_19_b\",\"field_20\":\"value_20_a\",\"field_21\":\"value_21_b\",\"field_22\":\"value_22_a\",\"field",
+            "error": null,
+            "finish_reason": "length",
+            "latency_s": 2.610182300209999,
+            "request_id": "009e31f20522447e9c33205201764ef8",
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 256,
+              "prompt_tokens": 153,
+              "prompt_tokens_details": null,
+              "total_tokens": 409
+            }
+          }
+        ],
+        "steady_constraint_overhead_s": 0.10694024339318275,
+        "unconstrained_control": {
+          "content": "</think>\n\n{\"field_00\":\"value_00\",\"field_01\":\"value_01\",\"field_02\":\"value_02\",\"field_03\":\"value_03\",\"field_04\":\"value_04\",\"field_05\":\"value_05\",\"field_06\":\"value_06\",\"field_07\":\"value_07\",\"field_08\":\"value_08\",\"field_09\":\"value_09\",\"field_10\":\"value_10\",\"field_11\":\"value_11\",\"field_12\":\"value_12\",\"field_13\":\"value_13\",\"field_14\":\"value_14\",\"field_15\":\"value_15\",\"field_16\":\"value_16\",\"field_17\":\"value_17\",\"field_18\":\"value_18\",\"field_19\":\"value_19\",\"field_20\":\"value_20\",\"field_21\":\"value_21\",\"field_22\":\"value_22\",\"field_23\":\"value_23\"}\n",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 2.504197772592306,
+          "request_id": "825c43b4e77f4eeca54a1970fea27ed3",
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 246,
+            "prompt_tokens": 153,
+            "prompt_tokens_details": null,
+            "total_tokens": 399
+          }
+        }
+      }
+    ],
+    "server": {
+      "e2e": {
+        "count": 100,
+        "mean_s": 0.8944766569137573,
+        "p50_s": 0.6531914893617021,
+        "p95_s": 3.333333333333333
+      },
+      "itl": {
+        "count": 0,
+        "mean_s": null,
+        "p50_s": null,
+        "p95_s": null
+      },
+      "measurement_side": "server_prometheus",
+      "speculative": {
+        "acceptance_rate": null,
+        "accepted_tokens": 0,
+        "draft_tokens": 0,
+        "drafts": 0,
+        "mean_acceptance_length": null
+      },
+      "ttft": {
+        "count": 100,
+        "mean_s": 0.21814688682556152,
+        "p50_s": 0.10588235294117648,
+        "p95_s": 0.23823529411764705
+      }
+    },
+    "vram": {
+      "mean_mib": 22537.20348837209,
+      "measurement_side": "host_nvidia_smi_device_total",
+      "peak_mib": 22541.0,
+      "samples": 344
+    }
+  },
+  "mode": "full",
+  "model": {
+    "artifact_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "deployment_quantization": "none",
+    "export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json",
+    "precision": "bfloat16",
+    "served_name": "forge-r1b-bf16-xgrammar",
+    "training_time_quantization": "qlora_nf4",
+    "variant": "r1b"
+  },
+  "phase": 4,
+  "raw_artifact": "results/phase4/raw/phase4_structured_r1b_bf16_xgrammar.json",
+  "request_artifact": {
+    "path": "results/phase4/raw/phase4_structured_r1b_bf16_xgrammar.requests.jsonl",
+    "rows": 24,
+    "sha256": "d98327eb8bc0d9af2a2fe930e021e4aa069042c1f31e5164669ce45ca42ee923"
+  },
+  "run_id": "phase4_structured_r1b_bf16_xgrammar",
+  "server": {
+    "base_url": "http://127.0.0.1:8000",
+    "declared_vllm_version": "0.17.0",
+    "engine_args": {
+      "generation_config": "vllm",
+      "gpu_memory_utilization": 0.9,
+      "host": "127.0.0.1",
+      "language_model_only": true,
+      "max_model_len": 4096,
+      "max_num_seqs": 32,
+      "port": 8000,
+      "structured_backend": "xgrammar",
+      "tool_call_parser": "hermes",
+      "vllm_version": "0.17.0"
+    },
+    "identity": {
+      "models_endpoint": {
+        "data": [
+          {
+            "created": 1787071352,
+            "id": "forge-r1b-bf16-xgrammar",
+            "max_model_len": 4096,
+            "object": "model",
+            "owned_by": "vllm",
+            "parent": null,
+            "permission": [
+              {
+                "allow_create_engine": false,
+                "allow_fine_tuning": false,
+                "allow_logprobs": true,
+                "allow_sampling": true,
+                "allow_search_indices": false,
+                "allow_view": true,
+                "created": 1787071352,
+                "group": null,
+                "id": "modelperm-a7f80de3c67356b9",
+                "is_blocking": false,
+                "object": "model_permission",
+                "organization": "*"
+              }
+            ],
+            "root": "/root/autodl-tmp/frontier-forge/checkpoints/full/r1b/trl/s0/export/merged_bf16"
+          }
+        ],
+        "object": "list"
+      },
+      "version_endpoint": {
+        "version": "0.17.0"
+      }
+    },
+    "packages": {
+      "outlines": null,
+      "torch": "2.10.0",
+      "transformers": "4.57.6",
+      "vllm": "0.17.0",
+      "xgrammar": "0.1.29"
+    }
+  },
+  "speculative": null,
+  "speculative_method_evidence": null,
+  "started_at": "2026-08-18T16:42:32.812087+00:00",
+  "status": "complete",
+  "supersedes": null,
+  "timing_disclosure": {
+    "client": "monotonic wall clock around streamed OpenAI HTTP request",
+    "co_tenancy": "server-host getloadavg plus /proc/stat CPU utilization; any load1 sample above half logical core count contaminates and reruns the entire sweep",
+    "server": "delta of vLLM Prometheus histograms over each measurement point",
+    "vram": "device-total nvidia-smi samples on the server host",
+    "warmup_excluded": true
+  },
+  "verifier_disclosure": {
+    "implementation": "forge.verify.verifier.score",
+    "input_normalization": "forge.train.grpo._completion_text: keep the suffix after the final </think>, then strip",
+    "raw_and_normalized_outputs_preserved": true
+  },
+  "version": 1,
+  "workload": {
+    "arrival_process": "Poisson with fixed seed",
+    "arrival_rates_qps": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "contract_hash": "9ed3d99a9d75c357febd82b2c3ac537c066451f1dd6399caaba2e88afb4dff89",
+    "dataset_manifest": "data/phase1_2/manifest.json",
+    "deadline_s": 60,
+    "input_length_measurement": "tokenizer.apply_chat_template exact token ids",
+    "input_token_targets": [
+      800,
+      1400,
+      2000
+    ],
+    "input_token_weights": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "max_concurrency": 32,
+    "measurement_requests": 20,
+    "output_length_control": "per-request max_tokens fixed weighted distribution",
+    "output_token_caps": [
+      192,
+      256
+    ],
+    "output_token_weights": [
+      0.5,
+      0.5
+    ],
+    "path": "data/full/phase4/workload-9ed3d99a9d75c357.jsonl",
+    "request_seed": 20260818,
+    "rows": 96,
+    "selection_seed": 20260816,
+    "sha256": "4f042b56aacd6e596e112e290511717bd84737d805df67acbfbafd0845865e23",
+    "split": "mixed",
+    "warmup_requests": 6
+  }
+}

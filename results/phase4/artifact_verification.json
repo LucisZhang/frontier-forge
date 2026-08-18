@@ -18,6 +18,15 @@
         "r1b"
       ]
     },
+    "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved": {
+      "export_manifest": "results/phase4/r1b_mtp_reexport_manifest.json",
+      "export_manifest_sha256": "fd2085f6666bd399b9a22d3d51658d6c36407bc0c558f2e4848b56cf5d01b86e",
+      "precision": "bfloat16",
+      "sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce",
+      "variants": [
+        "r1b"
+      ]
+    },
     "checkpoints/full/r4/trl/s0/export/gptq_int4": {
       "export_manifest": "checkpoints/full/r4/trl/s0/export/export_manifest.json",
       "export_manifest_sha256": "b2c2d4e536004fc05888fb48134caeba9363d4cf7febe641a22d2f30ea6ed8f7",
@@ -45,9 +54,9 @@
       "sha256": "0188166e07cef16097267da5a68f45bfa3c54d08c68c25cd22b1f5649da37f66"
     }
   },
-  "git_sha": "06d8b4afe4711a97979e97aedc86f7f3df7c507a",
+  "git_sha": "db50ccb516528fec62b2dfa9ca82817cc477db46",
   "phase": 4,
   "status": "complete",
-  "verified_at": "2026-08-18T13:46:39.609565+00:00",
+  "verified_at": "2026-08-18T16:33:40.964353+00:00",
   "version": 1
 }

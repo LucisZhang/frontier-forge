@@ -1,0 +1,132 @@
+{
+  "config_hashes": {
+    "phase4_serve_r1b_bf16_v2": "f35ad0acd2374bd1bef58fbeab71e32f55d6b79ca65b4c623ea2b5d7b9d8633b",
+    "phase4_serve_r1b_gptq_int4": "c637708a55f65611fab61c0b0452be347234934540ec5875aaad1376d1e0cf00",
+    "phase4_serve_r3eq_bf16": "b82cbf565bbc5081a52d678ec6986656f30e54a508610c11e850c303ff330c6f",
+    "phase4_serve_r3eq_gptq_int4": "3bc7a885ac66a8ecc59e74e169d7d33dde4c6cffb37f8bf7e6838b1f1da7b09d",
+    "phase4_spec_decode_r1b_bf16_baseline_v2": "3efde2a8462f70bb74395a285a5b250ad2c504912c6337f21dd6b16800aa6296",
+    "phase4_spec_decode_r1b_bf16_native_mtp": "26eb18dcaa2d242bdf5f7285ac5450c2cbd9133b1f91cf0b1cca88dd843c9722",
+    "phase4_structured_r1b_bf16_outlines": "41aeb15f68fa5a6e783d90e659062a7c6ad356936b9a642d3b4dbd3ceef4cdd8",
+    "phase4_structured_r1b_bf16_xgrammar": "8111b5b1d2bf5af00842194eff90ebb2ea8aee6272bb3641dae39c3edc6c83d9"
+  },
+  "disclosure_evidence": {
+    "cache_containment_exception": {
+      "path": "results/phase4/logs/phase4_serve_r1b_bf16.server.log",
+      "sha256": "c364b391d2ee33cb1102156e47380a1aa017d97f8cedf5e9abfdde4f32d69bdc"
+    }
+  },
+  "figure_path": "results/phase4_spec_decode_boundary.svg",
+  "figure_sha256": "76b0a4eb2b6ae6b1d231f4592aea11c955cb88f56ab1d0e4f7111d6d8b805953",
+  "generator_sha256": "6b4b6a431796a96770ae08672257a7b27f767174fbbd1d07ed440caef048e937",
+  "mode": "full",
+  "phase": 4,
+  "report_path": "results/phase4_serving_report.md",
+  "report_sha256": "a4d502189c43e35d388839d51047fb4ae7a877c4aefcb04ab61eb167535e9f4c",
+  "source_raw_artifacts": {
+    "phase4_serve_r1b_bf16_v2": {
+      "path": "results/phase4/raw/phase4_serve_r1b_bf16_v2.json",
+      "sha256": "07aed1f63e23b41f7ad7233eb54fa08fd422288a353a52f898a58e0001b2936e"
+    },
+    "phase4_serve_r1b_gptq_int4": {
+      "path": "results/phase4/raw/phase4_serve_r1b_gptq_int4.json",
+      "sha256": "3204327877fc506f5d86dd06ded136f4fff9f1934dbfdedef72f122a70f3c61d"
+    },
+    "phase4_serve_r3eq_bf16": {
+      "path": "results/phase4/raw/phase4_serve_r3eq_bf16.json",
+      "sha256": "2be69cd21c39f65c6866dc48e09f856e218298216d92b9c55d916c6b24defa6b"
+    },
+    "phase4_serve_r3eq_gptq_int4": {
+      "path": "results/phase4/raw/phase4_serve_r3eq_gptq_int4.json",
+      "sha256": "ed847f01b8cbacee566da07737c8e42e0a426360976d52eb8329b5732cc93f5e"
+    },
+    "phase4_spec_decode_r1b_bf16_baseline_v2": {
+      "path": "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline_v2.json",
+      "sha256": "ea2ce23b56a1fc8cf1796e866650143c6a16bb94e22d9eb753a8236ce20c92f7"
+    },
+    "phase4_spec_decode_r1b_bf16_native_mtp": {
+      "path": "results/phase4/raw/phase4_spec_decode_r1b_bf16_native_mtp.json",
+      "sha256": "aed1da988e40c57532c7ba4a9912369bff9f05803b3a56d76efcc8b8f65fb2f5"
+    },
+    "phase4_structured_r1b_bf16_outlines": {
+      "path": "results/phase4/raw/phase4_structured_r1b_bf16_outlines.json",
+      "sha256": "6d7e724b8936cba3026378ab410e84da67330441731f84ca62deb7c6981e5926"
+    },
+    "phase4_structured_r1b_bf16_xgrammar": {
+      "path": "results/phase4/raw/phase4_structured_r1b_bf16_xgrammar.json",
+      "sha256": "7c65ebe055fc2a756c357a64e708cf7d359b8b5aa595002a8ac91975ccaf00db"
+    }
+  },
+  "status": "complete",
+  "supplemental_evidence": {
+    "phase4_spec_decode_r1b_bf16_native_mtp": {
+      "base_index_audit": {
+        "index_sha256": "eae340074abb0a5f31a6621f7ae8e8248a7c1790df04a722c4e4b70c2a6d1dbb",
+        "mtp_weight_key_count": 15,
+        "path": "results/phase4/qwen35_4b_base_mtp_index_audit.json",
+        "repository": "Qwen/Qwen3.5-4B-Base",
+        "revision": "1001bb4d826a52d1f399e183466143f4da7b741b",
+        "sha256": "6f09d52e75df98e6b868a6ad00f4569f60f3c6d4b4007804f595596303231bd4"
+      },
+      "decision": "native_mtp",
+      "export": {
+        "dtype": "bfloat16",
+        "method": "peft_merge_plus_base_mtp_weight_preservation",
+        "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved",
+        "sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce"
+      },
+      "native_mtp_usable": true,
+      "path": "results/phase4/r1b_mtp_reexport_manifest.json",
+      "preserved_mtp": {
+        "bundle_sha256": "47f6645d9a1d677c89450c45be7df2c7c4cea6b3dd6a60992dc48a82f92a7716",
+        "source": "exact byte ranges from fixed-revision base checkpoint shards",
+        "weight_key_count": 15,
+        "weight_keys": [
+          "mtp.fc.weight",
+          "mtp.layers.0.input_layernorm.weight",
+          "mtp.layers.0.mlp.down_proj.weight",
+          "mtp.layers.0.mlp.gate_proj.weight",
+          "mtp.layers.0.mlp.up_proj.weight",
+          "mtp.layers.0.post_attention_layernorm.weight",
+          "mtp.layers.0.self_attn.k_norm.weight",
+          "mtp.layers.0.self_attn.k_proj.weight",
+          "mtp.layers.0.self_attn.o_proj.weight",
+          "mtp.layers.0.self_attn.q_norm.weight",
+          "mtp.layers.0.self_attn.q_proj.weight",
+          "mtp.layers.0.self_attn.v_proj.weight",
+          "mtp.norm.weight",
+          "mtp.pre_fc_norm_embedding.weight",
+          "mtp.pre_fc_norm_hidden.weight"
+        ]
+      },
+      "prior_failures": [
+        {
+          "path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json",
+          "sha256": "a2291575dc6a2cd77b1d2886304f4183af03a1691186052c0fa1758ee3564d78"
+        },
+        {
+          "path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json",
+          "sha256": "fb598018e1051c5b30bae26740b606086e10b834dd1e6d8acc2107a9bc65766d"
+        },
+        {
+          "path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_patched_failure.json",
+          "sha256": "4d54d090a31a642422dfcb1f22835d75d7b63f080c8c05c9b9aba3cb6aecb1b4"
+        }
+      ],
+      "reason": "fixed_revision_base_index_contains_mtp_and_r1b_adapter_does_not_modify_mtp",
+      "sha256": "fd2085f6666bd399b9a22d3d51658d6c36407bc0c558f2e4848b56cf5d01b86e",
+      "source_adapter": {
+        "mtp_weight_keys": [],
+        "path": "checkpoints/full/r1b/trl/s0/adapter",
+        "weights_path": "checkpoints/full/r1b/trl/s0/adapter/adapter_model.safetensors",
+        "weights_sha256": "740b0f8384c77818a6cbd2e4c0d0c15d720d682d0419700ccd8ef188f7033105"
+      },
+      "vllm_contract": {
+        "m_rope_patch": false,
+        "method": "model_native_mtp",
+        "version": "0.17.0",
+        "version_change": false
+      }
+    }
+  },
+  "version": 1
+}

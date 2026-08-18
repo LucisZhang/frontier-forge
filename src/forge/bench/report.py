@@ -15,6 +15,8 @@ from forge.train.config import REPO_ROOT, relative_path, sha256_file
 
 from .config import load_phase4_config, phase4_config_paths, phase4_raw_path
 
+CACHE_EXCEPTION_LOG = REPO_ROOT / "results/phase4/logs/phase4_serve_r1b_bf16.server.log"
+
 
 def _pct(value: float | None) -> str:
     return "n/a" if value is None else f"{value * 100:.1f}%"
@@ -254,7 +256,21 @@ def _spec_section(receipts: list[dict[str, Any]], *, figure_path: Path) -> list[
     evidence = enabled.get("speculative_method_evidence") or {}
     write_text_atomic(figure_path, _spec_svg(rows))
     wins = [row["qps"] for row in rows if row["verdict"] == "win"]
-    boundary = f"highest tested winning QPS = {max(wins):g}" if wins else "no win in tested range"
+    transitions = [
+        (left, right)
+        for left, right in zip(rows, rows[1:], strict=False)
+        if left["verdict"] != right["verdict"]
+    ]
+    if transitions:
+        transition_text = ", ".join(
+            f"{left['qps']:g} ({left['verdict']}) to {right['qps']:g} ({right['verdict']})"
+            for left, right in transitions
+        )
+        boundary = f"observed transition interval(s): {transition_text}"
+    elif wins:
+        boundary = f"all tested points win through {max(wins):g} QPS"
+    else:
+        boundary = "no win in tested range"
     lines = [
         "## Speculative decoding boundary",
         "",
@@ -316,20 +332,27 @@ def _structured_section(receipts: list[dict[str, Any]]) -> list[str]:
         "",
         "Cold compile overhead is first request latency minus the median repeated latency "
         "for the same previously unseen schema. Steady constraint overhead is repeated "
-        "constrained median minus an unconstrained control with the same prompt.",
+        "constrained median minus an unconstrained control with the same prompt. Stop rate "
+        "is also shown so max-token truncation is not mistaken for a valid completion.",
         "",
-        "| Backend | Required fields | Cold latency s | Steady p50 s | Cold compile overhead s | Steady constraint overhead s |",
-        "|---|---:|---:|---:|---:|---:|",
+        "| Backend | Required fields | Cold finish | Steady stop rate | Cold latency s | Steady p50 s | Cold compile overhead s | Steady constraint overhead s |",
+        "|---|---:|---|---:|---:|---:|---:|---:|",
     ]
     for receipt in structured:
         for item in receipt["metrics"]["schema_compile"]:
             steady = [row["latency_s"] for row in item["steady"] if row["error"] is None]
             steady.sort()
             steady_p50 = steady[len(steady) // 2] if steady else None
+            steady_stop_rate = sum(
+                row["error"] is None and row["finish_reason"] == "stop" for row in item["steady"]
+            ) / len(item["steady"])
             lines.append(
-                "| {backend} | {fields} | {cold} | {steady} | {compile} | {overhead} |".format(
+                "| {backend} | {fields} | {cold_finish} | {stop_rate} | {cold} | "
+                "{steady} | {compile} | {overhead} |".format(
                     backend=receipt["metrics"]["backend"],
                     fields=item["schema_required_fields"],
+                    cold_finish=item["cold"]["finish_reason"] or "n/a",
+                    stop_rate=_pct(steady_stop_rate),
                     cold=_seconds(item["cold"]["latency_s"]),
                     steady=_seconds(steady_p50),
                     compile=_seconds(item["cold_compile_overhead_s"]),
@@ -346,7 +369,7 @@ def _structured_section(receipts: list[dict[str, Any]]) -> list[str]:
             "complete ticket with that selected tool fixed. Missing first-pass choices are not "
             "filled from gold labels and count as failures.",
             "",
-            "| Backend | Tools-only call rate | Simultaneous call rate | Constraint-tax delta | One-pass task success | Two-pass task success | Mitigation delta | One-pass p50 s | Two-pass p50 s | Latency delta s |",
+            "| Backend | Tools-only call rate | Simultaneous call rate | Constraint-tax delta | One-pass task success | Two-pass task success | Mitigation delta | One-pass p50/p95 s | Two-pass p50/p95 s | p50 latency delta s |",
             "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
     )
@@ -354,7 +377,7 @@ def _structured_section(receipts: list[dict[str, Any]]) -> list[str]:
         item = receipt["metrics"]["constraint_tax_and_mitigation"]
         lines.append(
             "| {backend} | {tools} | {sim} | {tax} | {before} | {after} | {delta} | "
-            "{before_lat} | {after_lat} | {lat_delta} |".format(
+            "{before_lat}/{before_p95} | {after_lat}/{after_p95} | {lat_delta} |".format(
                 backend=receipt["metrics"]["backend"],
                 tools=_pct(item["unconstrained_tool_call_rate"]),
                 sim=_pct(item["simultaneous_schema_tool_call_rate"]),
@@ -363,8 +386,32 @@ def _structured_section(receipts: list[dict[str, Any]]) -> list[str]:
                 after=_pct(item["two_pass_task_success"]),
                 delta=_pct(item["mitigation_task_success_delta"]),
                 before_lat=_seconds(item["simultaneous_latency_p50_s"]),
+                before_p95=_seconds(item["simultaneous_latency_p95_s"]),
                 after_lat=_seconds(item["two_pass_latency_p50_s"]),
+                after_p95=_seconds(item["two_pass_latency_p95_s"]),
                 lat_delta=_seconds(item["latency_delta_p50_s"]),
+            )
+        )
+    lines.extend(["", "Observed reproduction outcome:", ""])
+    for receipt in structured:
+        item = receipt["metrics"]["constraint_tax_and_mitigation"]
+        call_rate_reproduced = (
+            item["simultaneous_schema_tool_call_rate"] < item["unconstrained_tool_call_rate"]
+        )
+        lines.append(
+            "- `{backend}`: tool-call-rate tax {call_rate}; simultaneous one-pass "
+            "correctness tax {correctness}; two-pass task success {two_pass} with p50/p95 "
+            "latency {p50}/{p95} s.".format(
+                backend=receipt["metrics"]["backend"],
+                call_rate=(
+                    "reproduced"
+                    if call_rate_reproduced
+                    else "not reproduced (both conditions retained the tool call)"
+                ),
+                correctness=(f"observed at {_pct(item['simultaneous_task_success'])} task success"),
+                two_pass=_pct(item["two_pass_task_success"]),
+                p50=_seconds(item["two_pass_latency_p50_s"]),
+                p95=_seconds(item["two_pass_latency_p95_s"]),
             )
         )
     lines.extend(
@@ -405,12 +452,21 @@ def _disclosure(receipts: list[dict[str, Any]], *, smoke: bool) -> list[str]:
         for item in receipts
         if item["experiment"] == "serve"
     ]
+    co_tenancy = [
+        item["metrics"].get("co_tenancy", {})
+        for item in receipts
+        if item["experiment"] == "structured"
+    ]
+    logical_cpu_count = next(
+        (item.get("logical_cpu_count") for item in co_tenancy if item.get("logical_cpu_count")),
+        hardware.get("logical_cpu_count") or "n/a",
+    )
     lines = [
         "## Disclosure",
         "",
         f"- Mode: {'SMOKE (non-headline)' if smoke else 'FULL GPU'}.",
         f"- Hardware: {hardware.get('gpu') or 'mock CPU'}; driver {hardware.get('driver_version') or 'n/a'}; device memory {hardware.get('gpu_memory_total_mib') or 'n/a'} MiB.",
-        f"- CPU co-tenancy: the pod was shared with an unrelated CPU-only task; host has {hardware.get('logical_cpu_count') or 'n/a'} logical cores. Every new spec-decode and structured sweep sampled load average and CPU utilization; any load1 sample above half the core count contaminated and reran the entire sweep. Contaminated attempts remain linked from the raw receipt.",
+        f"- CPU co-tenancy: the pod was shared with an unrelated CPU-only task; host has {logical_cpu_count} logical cores. Every new spec-decode and structured sweep sampled load average and CPU utilization; any load1 sample above half the core count contaminated and reran the entire sweep. Contaminated attempts remain linked from the raw receipt.",
         "- Historical serving sweeps completed before the CPU co-tenancy sampling requirement and are identified as such; matched spec baseline/native-MTP and both structured backends use the new clean-sweep gate.",
         f"- Serving variants and precision: {', '.join(serve_models)}.",
         f"- vLLM version: {first['server']['packages'].get('vllm') or first['server']['declared_vllm_version']}.",
@@ -424,6 +480,14 @@ def _disclosure(receipts: list[dict[str, Any]], *, smoke: bool) -> list[str]:
         "- Stable means all declared error-rate, deadline-miss, achieved-QPS, and p95-inflation checks pass; max stable concurrency is the largest observed in-flight count among such points.",
         "- Cost per 1k successful tasks uses verifier-passing requests in the denominator, never token count.",
     ]
+    if not smoke:
+        lines.append(
+            "- Cache containment exception: the earliest R1b BF16 trial created "
+            "`/root/.cache/vllm` before redirection was detected. The owned server was "
+            "stopped, that out-of-repo cache was not modified or deleted, and all later "
+            "Phase 4 caches were repo-local. Evidence: "
+            "`results/phase4/logs/phase4_serve_r1b_bf16.server.log`."
+        )
     for receipt in receipts:
         supersedes = receipt.get("supersedes")
         if supersedes:
@@ -538,6 +602,16 @@ def build_report(*, smoke: bool) -> dict[str, Any]:
             for receipt in receipts
             if receipt.get("speculative_method_evidence") is not None
         },
+        "disclosure_evidence": (
+            {}
+            if smoke
+            else {
+                "cache_containment_exception": {
+                    "path": relative_path(CACHE_EXCEPTION_LOG),
+                    "sha256": sha256_file(CACHE_EXCEPTION_LOG),
+                }
+            }
+        ),
         "generator_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
     }
     write_json_atomic(manifest_path, manifest)
