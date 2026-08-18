@@ -104,13 +104,13 @@
     "r1b": "aad4c613a265ade6b181dbc0785583e68248ab5da6bba91efe5be758b4fc8dbd",
     "r2": "f99a324bd04ea4560ad07426e9da7f0f1cb058471cd9f79f87e89199c7480369",
     "r3": "a4136b124e6ca70c499b7b2b130e291f56de8edfbfa363cc934b7721a3b9a22a",
-    "r4": "aea445589c0ed9339f3888a429d2cf4040b2d3f6c7858f6329ec577c2768745d"
+    "r4": "4a1a4f0ebe3df3e7d9906562a2810ee7a856580e725a8cf7644a8dcf2f410c39"
   },
-  "git_sha": "15d9a2d238e55bb040ac3f2822e60b1e45d9c73a",
+  "git_sha": "7a89269fe324bdcc129e0d69526d2bce87f91a50",
   "narrative_char_cap_full": 3250,
   "notes": "Audit only; no model weights loaded and no frozen source artifact modified.",
   "phase": 3,
-  "recorded_at": "2026-08-16T10:40:37.535098+00:00",
+  "recorded_at": "2026-08-18T01:07:11.282846+00:00",
   "status": "complete",
   "tokenizer": {
     "dtype": "bfloat16",

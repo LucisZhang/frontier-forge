@@ -1,4 +1,4 @@
-"""Append one immutable C2 result after a human-launched remote run completes."""
+"""Append one immutable C2 result after an authorized remote run completes."""
 
 from __future__ import annotations
 
@@ -9,7 +9,14 @@ from forge.train.artifacts import append_jsonl_once
 from forge.train.config import load_config, runs_path
 
 
-def run_id(rung: str, *, backend: str, seed: int, smoke: bool) -> str:
+def run_id(
+    rung: str,
+    *,
+    backend: str,
+    seed: int,
+    smoke: bool,
+    run_revision: str | None = None,
+) -> str:
     names = {
         "r0": "r0_base",
         "r1": "r1_sft_rule",
@@ -19,6 +26,8 @@ def run_id(rung: str, *, backend: str, seed: int, smoke: bool) -> str:
         "r4": "r4_grpo",
     }
     suffix = f"_{backend}" if rung == "r1" and backend != "trl" else ""
+    if run_revision:
+        suffix += f"_{run_revision}"
     prefix = "smoke_" if smoke else ""
     return f"{prefix}{names[rung]}{suffix}_s{seed}"
 
@@ -49,7 +58,13 @@ def _record_from_evaluation(
             }
         )
     return {
-        "run_id": run_id(str(config["rung"]), backend=backend, seed=seed, smoke=smoke),
+        "run_id": run_id(
+            str(config["rung"]),
+            backend=backend,
+            seed=seed,
+            smoke=smoke,
+            run_revision=config.get("run_revision"),
+        ),
         "phase": 3,
         "config_path": config["_config_path"],
         "config_hash": config["_config_hash"],
@@ -82,7 +97,7 @@ def _record_from_evaluation(
             "SMOKE_ONLY; 0.5B unquantized local path; never a Phase 3 headline."
             if smoke
             else (
-                f"Human-launched {backend} run; training_time_quantization="
+                f"Authorized remote {backend} launcher run; training_time_quantization="
                 f"{receipt['training_time_quantization']}; evaluation_precision="
                 f"{receipt['evaluation_precision']}; deployment quantization is separate."
             )
@@ -145,7 +160,7 @@ def finalize_full(
         "config_path": record["config_path"],
         "config_hash": record["config_hash"],
         "git_sha": record["git_sha"],
-        "notes": "Actual wall-clock receipt from the human-invoked remote rung wrapper.",
+        "notes": "Actual wall-clock receipt from the authorized remote rung wrapper.",
     }
     append_jsonl_once(
         runs_path(smoke=False).parent / "phase3_gpu_ledger.jsonl",

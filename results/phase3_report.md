@@ -4,24 +4,24 @@ Mode: **FULL GPU**.
 
 ## Ladder
 
-| Rung | Seed | Backend | Task success | 95% CI | Schema valid | Tool accuracy | GPU hours | USD |
-|---|---:|---|---:|---|---:|---:|---:|---:|
-| R0 | 0 | trl | 0.0% | [0.0%, 0.0%] | 0.0% | 0.0% | 0.983 | $0.295 |
-| R1 | 0 | trl | 66.3% | [64.2%, 68.4%] | 100.0% | 94.0% | 3.479 | $1.044 |
-| R1 | 0 | unsloth | 62.5% | [60.4%, 64.8%] | 100.0% | 92.5% | 1.281 | $0.384 |
-| R1B | 0 | trl | 99.1% | [98.6%, 99.5%] | 100.0% | 99.2% | 15.236 | $4.571 |
-| R2 | 0 | trl | 52.1% | [50.0%, 54.4%] | 100.0% | 84.3% | 3.606 | $1.082 |
-| R3 | 0 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.925 | $0.578 |
-| R4 | 0 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 2.108 | $0.632 |
-| R4 | 1 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.529 | $0.459 |
-| R4 | 2 | trl | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.526 | $0.458 |
+| Rung | Seed | Backend | Status | Task success | 95% CI | Schema valid | Tool accuracy | GPU hours | USD |
+|---|---:|---|---|---:|---|---:|---:|---:|---:|
+| R0 | 0 | trl | active | 0.0% | [0.0%, 0.0%] | 0.0% | 0.0% | 0.983 | $0.295 |
+| R1 | 0 | trl | active | 66.3% | [64.2%, 68.4%] | 100.0% | 94.0% | 3.479 | $1.044 |
+| R1 | 0 | unsloth | active | 62.5% | [60.4%, 64.8%] | 100.0% | 92.5% | 1.281 | $0.384 |
+| R1B | 0 | trl | active | 99.1% | [98.6%, 99.5%] | 100.0% | 99.2% | 15.236 | $4.571 |
+| R2 | 0 | trl | active | 52.1% | [50.0%, 54.4%] | 100.0% | 84.3% | 3.606 | $1.082 |
+| R3 | 0 | trl | active | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.925 | $0.578 |
+| R4 | 0 | trl | superseded-inconclusive | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 2.108 | $0.632 |
+| R4 | 1 | trl | superseded-inconclusive | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.529 | $0.459 |
+| R4 | 2 | trl | superseded-inconclusive | 56.0% | [53.8%, 58.2%] | 99.9% | 87.2% | 1.526 | $0.458 |
 
 ## Adjacent paired deltas
 
 - R0 → R1: 66.3% paired delta, 95% CI [64.4%, 68.3%], n=2000.
 - R1 → R2: -14.2% paired delta, 95% CI [-15.7%, -12.6%], n=2000.
 - R2 → R3: 3.8% paired delta, 95% CI [2.6%, 5.1%], n=2000.
-- R3 → R4: 0.0% paired delta, 95% CI [0.0%, 0.0%], n=2000.
+- R3 → R4: pending.
 
 ## Optional R1b ablation deltas
 
@@ -34,37 +34,45 @@ R1 TRL/Unsloth status: **agreement_failed**. Default after check: `trl`.
 
 ## Reward-hacking probes
 
-- Length inflation reward increases: 0 rows.
-- Markdown-format exploit reward increases: 0 rows.
-- Model abstention rate: 0.1%; always-abstain task success: 0.4%.
+R4 probes are pending the authorized GRPO rerun and frozen evaluation.
 
 ## Failure and negative-result register
 
+- GRPO incident: R4 seeds 0/1/2 from the original config are superseded-inconclusive. The missing `chat_template_kwargs={"enable_thinking": False}` left a trailing `</think>` prefix in rollouts; bare `json.loads` then returned reward 0.0 for every completion, producing zero reward variance and zero gradient. The fixed rerun disables thinking at chat-template rendering, strips through a trailing think block defensively, archives an opening rollout, and aborts after ten all-zero-variance steps.
 - R2 lost 14.2% task success versus R1.
-- R0 seed 0 failure counts (nonexclusive): invalid_tool_arguments=2000, schema_invalid=2000, wrong_ambiguity=13, wrong_tool=2000, wrong_urgency=967.
-- R1 seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=119, wrong_urgency=634.
-- R1 seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=149, wrong_urgency=715.
-- R1B seed 0 failure counts (nonexclusive): wrong_ambiguity=2, wrong_tool=17, wrong_urgency=11.
-- R2 seed 0 failure counts (nonexclusive): schema_invalid=1, secondary_field_mismatch_only=79, wrong_ambiguity=8, wrong_tool=314, wrong_urgency=897.
-- R3 seed 0 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
-- R4 seed 0 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
-- R4 seed 1 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
-- R4 seed 2 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
-- Failed GPU attempt failed_cb153427dfb8b8ae6340: R0 seed 0, 0.048 GPU-hours, $0.014, exit code 0.
-- Failed GPU attempt failed_4bf236eb91be22c65963: R0 seed 0, 0.004 GPU-hours, $0.001, exit code 1.
-- Failed GPU attempt failed_473a7d89258a9b30f52c: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
-- Failed GPU attempt failed_0875f0f4e54bb56f80ec: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
-- Failed GPU attempt failed_490447c0d78bbbdf9ebe: R3 seed 0, 0.010 GPU-hours, $0.003, exit code 1.
-- Failed GPU attempt failed_089154b82e9781dc29f9: R4 seed 2, 0.035 GPU-hours, $0.010, exit code 130.
-- Failed GPU attempt failed_5a9dc15687f7738379c3: R4 seed 2, 0.018 GPU-hours, $0.005, exit code 130.
+- R0 trl seed 0 failure counts (nonexclusive): invalid_tool_arguments=2000, schema_invalid=2000, wrong_ambiguity=13, wrong_tool=2000, wrong_urgency=967.
+- R1 trl seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=119, wrong_urgency=634.
+- R1 unsloth seed 0 failure counts (nonexclusive): wrong_ambiguity=8, wrong_tool=149, wrong_urgency=715.
+- R1B trl seed 0 failure counts (nonexclusive): wrong_ambiguity=2, wrong_tool=17, wrong_urgency=11.
+- R2 trl seed 0 failure counts (nonexclusive): schema_invalid=1, secondary_field_mismatch_only=79, wrong_ambiguity=8, wrong_tool=314, wrong_urgency=897.
+- R3 trl seed 0 failure counts (nonexclusive): invalid_tool_arguments=1, schema_invalid=2, secondary_field_mismatch_only=74, wrong_ambiguity=8, wrong_tool=257, wrong_urgency=797.
+- Failed GPU training attempt failed_cb153427dfb8b8ae6340: R0 seed 0, 0.048 GPU-hours, $0.014, exit code 0.
+- Failed GPU training attempt failed_4bf236eb91be22c65963: R0 seed 0, 0.004 GPU-hours, $0.001, exit code 1.
+- Failed GPU training attempt failed_473a7d89258a9b30f52c: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
+- Failed GPU training attempt failed_0875f0f4e54bb56f80ec: R1 seed 0, 0.011 GPU-hours, $0.003, exit code 1.
+- Failed GPU training attempt failed_490447c0d78bbbdf9ebe: R3 seed 0, 0.010 GPU-hours, $0.003, exit code 1.
+- Failed GPU training attempt failed_089154b82e9781dc29f9: R4 seed 2, 0.035 GPU-hours, $0.010, exit code 130.
+- Failed GPU training attempt failed_5a9dc15687f7738379c3: R4 seed 2, 0.018 GPU-hours, $0.005, exit code 130.
 
 ## Export
 
-- trl seed 0: merged BF16 `1304ebf174da98f3b761f482bd2d88b58d66e30bc9cef66abb6104ab70ef6bbc`; GPTQ int4 `3d3bed316134e3d583b7be16a8a89d4de2bf2f40c34365623d0e1c2edec10958`.
+R1b merged BF16 and deployment GPTQ-int4 hashes are pending the authorized Phase 3.1 export.
+
+## R4 best-seed export contract
+
+Pending all three active TRL reruns for seeds 0/1/2.
+
+## Interpretation guards
+
+R1 and R2 use the same 1,450 examples and identical decision-field labels after rejection sampling. Their difference is output phrasing, not label coverage.
+
+The R2 loss therefore indicates that the teacher's semantic phrasing transferred a policy prior that diverged from the frozen keyword rules on new inputs; before filtering, teacher/rule urgency agreement was 36.8%.
+
+Boundary condition: this project shows distillation adds no value when perfect rule-generated labels are free and unlimited. It does not generalize to settings where gold labels are scarce and no executable labeling rules exist; there, teacher quality is decisive. A more semantic Sonnet-class teacher would be expected to diverge further from this keyword policy, not close the measured gap.
 
 ## Draft headline
 
-Draft: verifier-reward GRPO reached 56.0% mean task success across three seeds (range 56.0%–56.0%) using 5.164 measured RTX4090 GPU-hours ($1.549) for the R4 runs.
+Draft: scaling free rule labels from 1,450 to 20,000 examples raised task success from 66.3% to 99.1% (+32.7%, paired 95% CI [30.6%, 34.5%]) for 15.236 measured RTX4090 GPU-hours ($4.571).
 
 ## Reproduction
 

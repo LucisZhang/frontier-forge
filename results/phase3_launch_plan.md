@@ -54,6 +54,19 @@ Optional R1b, only while the actual ledger leaves room in the 60–90h envelope:
 scripts/remote/launch_phase3.sh r1b 0 auto
 ```
 
+Phase 3.1 reruns R4 on the TRL reference path under the versioned
+`phase3_1_reward_fix` artifact root, then exports the already-trained R1b seed-0
+adapter. On a shared pod, inspect `nvidia-smi` before every command; both launchers
+also fail closed when any compute process is present.
+
+```bash
+export FORGE_GPU_HOURLY_USD=0.30
+scripts/remote/launch_phase3.sh r4 0 trl
+scripts/remote/launch_phase3.sh r4 1 trl
+scripts/remote/launch_phase3.sh r4 2 trl
+scripts/remote/launch_phase3_export.sh 0 trl
+```
+
 Planning estimates are 2h R0, 5h each R1 backend, 5h R2, 12h R3, and 15h per R4
 seed: 74h core including the cross-check. Optional R1b adds 10h, for 84h planned.
 These are planning guards, never reported as measured cost.

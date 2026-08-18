@@ -1,0 +1,21 @@
+{
+  "mode": "full",
+  "phase": 3,
+  "phase4_serving_artifact": {
+    "manifest_path": "checkpoints/full/r1b/trl/s0/export/export_manifest.json",
+    "run_id": "r1b_sft_rule_20k_s0",
+    "rung": "r1b",
+    "seed": 0,
+    "status": "pending"
+  },
+  "r4_best_seed_export_contract": {
+    "required_seeds": [
+      0,
+      1,
+      2
+    ],
+    "selection_metric": "task_success_then_mean_reward_then_lowest_seed",
+    "status": "pending"
+  },
+  "version": 1
+}

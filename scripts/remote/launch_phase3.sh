@@ -46,6 +46,12 @@ fi
 if [[ "${rung}" == "r0" ]]; then
   backend="trl"
 fi
+gpu_processes="$(nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv,noheader,nounits)"
+if [[ -n "${gpu_processes//[[:space:]]/}" ]]; then
+  echo "GPU is already in use; refusing to launch a shared-pod training task:" >&2
+  echo "${gpu_processes}" >&2
+  exit 3
+fi
 train_python=".venv/bin/python"
 if [[ "${backend}" == "unsloth" ]]; then
   train_python=".venv-unsloth/bin/python"

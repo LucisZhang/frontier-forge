@@ -12,6 +12,7 @@ from forge.train.config import (
     ALL_RUNGS,
     CONFIG_PATHS,
     REPO_ROOT,
+    checkpoint_root,
     evaluation_root,
     load_config,
     runs_path,
@@ -20,12 +21,37 @@ from forge.train.evaluate import bootstrap_ci
 from forge.train.ledger import billable_records
 
 
+def _run_statuses() -> dict[str, dict[str, Any]]:
+    path = REPO_ROOT / "results" / "phase3_run_status.jsonl"
+    if not path.is_file():
+        return {}
+    rows = [json.loads(line) for line in path.read_text().splitlines() if line]
+    statuses = {str(row["run_id"]): row for row in rows}
+    if len(statuses) != len(rows):
+        raise ValueError("duplicate Phase 3 run status entry")
+    return statuses
+
+
 def _records(*, smoke: bool) -> list[dict[str, Any]]:
     path = runs_path(smoke=smoke)
     if not path.is_file():
         return []
     records = [json.loads(line) for line in path.read_text().splitlines() if line]
-    return [record for record in records if record.get("phase") == 3]
+    statuses = _run_statuses() if not smoke else {}
+    return [
+        {
+            **record,
+            "_interpretation_status": statuses.get(str(record.get("run_id")), {}).get(
+                "status", "active"
+            ),
+        }
+        for record in records
+        if record.get("phase") == 3
+    ]
+
+
+def _active_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [record for record in records if record.get("_interpretation_status") == "active"]
 
 
 def _failed_gpu_attempts(*, smoke: bool) -> list[dict[str, Any]]:
@@ -64,7 +90,7 @@ def _prediction_map(path: Path) -> dict[tuple[str, int], float]:
 
 
 def _seed_zero_record(records: list[dict[str, Any]]) -> dict[str, Any] | None:
-    candidates = [record for record in records if int(record["seed"]) == 0]
+    candidates = [record for record in _active_records(records) if int(record["seed"]) == 0]
     if not candidates:
         return None
     policy_path = REPO_ROOT / "results" / "phase3_backend_policy.json"
@@ -136,6 +162,80 @@ def _fmt_percent(value: float) -> str:
     return f"{100.0 * value:.1f}%"
 
 
+def _export_manifest_path(record: dict[str, Any], *, smoke: bool) -> Path:
+    config = load_config(record["config_path"])
+    backend = str(record.get("backend", "trl"))
+    seed = int(record["seed"])
+    if smoke:
+        root = REPO_ROOT / "data" / "smoke" / "phase3" / "export" / str(config["rung"])
+        if config.get("run_revision"):
+            root /= str(config["run_revision"])
+        return root / backend / f"s{seed}" / "export_manifest.json"
+    return (
+        checkpoint_root(config, seed=seed, smoke=False, backend=backend)
+        / "export"
+        / "export_manifest.json"
+    )
+
+
+def _best_r4_record(records: list[dict[str, Any]]) -> dict[str, Any] | None:
+    candidates = [
+        record
+        for record in _active_records(records)
+        if record.get("backend", "trl") == "trl" and int(record["seed"]) in {0, 1, 2}
+    ]
+    if {int(record["seed"]) for record in candidates} != {0, 1, 2}:
+        return None
+    return max(
+        candidates,
+        key=lambda record: (
+            float(record["metrics"]["task_success"]),
+            float(record["metrics"]["mean_reward"]),
+            -int(record["seed"]),
+        ),
+    )
+
+
+def _export_selection(by_rung: dict[str, list[dict[str, Any]]], *, smoke: bool) -> dict[str, Any]:
+    r1b = _seed_zero_record(by_rung["r1b"])
+    r4_best = _best_r4_record(by_rung["r4"])
+    serving: dict[str, Any] = {"status": "pending", "rung": "r1b", "seed": 0}
+    if r1b is not None:
+        path = _export_manifest_path(r1b, smoke=smoke)
+        serving.update({"run_id": r1b["run_id"], "manifest_path": str(path.relative_to(REPO_ROOT))})
+        if path.is_file():
+            receipt = json.loads(path.read_text())
+            serving.update(
+                {
+                    "status": "complete",
+                    "merged_bf16_sha256": receipt["full_precision_export"]["sha256"],
+                    "gptq_int4_sha256": receipt["deployment_int4_export"]["sha256"],
+                }
+            )
+    r4_contract: dict[str, Any] = {
+        "status": "pending",
+        "selection_metric": "task_success_then_mean_reward_then_lowest_seed",
+        "required_seeds": [0, 1, 2],
+    }
+    if r4_best is not None:
+        r4_contract.update(
+            {
+                "status": "complete",
+                "run_id": r4_best["run_id"],
+                "seed": int(r4_best["seed"]),
+                "task_success": float(r4_best["metrics"]["task_success"]),
+                "mean_reward": float(r4_best["metrics"]["mean_reward"]),
+            }
+        )
+    return {
+        "version": 1,
+        "phase": 3,
+        "mode": "smoke" if smoke else "full",
+        "phase4_serving_artifact": serving,
+        "r4_best_seed_export_contract": r4_contract,
+    }
+
+
 def _report_text(
     by_rung: dict[str, list[dict[str, Any]]], deltas: dict[str, Any], *, smoke: bool
 ) -> str:
@@ -162,22 +262,23 @@ def _report_text(
         [
             "## Ladder",
             "",
-            "| Rung | Seed | Backend | Task success | 95% CI | Schema valid | "
+            "| Rung | Seed | Backend | Status | Task success | 95% CI | Schema valid | "
             "Tool accuracy | GPU hours | USD |",
-            "|---|---:|---|---:|---|---:|---:|---:|---:|",
+            "|---|---:|---|---|---:|---|---:|---:|---:|---:|",
         ]
     )
     for rung in ALL_RUNGS:
         values = by_rung[rung]
         if not values:
             label = "optional; pending" if rung == "r1b" else "pending"
-            lines.append(f"| {rung.upper()} | — | — | {label} | — | — | — | — | — |")
+            lines.append(f"| {rung.upper()} | — | — | {label} | — | — | — | — | — | — |")
             continue
         for record in values:
             metrics = record["metrics"]
             ci = metrics["ci95"]
             lines.append(
                 f"| {rung.upper()} | {record['seed']} | {record.get('backend', 'trl')} | "
+                f"{record.get('_interpretation_status', 'active')} | "
                 f"{_fmt_percent(float(metrics['task_success']))} | "
                 f"[{_fmt_percent(float(ci[0]))}, {_fmt_percent(float(ci[1]))}] | "
                 f"{_fmt_percent(float(metrics['schema_valid']))} | "
@@ -223,7 +324,7 @@ def _report_text(
     lines.extend(["", "## Reward-hacking probes", ""])
     r4 = _seed_zero_record(by_rung["r4"])
     if r4 is None:
-        lines.append("R4 probes are pending the human-launched GRPO run and frozen evaluation.")
+        lines.append("R4 probes are pending the authorized GRPO rerun and frozen evaluation.")
     else:
         probes = r4["metrics"]["reward_hacking_probes"]
         length_rows = probes["length_inflation"]["reward_increase_rows"]
@@ -244,7 +345,15 @@ def _report_text(
         )
 
     lines.extend(["", "## Failure and negative-result register", ""])
-    negatives = []
+    negatives = [
+        "GRPO incident: R4 seeds 0/1/2 from the original config are "
+        'superseded-inconclusive. The missing `chat_template_kwargs={"enable_thinking": '
+        "False}` left a trailing `</think>` prefix in rollouts; bare `json.loads` then "
+        "returned reward 0.0 for every completion, producing zero reward variance and zero "
+        "gradient. The fixed rerun disables thinking at chat-template rendering, strips through "
+        "a trailing think block defensively, archives an opening rollout, and aborts after ten "
+        "all-zero-variance steps."
+    ]
     comparison_results = deltas["adjacent_pairs"] + deltas["optional_ablation_pairs"]
     for item in comparison_results:
         if item.get("status") == "complete" and float(item["mean_task_success_delta"]) < 0:
@@ -253,17 +362,19 @@ def _report_text(
                 f"{item['to'].upper()} lost {loss} task success versus {item['from'].upper()}."
             )
     for rung, records in by_rung.items():
-        for record in records:
+        for record in _active_records(records):
             failures = record["metrics"].get("failure_categories_nonexclusive", {})
             if failures:
                 negatives.append(
-                    f"{rung.upper()} seed {record['seed']} failure counts (nonexclusive): "
+                    f"{rung.upper()} {record.get('backend', 'trl')} seed {record['seed']} "
+                    "failure counts (nonexclusive): "
                     + ", ".join(f"{name}={count}" for name, count in sorted(failures.items()))
                     + "."
                 )
     for attempt in _failed_gpu_attempts(smoke=smoke):
         negatives.append(
-            f"Failed GPU attempt {attempt['ledger_id']}: {attempt['rung'].upper()} "
+            f"Failed GPU {attempt.get('operation', 'training')} attempt "
+            f"{attempt['ledger_id']}: {attempt['rung'].upper()} "
             f"seed {attempt['seed']}, {float(attempt['gpu_hours']):.3f} GPU-hours, "
             f"${float(attempt['usd']):.3f}, exit code {attempt['exit_code']}."
         )
@@ -275,58 +386,86 @@ def _report_text(
         )
 
     lines.extend(["", "## Export", ""])
-    if smoke:
-        export_root = REPO_ROOT / "data" / "smoke" / "phase3" / "export" / "r4"
-        export_receipts = sorted(export_root.glob("*/s*/export_manifest.json"))
-    else:
-        export_root = REPO_ROOT / "checkpoints" / "full" / "r4"
-        export_receipts = sorted(export_root.glob("*/s*/export/export_manifest.json"))
-    if not export_receipts:
+    export_rows = []
+    for rung in ("r1b", "r4"):
+        for record in _active_records(by_rung[rung]):
+            path = _export_manifest_path(record, smoke=smoke)
+            if path.is_file():
+                export_rows.append(json.loads(path.read_text()))
+    if not export_rows:
+        lines.append(
+            "R1b merged BF16 and deployment GPTQ-int4 hashes are pending the authorized "
+            "Phase 3.1 export."
+        )
+    for receipt in export_rows:
         if smoke:
-            lines.append("The smoke-only adapter packing rehearsal is pending.")
+            lines.append(
+                f"- SMOKE ONLY, {str(receipt['rung']).upper()} {receipt['backend']} seed "
+                f"{receipt['seed']}: adapter input "
+                f"`{receipt['full_precision_export']['sha256']}`; synthetic int4 packing "
+                f"`{receipt['deployment_int4_export']['sha256']}`. Neither is a deployable "
+                "model export."
+            )
         else:
             lines.append(
-                "Merged BF16 and deployment GPTQ-int4 hashes are pending a human-launched R4 "
-                "export."
+                f"- {str(receipt['rung']).upper()} {receipt['backend']} seed "
+                f"{receipt['seed']}: merged BF16 "
+                f"`{receipt['full_precision_export']['sha256']}`; GPTQ int4 "
+                f"`{receipt['deployment_int4_export']['sha256']}`."
             )
+
+    lines.extend(["", "## R4 best-seed export contract", ""])
+    r4_best = _best_r4_record(by_rung["r4"])
+    if r4_best is None:
+        lines.append("Pending all three active TRL reruns for seeds 0/1/2.")
     else:
-        for path in export_receipts:
-            receipt = json.loads(path.read_text())
-            if smoke:
-                lines.append(
-                    f"- SMOKE ONLY, {receipt['backend']} seed {receipt['seed']}: adapter input "
-                    f"`{receipt['full_precision_export']['sha256']}`; synthetic int4 packing "
-                    f"`{receipt['deployment_int4_export']['sha256']}`. Neither is a deployable "
-                    "model export."
-                )
-            else:
-                lines.append(
-                    f"- {receipt['backend']} seed {receipt['seed']}: merged BF16 "
-                    f"`{receipt['full_precision_export']['sha256']}`; GPTQ int4 "
-                    f"`{receipt['deployment_int4_export']['sha256']}`."
-                )
+        lines.append(
+            f"Select `{r4_best['run_id']}` (seed {r4_best['seed']}) by task success, then "
+            "mean verifier reward, then lowest seed as the deterministic tie-break. R1b remains "
+            "the Phase 4 serving artifact."
+        )
+
+    lines.extend(["", "## Interpretation guards", ""])
+    lines.extend(
+        [
+            "R1 and R2 use the same 1,450 examples and identical decision-field labels after "
+            "rejection sampling. Their difference is output phrasing, not label coverage.",
+            "",
+            "The R2 loss therefore indicates that the teacher's semantic phrasing transferred a "
+            "policy prior that diverged from the frozen keyword rules on new inputs; before "
+            "filtering, teacher/rule urgency agreement was 36.8%.",
+            "",
+            "Boundary condition: this project shows distillation adds no value when perfect "
+            "rule-generated labels are free and unlimited. It does not generalize to settings "
+            "where gold labels are scarce and no executable labeling rules exist; there, teacher "
+            "quality is decisive. A more semantic Sonnet-class teacher would be expected to "
+            "diverge further from this keyword policy, not close the measured gap.",
+        ]
+    )
 
     lines.extend(["", "## Draft headline", ""])
-    preferred_backend = "trl"
-    policy_path = REPO_ROOT / "results" / "phase3_backend_policy.json"
-    if policy_path.is_file():
-        preferred_backend = json.loads(policy_path.read_text()).get("default_backend", "trl")
-    headline_records = [
-        record
-        for record in by_rung["r4"]
-        if record.get("backend", "trl") == preferred_backend and int(record["seed"]) in {0, 1, 2}
-    ]
-    if {int(record["seed"]) for record in headline_records} != {0, 1, 2}:
-        lines.append("Withheld until the full ladder, three R4 seeds, CIs, and costs are recorded.")
+    r1 = _seed_zero_record(by_rung["r1"])
+    r1b = _seed_zero_record(by_rung["r1b"])
+    r1b_delta = next(
+        (
+            item
+            for item in deltas["optional_ablation_pairs"]
+            if item["from"] == "r1" and item["to"] == "r1b" and item["status"] == "complete"
+        ),
+        None,
+    )
+    if r1 is None or r1b is None or r1b_delta is None:
+        lines.append("Withheld until the R1b cost-quality comparison is fully recorded.")
     else:
-        task_success = [float(record["metrics"]["task_success"]) for record in headline_records]
-        gpu_hours = sum(float(record["cost"]["gpu_hours"]) for record in headline_records)
-        usd = sum(float(record["cost"]["usd"]) for record in headline_records)
+        ci = r1b_delta["ci95"]
         lines.append(
-            f"Draft: verifier-reward GRPO reached {_fmt_percent(sum(task_success) / 3)} "
-            f"mean task success across three seeds (range "
-            f"{_fmt_percent(min(task_success))}–{_fmt_percent(max(task_success))}) using "
-            f"{gpu_hours:.3f} measured RTX4090 GPU-hours (${usd:.3f}) for the R4 runs."
+            f"Draft: scaling free rule labels from 1,450 to 20,000 examples raised task "
+            f"success from {_fmt_percent(float(r1['metrics']['task_success']))} to "
+            f"{_fmt_percent(float(r1b['metrics']['task_success']))} "
+            f"(+{_fmt_percent(float(r1b_delta['mean_task_success_delta']))}, paired 95% CI "
+            f"[{_fmt_percent(float(ci[0]))}, {_fmt_percent(float(ci[1]))}]) for "
+            f"{float(r1b['cost']['gpu_hours']):.3f} measured RTX4090 GPU-hours "
+            f"(${float(r1b['cost']['usd']):.3f})."
         )
     lines.extend(
         [
@@ -354,10 +493,13 @@ def generate(*, smoke: bool) -> tuple[Path, Path]:
         output_dir = REPO_ROOT / "data" / "smoke" / "phase3"
         report_path = output_dir / "phase3_report.md"
         delta_path = output_dir / "phase3_paired_deltas.json"
+        selection_path = output_dir / "phase3_export_selection.json"
     else:
         report_path = REPO_ROOT / "results" / "phase3_report.md"
         delta_path = REPO_ROOT / "results" / "phase3_paired_deltas.json"
+        selection_path = REPO_ROOT / "results" / "phase3_export_selection.json"
     write_json_atomic(delta_path, deltas)
+    write_json_atomic(selection_path, _export_selection(by_rung, smoke=smoke))
     write_text_atomic(report_path, _report_text(by_rung, deltas, smoke=smoke))
     print(f"Phase 3 report regenerated: {report_path.relative_to(REPO_ROOT)}")
     return report_path, delta_path

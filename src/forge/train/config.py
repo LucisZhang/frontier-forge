@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 from collections.abc import Mapping
 from pathlib import Path
@@ -102,6 +103,13 @@ def validate_config(config: Mapping[str, Any], path: Path | None = None) -> None
         raise ValueError(f"{label}: headline rung r4 must pin exactly three seeds")
     if rung != "r4" and len(seeds) != 1:
         raise ValueError(f"{label}: non-headline rungs pin one budget-bound seed")
+    revision = config.get("run_revision")
+    if revision is not None and (
+        rung != "r4"
+        or not isinstance(revision, str)
+        or re.fullmatch(r"[a-z0-9][a-z0-9_]*", revision) is None
+    ):
+        raise ValueError(f"{label}: run_revision is an r4-only lowercase artifact identifier")
     model = config.get("model", {})
     full = model.get("full", {})
     smoke = model.get("smoke", {})
@@ -164,7 +172,10 @@ def checkpoint_root(
     config: Mapping[str, Any], *, seed: int, smoke: bool, backend: str = "trl"
 ) -> Path:
     mode = "smoke" if smoke else "full"
-    return REPO_ROOT / "checkpoints" / mode / str(config["rung"]) / backend / f"s{seed}"
+    root = REPO_ROOT / "checkpoints" / mode / str(config["rung"])
+    if config.get("run_revision"):
+        root /= str(config["run_revision"])
+    return root / backend / f"s{seed}"
 
 
 def adapter_path(
@@ -177,9 +188,10 @@ def evaluation_root(
     config: Mapping[str, Any], *, seed: int, smoke: bool, backend: str = "trl"
 ) -> Path:
     mode = "smoke" if smoke else "full"
-    return (
-        REPO_ROOT / "data" / mode / "phase3" / "eval" / str(config["rung"]) / backend / f"s{seed}"
-    )
+    root = REPO_ROOT / "data" / mode / "phase3" / "eval" / str(config["rung"])
+    if config.get("run_revision"):
+        root /= str(config["run_revision"])
+    return root / backend / f"s{seed}"
 
 
 def runs_path(*, smoke: bool) -> Path:

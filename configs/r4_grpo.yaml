@@ -5,6 +5,7 @@ stage: grpo
 question: Does verifier-reward GRPO improve over DPO without reward hacking?
 seeds: [0, 1, 2]
 headline: true
+run_revision: phase3_1_reward_fix
 
 model:
   full:
@@ -54,6 +55,8 @@ training:
   smoke_max_prompt_length: 1024
   smoke_max_completion_length: 64
   smoke_num_generations: 2
+  reward_signal_guard_steps: 10
+  completion_logging_steps: 3
 
 reward:
   implementation: forge.verify.verifier.score

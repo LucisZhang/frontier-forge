@@ -124,7 +124,7 @@ phase3-smoke:
 	@$(MAKE) train-dpo SMOKE=1 CONFIG=configs/r3_dpo.yaml
 	@$(MAKE) train-grpo SMOKE=1 CONFIG=configs/r4_grpo.yaml SEED=0
 	@$(MAKE) eval SMOKE=1
-	@$(MAKE) export-model SMOKE=1 CONFIG=configs/r4_grpo.yaml SEED=0
+	@$(MAKE) export-model SMOKE=1 CONFIG=configs/r1b_sft_rule_20k.yaml SEED=0
 	@$(MAKE) phase3-report SMOKE=1
 
 sync-up:

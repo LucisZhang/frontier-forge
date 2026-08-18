@@ -1,4 +1,4 @@
-"""Merge the cumulative LoRA and export separate full-precision and GPTQ int4 artifacts."""
+"""Merge an approved Phase 3 LoRA and export separate BF16 and GPTQ int4 artifacts."""
 
 from __future__ import annotations
 
@@ -32,16 +32,10 @@ def _smoke_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[st
     source = adapter_path(config, seed=seed, smoke=True, backend=backend)
     if not (source / "adapter_config.json").is_file():
         raise FileNotFoundError(f"smoke adapter is missing: {source}")
-    root = (
-        REPO_ROOT
-        / "data"
-        / "smoke"
-        / "phase3"
-        / "export"
-        / str(config["rung"])
-        / backend
-        / f"s{seed}"
-    )
+    root = REPO_ROOT / "data" / "smoke" / "phase3" / "export" / str(config["rung"])
+    if config.get("run_revision"):
+        root /= str(config["run_revision"])
+    root = root / backend / f"s{seed}"
     receipt_path = root / "export_manifest.json"
     if receipt_path.is_file():
         receipt = json.loads(receipt_path.read_text())
@@ -106,10 +100,17 @@ def _smoke_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[st
     return receipt
 
 
-def _calibration_texts(config: dict[str, Any], tokenizer: Any) -> list[str]:
+def _export_contract(config: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    contract = config if "export" in config else load_config("configs/r4_grpo.yaml")
+    return contract, dict(contract["export"])
+
+
+def _calibration_texts(
+    config: dict[str, Any], tokenizer: Any, export_settings: dict[str, Any]
+) -> list[str]:
     path = REPO_ROOT / "data" / "phase2" / "sft_rule.jsonl"
     records = [json.loads(line) for line in path.read_text().splitlines() if line]
-    limit = int(config["export"]["calibration_rows"])
+    limit = int(export_settings["calibration_rows"])
     prompt = (REPO_ROOT / config["prompt"]["path"]).read_text().strip()
     texts = []
     for record in records[:limit]:
@@ -168,6 +169,19 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
     source = adapter_path(config, seed=seed, smoke=False, backend=backend)
     if not (source / "adapter_config.json").is_file():
         raise FileNotFoundError(f"full adapter is missing: {source}")
+    training_receipt_path = (
+        checkpoint_root(config, seed=seed, smoke=False, backend=backend) / "train_metrics.json"
+    )
+    if not training_receipt_path.is_file():
+        raise FileNotFoundError(f"full training receipt is missing: {training_receipt_path}")
+    training_receipt = json.loads(training_receipt_path.read_text())
+    if (
+        training_receipt.get("status") != "complete"
+        or training_receipt.get("config_hash") != config["_config_hash"]
+        or training_receipt.get("adapter_path") != relative_path(source)
+    ):
+        raise RuntimeError("export source adapter does not match its immutable training receipt")
+    contract_config, export_settings = _export_contract(config)
     root = checkpoint_root(config, seed=seed, smoke=False, backend=backend) / "export"
     receipt_path = root / "export_manifest.json"
     if receipt_path.is_file():
@@ -195,12 +209,12 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
     fp_hash = sha256_tree(fp_dir)
     quant_config = GPTQConfig(
         bits=4,
-        group_size=int(config["export"]["group_size"]),
+        group_size=int(export_settings["group_size"]),
         desc_act=False,
         act_group_aware=True,
     )
     quantized = GPTQModel.load(str(fp_dir), quant_config)
-    quantized.quantize(_calibration_texts(config, tokenizer), batch_size=1)
+    quantized.quantize(_calibration_texts(config, tokenizer, export_settings), batch_size=1)
     quantized.save(str(int4_dir))
     int4_hash = sha256_tree(int4_dir)
     receipt = {
@@ -213,6 +227,8 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
         "seed": seed,
         "config_path": config["_config_path"],
         "config_hash": config["_config_hash"],
+        "export_contract_config_path": contract_config["_config_path"],
+        "export_contract_config_hash": contract_config["_config_hash"],
         "git_sha": git_sha(),
         "model": dict(model_spec(config, smoke=False)),
         "source_adapter_path": relative_path(source),
@@ -220,14 +236,14 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
         "training_time_quantization": config["training"]["quantization_full"],
         "full_precision_export": {
             "method": "peft_merge_and_unload",
-            "dtype": config["export"]["merge_dtype"],
+            "dtype": export_settings["merge_dtype"],
             "path": relative_path(fp_dir),
             "sha256": fp_hash,
         },
         "deployment_int4_export": {
-            "method": config["export"]["deployment_quantization"],
-            "group_size": int(config["export"]["group_size"]),
-            "calibration_rows": int(config["export"]["calibration_rows"]),
+            "method": export_settings["deployment_quantization"],
+            "group_size": int(export_settings["group_size"]),
+            "calibration_rows": int(export_settings["calibration_rows"]),
             "path": relative_path(int4_dir),
             "sha256": int4_hash,
         },
@@ -245,8 +261,8 @@ def _full_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[str
 
 def run(config_path: str, *, seed: int | None, smoke: bool, backend: str = "trl") -> dict[str, Any]:
     config = load_config(config_path)
-    if config["rung"] != "r4" or "export" not in config:
-        raise ValueError("Phase 3 export is defined for the cumulative R4 adapter")
+    if config["rung"] not in {"r1b", "r4"}:
+        raise ValueError("Phase 3 export is defined only for approved R1b and R4 adapters")
     selected_seed = select_seed(config, seed)
     return (
         _smoke_export(config, seed=selected_seed, backend=backend)

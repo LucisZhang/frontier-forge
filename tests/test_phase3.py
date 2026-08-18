@@ -14,14 +14,27 @@ from forge.train.config import (
     FULL_MODEL_REVISION,
     PHASE2_DATASET_HASH,
     SMOKE_MODEL_ID,
+    checkpoint_root,
     configs_by_rung,
+    evaluation_root,
     load_config,
 )
 from forge.train.data import compact_model_input
 from forge.train.evaluate import bootstrap_ci
-from forge.train.export import _require_complete_merged_export, _save_processor_assets
-from forge.train.grpo import RewardAudit
-from forge.train.ledger import billable_records
+from forge.train.export import (
+    _export_contract,
+    _require_complete_merged_export,
+    _save_processor_assets,
+)
+from forge.train.finalize import run_id
+from forge.train.grpo import (
+    RewardAudit,
+    RewardSignalGuard,
+    _completion_text,
+    _require_clean_rollout_sample,
+    assert_synthetic_gold_reward,
+)
+from forge.train.ledger import billable_records, record_attempt
 from forge.train.preflight import actual_gpu_hours, check_config, require_r1_reference_receipt
 from forge.train.report import _failed_gpu_attempts
 from forge.train.runtime import lora_config, versioned_training_argument
@@ -218,6 +231,115 @@ def test_grpo_reward_is_exact_scorer_v2_reward() -> None:
     assert audit.summary()["completions_scored"] == 1
 
 
+def test_grpo_think_block_hardening_keeps_only_the_trailing_answer() -> None:
+    expected = '{"urgency":"high"}'
+
+    assert _completion_text(f"\n</think>\n\n{expected}") == expected
+    assert _completion_text(f"<think>discard me</think>\n{expected}") == expected
+    assert _completion_text([{"role": "assistant", "content": expected}]) == expected
+
+
+def test_grpo_synthetic_gold_smoke_gate_has_positive_reward() -> None:
+    assert assert_synthetic_gold_reward() == 1.0
+
+
+def test_grpo_rollout_archive_requires_raw_bare_json(tmp_path: Path) -> None:
+    gold = {
+        "product": "mortgage",
+        "issue": "Foreclosure",
+        "company": "Example Bank",
+        "urgency": "high",
+        "ambiguity_flag": False,
+        "tool_call": {
+            "name": "escalate_to_regulator",
+            "arguments": {"complaint_id": 7, "reason": "Active foreclosure risk."},
+        },
+    }
+    encoded = json.dumps(gold)
+    clean_path = tmp_path / "clean.json"
+    clean = RewardAudit(rollout_sample_path=clean_path, rollout_sample_context={"seed": 0})
+
+    assert clean.reward([encoded], [encoded]) == [1.0]
+    assert _require_clean_rollout_sample(clean_path)["hardening_required"] is False
+
+    prefixed_path = tmp_path / "prefixed.json"
+    prefixed = RewardAudit(rollout_sample_path=prefixed_path)
+    assert prefixed.reward([f"\n</think>\n{encoded}"], [encoded]) == [1.0]
+    assert not prefixed_path.exists()
+
+
+def test_grpo_reward_signal_guard_aborts_after_ten_all_zero_std_steps() -> None:
+    guard = RewardSignalGuard(opening_steps=10)
+    for step in range(1, 10):
+        guard.observe(step, {"frac_reward_zero_std": 1.0})
+    with pytest.raises(RuntimeError, match="stayed 1.0"):
+        guard.observe(10, {"frac_reward_zero_std": 1.0})
+
+    healthy = RewardSignalGuard(opening_steps=10)
+    for step in range(1, 11):
+        healthy.observe(step, {"frac_reward_zero_std": 0.5 if step == 3 else 1.0})
+    assert healthy.summary()["all_zero_std"] is False
+
+
+def test_r4_fix_has_versioned_paths_ids_and_chat_template_contract() -> None:
+    config = load_config("configs/r4_grpo.yaml")
+    source = (ROOT / "src/forge/train/grpo.py").read_text()
+
+    assert config["run_revision"] == "phase3_1_reward_fix"
+    assert config["training"]["reward_signal_guard_steps"] == 10
+    assert config["training"]["completion_logging_steps"] == 3
+    assert checkpoint_root(config, seed=0, smoke=False, backend="trl").parts[-4:] == (
+        "r4",
+        "phase3_1_reward_fix",
+        "trl",
+        "s0",
+    )
+    assert evaluation_root(config, seed=0, smoke=False, backend="trl").parts[-4:] == (
+        "r4",
+        "phase3_1_reward_fix",
+        "trl",
+        "s0",
+    )
+    assert (
+        run_id(
+            "r4",
+            backend="trl",
+            seed=0,
+            smoke=False,
+            run_revision=config["run_revision"],
+        )
+        == "r4_grpo_phase3_1_reward_fix_s0"
+    )
+    assert '"chat_template_kwargs"' in source
+    assert '{"enable_thinking": False}' in source
+
+
+def test_original_r4_runs_are_preserved_and_marked_superseded_inconclusive() -> None:
+    runs = [json.loads(line) for line in (ROOT / "results/runs.jsonl").read_text().splitlines()]
+    statuses = [
+        json.loads(line)
+        for line in (ROOT / "results/phase3_run_status.jsonl").read_text().splitlines()
+    ]
+    old_ids = {f"r4_grpo_s{seed}" for seed in range(3)}
+
+    assert old_ids <= {record["run_id"] for record in runs}
+    assert {record["run_id"] for record in statuses} == old_ids
+    assert {record["status"] for record in statuses} == {"superseded-inconclusive"}
+
+
+def test_r1b_reuses_the_pinned_r4_deployment_export_contract() -> None:
+    r1b = load_config("configs/r1b_sft_rule_20k.yaml")
+    contract, settings = _export_contract(r1b)
+
+    assert contract["rung"] == "r4"
+    assert settings == {
+        "merge_dtype": "bfloat16",
+        "deployment_quantization": "gptq_int4",
+        "group_size": 128,
+        "calibration_rows": 128,
+    }
+
+
 def test_full_export_preserves_pinned_processor_assets(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
@@ -278,7 +400,14 @@ def test_bootstrap_ci_is_fixed_seed_and_bounded() -> None:
 
 
 def test_remote_launch_scripts_are_syntax_valid_and_human_triggered() -> None:
-    for name in ("launch_phase3.sh", "run_phase3_rung.sh", "bootstrap.sh", "sync.sh"):
+    for name in (
+        "launch_phase3.sh",
+        "run_phase3_rung.sh",
+        "launch_phase3_export.sh",
+        "run_phase3_export.sh",
+        "bootstrap.sh",
+        "sync.sh",
+    ):
         subprocess.run(
             ["bash", "-n", str(ROOT / "scripts/remote" / name)],
             check=True,
@@ -287,6 +416,8 @@ def test_remote_launch_scripts_are_syntax_valid_and_human_triggered() -> None:
         )
     launcher = (ROOT / "scripts/remote/launch_phase3.sh").read_text()
     worker = (ROOT / "scripts/remote/run_phase3_rung.sh").read_text()
+    export_launcher = (ROOT / "scripts/remote/launch_phase3_export.sh").read_text()
+    export_worker = (ROOT / "scripts/remote/run_phase3_export.sh").read_text()
     assert "tmux new-session" in launcher
     assert "FORGE_STARTED_AT" in launcher
     assert ".venv-unsloth/bin/python" in launcher
@@ -298,12 +429,19 @@ def test_remote_launch_scripts_are_syntax_valid_and_human_triggered() -> None:
     assert "PYTORCH_ALLOC_CONF" in launcher
     assert "expandable_segments:True" in launcher
     assert "UNSLOTH_COMPILE_LOCATION" in launcher
+    assert "--query-compute-apps" in launcher
+    assert 'session="forge-' in launcher
     assert 'reference_python=".venv/bin/python"' in worker
     assert "trap 'exit 130' INT" in worker
     assert "--hourly-usd" in worker
     assert "forge.train.finalize" in worker
     assert "forge.train.ledger" in worker
     assert worker.index("completed=1") < worker.index("forge.train.report")
+    assert "--query-compute-apps" in export_launcher
+    assert 'session="forge-export-' in export_launcher
+    assert "configs/r1b_sft_rule_20k.yaml" in export_launcher
+    assert "--operation export --status complete" in export_worker
+    assert export_worker.index("completed=1") < export_worker.index("forge.train.report")
 
 
 def test_gpu_ledger_deduplicates_post_finalize_wrapper_failure(
@@ -349,6 +487,31 @@ def test_gpu_ledger_deduplicates_post_finalize_wrapper_failure(
     assert [record["ledger_id"] for record in _failed_gpu_attempts(smoke=False)] == [
         "failed_before_finalize"
     ]
+
+
+def test_gpu_ledger_records_completed_r1b_export(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.setattr("forge.train.ledger.REPO_ROOT", tmp_path)
+    monkeypatch.setattr("forge.train.ledger.git_sha", lambda: "a" * 40)
+
+    record = record_attempt(
+        str(ROOT / "configs/r1b_sft_rule_20k.yaml"),
+        backend="trl",
+        seed=0,
+        started_at="2026-08-18T00:00:00Z",
+        finished_at="2026-08-18T01:00:00Z",
+        gpu_hours=1.0,
+        hourly_usd=0.30,
+        exit_code=0,
+        operation="export",
+        status="complete",
+    )
+
+    assert record["status"] == "complete"
+    assert record["operation"] == "export"
+    assert record["usd"] == pytest.approx(0.30)
+    assert record["ledger_id"].startswith("export_")
 
 
 def test_full_launch_refuses_dirty_phase3_runtime_tree(monkeypatch: pytest.MonkeyPatch) -> None:

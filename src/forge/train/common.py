@@ -70,7 +70,7 @@ def complete_training_receipt(
         "notes": (
             "Local 0.5B unquantized LoRA smoke; not headline evidence."
             if smoke
-            else "Human-launched RTX4090 run; full training uses QLoRA NF4."
+            else "Authorized remote RTX4090 run; full training uses QLoRA NF4."
         ),
     }
     write_json_atomic(root / "train_metrics.json", receipt)
