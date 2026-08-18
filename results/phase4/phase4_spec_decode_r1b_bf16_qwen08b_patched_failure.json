@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "phase": 4,
+  "experiment": "spec_decode",
+  "run_id": "phase4_spec_decode_r1b_bf16_qwen08b_patched_attempt1_failed_mrope_unsupported",
+  "intended_run_id": "phase4_spec_decode_r1b_bf16_qwen08b_patched",
+  "status": "failed-before-server-ready",
+  "config_path": "configs/phase4/spec_r1b_bf16_qwen08b.yaml",
+  "config_hash": "a81d4cfaea14f73c67c5ab157ca4aab3b675cce9e60bfa779cd9cf796cbbf497",
+  "git_sha": "06d8b4afe4711a97979e97aedc86f7f3df7c507a",
+  "dataset_hash": null,
+  "model": {
+    "target": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "target_artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "draft": "Qwen/Qwen3.5-0.8B-Base",
+    "draft_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "num_speculative_tokens": 5
+  },
+  "server": {
+    "vllm_version": "0.17.0",
+    "configured_method": "draft_model",
+    "observed_method": "draft_model",
+    "compatibility_patch_active": true,
+    "compatibility_source_sha256": "3c7b6b19d80854619eb01068d70f5e83ce6f17798c643493c836eee4514d76f5"
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 4090",
+    "hourly_usd": 0.3,
+    "gpu_memory_used_after_failure_mib": 0,
+    "other_gpu_processes_observed": false
+  },
+  "failure": {
+    "type": "vllm_qwen35_external_draft_mrope_unsupported",
+    "message": "The D1.2 compatibility hook kept the 0.8B Qwen3.5 model on the external draft_model path, after which vLLM 0.17.0 rejected draft-model speculative decoding for the target's M-RoPE configuration before server readiness.",
+    "exception": "NotImplementedError: Speculative Decoding with draft models or parallel drafting does not support M-RoPE yet"
+  },
+  "method_selection": {
+    "decision": "external_draft_fallback",
+    "reason": "export_declares_1_mtp_layers_but_contains_0_mtp_weight_keys",
+    "native_mtp_usable": false,
+    "native_mtp_audit": "results/phase4/r1b_native_mtp_audit.json",
+    "native_mtp_audit_sha256": "12d01a9ecb0e44b5c15845180a817cbfaffb1cb681c9c077d1f40552fec12c70"
+  },
+  "locked_decision_gate": {
+    "decision": "D1.2 allows native MTP only when usable MTP weights exist; otherwise it allows only the version-guarded draft_model-to-MTP rewrite fix with the D1.1 external draft.",
+    "approved_paths_exhausted": true,
+    "configuration_level_fix_available": false,
+    "action": "Stopped without bypassing vLLM's M-RoPE safety check, altering the frozen export, or substituting an unapproved speculation method; another human-approved amendment is required."
+  },
+  "cost": {
+    "elapsed_s_from_log_timestamps": 10,
+    "gpu_hours": 0.002777777777777778,
+    "hourly_usd": 0.3,
+    "usd": 0.0008333333333333334,
+    "api_usd": 0.0
+  },
+  "started_at": "2026-08-18T13:46:48Z",
+  "finished_at": "2026-08-18T13:46:58Z",
+  "raw_artifact": "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_patched_failure.json",
+  "evidence": {
+    "server_log": {
+      "path": "results/phase4/logs/phase4_spec_decode_r1b_bf16_qwen08b_patched-2026-08-18T134608Z.server.log",
+      "sha256": "9c77ec1b1e7b62206eeafb7e227d9d963406e361e615c08892923bcc1135344e"
+    },
+    "worker_log": {
+      "path": "results/phase4/logs/phase4-worker-2026-08-18T134608Z.log",
+      "sha256": "701a76a67e74ce9c9af31e9ec88bb4f14936ec536c90d0560990ced713fde66c"
+    }
+  }
+}

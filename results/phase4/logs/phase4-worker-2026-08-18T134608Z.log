@@ -1,0 +1,136 @@
+{"config_hash": "a81d4cfaea14f73c67c5ab157ca4aab3b675cce9e60bfa779cd9cf796cbbf497", "config_path": "configs/phase4/spec_r1b_bf16_qwen08b.yaml", "decision": "external_draft_fallback", "decision_rule": "D1.2_native_mtp_first_external_draft_only_if_weights_missing", "export": {"architecture": ["Qwen3_5ForConditionalGeneration"], "artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435", "config_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16/config.json", "config_sha256": "8b317ea6f70f0ee270eb14b4c6361fd803230de0b86133c87b5c1a5af6e8f068", "declared_mtp_num_hidden_layers": 1, "model_type": "qwen3_5", "mtp_weight_key_count": 0, "mtp_weight_keys": [], "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16", "present_required_mtp_prefixes": [], "required_mtp_prefixes": ["mtp.fc.", "mtp.layers.", "mtp.norm.", "mtp.pre_fc_norm_hidden.", "mtp.pre_fc_norm_embedding."], "safetensors_index_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16/model.safetensors.index.json", "safetensors_index_sha256": "cd67b86e2cd9d329167224ac0026be69b39e078ad3056fc59339ba0a19fe4845", "weight_key_count": 723}, "native_mtp_usable": false, "output": "results/phase4/r1b_native_mtp_audit.json", "phase": 4, "prior_failures": [{"path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json", "sha256": "a2291575dc6a2cd77b1d2886304f4183af03a1691186052c0fa1758ee3564d78"}, {"path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json", "sha256": "fb598018e1051c5b30bae26740b606086e10b834dd1e6d8acc2107a9bc65766d"}], "reason": "export_declares_1_mtp_layers_but_contains_0_mtp_weight_keys", "status": "complete", "version": 1, "vllm_contract": {"loader_requires_mtp_prefix": true, "mtp_loader_source_path": ".venv-phase4/lib/python3.12/site-packages/vllm/model_executor/models/qwen3_5_mtp.py", "mtp_loader_source_sha256": "eb28d0b79f51d1586b94209ef6da3249c06610cf5ca5c6784aae25236cfcdef0", "speculative_source_path": ".venv-phase4/lib/python3.12/site-packages/vllm/config/speculative.py", "speculative_source_sha256": "3c7b6b19d80854619eb01068d70f5e83ce6f17798c643493c836eee4514d76f5", "version": "0.17.0"}}
+FORGE vLLM 0.17.0 compatibility active: preserving Qwen3.5 as an external draft_model
+{"architectures": ["Qwen3_5ForConditionalGeneration"], "model_type_after": "qwen3_5", "model_type_before": "qwen3_5", "status": "compatible", "vllm_version": "0.17.0"}
+{"artifacts": {"checkpoints/full/r1b/trl/s0/export/gptq_int4": {"export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json", "export_manifest_sha256": "2ef70012abe90c5489ca30d500fb994c147205cf1aa740266a603029fe9f5dba", "precision": "gptq_int4", "sha256": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2", "variants": ["r1b"]}, "checkpoints/full/r1b/trl/s0/export/merged_bf16": {"export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json", "export_manifest_sha256": "2ef70012abe90c5489ca30d500fb994c147205cf1aa740266a603029fe9f5dba", "precision": "bfloat16", "sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435", "variants": ["r1b"]}, "checkpoints/full/r4/trl/s0/export/gptq_int4": {"export_manifest": "checkpoints/full/r4/trl/s0/export/export_manifest.json", "export_manifest_sha256": "b2c2d4e536004fc05888fb48134caeba9363d4cf7febe641a22d2f30ea6ed8f7", "precision": "gptq_int4", "sha256": "3d3bed316134e3d583b7be16a8a89d4de2bf2f40c34365623d0e1c2edec10958", "variants": ["r3_equivalent_legacy_r4_zero_update"]}, "checkpoints/full/r4/trl/s0/export/merged_bf16": {"export_manifest": "checkpoints/full/r4/trl/s0/export/export_manifest.json", "export_manifest_sha256": "b2c2d4e536004fc05888fb48134caeba9363d4cf7febe641a22d2f30ea6ed8f7", "precision": "bfloat16", "sha256": "1304ebf174da98f3b761f482bd2d88b58d66e30bc9cef66abb6104ab70ef6bbc", "variants": ["r3_equivalent_legacy_r4_zero_update"]}}, "equivalence": {"r3_equivalent_legacy_r4_zero_update": {"interpretation": "The superseded original R4 seed-0 run had zero gradient; its adapter weights are byte-identical to R3 seed 0.", "left_adapter_weights": "checkpoints/full/r3/trl/s0/adapter/adapter_model.safetensors", "right_adapter_weights": "checkpoints/full/r4/trl/s0/adapter/adapter_model.safetensors", "sha256": "0188166e07cef16097267da5a68f45bfa3c54d08c68c25cd22b1f5649da37f66"}}, "git_sha": "06d8b4afe4711a97979e97aedc86f7f3df7c507a", "phase": 4, "status": "complete", "verified_at": "2026-08-18T13:46:39.609565+00:00", "version": 1}
+raw artifact already exists; validating immutable receipt phase4_serve_r1b_bf16_v2
+Validated existing Phase 4 receipt without rewriting provenance: results/phase4/raw/phase4_serve_r1b_bf16_v2.json (e1150dc39384141dd25c8b52796c1bffaa730c53)
+raw artifact already exists; validating immutable receipt phase4_serve_r1b_gptq_int4
+Validated existing Phase 4 receipt without rewriting provenance: results/phase4/raw/phase4_serve_r1b_gptq_int4.json (e1150dc39384141dd25c8b52796c1bffaa730c53)
+raw artifact already exists; validating immutable receipt phase4_serve_r3eq_bf16
+Validated existing Phase 4 receipt without rewriting provenance: results/phase4/raw/phase4_serve_r3eq_bf16.json (e1150dc39384141dd25c8b52796c1bffaa730c53)
+raw artifact already exists; validating immutable receipt phase4_serve_r3eq_gptq_int4
+Validated existing Phase 4 receipt without rewriting provenance: results/phase4/raw/phase4_serve_r3eq_gptq_int4.json (e1150dc39384141dd25c8b52796c1bffaa730c53)
+raw artifact already exists; validating immutable receipt phase4_spec_decode_r1b_bf16_baseline
+Validated existing Phase 4 receipt without rewriting provenance: results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline.json (e1150dc39384141dd25c8b52796c1bffaa730c53)
+starting phase4_spec_decode_r1b_bf16_qwen08b_patched; command arguments are pinned by configs/phase4/spec_r1b_bf16_qwen08b.yaml
+vLLM exited before health became ready
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100]     self.drafter = DraftModelProposer(
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100]                    ^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100]   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/spec_decode/draft_model.py", line 24, in __init__
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100]     super().__init__(
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100]   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/spec_decode/eagle.py", line 175, in __init__
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100]     self._raise_if_mrope()
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100]   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/spec_decode/eagle.py", line 289, in _raise_if_mrope
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100]     raise NotImplementedError(
+(EngineCore_DP0 pid=85620) ERROR 08-18 21:46:58 [core.py:1100] NotImplementedError: Speculative Decoding with draft models or parallel drafting does not support M-RoPE yet
+(EngineCore_DP0 pid=85620) Process EngineCore_DP0:
+(EngineCore_DP0 pid=85620) Traceback (most recent call last):
+(EngineCore_DP0 pid=85620)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+(EngineCore_DP0 pid=85620)     self.run()
+(EngineCore_DP0 pid=85620)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/multiprocessing/process.py", line 108, in run
+(EngineCore_DP0 pid=85620)     self._target(*self._args, **self._kwargs)
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1104, in run_engine_core
+(EngineCore_DP0 pid=85620)     raise e
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1090, in run_engine_core
+(EngineCore_DP0 pid=85620)     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore_DP0 pid=85620)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore_DP0 pid=85620)     return func(*args, **kwargs)
+(EngineCore_DP0 pid=85620)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 834, in __init__
+(EngineCore_DP0 pid=85620)     super().__init__(
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 110, in __init__
+(EngineCore_DP0 pid=85620)     self.model_executor = executor_class(vllm_config)
+(EngineCore_DP0 pid=85620)                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore_DP0 pid=85620)     return func(*args, **kwargs)
+(EngineCore_DP0 pid=85620)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 103, in __init__
+(EngineCore_DP0 pid=85620)     self._init_executor()
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 48, in _init_executor
+(EngineCore_DP0 pid=85620)     self.driver_worker.init_device()
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 326, in init_device
+(EngineCore_DP0 pid=85620)     self.worker.init_device()  # type: ignore
+(EngineCore_DP0 pid=85620)     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore_DP0 pid=85620)     return func(*args, **kwargs)
+(EngineCore_DP0 pid=85620)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 312, in init_device
+(EngineCore_DP0 pid=85620)     self.model_runner = GPUModelRunnerV1(self.vllm_config, self.device)
+(EngineCore_DP0 pid=85620)                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/worker/gpu_model_runner.py", line 505, in __init__
+(EngineCore_DP0 pid=85620)     self.drafter = DraftModelProposer(
+(EngineCore_DP0 pid=85620)                    ^^^^^^^^^^^^^^^^^^^
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/spec_decode/draft_model.py", line 24, in __init__
+(EngineCore_DP0 pid=85620)     super().__init__(
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/spec_decode/eagle.py", line 175, in __init__
+(EngineCore_DP0 pid=85620)     self._raise_if_mrope()
+(EngineCore_DP0 pid=85620)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/spec_decode/eagle.py", line 289, in _raise_if_mrope
+(EngineCore_DP0 pid=85620)     raise NotImplementedError(
+(EngineCore_DP0 pid=85620) NotImplementedError: Speculative Decoding with draft models or parallel drafting does not support M-RoPE yet
+[rank0]:[W818 21:46:59.100410146 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+(APIServer pid=85405) Traceback (most recent call last):
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/bin/vllm", line 10, in <module>
+(APIServer pid=85405)     sys.exit(main())
+(APIServer pid=85405)              ^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/cli/main.py", line 73, in main
+(APIServer pid=85405)     args.dispatch_function(args)
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/cli/serve.py", line 112, in cmd
+(APIServer pid=85405)     uvloop.run(run_server(args))
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=85405)     return __asyncio.run(
+(APIServer pid=85405)            ^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+(APIServer pid=85405)     return runner.run(main)
+(APIServer pid=85405)            ^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=85405)     return self._loop.run_until_complete(task)
+(APIServer pid=85405)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=85405)     return await main
+(APIServer pid=85405)            ^^^^^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 471, in run_server
+(APIServer pid=85405)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 490, in run_server_worker
+(APIServer pid=85405)     async with build_async_engine_client(
+(APIServer pid=85405)                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=85405)     return await anext(self.gen)
+(APIServer pid=85405)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 96, in build_async_engine_client
+(APIServer pid=85405)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=85405)                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=85405)     return await anext(self.gen)
+(APIServer pid=85405)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 137, in build_async_engine_client_from_engine_args
+(APIServer pid=85405)     async_llm = AsyncLLM.from_vllm_config(
+(APIServer pid=85405)                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 225, in from_vllm_config
+(APIServer pid=85405)     return cls(
+(APIServer pid=85405)            ^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 154, in __init__
+(APIServer pid=85405)     self.engine_core = EngineCoreClient.make_async_mp_client(
+(APIServer pid=85405)                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=85405)     return func(*args, **kwargs)
+(APIServer pid=85405)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 127, in make_async_mp_client
+(APIServer pid=85405)     return AsyncMPClient(*client_args)
+(APIServer pid=85405)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(APIServer pid=85405)     return func(*args, **kwargs)
+(APIServer pid=85405)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 911, in __init__
+(APIServer pid=85405)     super().__init__(
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 569, in __init__
+(APIServer pid=85405)     with launch_core_engines(
+(APIServer pid=85405)          ^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=85405)   File "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 144, in __exit__
+(APIServer pid=85405)     next(self.gen)
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 951, in launch_core_engines
+(APIServer pid=85405)     wait_for_engine_startup(
+(APIServer pid=85405)   File "/root/autodl-tmp/frontier-forge/.venv-phase4/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1010, in wait_for_engine_startup
+(APIServer pid=85405)     raise RuntimeError(
+(APIServer pid=85405) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}

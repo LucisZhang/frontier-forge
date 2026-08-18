@@ -1,0 +1,53 @@
+{
+  "config_hash": "a81d4cfaea14f73c67c5ab157ca4aab3b675cce9e60bfa779cd9cf796cbbf497",
+  "config_path": "configs/phase4/spec_r1b_bf16_qwen08b.yaml",
+  "decision": "external_draft_fallback",
+  "decision_rule": "D1.2_native_mtp_first_external_draft_only_if_weights_missing",
+  "export": {
+    "architecture": [
+      "Qwen3_5ForConditionalGeneration"
+    ],
+    "artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "config_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16/config.json",
+    "config_sha256": "8b317ea6f70f0ee270eb14b4c6361fd803230de0b86133c87b5c1a5af6e8f068",
+    "declared_mtp_num_hidden_layers": 1,
+    "model_type": "qwen3_5",
+    "mtp_weight_key_count": 0,
+    "mtp_weight_keys": [],
+    "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "present_required_mtp_prefixes": [],
+    "required_mtp_prefixes": [
+      "mtp.fc.",
+      "mtp.layers.",
+      "mtp.norm.",
+      "mtp.pre_fc_norm_hidden.",
+      "mtp.pre_fc_norm_embedding."
+    ],
+    "safetensors_index_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16/model.safetensors.index.json",
+    "safetensors_index_sha256": "cd67b86e2cd9d329167224ac0026be69b39e078ad3056fc59339ba0a19fe4845",
+    "weight_key_count": 723
+  },
+  "native_mtp_usable": false,
+  "phase": 4,
+  "prior_failures": [
+    {
+      "path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json",
+      "sha256": "a2291575dc6a2cd77b1d2886304f4183af03a1691186052c0fa1758ee3564d78"
+    },
+    {
+      "path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json",
+      "sha256": "fb598018e1051c5b30bae26740b606086e10b834dd1e6d8acc2107a9bc65766d"
+    }
+  ],
+  "reason": "export_declares_1_mtp_layers_but_contains_0_mtp_weight_keys",
+  "status": "complete",
+  "version": 1,
+  "vllm_contract": {
+    "loader_requires_mtp_prefix": true,
+    "mtp_loader_source_path": ".venv-phase4/lib/python3.12/site-packages/vllm/model_executor/models/qwen3_5_mtp.py",
+    "mtp_loader_source_sha256": "eb28d0b79f51d1586b94209ef6da3249c06610cf5ca5c6784aae25236cfcdef0",
+    "speculative_source_path": ".venv-phase4/lib/python3.12/site-packages/vllm/config/speculative.py",
+    "speculative_source_sha256": "3c7b6b19d80854619eb01068d70f5e83ce6f17798c643493c836eee4514d76f5",
+    "version": "0.17.0"
+  }
+}
