@@ -36,7 +36,7 @@ def server_command(config_path: str | Path, *, executable: str) -> list[str]:
         "--generation-config",
         str(server["generation_config"]),
         "--language-model-only",
-        "--disable-log-requests",
+        "--no-enable-log-requests",
         "--enable-request-id-headers",
         "--enable-auto-tool-choice",
         "--tool-call-parser",

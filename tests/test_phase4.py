@@ -134,6 +134,8 @@ def test_vllm_commands_pin_precision_speculation_and_structured_backends() -> No
 
     assert int4[int4.index("--quantization") + 1] == "gptq"
     assert "--language-model-only" in int4
+    assert "--no-enable-log-requests" in int4
+    assert "--disable-log-requests" not in int4
     spec_value = json.loads(spec[spec.index("--speculative-config") + 1])
     assert spec_value == {
         "method": "draft_model",
