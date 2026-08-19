@@ -18,7 +18,9 @@ from forge.train.config import (
     configs_by_rung,
     evaluation_root,
     load_config,
+    runs_path,
     sha256_file,
+    smoke_output_root,
 )
 from forge.train.data import compact_model_input
 from forge.train.evaluate import bootstrap_ci
@@ -362,6 +364,23 @@ def test_original_r4_runs_are_preserved_and_marked_superseded_inconclusive() -> 
     assert old_ids <= {record["run_id"] for record in runs}
     assert {record["run_id"] for record in statuses} == old_ids
     assert {record["status"] for record in statuses} == {"superseded-inconclusive"}
+
+
+def test_phase6_can_isolate_all_mutable_phase3_smoke_outputs(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    isolated = tmp_path / "phase3"
+    monkeypatch.setenv("FORGE_SMOKE_OUTPUT_ROOT", str(isolated))
+    config = load_config("configs/r4_grpo.yaml")
+
+    assert smoke_output_root() == isolated
+    assert checkpoint_root(config, seed=0, smoke=True, backend="trl") == (
+        isolated / "checkpoints/r4/phase3_2_fresh_pool/trl/s0"
+    )
+    assert evaluation_root(config, seed=0, smoke=True, backend="trl") == (
+        isolated / "eval/r4/phase3_2_fresh_pool/trl/s0"
+    )
+    assert runs_path(smoke=True) == isolated / "runs.jsonl"
 
 
 def test_r1b_reuses_the_pinned_r4_deployment_export_contract() -> None:

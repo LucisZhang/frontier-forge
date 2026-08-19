@@ -2,8 +2,7 @@
 
 ## Gate result
 
-**ESCALATE.** The local smoke stand-in scored **100.0%** task success 
-on n=13 CAL rows (95% Wilson CI 77.2%–100.0%), **above** the D3 target band of 20.0%–50.0%.
+**ESCALATE.** The local smoke stand-in scored **100.0%** task success on n=13 CAL rows (95% Wilson CI 77.2%–100.0%), **above** the D3 target band of 20.0%–50.0%.
 
 Per D3.1, no difficulty knobs were changed to force the target. The human must review this above-band result before Phase 2.
 
@@ -26,7 +25,7 @@ This remains an API stand-in, not the Phase-3 Qwen base-model R0 result.
 | Ambiguity flag match | 100.0% | yes |
 | Tool choice match | 100.0% | yes |
 | Tool arguments structurally valid | 100.0% | yes |
-| Mean decision-only reward | 100.0% | — |
+| Mean scorer-v2 reward | 100.0% | — |
 
 ## Secondary metrics (excluded from success and reward)
 
@@ -51,11 +50,12 @@ This remains an API stand-in, not the Phase-3 Qwen base-model R0 result.
 
 ## Reproducibility and receipts
 
-- CAL artifact: `/Users/hsiangkuochang/frontier-forge/data/smoke/splits/cal.parquet`
+- CAL artifact: `data/smoke/splits/cal.parquet`
 - CAL payload SHA-256: `5a3d4f74010e192151c1b86eafb592fb2ac7a4abf59ab537f9c594b9b4a545fe`
 - Scorer version: `2`
 - Input contract version: `2`
 - Visible input fields: `complaint_id, narrative, source_product, source_issue, source_company`
+- Append-only run record: `results/runs.jsonl` entry `phase1_1_api_calibration_v2_s20260815`
 - Offline report command: `make calibrate-difficulty`
 - Network calls: 0 (smoke plumbing only; not a gate result)
 

@@ -43,6 +43,18 @@ def relative_path(path: Path) -> str:
         return str(path.resolve())
 
 
+def smoke_output_root() -> Path:
+    """Return the optional isolated root used by fresh-clone smoke gates."""
+
+    value = os.environ.get("FORGE_SMOKE_OUTPUT_ROOT")
+    if value is None:
+        return REPO_ROOT / "data" / "smoke" / "phase3"
+    root = Path(value)
+    if not root.is_absolute():
+        raise ValueError("FORGE_SMOKE_OUTPUT_ROOT must be an absolute path")
+    return root
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -187,8 +199,11 @@ def model_spec(config: Mapping[str, Any], *, smoke: bool) -> Mapping[str, Any]:
 def checkpoint_root(
     config: Mapping[str, Any], *, seed: int, smoke: bool, backend: str = "trl"
 ) -> Path:
-    mode = "smoke" if smoke else "full"
-    root = REPO_ROOT / "checkpoints" / mode / str(config["rung"])
+    if smoke and os.environ.get("FORGE_SMOKE_OUTPUT_ROOT") is not None:
+        root = smoke_output_root() / "checkpoints" / str(config["rung"])
+    else:
+        mode = "smoke" if smoke else "full"
+        root = REPO_ROOT / "checkpoints" / mode / str(config["rung"])
     if config.get("run_revision"):
         root /= str(config["run_revision"])
     return root / backend / f"s{seed}"
@@ -203,8 +218,10 @@ def adapter_path(
 def evaluation_root(
     config: Mapping[str, Any], *, seed: int, smoke: bool, backend: str = "trl"
 ) -> Path:
-    mode = "smoke" if smoke else "full"
-    root = REPO_ROOT / "data" / mode / "phase3" / "eval" / str(config["rung"])
+    if smoke:
+        root = smoke_output_root() / "eval" / str(config["rung"])
+    else:
+        root = REPO_ROOT / "data" / "full" / "phase3" / "eval" / str(config["rung"])
     if config.get("run_revision"):
         root /= str(config["run_revision"])
     return root / backend / f"s{seed}"
@@ -212,7 +229,7 @@ def evaluation_root(
 
 def runs_path(*, smoke: bool) -> Path:
     if smoke:
-        return REPO_ROOT / "data" / "smoke" / "phase3" / "runs.jsonl"
+        return smoke_output_root() / "runs.jsonl"
     return REPO_ROOT / "results" / "runs.jsonl"
 
 
