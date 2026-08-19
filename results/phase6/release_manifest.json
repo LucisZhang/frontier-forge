@@ -2,7 +2,7 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "b525421d8de577ea31aef6ae503f00fe1be1586470c76230c32256f4589c416b"
+      "sha256": "2bc512eaa45b9ebe071e4e1fd398f1f9a7647c104d79a902708bc73d41eff111"
     },
     {
       "path": "MODEL_CARD.md",
@@ -27,6 +27,18 @@
     {
       "path": "results/phase6/cascade_handoff.json",
       "sha256": "5038a91ab883116ad8607bf442e0e73016d1fb42ef44623c37593a2a90253b0b"
+    },
+    {
+      "path": "results/phase6/hf_archive_receipt.json",
+      "sha256": "a8f1e24900765bb3fe2082d3b09a99c4996cc1a4ccb5bc78ecd8c38572eee1a1"
+    },
+    {
+      "path": "results/phase6/remote_disk_audit.json",
+      "sha256": "c138eb84425ee6eb6e7723da6abe62cba597a53b04eb954fe4c427b5a11be159"
+    },
+    {
+      "path": "results/phase6/hf_archive_logs.tar.gz",
+      "sha256": "1cd26ef996bb3b250c3b428543219b8614d6441cc00c4f0b005a281849f13d60"
     },
     {
       "path": "demo/index.html",

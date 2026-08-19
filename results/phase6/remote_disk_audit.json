@@ -1,0 +1,140 @@
+{
+  "archive_attempts": [
+    {
+      "evidence_members": {
+        "hf_archive_proxy_attempt.log": "657314ea692c8b4a637f4a0b1e0a824729adc9c82e9e3a18c2be944fd85398c9",
+        "hf_archive_proxy_attempt_xet.log": "a8242a4de9fd10f87aee9b009ad39d6eaaadeb16c7ed1510fadb59e784770573"
+      },
+      "final_observed_progress": {
+        "new_data_bytes_displayed": "277MB / 469MB",
+        "processed_bytes_displayed": "1.73GB / 9.10GB"
+      },
+      "outcome": "operator-interrupted-after-repeated-multi-minute-proxy-stalls",
+      "process_exit_code": null,
+      "transport": "AutoDL network_turbo proxy for Hub API and Xet storage"
+    },
+    {
+      "evidence_members": {
+        "hf_archive.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "hf_archive.log": "2baf67281e143ae861d83ff4b8f88d13dfdbffdd87174fc767806ab8e13f7db8"
+      },
+      "outcome": "complete",
+      "process_exit_code": 0,
+      "transport": "AutoDL network_turbo proxy for huggingface.co API; direct connection for xethub.hf.co storage"
+    }
+  ],
+  "completed_at": "2026-08-19T11:26:08Z",
+  "credential_cleanup": {
+    "active_hf_token_present_after_logout": false,
+    "named_stored_token_present_after_logout": false,
+    "token_name": "frontier-forge-phase6-archive"
+  },
+  "durable_asset_scope": {
+    "excluded": [
+      "unrelated projects and files elsewhere under the shared /root/autodl-tmp root",
+      "virtual environments and dependency caches",
+      "Hugging Face Xet and download caches",
+      "reconstructible temporary/build directories including .tmp-phase5 and incomplete clone attempts"
+    ],
+    "instance_id": "9v271qumjr-b663466e",
+    "instance_label": "AutoDL 849",
+    "source_project_root": "/root/autodl-tmp/frontier-forge",
+    "statement": "Project-authored durable assets under the Frontier Forge project root, plus project run logs at that root and the isolated Phase 6 archive clone. This is not a claim about unrelated shared-pod files."
+  },
+  "hf_archive": {
+    "anonymous_public_read_verified": true,
+    "local_receipt_path": "results/phase6/hf_archive_receipt.json",
+    "local_receipt_sha256": "a8f1e24900765bb3fe2082d3b09a99c4996cc1a4ccb5bc78ecd8c38572eee1a1",
+    "private": false,
+    "public_file_count_at_receipt_commit": 37,
+    "receipt_commit": "a717e9c50435fc81b795d5683a22d0efe8191d16",
+    "repo_id": "Luciss007/frontier-forge-r1b",
+    "repo_url": "https://huggingface.co/Luciss007/frontier-forge-r1b",
+    "source_git_sha": "3a422af09787c6863fde2157c1317b5831ff6190",
+    "variants": [
+      {
+        "bytes": 9098688526,
+        "file_count": 10,
+        "name": "bf16",
+        "remote_path": "bf16",
+        "remote_verification": {
+          "downloaded_sha256_files": 0,
+          "git_blob_sha1_files": 6,
+          "lfs_sha256_files": 4
+        },
+        "tree_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435"
+      },
+      {
+        "bytes": 3823702266,
+        "file_count": 9,
+        "name": "gptq_int4",
+        "remote_path": "gptq-int4",
+        "remote_verification": {
+          "downloaded_sha256_files": 0,
+          "git_blob_sha1_files": 7,
+          "lfs_sha256_files": 2
+        },
+        "tree_sha256": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2"
+      },
+      {
+        "bytes": 9339890356,
+        "file_count": 11,
+        "name": "bf16_mtp_preserved",
+        "remote_path": "bf16-mtp-preserved",
+        "remote_verification": {
+          "downloaded_sha256_files": 0,
+          "git_blob_sha1_files": 6,
+          "lfs_sha256_files": 5
+        },
+        "tree_sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce"
+      }
+    ],
+    "verified_artifact_commit": "fd4ae1e1989dcb1641a496bf796031491518983e"
+  },
+  "local_evidence": {
+    "archive_log_bundle": {
+      "path": "results/phase6/hf_archive_logs.tar.gz",
+      "sha256": "1cd26ef996bb3b250c3b428543219b8614d6441cc00c4f0b005a281849f13d60"
+    },
+    "remote_run_evidence_commit": "070e84d79c0fc14f11b55ecaa1178d7473252e8c",
+    "synced_phase4_workload": {
+      "path": "data/full/phase4/workload-9ed3d99a9d75c357.jsonl",
+      "sha256": "4f042b56aacd6e596e112e290511717bd84737d805df67acbfbafd0845865e23"
+    }
+  },
+  "remote_only_durable_assets": [],
+  "schema_version": "frontier-forge-remote-disk-audit-v1",
+  "sync_checks": [
+    {
+      "differences": [],
+      "exit_code": 0,
+      "method": "rsync missing-path dry run",
+      "scope": "remote results/ to local results/"
+    },
+    {
+      "differences": [],
+      "exit_code": 0,
+      "method": "rsync checksum dry run",
+      "scope": "remote data/full/ to local data/full/"
+    },
+    {
+      "differences": [],
+      "exit_code": 0,
+      "method": "rsync checksum dry run",
+      "scope": "remote checkpoints/full/ to local checkpoints/full/, excluding the three separately archived export trees"
+    },
+    {
+      "differences": [],
+      "exit_code": 0,
+      "method": "rsync checksum dry run",
+      "scope": "remote project-root logs/ to local results/phase6/remote_disk_logs/"
+    },
+    {
+      "differences": [],
+      "exit_code": 0,
+      "method": "per-file SHA-256 comparison",
+      "scope": "isolated archive clone receipt, successful log, proxy-attempt logs, and exit receipt to local copies"
+    }
+  ],
+  "verdict": "Within the audited project durable-asset scope, no asset remains only on the pod. The three export trees still physically present there have exact, manifest-bound copies verified at the public Hugging Face artifact commit; all other durable project paths are present locally with the checks stated above."
+}

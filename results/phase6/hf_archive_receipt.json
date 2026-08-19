@@ -1,0 +1,65 @@
+{
+  "completed_at": "2026-08-19T11:18:44.032695+00:00",
+  "model_card": {
+    "remote_path": "README.md",
+    "sha256": "96d9ef29c6c4b6e4d47706b8cc229fd1b316247e5009d908b4e594aa64a0d0fd"
+  },
+  "private": false,
+  "receipt_commit": "a717e9c50435fc81b795d5683a22d0efe8191d16",
+  "repo_id": "Luciss007/frontier-forge-r1b",
+  "repo_url": "https://huggingface.co/Luciss007/frontier-forge-r1b",
+  "schema_version": "frontier-forge-hf-archive-receipt-v1",
+  "source_git_sha": "3a422af09787c6863fde2157c1317b5831ff6190",
+  "token_handling": "credential lookup only; token not accepted on the command line or logged; credential persistence is managed by the Hugging Face client outside this script",
+  "upload_commits": {
+    "bf16": "792f35e968ca2fa92fce8220836ed829408eb1e7",
+    "bf16_mtp_preserved": "fd4ae1e1989dcb1641a496bf796031491518983e",
+    "gptq_int4": "a04e2e472db58ba8916fef3eb0daeaf6376e493a"
+  },
+  "variants": [
+    {
+      "bytes": 9098688526,
+      "file_count": 10,
+      "local_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+      "manifest_path": "results/phase3_export_manifest_r1b_trl_s0.json",
+      "name": "bf16",
+      "remote_path": "bf16",
+      "remote_verification": {
+        "downloaded_sha256_files": 0,
+        "git_blob_sha1_files": 6,
+        "lfs_sha256_files": 4
+      },
+      "tree_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435"
+    },
+    {
+      "bytes": 3823702266,
+      "file_count": 9,
+      "local_path": "checkpoints/full/r1b/trl/s0/export/gptq_int4",
+      "manifest_path": "results/phase3_export_manifest_r1b_trl_s0.json",
+      "name": "gptq_int4",
+      "remote_path": "gptq-int4",
+      "remote_verification": {
+        "downloaded_sha256_files": 0,
+        "git_blob_sha1_files": 7,
+        "lfs_sha256_files": 2
+      },
+      "tree_sha256": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2"
+    },
+    {
+      "bytes": 9339890356,
+      "file_count": 11,
+      "local_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved",
+      "manifest_path": "results/phase4/r1b_mtp_reexport_manifest.json",
+      "name": "bf16_mtp_preserved",
+      "remote_path": "bf16-mtp-preserved",
+      "remote_verification": {
+        "downloaded_sha256_files": 0,
+        "git_blob_sha1_files": 6,
+        "lfs_sha256_files": 5
+      },
+      "tree_sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce"
+    }
+  ],
+  "verification_method": "local manifest tree SHA-256 before upload; exact path set plus remote LFS SHA-256 or Git blob identity per file after upload",
+  "verified_artifact_commit": "fd4ae1e1989dcb1641a496bf796031491518983e"
+}

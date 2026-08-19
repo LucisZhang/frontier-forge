@@ -148,9 +148,18 @@ Hugging Face model repository:
 - `bf16-mtp-preserved/` — merged BF16 + native-MTP tree SHA-256
   `7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce`
 
-The repository URL and remote commit are written into the Phase 6 archive receipt
-after upload. The complete usage, evaluation, risk, and provenance statement is in
-the [Model Card](MODEL_CARD.md).
+The public archive is [`Luciss007/frontier-forge-r1b`](https://huggingface.co/Luciss007/frontier-forge-r1b).
+Its manifest-bound artifacts are fixed at commit
+[`fd4ae1e`](https://huggingface.co/Luciss007/frontier-forge-r1b/tree/fd4ae1e1989dcb1641a496bf796031491518983e);
+the independently downloadable public receipt is fixed at commit
+[`a717e9c`](https://huggingface.co/Luciss007/frontier-forge-r1b/blob/a717e9c50435fc81b795d5683a22d0efe8191d16/provenance/archive_receipt.json).
+The local [archive receipt](results/phase6/hf_archive_receipt.json) records exact
+path sets and per-file LFS SHA-256 or Git-blob verification. The
+[remote-disk audit](results/phase6/remote_disk_audit.json) reports no remaining
+remote-only asset within the explicitly bounded project durable-asset scope;
+unrelated shared-pod files, caches, dependencies, and rebuildable temporary paths
+are not part of that claim. The complete usage, evaluation, risk, and provenance
+statement is in the [Model Card](MODEL_CARD.md).
 
 ## Limitations and negative results
 

@@ -69,6 +69,32 @@ def test_release_manifest_and_derived_outputs_are_green() -> None:
     assert result["headline_sha256"] == sha256_file(release.HEADLINE_PATH)
 
 
+def test_hf_archive_and_remote_disk_receipts_close_the_phase6_archive_gate() -> None:
+    archive = json.loads((ROOT / "results/phase6/hf_archive_receipt.json").read_text())
+    disk = json.loads((ROOT / "results/phase6/remote_disk_audit.json").read_text())
+
+    assert archive["repo_id"] == "Luciss007/frontier-forge-r1b"
+    assert archive["private"] is False
+    assert archive["verified_artifact_commit"] == ("fd4ae1e1989dcb1641a496bf796031491518983e")
+    assert archive["receipt_commit"] == "a717e9c50435fc81b795d5683a22d0efe8191d16"
+    assert {item["name"]: item["tree_sha256"] for item in archive["variants"]} == {
+        "bf16": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+        "gptq_int4": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2",
+        "bf16_mtp_preserved": ("7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce"),
+    }
+    assert all(
+        item["file_count"] == sum(item["remote_verification"].values())
+        for item in archive["variants"]
+    )
+    assert disk["remote_only_durable_assets"] == []
+    assert disk["credential_cleanup"]["active_hf_token_present_after_logout"] is False
+    assert all(
+        check["exit_code"] == 0 and check["differences"] == [] for check in disk["sync_checks"]
+    )
+    log_bundle = ROOT / disk["local_evidence"]["archive_log_bundle"]["path"]
+    assert sha256_file(log_bundle) == disk["local_evidence"]["archive_log_bundle"]["sha256"]
+
+
 def test_demo_sources_are_network_free_and_javascript_is_parseable() -> None:
     for path in (
         ROOT / "demo/index.html",
