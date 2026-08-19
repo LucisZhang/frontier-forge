@@ -1,0 +1,942 @@
+{
+  "baseline_success_p95_s": 0.8448518298100678,
+  "capacity_definition": "highest offered Poisson QPS meeting error, deadline, achieved-QPS, and p95 gates",
+  "cells": [
+    {
+      "achieved_qps_ratio": 1.2235384222534564,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 0.25,
+      "cell_id": "capacity-direct-0.25qps",
+      "client": {
+        "dispatch_delay": {
+          "count": 30,
+          "mean_s": 0.0012878815022607645,
+          "p50_s": 0.0009232005104422569,
+          "p95_s": 0.0017713248264044517
+        },
+        "e2e_all_responses": {
+          "count": 30,
+          "mean_s": 0.7088124042997758,
+          "p50_s": 0.6980293719097972,
+          "p95_s": 0.8448518298100678
+        },
+        "e2e_success": {
+          "count": 30,
+          "mean_s": 0.7088124042997758,
+          "p50_s": 0.6980293719097972,
+          "p95_s": 0.8448518298100678
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 30,
+          "mean_s": 0.007663378297328836,
+          "p50_s": 0.0075161157245189625,
+          "p95_s": 0.00882703525853802
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.15260005531211693,
+          "p50_s": 0.13107459666207433,
+          "p95_s": 0.19407449546270067
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.24698560871256325,
+        "cpu_utilization_mean": 0.11686898145066558,
+        "load15_max": 13.275390625,
+        "load15_mean": 13.185988129162398,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 12.69287109375,
+        "load1_mean": 11.62630775326588,
+        "load5_max": 12.26416015625,
+        "load5_mean": 12.09554503393955,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 488
+      },
+      "concurrency": 128,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.2724338911396141,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 98.07620081026107,
+      "endpoint": "direct",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": null,
+      "gateway_samples": {
+        "active_requests_max": null,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": null,
+        "queue_depth_mean": null,
+        "samples": 0
+      },
+      "http_status_counts": {
+        "200": 30
+      },
+      "max_observed_in_flight": 3,
+      "output_tokens_per_s": 22.50291081594482,
+      "request_schedule_sha256": "d060f0d78ecfca56f20f84e74c5c64f8b50197ef93ec21e7333584e9f89700c7",
+      "requests": 30,
+      "response_throughput_per_s": 0.3058846055633641,
+      "stability_checks": {
+        "achieved_qps_ratio": true,
+        "deadline_miss_rate": true,
+        "error_rate": true,
+        "p95_inflation": true
+      },
+      "stable": true,
+      "successful_request_throughput_per_s": 0.3058846055633641,
+      "successful_task_throughput_per_s": 0.3058846055633641,
+      "verifier_successes": 30,
+      "verifier_task_success_rate": 1.0,
+      "vllm": {
+        "e2e": {
+          "count": 30,
+          "mean_s": 0.700162410736084,
+          "p50_s": 0.4444444444444445,
+          "p95_s": 0.95
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9582593250444049,
+          "accepted_tokens": 1079,
+          "draft_tokens": 1126,
+          "drafts": 1126,
+          "mean_acceptance_length": 1.958259325044405
+        },
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.1425027052561442,
+          "p50_s": 0.15454545454545454,
+          "p95_s": 0.24659090909090908
+        }
+      },
+      "vram": {
+        "mean_mib": 21598.994382022473,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21599.0,
+        "samples": 356
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.17075068066900034,
+        "cpu_utilization_mean": 0.11099847951600489,
+        "load15_max": 13.275390625,
+        "load15_mean": 13.26851222826087,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 11.4912109375,
+        "load1_mean": 11.360521399456522,
+        "load5_max": 12.18115234375,
+        "load5_mean": 12.15726902173913,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 23
+      },
+      "warmup_schedule_sha256": "1eda5e477486fdcd8c5d40b5cdd9a8a2b51b428aee226cb48a59d48eeb03f9a9"
+    },
+    {
+      "achieved_qps_ratio": 0.7484499054612819,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 0.5,
+      "cell_id": "capacity-direct-0.5qps",
+      "client": {
+        "dispatch_delay": {
+          "count": 30,
+          "mean_s": 0.0012346695798138778,
+          "p50_s": 0.0008270293474197388,
+          "p95_s": 0.0015413739252835511
+        },
+        "e2e_all_responses": {
+          "count": 30,
+          "mean_s": 0.6637660073116421,
+          "p50_s": 0.6583148841746151,
+          "p95_s": 0.7370392846874892
+        },
+        "e2e_success": {
+          "count": 30,
+          "mean_s": 0.6637660073116421,
+          "p50_s": 0.6583148841746151,
+          "p95_s": 0.7370392846874892
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 30,
+          "mean_s": 0.0074428807326284725,
+          "p50_s": 0.00745707040353279,
+          "p95_s": 0.007581408472676108
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.12369418529172739,
+          "p50_s": 0.12802436808124185,
+          "p95_s": 0.1455862123519182
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.24815820085304385,
+        "cpu_utilization_mean": 0.10910167733688313,
+        "load15_max": 13.4296875,
+        "load15_mean": 13.254231770833334,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 16.44677734375,
+        "load1_mean": 13.818978598840852,
+        "load5_max": 13.1982421875,
+        "load5_mean": 12.59322378211153,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 399
+      },
+      "concurrency": 128,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.2226824607105098,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 80.16568585578352,
+      "endpoint": "direct",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": null,
+      "gateway_samples": {
+        "active_requests_max": null,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": null,
+        "queue_depth_mean": null,
+        "samples": 0
+      },
+      "http_status_counts": {
+        "200": 30
+      },
+      "max_observed_in_flight": 1,
+      "output_tokens_per_s": 27.530482355884153,
+      "request_schedule_sha256": "a8e2d8183904a193ec399a9a821032ff2eefda92c0395e4fda22fc8891edb8d3",
+      "requests": 30,
+      "response_throughput_per_s": 0.37422495273064094,
+      "stability_checks": {
+        "achieved_qps_ratio": false,
+        "deadline_miss_rate": true,
+        "error_rate": true,
+        "p95_inflation": true
+      },
+      "stable": false,
+      "successful_request_throughput_per_s": 0.37422495273064094,
+      "successful_task_throughput_per_s": 0.37422495273064094,
+      "verifier_successes": 30,
+      "verifier_task_success_rate": 1.0,
+      "vllm": {
+        "e2e": {
+          "count": 30,
+          "mean_s": 0.6563438336054485,
+          "p50_s": 0.4,
+          "p95_s": 0.76
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9582593250444049,
+          "accepted_tokens": 1079,
+          "draft_tokens": 1126,
+          "drafts": 1126,
+          "mean_acceptance_length": 1.958259325044405
+        },
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.11448909441630045,
+          "p50_s": 0.1375,
+          "p95_s": 0.23875000000000002
+        }
+      },
+      "vram": {
+        "mean_mib": 21599.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21599.0,
+        "samples": 289
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.21375464684014867,
+        "cpu_utilization_mean": 0.19673779457745308,
+        "load15_max": 13.18359375,
+        "load15_mean": 13.18359375,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 12.69287109375,
+        "load1_mean": 12.69287109375,
+        "load5_max": 12.26416015625,
+        "load5_mean": 12.26416015625,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 6
+      },
+      "warmup_schedule_sha256": "1eda5e477486fdcd8c5d40b5cdd9a8a2b51b428aee226cb48a59d48eeb03f9a9"
+    },
+    {
+      "achieved_qps_ratio": 0.8031709281887278,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 0.75,
+      "cell_id": "capacity-direct-0.75qps",
+      "client": {
+        "dispatch_delay": {
+          "count": 30,
+          "mean_s": 0.0012107009378572306,
+          "p50_s": 0.0007627182640135288,
+          "p95_s": 0.0015350071247667062
+        },
+        "e2e_all_responses": {
+          "count": 30,
+          "mean_s": 0.7305849496896069,
+          "p50_s": 0.7001213342882693,
+          "p95_s": 0.994712447933852
+        },
+        "e2e_success": {
+          "count": 30,
+          "mean_s": 0.7305849496896069,
+          "p50_s": 0.7001213342882693,
+          "p95_s": 0.994712447933852
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 30,
+          "mean_s": 0.008128576830042776,
+          "p50_s": 0.0075905648782960515,
+          "p95_s": 0.009559096759001528
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.14060570873940983,
+          "p50_s": 0.12895075231790543,
+          "p95_s": 0.16737764431163668
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.26939740055139816,
+        "cpu_utilization_mean": 0.1316731310403455,
+        "load15_max": 13.43603515625,
+        "load15_mean": 13.367671843497984,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 15.29150390625,
+        "load1_mean": 14.36704574092742,
+        "load5_max": 13.27783203125,
+        "load5_mean": 13.048485540574596,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 248
+      },
+      "concurrency": 128,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.1383405539362381,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 49.80259941704571,
+      "endpoint": "direct",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": null,
+      "gateway_samples": {
+        "active_requests_max": null,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": null,
+        "queue_depth_mean": null,
+        "samples": 0
+      },
+      "http_status_counts": {
+        "200": 30
+      },
+      "max_observed_in_flight": 3,
+      "output_tokens_per_s": 44.31495596281306,
+      "request_schedule_sha256": "1289ffa1ed0aefd192189e496b038d48974f9b11ff2b7985f158d93e862d0fb4",
+      "requests": 30,
+      "response_throughput_per_s": 0.6023781961415459,
+      "stability_checks": {
+        "achieved_qps_ratio": false,
+        "deadline_miss_rate": true,
+        "error_rate": true,
+        "p95_inflation": true
+      },
+      "stable": false,
+      "successful_request_throughput_per_s": 0.6023781961415459,
+      "successful_task_throughput_per_s": 0.6023781961415459,
+      "verifier_successes": 30,
+      "verifier_task_success_rate": 1.0,
+      "vllm": {
+        "e2e": {
+          "count": 30,
+          "mean_s": 0.723902686436971,
+          "p50_s": 0.48,
+          "p95_s": 1.125
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9582593250444049,
+          "accepted_tokens": 1079,
+          "draft_tokens": 1126,
+          "drafts": 1126,
+          "mean_acceptance_length": 1.958259325044405
+        },
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.13256096045176188,
+          "p50_s": 0.15869565217391304,
+          "p95_s": 0.2467391304347826
+        }
+      },
+      "vram": {
+        "mean_mib": 21599.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21599.0,
+        "samples": 182
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.13129357087529048,
+        "cpu_utilization_mean": 0.11179813738790745,
+        "load15_max": 13.3603515625,
+        "load15_mean": 13.3603515625,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 14.70703125,
+        "load1_mean": 14.70703125,
+        "load5_max": 12.99365234375,
+        "load5_mean": 12.99365234375,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 6
+      },
+      "warmup_schedule_sha256": "1eda5e477486fdcd8c5d40b5cdd9a8a2b51b428aee226cb48a59d48eeb03f9a9"
+    },
+    {
+      "achieved_qps_ratio": 1.3837488049696458,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 1.0,
+      "cell_id": "capacity-direct-1qps",
+      "client": {
+        "dispatch_delay": {
+          "count": 30,
+          "mean_s": 0.0010473259103794892,
+          "p50_s": 0.0005250605754554272,
+          "p95_s": 0.001264841156080365
+        },
+        "e2e_all_responses": {
+          "count": 30,
+          "mean_s": 0.7825384600088,
+          "p50_s": 0.7801857604645193,
+          "p95_s": 0.9959084359928965
+        },
+        "e2e_success": {
+          "count": 30,
+          "mean_s": 0.7825384600088,
+          "p50_s": 0.7801857604645193,
+          "p95_s": 0.9959084359928965
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 30,
+          "mean_s": 0.00857197193341849,
+          "p50_s": 0.008314439304336741,
+          "p95_s": 0.01102946546219697
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.16039660445724924,
+          "p50_s": 0.1404367364011705,
+          "p95_s": 0.2602419767063111
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.27738654147104846,
+        "cpu_utilization_mean": 0.12208980931476943,
+        "load15_max": 13.52880859375,
+        "load15_mean": 13.493038632454128,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 16.17724609375,
+        "load1_mean": 15.49457067087156,
+        "load5_max": 13.57666015625,
+        "load5_mean": 13.46554705418578,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 109
+      },
+      "concurrency": 128,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.060222876459981006,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 21.68023552559316,
+      "endpoint": "direct",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": null,
+      "gateway_samples": {
+        "active_requests_max": null,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": null,
+        "queue_depth_mean": null,
+        "samples": 0
+      },
+      "http_status_counts": {
+        "200": 30
+      },
+      "max_observed_in_flight": 5,
+      "output_tokens_per_s": 101.79778708560028,
+      "request_schedule_sha256": "f3d9a1897d621037a20a8496e5f874f443be4543bf0a262463210a4fd7b96541",
+      "requests": 30,
+      "response_throughput_per_s": 1.3837488049696458,
+      "stability_checks": {
+        "achieved_qps_ratio": true,
+        "deadline_miss_rate": true,
+        "error_rate": true,
+        "p95_inflation": true
+      },
+      "stable": true,
+      "successful_request_throughput_per_s": 1.3837488049696458,
+      "successful_task_throughput_per_s": 1.3837488049696458,
+      "verifier_successes": 30,
+      "verifier_task_success_rate": 1.0,
+      "vllm": {
+        "e2e": {
+          "count": 30,
+          "mean_s": 0.7749766826629638,
+          "p50_s": 0.6666666666666667,
+          "p95_s": 0.990909090909091
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9582593250444049,
+          "accepted_tokens": 1079,
+          "draft_tokens": 1126,
+          "drafts": 1126,
+          "mean_acceptance_length": 1.958259325044405
+        },
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.15170213381449382,
+          "p50_s": 0.15714285714285714,
+          "p95_s": 0.3125
+        }
+      },
+      "vram": {
+        "mean_mib": 21599.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21599.0,
+        "samples": 79
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.1979045401629802,
+        "cpu_utilization_mean": 0.18390246638974617,
+        "load15_max": 13.46142578125,
+        "load15_mean": 13.416178385416666,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 15.32177734375,
+        "load1_mean": 14.701985677083334,
+        "load5_max": 13.36669921875,
+        "load5_mean": 13.224446614583334,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 6
+      },
+      "warmup_schedule_sha256": "1eda5e477486fdcd8c5d40b5cdd9a8a2b51b428aee226cb48a59d48eeb03f9a9"
+    },
+    {
+      "achieved_qps_ratio": 1.3954065070260768,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 1.5,
+      "cell_id": "capacity-direct-1.5qps",
+      "client": {
+        "dispatch_delay": {
+          "count": 30,
+          "mean_s": 0.001083849649876356,
+          "p50_s": 0.000724094919860363,
+          "p95_s": 0.0015405213925987478
+        },
+        "e2e_all_responses": {
+          "count": 30,
+          "mean_s": 0.7826982246401409,
+          "p50_s": 0.7928518555127084,
+          "p95_s": 0.907845860114321
+        },
+        "e2e_success": {
+          "count": 30,
+          "mean_s": 0.7826982246401409,
+          "p50_s": 0.7928518555127084,
+          "p95_s": 0.907845860114321
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 30,
+          "mean_s": 0.008903172608471682,
+          "p50_s": 0.008786146951091454,
+          "p95_s": 0.01138610305735852
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.14023531017204124,
+          "p50_s": 0.13960395194590092,
+          "p95_s": 0.19735416430048644
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.14902723735408563,
+        "cpu_utilization_mean": 0.1128733958769002,
+        "load15_max": 13.52880859375,
+        "load15_mean": 13.463753478167808,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 15.43408203125,
+        "load1_mean": 14.561904698202055,
+        "load5_max": 13.5830078125,
+        "load5_mean": 13.379488174229452,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 73
+      },
+      "concurrency": 128,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.039813169335118595,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 14.332740960642695,
+      "endpoint": "direct",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": null,
+      "gateway_samples": {
+        "active_requests_max": null,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": null,
+        "queue_depth_mean": null,
+        "samples": 0
+      },
+      "http_status_counts": {
+        "200": 30
+      },
+      "max_observed_in_flight": 5,
+      "output_tokens_per_s": 153.9831080503276,
+      "request_schedule_sha256": "74c6907b9a8774d8a484b080c737577aa67cbee213b663fcf599edbaf01c5020",
+      "requests": 30,
+      "response_throughput_per_s": 2.0931097605391153,
+      "stability_checks": {
+        "achieved_qps_ratio": true,
+        "deadline_miss_rate": true,
+        "error_rate": true,
+        "p95_inflation": true
+      },
+      "stable": true,
+      "successful_request_throughput_per_s": 2.0931097605391153,
+      "successful_task_throughput_per_s": 2.0931097605391153,
+      "verifier_successes": 30,
+      "verifier_task_success_rate": 1.0,
+      "vllm": {
+        "e2e": {
+          "count": 30,
+          "mean_s": 0.7748979886372884,
+          "p50_s": 0.6315789473684211,
+          "p95_s": 0.9727272727272728
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9582593250444049,
+          "accepted_tokens": 1079,
+          "draft_tokens": 1126,
+          "drafts": 1126,
+          "mean_acceptance_length": 1.958259325044405
+        },
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.13142826557159423,
+          "p50_s": 0.15217391304347827,
+          "p95_s": 0.24021739130434783
+        }
+      },
+      "vram": {
+        "mean_mib": 21599.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21599.0,
+        "samples": 53
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.11581811115429463,
+        "cpu_utilization_mean": 0.10566932040756286,
+        "load15_max": 13.4716796875,
+        "load15_mean": 13.4716796875,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 14.8203125,
+        "load1_mean": 14.8203125,
+        "load5_max": 13.40087890625,
+        "load5_mean": 13.40087890625,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 6
+      },
+      "warmup_schedule_sha256": "1eda5e477486fdcd8c5d40b5cdd9a8a2b51b428aee226cb48a59d48eeb03f9a9"
+    },
+    {
+      "achieved_qps_ratio": 1.2506361208876775,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 2.0,
+      "cell_id": "capacity-direct-2qps",
+      "client": {
+        "dispatch_delay": {
+          "count": 30,
+          "mean_s": 0.001249523429820935,
+          "p50_s": 0.0006585195660591125,
+          "p95_s": 0.00208127424120903
+        },
+        "e2e_all_responses": {
+          "count": 30,
+          "mean_s": 0.8176256416986386,
+          "p50_s": 0.7954965052194893,
+          "p95_s": 1.0044957456178962
+        },
+        "e2e_success": {
+          "count": 30,
+          "mean_s": 0.8176256416986386,
+          "p50_s": 0.7954965052194893,
+          "p95_s": 1.0044957456178962
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 30,
+          "mean_s": 0.009384149960379635,
+          "p50_s": 0.00903094488321178,
+          "p95_s": 0.011900061841776121
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.13817606683199604,
+          "p50_s": 0.142195837572217,
+          "p95_s": 0.18415824561379848
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.14660917287338304,
+        "cpu_utilization_mean": 0.1139741314603801,
+        "load15_max": 13.52880859375,
+        "load15_mean": 13.49284387807377,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 15.43408203125,
+        "load1_mean": 14.709552702356557,
+        "load5_max": 13.5830078125,
+        "load5_mean": 13.471687692110656,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 61
+      },
+      "concurrency": 128,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.03331637873779982,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 11.993896345607936,
+      "endpoint": "direct",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": null,
+      "gateway_samples": {
+        "active_requests_max": null,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": null,
+        "queue_depth_mean": null,
+        "samples": 0
+      },
+      "http_status_counts": {
+        "200": 30
+      },
+      "max_observed_in_flight": 6,
+      "output_tokens_per_s": 184.0102612532736,
+      "request_schedule_sha256": "e26e3c5878538be7938f6d8ef07f80104d2fc32ec5f046d16155413108b956bb",
+      "requests": 30,
+      "response_throughput_per_s": 2.501272241775355,
+      "stability_checks": {
+        "achieved_qps_ratio": true,
+        "deadline_miss_rate": true,
+        "error_rate": true,
+        "p95_inflation": true
+      },
+      "stable": true,
+      "successful_request_throughput_per_s": 2.501272241775355,
+      "successful_task_throughput_per_s": 2.501272241775355,
+      "verifier_successes": 30,
+      "verifier_task_success_rate": 1.0,
+      "vllm": {
+        "e2e": {
+          "count": 30,
+          "mean_s": 0.8094929456710815,
+          "p50_s": 0.75,
+          "p95_s": 1.125
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9582593250444049,
+          "accepted_tokens": 1079,
+          "draft_tokens": 1126,
+          "drafts": 1126,
+          "mean_acceptance_length": 1.958259325044405
+        },
+        "ttft": {
+          "count": 30,
+          "mean_s": 0.1296401023864746,
+          "p50_s": 0.15217391304347827,
+          "p95_s": 0.24021739130434783
+        }
+      },
+      "vram": {
+        "mean_mib": 21599.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21599.0,
+        "samples": 44
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.11463981409759871,
+        "cpu_utilization_mean": 0.10457810493346968,
+        "load15_max": 13.52880859375,
+        "load15_mean": 13.52880859375,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 15.43408203125,
+        "load1_mean": 15.43408203125,
+        "load5_max": 13.5830078125,
+        "load5_mean": 13.5830078125,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 6
+      },
+      "warmup_schedule_sha256": "1eda5e477486fdcd8c5d40b5cdd9a8a2b51b428aee226cb48a59d48eeb03f9a9"
+    }
+  ],
+  "config_hash": "1d96ef18063b09ed90fb3e87c74371ae456a5777d86b21c92d5d93e4dedd70f7",
+  "config_path": "configs/phase5/gateway_r1b_mtp.yaml",
+  "contaminated_attempts": [],
+  "finished_at": "2026-08-19T07:59:23.786164+00:00",
+  "git_sha": "2c5d6a4a364f13e84e999dfd78d32288d002f205",
+  "max_stable_concurrency": 6,
+  "measured_capacity_qps": 2.0,
+  "phase": 5,
+  "raw_artifact": "results/phase5/raw/capacity.json",
+  "request_artifact": {
+    "path": "results/phase5/requests/capacity.requests.jsonl",
+    "rows": 180,
+    "sha256": "4bdab41220e41990ea607678255f4c50a5f19e470efb6babf488a418b3f412ba"
+  },
+  "stage": "capacity",
+  "started_at": "2026-08-19T07:59:23.774335+00:00",
+  "status": "complete",
+  "version": 1
+}

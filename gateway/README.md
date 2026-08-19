@@ -179,7 +179,16 @@ numbers and the resume sentence below are owned by `gateway/bench/phase5_report.
 they must never be edited around the raw run record.
 
 <!-- PHASE5_BENCH_RESULTS_START -->
-Remote benchmark results have not been generated yet.
+## Remote benchmark result
+
+- R1b BF16 + native-MTP vLLM capacity: **2.000 QPS**.
+- Stable-cell gateway E2E overhead: median **p50 0.3%, p95 0.5%**.
+- Profiled optimization: E2E p50 **3.655 → 3.821 s**; throughput **7.752 → 8.029 req/s**.
+- Full methodology, overload semantics, disclosure, raw-artifact pointers, and gate checklist: [`results/phase5_gateway_report.md`](../results/phase5_gateway_report.md).
+
+Resume claim draft:
+
+> 在单卡 RTX 4090 上为 R1b BF16 + 原生 MTP vLLM 实现 C++20 token-aware admission gateway：稳定单元格端到端 p50 中位开销 0.3%，5× 过载时队列峰值 10、HTTP 502/upstream_error 快速失败 p50 5.0 ms，恢复 4.485 s（裸 vLLM 4.649 s）。
 <!-- PHASE5_BENCH_RESULTS_END -->
 
 ## D7 scope walls

@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "status": "complete",
+  "phase": 5,
+  "profiler": "GNU gprof 2.38 (-pg); matched 80-request gateway profile cells, with multithread call counts interpreted directionally",
+  "baseline_git_sha": "2c5d6a4a364f13e84e999dfd78d32288d002f205",
+  "optimized_git_sha": "9dff2a6758a1ed2facd5f132d0f22de182a592bb",
+  "baseline_profile": {
+    "path": "results/phase5/profile/gprof-before.txt",
+    "sha256": "1f5c0bd3deaef9480892ff07613076e9ba6cc41864de3f65a0f979e5fee8d764",
+    "gmon_path": "results/phase5/profile/gmon-before.38119",
+    "gmon_sha256": "732543b86f5cbd38e50902b7b8ebf489df547fd8a3e0acc08666848ecd798546"
+  },
+  "optimized_profile": {
+    "path": "results/phase5/profile/gprof-after.txt",
+    "sha256": "245dfcaf8cc135057f816723b3307fc5e729c161c9440a3f19c4786bbaff413b",
+    "gmon_path": "results/phase5/profile/gmon-after.41813",
+    "gmon_sha256": "410575648e84f6b04ed94ef8a0a86bc03af03bf4c6b6f17e896ae2de3c530a13"
+  },
+  "largest_gateway_cost": {
+    "symbol": "boost::asio::detail::scheduler::do_run_one",
+    "self_time_pct": 16.28,
+    "self_seconds": 0.07,
+    "calls": 50920,
+    "summary": "boost::asio::detail::scheduler::do_run_one led sampled gateway self time at 16.28% (0.07 s, 50,920 calls); admission polling accounted for 26,946 calls in the matched baseline profile"
+  },
+  "optimization": {
+    "file": "gateway/src/gateway_server.cpp",
+    "summary": "Adaptive queued-admission polling backoff from 5 ms to 10 ms and then 20 ms while preserving immediate first admission and deadline semantics"
+  },
+  "profile_counters": {
+    "admission_poll_calls": {
+      "before": 26946,
+      "after": 6525,
+      "delta_pct": -75.78
+    },
+    "timer_get_ready_calls": {
+      "before": 24644,
+      "after": 6011,
+      "delta_pct": -75.61
+    },
+    "scheduler_do_run_one_calls": {
+      "before": 50920,
+      "after": 15465,
+      "delta_pct": -69.63
+    }
+  },
+  "matched_benchmark": {
+    "request_schedule_sha256": "5947fb6de726c0794623f1cc389248e0c4d5e72e09b770b604a3801117f9ce07",
+    "e2e_p50_before_s": 3.655281638726592,
+    "e2e_p50_after_s": 3.820813227444887,
+    "e2e_p50_delta_pct": 4.5286,
+    "e2e_p95_before_s": 5.073618428781629,
+    "e2e_p95_after_s": 4.936696241702884,
+    "e2e_p95_delta_pct": -2.6987,
+    "throughput_before_per_s": 7.752389575544842,
+    "throughput_after_per_s": 8.02909925505347,
+    "throughput_delta_pct": 3.5693,
+    "load1_max_before": 13.3545,
+    "load1_max_after": 16.8496,
+    "cpu_utilization_max_before": 0.1621,
+    "cpu_utilization_max_after": 0.231738
+  },
+  "interpretation": "The matched profile shows lower p95 latency and higher throughput with materially fewer polling-related calls, while p50 latency regressed; the mixed result is retained without claiming a universal latency win."
+}

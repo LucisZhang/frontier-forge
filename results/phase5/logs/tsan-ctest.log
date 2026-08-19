@@ -1,0 +1,72 @@
+[OUTPUT] 
+Internal ctest changing into directory: /root/autodl-tmp/frontier-forge/.tmp-phase5/worktree/gateway/build/tsan
+
+[HANDLER_OUTPUT] 
+Test project /root/autodl-tmp/frontier-forge/.tmp-phase5/worktree/gateway/build/tsan
+
+      Start  1: AdmissionControllerTest.AdmitsWithinPrimaryTokenBudget
+ 1/31 Test  #1: AdmissionControllerTest.AdmitsWithinPrimaryTokenBudget .....................   Passed    0.03 sec
+      Start  2: AdmissionControllerTest.DegradesWhenPrimaryUtilizationCrossesThreshold
+ 2/31 Test  #2: AdmissionControllerTest.DegradesWhenPrimaryUtilizationCrossesThreshold .....   Passed    0.03 sec
+      Start  3: AdmissionControllerTest.BoundsQueueAndPromotesAfterCompletion
+ 3/31 Test  #3: AdmissionControllerTest.BoundsQueueAndPromotesAfterCompletion ..............   Passed    0.02 sec
+      Start  4: AdmissionControllerTest.RejectsDeadlineThatCannotSurviveQueue
+ 4/31 Test  #4: AdmissionControllerTest.RejectsDeadlineThatCannotSurviveQueue ..............   Passed    0.03 sec
+      Start  5: AdmissionControllerTest.RejectsOversizeAndUnavailableRequests
+ 5/31 Test  #5: AdmissionControllerTest.RejectsOversizeAndUnavailableRequests ..............   Passed    0.02 sec
+      Start  6: AdmissionControllerTest.CancelsQueuedAndReadyTicketsWithoutLeakingTokens
+ 6/31 Test  #6: AdmissionControllerTest.CancelsQueuedAndReadyTicketsWithoutLeakingTokens ...   Passed    0.03 sec
+      Start  7: AdmissionControllerTest.ExpiresTicketsAtTheirDeadline
+ 7/31 Test  #7: AdmissionControllerTest.ExpiresTicketsAtTheirDeadline ......................   Passed    0.03 sec
+      Start  8: AdmissionControllerTest.ConcurrentAdmissionsNeverExceedCapacity
+ 8/31 Test  #8: AdmissionControllerTest.ConcurrentAdmissionsNeverExceedCapacity ............   Passed    0.09 sec
+      Start  9: CircuitBreakerTest.OpensAfterThresholdAndClosesAfterSuccessfulProbe
+ 9/31 Test  #9: CircuitBreakerTest.OpensAfterThresholdAndClosesAfterSuccessfulProbe ........   Passed    0.03 sec
+      Start 10: CircuitBreakerTest.FailedProbeReopensCircuit
+10/31 Test #10: CircuitBreakerTest.FailedProbeReopensCircuit ...............................   Passed    0.02 sec
+      Start 11: GatewayConfigTest.ParsesRouteAndAdmissionFlags
+11/31 Test #11: GatewayConfigTest.ParsesRouteAndAdmissionFlags .............................   Passed    0.03 sec
+      Start 12: GatewayConfigTest.RejectsUnknownAndInvalidFlags
+12/31 Test #12: GatewayConfigTest.RejectsUnknownAndInvalidFlags ............................   Passed    0.03 sec
+      Start 13: GatewayIntegrationTest.PassesThroughOpenAIJsonAndExposesMetrics
+13/31 Test #13: GatewayIntegrationTest.PassesThroughOpenAIJsonAndExposesMetrics ............   Passed    0.11 sec
+      Start 14: GatewayIntegrationTest.ReusesKeepAliveConnectionsFromTheBoundedPool
+14/31 Test #14: GatewayIntegrationTest.ReusesKeepAliveConnectionsFromTheBoundedPool ........   Passed    0.14 sec
+      Start 15: GatewayIntegrationTest.CircuitBreakerDegradesToFallbackModel
+15/31 Test #15: GatewayIntegrationTest.CircuitBreakerDegradesToFallbackModel ...............   Passed    0.12 sec
+      Start 16: GatewayIntegrationTest.StreamsSseWithoutBufferingWholeResponse
+16/31 Test #16: GatewayIntegrationTest.StreamsSseWithoutBufferingWholeResponse .............   Passed    0.15 sec
+      Start 17: GatewayIntegrationTest.ConvertsInjectedLatencyToDeadlineFailure
+17/31 Test #17: GatewayIntegrationTest.ConvertsInjectedLatencyToDeadlineFailure ............   Passed    0.13 sec
+      Start 18: GatewayIntegrationTest.ConvertsUpstreamDisconnectToBadGateway
+18/31 Test #18: GatewayIntegrationTest.ConvertsUpstreamDisconnectToBadGateway ..............   Passed    0.09 sec
+      Start 19: GatewayIntegrationTest.MidStreamDisconnectTripsCircuitForNextRequest
+19/31 Test #19: GatewayIntegrationTest.MidStreamDisconnectTripsCircuitForNextRequest .......   Passed    0.12 sec
+      Start 20: GatewayIntegrationTest.BoundsQueueAndFastRejectsExcessLoad
+20/31 Test #20: GatewayIntegrationTest.BoundsQueueAndFastRejectsExcessLoad .................   Passed    0.62 sec
+      Start 21: GatewayIntegrationTest.EnforcesPerClientRateLimit
+21/31 Test #21: GatewayIntegrationTest.EnforcesPerClientRateLimit ..........................   Passed    0.11 sec
+      Start 22: GatewayIntegrationTest.RejectsRequestBodyAboveConfiguredBound
+22/31 Test #22: GatewayIntegrationTest.RejectsRequestBodyAboveConfiguredBound ..............   Passed    0.07 sec
+      Start 23: GatewayIntegrationTest.HealthChecksChangeReadiness
+23/31 Test #23: GatewayIntegrationTest.HealthChecksChangeReadiness .........................   Passed    0.17 sec
+      Start 24: GatewayIntegrationTest.DownstreamCancellationReleasesAdmissionLease
+24/31 Test #24: GatewayIntegrationTest.DownstreamCancellationReleasesAdmissionLease ........   Passed    0.08 sec
+      Start 25: GatewayMetricsTest.RendersRequiredPrometheusFamilies
+25/31 Test #25: GatewayMetricsTest.RendersRequiredPrometheusFamilies .......................   Passed    0.03 sec
+      Start 26: PerClientRateLimiterTest.EnforcesRequestAndTokenBucketsPerClient
+26/31 Test #26: PerClientRateLimiterTest.EnforcesRequestAndTokenBucketsPerClient ...........   Passed    0.03 sec
+      Start 27: PerClientRateLimiterTest.EvictsOldestClientAtCardinalityBound
+27/31 Test #27: PerClientRateLimiterTest.EvictsOldestClientAtCardinalityBound ..............   Passed    0.03 sec
+      Start 28: TokenEstimatorTest.EstimatesOpenAIChatRequestWithoutTokenizer
+28/31 Test #28: TokenEstimatorTest.EstimatesOpenAIChatRequestWithoutTokenizer ..............   Passed    0.02 sec
+      Start 29: TokenEstimatorTest.HandlesUnicodeAndClampsOutputBudget
+29/31 Test #29: TokenEstimatorTest.HandlesUnicodeAndClampsOutputBudget .....................   Passed    0.03 sec
+      Start 30: TokenEstimatorTest.RejectsMalformedOrNonObjectJson
+30/31 Test #30: TokenEstimatorTest.RejectsMalformedOrNonObjectJson .........................   Passed    0.03 sec
+      Start 31: TokenEstimatorTest.RewritesOnlyTheModelForFallbackRoute
+31/31 Test #31: TokenEstimatorTest.RewritesOnlyTheModelForFallbackRoute ....................   Passed    0.03 sec
+
+100% tests passed, 0 tests failed out of 31
+
+Total Test time (real) =   2.53 sec

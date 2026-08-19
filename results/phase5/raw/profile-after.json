@@ -1,0 +1,191 @@
+{
+  "cells": [
+    {
+      "achieved_qps_ratio": null,
+      "arrival_process": "closed_loop_fixed_concurrency",
+      "arrival_rate_qps": null,
+      "cell_id": "profile-gateway-mixed-c32",
+      "client": {
+        "dispatch_delay": {
+          "count": 80,
+          "mean_s": 2.458412826794665,
+          "p50_s": 2.1406173747964203,
+          "p95_s": 6.432886696653441
+        },
+        "e2e_all_responses": {
+          "count": 80,
+          "mean_s": 3.4951312299002892,
+          "p50_s": 3.820813227444887,
+          "p95_s": 4.936696241702884
+        },
+        "e2e_success": {
+          "count": 80,
+          "mean_s": 3.4951312299002892,
+          "p50_s": 3.820813227444887,
+          "p95_s": 4.936696241702884
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 80,
+          "mean_s": 0.019480955551544995,
+          "p50_s": 0.01993030240081274,
+          "p95_s": 0.023150920284800786
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 80,
+          "mean_s": 2.075028825365007,
+          "p50_s": 2.444518494885415,
+          "p95_s": 3.2914247348904606
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.23173803526448367,
+        "cpu_utilization_mean": 0.1378905557783953,
+        "load15_max": 14.029296875,
+        "load15_mean": 14.025045955882353,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 16.849609375,
+        "load1_mean": 16.628657322303923,
+        "load5_max": 14.93798828125,
+        "load5_mean": 14.914665670955882,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 51
+      },
+      "concurrency": 32,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.010378914332250133,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 9.963757758960128,
+      "endpoint": "gateway",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": {
+        "fallback_share": 0.0,
+        "measurement_side": "gateway_prometheus_delta",
+        "queue_high_watermark_process": 19.0,
+        "response_classes": {
+          "2xx": 80,
+          "4xx": 0,
+          "5xx": 0
+        },
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 80,
+          "queued": 55,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 0,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        }
+      },
+      "gateway_samples": {
+        "active_requests_max": 18.0,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": 19.0,
+        "queue_depth_mean": 13.105263157894736,
+        "samples": 95
+      },
+      "http_status_counts": {
+        "200": 80
+      },
+      "max_observed_in_flight": 32,
+      "output_tokens_per_s": 593.5511624298279,
+      "request_schedule_sha256": "5947fb6de726c0794623f1cc389248e0c4d5e72e09b770b604a3801117f9ce07",
+      "requests": 80,
+      "response_throughput_per_s": 8.02909925505347,
+      "successful_request_throughput_per_s": 8.02909925505347,
+      "successful_task_throughput_per_s": 8.02909925505347,
+      "verifier_successes": 80,
+      "verifier_task_success_rate": 1.0,
+      "vllm": {
+        "e2e": {
+          "count": 80,
+          "mean_s": 1.8170126080513,
+          "p50_s": 1.790909090909091,
+          "p95_s": 2.5
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9588723051409619,
+          "accepted_tokens": 2891,
+          "draft_tokens": 3015,
+          "drafts": 3015,
+          "mean_acceptance_length": 1.9588723051409618
+        },
+        "ttft": {
+          "count": 80,
+          "mean_s": 0.39680521190166473,
+          "p50_s": 0.34782608695652173,
+          "p95_s": 1.0
+        }
+      },
+      "vram": {
+        "mean_mib": 21599.222222222223,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21601.0,
+        "samples": 36
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.16402116402116407,
+        "cpu_utilization_mean": 0.13537328513428176,
+        "load15_max": 14.029296875,
+        "load15_mean": 14.019252232142858,
+        "load1_contamination_threshold": 64.0,
+        "load1_max": 16.849609375,
+        "load1_mean": 16.723353794642858,
+        "load5_max": 14.93798828125,
+        "load5_mean": 14.908830915178571,
+        "logical_cpu_count": 128,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 7
+      },
+      "warmup_schedule_sha256": "4a3ecf4b3a626a505813f8792459496e9288b2dda703a846d298e29e46bf7367"
+    }
+  ],
+  "config_hash": "1d96ef18063b09ed90fb3e87c74371ae456a5777d86b21c92d5d93e4dedd70f7",
+  "config_path": "configs/phase5/gateway_r1b_mtp.yaml",
+  "contaminated_attempts": [],
+  "finished_at": "2026-08-19T08:05:34.346838+00:00",
+  "git_sha": "9dff2a6758a1ed2facd5f132d0f22de182a592bb",
+  "phase": 5,
+  "profile_contract": {
+    "concurrency": 32,
+    "external_profile_required": true,
+    "length_profile": "mixed",
+    "measurement_requests": 80
+  },
+  "raw_artifact": "results/phase5/raw/profile-after.json",
+  "request_artifact": {
+    "path": "results/phase5/requests/profile-after.requests.jsonl",
+    "rows": 80,
+    "sha256": "1eb3e633e6fe21c7a445effecc58e9c3c74373a811ae925b66cb0c8f5b540e9e"
+  },
+  "stage": "profile-after",
+  "started_at": "2026-08-19T08:05:34.340322+00:00",
+  "status": "complete",
+  "version": 1
+}

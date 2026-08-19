@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "status": "complete",
+  "phase": 5,
+  "git_sha": "9dff2a6758a1ed2facd5f132d0f22de182a592bb",
+  "verified_at": "2026-08-19T08:24:14Z",
+  "asan_ubsan": "green",
+  "asan_ubsan_details": {
+    "command": "make gateway-test",
+    "tests_passed": 31,
+    "tests_failed": 0,
+    "compiler": "Apple clang 21.0.0",
+    "cmake": "4.2.3",
+    "log": {
+      "path": "results/phase5/logs/asan-ubsan-ctest.log",
+      "sha256": "dd7f04e6a3bb73432e6e252acf3b750ec9ca9ed052e5029554ca44b9751a2bbe"
+    }
+  },
+  "tsan": "green",
+  "tsan_details": {
+    "command": "TSAN_OPTIONS='halt_on_error=1 history_size=7' .cache-phase5/toolenv/bin/ctest --test-dir gateway/build/tsan --output-on-failure",
+    "tests_passed": 31,
+    "tests_failed": 0,
+    "environment": "remote Linux x86_64; native repository-local build, no Docker or system installation",
+    "compiler": "g++ 11.4.0",
+    "cmake": "3.31.6",
+    "googletest": {
+      "version": "v1.15.2",
+      "git_sha": "b514bdc898e2951020cbdca1304b75f5950d1f59",
+      "transport_tar_sha256": "3bb89c36b389465c515f5ba317fb3a2449f13447beddb17f64afa72579609cbe"
+    },
+    "log": {
+      "path": "results/phase5/logs/tsan-ctest.log",
+      "sha256": "920bdf6b72d6beb6184fe53f3c3e6b39d4bb12ec0a0e6c2fdd1b0822e53e3f23"
+    }
+  },
+  "failure_injection": "green",
+  "failure_injection_details": {
+    "suite": "GatewayIntegrationTest on mock upstream under both ASan/UBSan and TSan",
+    "covered_tests": [
+      "CircuitBreakerDegradesToFallbackModel",
+      "ConvertsInjectedLatencyToDeadlineFailure",
+      "ConvertsUpstreamDisconnectToBadGateway",
+      "MidStreamDisconnectTripsCircuitForNextRequest",
+      "BoundsQueueAndFastRejectsExcessLoad",
+      "HealthChecksChangeReadiness",
+      "DownstreamCancellationReleasesAdmissionLease"
+    ]
+  },
+  "repository_verification": {
+    "status": "green",
+    "command": "make test",
+    "pytest_passed": 164,
+    "ruff_check": "green",
+    "ruff_format_check": "green"
+  },
+  "discarded_environment_attempts": [
+    {
+      "command": "make gateway-test",
+      "reason": "desktop sandbox denied loopback bind before integration assertions; identical command passed after loopback permission"
+    },
+    {
+      "command": "make test",
+      "reason": "desktop sandbox denied access to the existing uv cache before pytest; identical command passed with cache access"
+    }
+  ]
+}

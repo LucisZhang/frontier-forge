@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-08-19T08:15:32.549749+00:00",
+  "git_sha": "9dff2a6758a1ed2facd5f132d0f22de182a592bb",
+  "inputs": {
+    "raw_receipt": {
+      "path": "results/phase5/raw/phase5_gateway_bench.json",
+      "sha256": "6e71a2455db0c69d5a2fc10447e9243c801aca297e3bbca19c38fa5c70176f29"
+    },
+    "verification": {
+      "path": "results/phase5/verification.json",
+      "sha256": "b33ddb2b973fac95e5e8e1034384909956669790db6eab01670b9828d316c816"
+    }
+  },
+  "outputs": {
+    "gateway_readme": {
+      "path": "gateway/README.md",
+      "sha256": "1eb8aac07e35a06cb17ea3ec5b2d2cc05e05990dc6fb1e23e57927081e3ed24c"
+    },
+    "report": {
+      "path": "results/phase5_gateway_report.md",
+      "sha256": "e288e83fb9f00e9a63cef1e50bbc124711cacf0fc1ce33271a392b44c42bff60"
+    }
+  },
+  "phase": 5,
+  "run_id": "phase5_gateway_r1b_bf16_native_mtp",
+  "status": "complete",
+  "version": 1
+}
