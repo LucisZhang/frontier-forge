@@ -344,9 +344,12 @@ net::awaitable<void> GatewayServer::handle_session(tcp::socket socket) {
         },
         net::detached);
     net::steady_timer timer(executor_);
+    auto poll_interval = config_.queue_poll_interval;
+    const auto maximum_poll_interval =
+        std::max(config_.queue_poll_interval, 20ms);
     while (admission.kind == AdmissionKind::queued &&
            !cancellation->client_gone.load(std::memory_order_relaxed)) {
-      timer.expires_after(config_.queue_poll_interval);
+      timer.expires_after(poll_interval);
       boost::system::error_code wait_error;
       co_await timer.async_wait(
           net::redirect_error(net::use_awaitable, wait_error));
@@ -355,6 +358,10 @@ net::awaitable<void> GatewayServer::handle_session(tcp::socket socket) {
       }
       admission = admission_.poll(*queued_ticket,
                                   route_availability(SteadyClock::now()));
+      if (admission.kind == AdmissionKind::queued &&
+          poll_interval < maximum_poll_interval) {
+        poll_interval = std::min(maximum_poll_interval, poll_interval * 2);
+      }
     }
     if (cancellation->client_gone.load(std::memory_order_relaxed)) {
       const bool cancelled = admission_.cancel(*queued_ticket);
