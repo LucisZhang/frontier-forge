@@ -10,6 +10,10 @@ from pathlib import Path
 from statistics import fmean
 from typing import Any
 
+CGROUP_V2_CPU_MAX = Path("/sys/fs/cgroup/cpu.max")
+CGROUP_V1_CPU_QUOTA = Path("/sys/fs/cgroup/cpu/cpu.cfs_quota_us")
+CGROUP_V1_CPU_PERIOD = Path("/sys/fs/cgroup/cpu/cpu.cfs_period_us")
+
 
 @dataclass(frozen=True)
 class CpuTimes:
@@ -41,13 +45,51 @@ def _cpu_utilization(previous: CpuTimes | None, current: CpuTimes | None) -> flo
     return min(1.0, max(0.0, 1.0 - idle_delta / total_delta))
 
 
+def _read_positive_number(path: Path) -> float | None:
+    try:
+        value = float(path.read_text().strip())
+    except (FileNotFoundError, ValueError):
+        return None
+    return value if value > 0 else None
+
+
+def effective_cpu_count(
+    *,
+    host_logical_cpu_count: int | None = None,
+    cgroup_v2_cpu_max: Path = CGROUP_V2_CPU_MAX,
+    cgroup_v1_cpu_quota: Path = CGROUP_V1_CPU_QUOTA,
+    cgroup_v1_cpu_period: Path = CGROUP_V1_CPU_PERIOD,
+) -> tuple[float, str]:
+    """Return the CPU capacity visible to this process and its evidence source."""
+
+    host_count = float(host_logical_cpu_count or os.cpu_count() or 1)
+    try:
+        quota_text, period_text = cgroup_v2_cpu_max.read_text().split()[:2]
+        if quota_text != "max":
+            quota = float(quota_text)
+            period = float(period_text)
+            if quota > 0 and period > 0:
+                return max(1.0, min(host_count, quota / period)), "cgroup_v2_cpu.max"
+    except (FileNotFoundError, IndexError, ValueError):
+        pass
+
+    quota = _read_positive_number(cgroup_v1_cpu_quota)
+    period = _read_positive_number(cgroup_v1_cpu_period)
+    if quota is not None and period is not None:
+        return max(1.0, min(host_count, quota / period)), "cgroup_v1_cpu_quota"
+    return host_count, "os.cpu_count"
+
+
 class SystemLoadSampler:
     """Sample host load and aggregate CPU utilization without extra dependencies."""
 
     def __init__(self, *, enabled: bool, interval_s: float = 0.2) -> None:
         self.enabled = enabled
         self.interval_s = interval_s
-        self.logical_cpu_count = os.cpu_count() or 1
+        self.host_logical_cpu_count = os.cpu_count() or 1
+        self.logical_cpu_count, self.core_count_source = effective_cpu_count(
+            host_logical_cpu_count=self.host_logical_cpu_count
+        )
         self.load_threshold = self.logical_cpu_count / 2
         self.samples: list[dict[str, float | None]] = []
         self._stop = asyncio.Event()
@@ -99,6 +141,8 @@ class SystemLoadSampler:
         return {
             "measurement_side": "server_host_getloadavg_and_proc_stat",
             "logical_cpu_count": self.logical_cpu_count,
+            "host_logical_cpu_count": self.host_logical_cpu_count,
+            "core_count_source": self.core_count_source,
             "load1_contamination_threshold": self.load_threshold,
             "samples": len(self.samples),
             "load1_mean": fmean(loads1) if loads1 else None,

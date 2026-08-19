@@ -26,7 +26,7 @@ from forge.bench.runner import validate_existing_receipt
 from forge.bench.server_args import server_command
 from forge.bench.smoke_server import SmokeServer
 from forge.bench.structured import run_structured_benchmark
-from forge.bench.system_load import SystemLoadSampler, metrics_contaminated
+from forge.bench.system_load import SystemLoadSampler, effective_cpu_count, metrics_contaminated
 from forge.bench.workload import _allocation, build_workload, load_workload
 from forge.train.config import sha256_file
 
@@ -381,6 +381,33 @@ def test_system_load_contamination_gate_uses_half_core_count() -> None:
 
     assert summary["contaminated"] is True
     assert metrics_contaminated({"points": [{"co_tenancy": summary}]}, experiment="spec_decode")
+
+
+def test_effective_cpu_count_prefers_cgroup_v2_quota(tmp_path: Path) -> None:
+    cpu_max = tmp_path / "cpu.max"
+    cpu_max.write_text("1600000 100000\n")
+
+    count, source = effective_cpu_count(
+        host_logical_cpu_count=128,
+        cgroup_v2_cpu_max=cpu_max,
+        cgroup_v1_cpu_quota=tmp_path / "missing-quota",
+        cgroup_v1_cpu_period=tmp_path / "missing-period",
+    )
+
+    assert count == 16
+    assert source == "cgroup_v2_cpu.max"
+
+
+def test_effective_cpu_count_falls_back_to_host_count(tmp_path: Path) -> None:
+    count, source = effective_cpu_count(
+        host_logical_cpu_count=12,
+        cgroup_v2_cpu_max=tmp_path / "missing-max",
+        cgroup_v1_cpu_quota=tmp_path / "missing-quota",
+        cgroup_v1_cpu_period=tmp_path / "missing-period",
+    )
+
+    assert count == 12
+    assert source == "os.cpu_count"
 
 
 def test_phase4_report_code_is_the_only_phase4_numbered_document_writer() -> None:

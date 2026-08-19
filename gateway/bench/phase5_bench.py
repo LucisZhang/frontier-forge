@@ -743,11 +743,13 @@ def _cell_contaminated(cell: Mapping[str, Any]) -> bool:
 
 
 async def _wait_host_clean() -> None:
-    cores = os.cpu_count() or 1
-    threshold = cores / 2
+    capacity = SystemLoadSampler(enabled=False)
+    cores = capacity.logical_cpu_count
+    threshold = capacity.load_threshold
     while os.getloadavg()[0] > threshold:
         print(
             f"host load1={os.getloadavg()[0]:.2f} exceeds threshold={threshold:.2f}; "
+            f"effective_cores={cores:g} source={capacity.core_count_source}; "
             "waiting 30s before the clean rerun",
             flush=True,
         )
