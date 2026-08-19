@@ -15,7 +15,7 @@ C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 
 STUB_TARGETS := gateway-bench demo-build reproduce-headline
 
-.PHONY: $(C3_TARGETS) ci-lint prepare-r1b prepare-r4-v2 phase3-context-audit phase3-report \
+.PHONY: $(C3_TARGETS) gateway-llama-test ci-lint prepare-r1b prepare-r4-v2 phase3-context-audit phase3-report \
 	phase3-preflight phase3-smoke phase4-preflight phase4-smoke
 
 test:
@@ -38,6 +38,11 @@ gateway-test:
 gateway-tsan:
 	docker build --file gateway/Dockerfile.tsan --tag frontier-forge-gateway-tsan gateway
 	docker run --rm --env SMOKE=$(SMOKE) frontier-forge-gateway-tsan
+
+gateway-llama-test:
+	cmake -S gateway --preset sanitize
+	cmake --build gateway/build/sanitize --parallel
+	./gateway/tests/run_llama_cpp_integration.sh
 
 ingest:
 	@uv run python -m forge.data.ingest $(if $(filter 1,$(SMOKE)),--smoke,)

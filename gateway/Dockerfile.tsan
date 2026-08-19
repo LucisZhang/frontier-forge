@@ -1,17 +1,22 @@
 FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
-    && apt-get install --yes --no-install-recommends \
+RUN apt-get -o Acquire::Retries=10 -o Acquire::http::Timeout=30 update \
+    && apt-get -o Acquire::Retries=10 -o Acquire::http::Timeout=30 \
+        install --yes --no-install-recommends \
         ca-certificates \
         cmake \
         g++ \
-        git \
+        libboost-json-dev \
+        libboost-system-dev \
+        libgtest-dev \
         make \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace/gateway
 COPY . .
+
+ENV TSAN_OPTIONS="halt_on_error=1 history_size=7"
 
 RUN cmake --preset tsan \
     && cmake --build build/tsan --parallel

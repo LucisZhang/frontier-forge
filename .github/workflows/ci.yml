@@ -25,6 +25,10 @@ jobs:
           enable-cache: true
       - name: Install locked dependencies
         run: uv sync --locked
+      - name: Install gateway system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libboost-json-dev libboost-system-dev libgtest-dev
       - name: Run pytest and ruff on the 50-row fixture
         env:
           FORGE_FIXTURE: tests/fixtures/complaints_50.jsonl
