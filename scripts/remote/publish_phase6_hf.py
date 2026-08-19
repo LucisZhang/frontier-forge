@@ -446,7 +446,10 @@ def publish(args: argparse.Namespace) -> dict[str, Any]:
             "local manifest tree SHA-256 before upload; exact path set plus remote LFS "
             "SHA-256 or Git blob identity per file after upload"
         ),
-        "token_handling": "credential lookup only; token value neither logged nor persisted",
+        "token_handling": (
+            "credential lookup only; token not accepted on the command line or logged; "
+            "credential persistence is managed by the Hugging Face client outside this script"
+        ),
     }
     write_json_atomic(args.receipt, receipt)
     print(json.dumps(receipt, indent=2, sort_keys=True))
