@@ -45,6 +45,10 @@ def _median(values: Iterable[float | None]) -> float | None:
     return median(present) if present else None
 
 
+def _at_most(value: float, limit: float) -> bool:
+    return float(value) <= float(limit) + 1e-12
+
+
 def _all_cells(receipt: Mapping[str, Any]) -> list[Mapping[str, Any]]:
     metrics = receipt["metrics"]
     stages = [
@@ -84,7 +88,8 @@ def _overhead_summary(receipt: Mapping[str, Any]) -> dict[str, Any]:
     stable_pairs = [
         pair
         for pair in pairs
-        if pair["direct"]["error_rate"] <= 0.05 and pair["gateway"]["error_rate"] <= 0.05
+        if _at_most(pair["direct"]["error_rate"], 0.05)
+        and _at_most(pair["gateway"]["error_rate"], 0.05)
     ]
     return {
         "stable_pairs": len(stable_pairs),

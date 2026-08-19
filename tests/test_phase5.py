@@ -148,6 +148,32 @@ def test_resume_claim_uses_measured_fast_error_semantics() -> None:
     assert "503 快速拒绝" not in claim
 
 
+def test_overhead_summary_includes_exact_five_percent_error_boundary() -> None:
+    receipt = {
+        "metrics": {
+            "direct_gateway": {
+                "pairs": [
+                    {
+                        "direct": {"error_rate": 0.0},
+                        "gateway": {"error_rate": 1.0 - 19.0 / 20.0},
+                        "overhead": {
+                            "e2e_p50_overhead_pct": 1.0,
+                            "e2e_p95_overhead_pct": 2.0,
+                            "ttft_p50_overhead_pct": 3.0,
+                            "throughput_delta_pct": -1.0,
+                        },
+                    }
+                ]
+            }
+        }
+    }
+
+    summary = REPORT._overhead_summary(receipt)
+
+    assert summary["stable_pairs"] == 1
+    assert summary["p95_median_pct"] == 2.0
+
+
 def test_makefile_gateway_bench_is_not_a_stub() -> None:
     makefile = (REPO_ROOT / "Makefile").read_text()
     assert "gateway-bench:" in makefile
