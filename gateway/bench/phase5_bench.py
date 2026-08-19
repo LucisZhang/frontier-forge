@@ -743,13 +743,11 @@ def _cell_contaminated(cell: Mapping[str, Any]) -> bool:
 
 
 async def _wait_host_clean() -> None:
-    capacity = SystemLoadSampler(enabled=False)
-    cores = capacity.logical_cpu_count
-    threshold = capacity.load_threshold
+    cores = os.cpu_count() or 1
+    threshold = cores / 2
     while os.getloadavg()[0] > threshold:
         print(
             f"host load1={os.getloadavg()[0]:.2f} exceeds threshold={threshold:.2f}; "
-            f"effective_cores={cores:g} source={capacity.core_count_source}; "
             "waiting 30s before the clean rerun",
             flush=True,
         )
@@ -791,7 +789,7 @@ async def _run_clean_stage(
         attempt_receipt = {
             **payload,
             "status": "contaminated-rerun-required",
-            "reason": "sampled_load1_exceeded_half_effective_core_count",
+            "reason": "sampled_load1_exceeded_half_logical_core_count",
             "request_artifact": {
                 "path": relative_path(attempt_requests),
                 "sha256": sha256_file(attempt_requests),
@@ -1437,7 +1435,7 @@ def _write_final_receipt(
                 "capacity, so the owner authorized a same-region clone on a separate host. The "
                 "clone had no unrelated task inside its container; the provider host may still be "
                 "multi-tenant. Every warm-up and measured cell sampled host load average and CPU "
-                "utilization; any load1 sample above half the cgroup-effective CPU capacity "
+                "utilization; any load1 sample above half the host logical core count "
                 "contaminated and reran the entire stage."
             ),
             "fallback": (
