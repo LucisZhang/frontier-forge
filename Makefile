@@ -11,9 +11,9 @@ C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 	teacher-data teacher-audit \
 	train-sft train-dpo train-grpo eval export-model \
 	serve-bench spec-decode-bench structured-bench bench-report \
-	gateway-bench sync-up sync-down demo-build reproduce-headline
+	gateway-bench gateway-bench-report sync-up sync-down demo-build reproduce-headline
 
-STUB_TARGETS := gateway-bench demo-build reproduce-headline
+STUB_TARGETS := demo-build reproduce-headline
 
 .PHONY: $(C3_TARGETS) gateway-llama-test ci-lint prepare-r1b prepare-r4-v2 phase3-context-audit phase3-report \
 	phase3-preflight phase3-smoke phase4-preflight phase4-smoke
@@ -43,6 +43,20 @@ gateway-llama-test:
 	cmake -S gateway --preset sanitize
 	cmake --build gateway/build/sanitize --parallel
 	./gateway/tests/run_llama_cpp_integration.sh
+
+gateway-bench:
+	@test "$(shell uname -s)" = "Linux" || { echo "gateway-bench is remote Linux only" >&2; exit 2; }
+	@test -n "$(DIRECT_URL)" || { echo "gateway-bench requires DIRECT_URL" >&2; exit 2; }
+	@test -n "$(GATEWAY_URL)" || { echo "gateway-bench requires GATEWAY_URL" >&2; exit 2; }
+	@./scripts/remote/phase5_gpu_guard.sh
+	@.venv-phase4/bin/python gateway/bench/phase5_bench.py \
+		--config configs/phase5/gateway_r1b_mtp.yaml \
+		--direct-url "$(DIRECT_URL)" --gateway-url "$(GATEWAY_URL)" \
+		$(if $(strip $(STAGE)),--stage "$(STAGE)",)
+
+gateway-bench-report:
+	@.venv-phase4/bin/python gateway/bench/phase5_report.py \
+		--config configs/phase5/gateway_r1b_mtp.yaml
 
 ingest:
 	@uv run python -m forge.data.ingest $(if $(filter 1,$(SMOKE)),--smoke,)

@@ -174,9 +174,13 @@ stable concurrency, VRAM, and cost per 1,000 successful tasks.
 The overload experiment must drive 2x, 3x, and 5x measured capacity and compare
 tail latency, error semantics, queue high-watermark, fallback share, fast-reject
 latency, and recovery time. Profile the gateway in that environment, optimize the
-largest measured gateway-side cost, and publish before/after numbers. No overhead
-number, optimization claim, or resume sentence is present here because those
-claims require the remote run record and reproducible command.
+largest measured gateway-side cost, and publish before/after numbers. Remote
+numbers and the resume sentence below are owned by `gateway/bench/phase5_report.py`;
+they must never be edited around the raw run record.
+
+<!-- PHASE5_BENCH_RESULTS_START -->
+Remote benchmark results have not been generated yet.
+<!-- PHASE5_BENCH_RESULTS_END -->
 
 ## D7 scope walls
 

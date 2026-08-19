@@ -23,6 +23,8 @@ wheels/
 .venv-phase4/
 .uv-cache-phase4/
 .tmp-phase4/
+.tmp-phase5/
+.cache-phase5/
 .cache/
 __pycache__/
 *.pyc
@@ -35,6 +37,7 @@ htmlcov/
 gateway/build/
 gateway/out/
 gateway/compile_commands.json
+gateway/profile/
 
 # os / editor
 .DS_Store
