@@ -3,7 +3,7 @@
   "status": "complete",
   "phase": 5,
   "git_sha": "9dff2a6758a1ed2facd5f132d0f22de182a592bb",
-  "verified_at": "2026-08-19T08:24:14Z",
+  "verified_at": "2026-08-19T08:42:47Z",
   "asan_ubsan": "green",
   "asan_ubsan_details": {
     "command": "make gateway-test",
@@ -50,9 +50,11 @@
   "repository_verification": {
     "status": "green",
     "command": "make test",
-    "pytest_passed": 164,
+    "git_sha": "2f35d32a5f0e5b26e5f2f636bb3bacad8ead4b05",
+    "pytest_passed": 166,
     "ruff_check": "green",
-    "ruff_format_check": "green"
+    "ruff_format_check": "green",
+    "note": "Final repository verification includes the two report-generation regression tests added after the measured gateway commit."
   },
   "discarded_environment_attempts": [
     {
