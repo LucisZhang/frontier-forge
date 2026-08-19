@@ -1,0 +1,1623 @@
+[
+  {
+    "backend": "trl",
+    "budget": {
+      "actual_gpu_hours": 31.80888888888889,
+      "ceiling_gpu_hours": 90.0,
+      "planning_rate_usd_per_gpu_hour": 0.5,
+      "projected_next_gpu_hours": 15.0,
+      "projected_next_planning_usd": 7.5,
+      "projected_total_gpu_hours": 46.80888888888889
+    },
+    "config_hash": "4a1a4f0ebe3df3e7d9906562a2810ee7a856580e725a8cf7644a8dcf2f410c39",
+    "context_audit_status": "complete",
+    "launch_code_tree_clean": true,
+    "launch_hardware": {
+      "cuda_version": "13.0",
+      "name": "NVIDIA GeForce RTX 4090",
+      "total_memory_bytes": 25250627584,
+      "visible_device_count": 1
+    },
+    "mode": "full",
+    "parent_adapter": "checkpoints/full/r3/trl/s0/adapter",
+    "phase2_dataset_hash": "28733f8fefc91efbc6e2b24b85df9312e9054946ee6ca4c693f00133a1ac41e4",
+    "prompt_sha256": "bf1d31236ece8abee77587b8652f42ef4afb5b65a54309d35e56646e420515c3",
+    "rung": "r4",
+    "seed": 0,
+    "stage": "grpo",
+    "training_data_path": "data/phase2/sft_rule.jsonl",
+    "training_data_sha256": "0d54f4ead643d5b7c54247be396780b77e5566837aa8d19fe03e77b6c4a4215e"
+  }
+]
+W0818 09:12:16.054000 7364 .venv/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W0818 09:12:16.086000 7364 .venv/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]Loading weights:   0%|          | 1/723 [00:00<02:39,  4.52it/s]Loading weights:   3%|▎         | 23/723 [00:00<00:07, 88.19it/s]Loading weights:   6%|▋         | 46/723 [00:00<00:04, 137.77it/s]Loading weights:  11%|█         | 80/723 [00:00<00:03, 202.90it/s]Loading weights:  16%|█▌        | 114/723 [00:00<00:02, 241.52it/s]Loading weights:  20%|██        | 145/723 [00:00<00:02, 259.62it/s]Loading weights:  24%|██▍       | 173/723 [00:00<00:02, 251.97it/s]Loading weights:  28%|██▊       | 204/723 [00:00<00:01, 266.94it/s]Loading weights:  33%|███▎      | 237/723 [00:01<00:01, 283.80it/s]Loading weights:  37%|███▋      | 267/723 [00:01<00:01, 264.62it/s]Loading weights:  42%|████▏     | 301/723 [00:01<00:01, 283.34it/s]Loading weights:  46%|████▌     | 330/723 [00:01<00:01, 276.71it/s]Loading weights:  50%|████▉     | 359/723 [00:01<00:01, 278.53it/s]Loading weights:  54%|█████▍    | 391/723 [00:01<00:01, 290.21it/s]Loading weights:  58%|█████▊    | 421/723 [00:01<00:01, 277.12it/s]Loading weights:  77%|███████▋  | 560/723 [00:01<00:00, 589.18it/s]Loading weights:  98%|█████████▊| 710/723 [00:01<00:00, 848.62it/s]Loading weights: 100%|██████████| 723/723 [00:01<00:00, 371.59it/s]
+'[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/Qwen/Qwen3.5-4B-Base/resolve/1001bb4d826a52d1f399e183466143f4da7b741b/generation_config.json
+Retrying in 1s [Retry 1/5].
+'[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/Qwen/Qwen3.5-4B-Base/resolve/1001bb4d826a52d1f399e183466143f4da7b741b/generation_config.json
+Retrying in 2s [Retry 2/5].
+'[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/Qwen/Qwen3.5-4B-Base/resolve/1001bb4d826a52d1f399e183466143f4da7b741b/generation_config.json
+Retrying in 4s [Retry 3/5].
+'[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/Qwen/Qwen3.5-4B-Base/resolve/1001bb4d826a52d1f399e183466143f4da7b741b/generation_config.json
+Retrying in 8s [Retry 4/5].
+'[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/Qwen/Qwen3.5-4B-Base/resolve/1001bb4d826a52d1f399e183466143f4da7b741b/generation_config.json
+Retrying in 8s [Retry 5/5].
+'[Errno 101] Network is unreachable' thrown while requesting HEAD https://huggingface.co/Qwen/Qwen3.5-4B-Base/resolve/1001bb4d826a52d1f399e183466143f4da7b741b/generation_config.json
+[transformers] The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248044, 'pad_token_id': 248044}.
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|          | 1/100 [01:02<1:43:06, 62.49s/it]                                                   1%|          | 1/100 [01:02<1:43:06, 62.49s/it]{'loss': '0', 'grad_norm': '0', 'learning_rate': '5e-06', 'num_tokens': '9330', 'completions/mean_length': '96.75', 'completions/min_length': '68', 'completions/max_length': '155', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '96.75', 'completions/min_terminated_length': '68', 'completions/max_terminated_length': '155', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.1068', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '62.28', 'epoch': '0.001379'}
+╭─────────────────────────────────── Step 1 ───────────────────────────────────╮
+│ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━┓ │
+│ ┃ Prompt                   ┃ Completion               ┃ reward ┃ Advantage ┃ │
+│ ┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━┩ │
+│ │ system                   │ {"ambiguity_flag":false… │   1.00 │      0.00 │ │
+│ │ You convert one CFPB     │ FARGO &                  │        │           │ │
+│ │ complaint into exactly   │ COMPANY","issue":"Fraud… │        │           │ │
+│ │ one strict JSON ticket.  │ property sale and title  │        │           │ │
+│ │ The user input is        │ insurance                │        │           │ │
+│ │ input-contract-v2 JSON   │ forgery","product":"mor… │        │           │ │
+│ │ with complaint_id,       │ identity theft, forgery, │        │           │ │
+│ │ narrative,               │ and fraudulent           │        │           │ │
+│ │ source_product,          │ foreclosure involving    │        │           │ │
+│ │ source_issue,            │ fake documents,          │        │           │ │
+│ │ and source_company.      │ falsified corporate      │        │           │ │
+│ │ Return JSON only, with   │ authorities, and         │        │           │ │
+│ │ exactly: product, issue, │ threatened legal action  │        │           │ │
+│ │ company, urgency,        │ against consumer who     │        │           │ │
+│ │ ambiguity_flag, and      │ paid cash for            │        │           │ │
+│ │ tool_call.               │ property"},"name":"esca… │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ product is one of card,  │                          │        │           │ │
+│ │ credit_reporting,        │                          │        │           │ │
+│ │ debt_collection,         │                          │        │           │ │
+│ │ deposit_account,         │                          │        │           │ │
+│ │ money_service, mortgage, │                          │        │           │ │
+│ │ payday_personal_loan,    │                          │        │           │ │
+│ │ student_loan,            │                          │        │           │ │
+│ │ vehicle_loan. Map CFPB   │                          │        │           │ │
+│ │ products by meaning:     │                          │        │           │ │
+│ │ cards/prepaid -> card;   │                          │        │           │ │
+│ │ credit                   │                          │        │           │ │
+│ │ reporting/repair/consum… │                          │        │           │ │
+│ │ reports                  │                          │        │           │ │
+│ │ or debt/credit           │                          │        │           │ │
+│ │ management ->            │                          │        │           │ │
+│ │ credit_reporting; debt   │                          │        │           │ │
+│ │ collection ->            │                          │        │           │ │
+│ │ debt_collection;         │                          │        │           │ │
+│ │ bank/checking/savings -> │                          │        │           │ │
+│ │ deposit_account;         │                          │        │           │ │
+│ │ transfers/virtual        │                          │        │           │ │
+│ │ currency/money service   │                          │        │           │ │
+│ │ ->                       │                          │        │           │ │
+│ │ money_service; mortgage  │                          │        │           │ │
+│ │ -> mortgage;             │                          │        │           │ │
+│ │ payday/title/personal/a… │                          │        │           │ │
+│ │ loan ->                  │                          │        │           │ │
+│ │ payday_personal_loan;    │                          │        │           │ │
+│ │ student loan ->          │                          │        │           │ │
+│ │ student_loan;            │                          │        │           │ │
+│ │ consumer/vehicle loan or │                          │        │           │ │
+│ │ lease ->                 │                          │        │           │ │
+│ │ vehicle_loan. issue is   │                          │        │           │ │
+│ │ the nonempty source      │                          │        │           │ │
+│ │ issue, or "unspecified". │                          │        │           │ │
+│ │ company is the           │                          │        │           │ │
+│ │ source company or null.  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Urgency policy: high if  │                          │        │           │ │
+│ │ the narrative contains   │                          │        │           │ │
+│ │ foreclosure, eviction,   │                          │        │           │ │
+│ │ identity                 │                          │        │           │ │
+│ │ theft, garnishment,      │                          │        │           │ │
+│ │ repossession, threatened │                          │        │           │ │
+│ │ to take legal action,    │                          │        │           │ │
+│ │ unable to access         │                          │        │           │ │
+│ │ funds, or account        │                          │        │           │ │
+│ │ takeover. Otherwise      │                          │        │           │ │
+│ │ medium if source_issue   │                          │        │           │ │
+│ │ plus narrative contains  │                          │        │           │ │
+│ │ fraud, unauthorized,     │                          │        │           │ │
+│ │ dispute, incorrect       │                          │        │           │ │
+│ │ information, late fee,   │                          │        │           │ │
+│ │ collection, charged,     │                          │        │           │ │
+│ │ or denied. Otherwise     │                          │        │           │ │
+│ │ low. Match               │                          │        │           │ │
+│ │ Unicode-normalized,      │                          │        │           │ │
+│ │ collapsed,               │                          │        │           │ │
+│ │ case-insensitive text.   │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Ambiguity means          │                          │        │           │ │
+│ │ source_issue or          │                          │        │           │ │
+│ │ source_company is        │                          │        │           │ │
+│ │ missing, normalized      │                          │        │           │ │
+│ │ narrative is             │                          │        │           │ │
+│ │ under 40 characters, or  │                          │        │           │ │
+│ │ a narrative of at most   │                          │        │           │ │
+│ │ 200 characters contains  │                          │        │           │ │
+│ │ "not sure",              │                          │        │           │ │
+│ │ "do not know what        │                          │        │           │ │
+│ │ happened", "don't know   │                          │        │           │ │
+│ │ what happened",          │                          │        │           │ │
+│ │ "insufficient            │                          │        │           │ │
+│ │ information",            │                          │        │           │ │
+│ │ or "no details           │                          │        │           │ │
+│ │ available".              │                          │        │           │ │
+│ │ ambiguity_flag is true   │                          │        │           │ │
+│ │ exactly when the tool is │                          │        │           │ │
+│ │ request_more_info.       │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Choose the first         │                          │        │           │ │
+│ │ applicable tool: (1)     │                          │        │           │ │
+│ │ request_more_info for    │                          │        │           │ │
+│ │ ambiguity; (2)           │                          │        │           │ │
+│ │ close_no_action if issue │                          │        │           │ │
+│ │ plus narrative says      │                          │        │           │ │
+│ │ resolved, filed in       │                          │        │           │ │
+│ │ error, or duplicate;     │                          │        │           │ │
+│ │ (3)                      │                          │        │           │ │
+│ │ escalate_to_regulator    │                          │        │           │ │
+│ │ for high urgency; (4)    │                          │        │           │ │
+│ │ start_refund_workflow if │                          │        │           │ │
+│ │ narrative                │                          │        │           │ │
+│ │ contains refund,         │                          │        │           │ │
+│ │ reimbursement, money     │                          │        │           │ │
+│ │ back, reverse the        │                          │        │           │ │
+│ │ charge, or chargeback;   │                          │        │           │ │
+│ │ (5)                      │                          │        │           │ │
+│ │ route_to_company         │                          │        │           │ │
+│ │ otherwise.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Tool arguments must have │                          │        │           │ │
+│ │ exactly one registered   │                          │        │           │ │
+│ │ shape:                   │                          │        │           │ │
+│ │ - request_more_info:     │                          │        │           │ │
+│ │ missing_fields (unique   │                          │        │           │ │
+│ │ values from product,     │                          │        │           │ │
+│ │ issue, company,          │                          │        │           │ │
+│ │   details) and a         │                          │        │           │ │
+│ │ meaningful question.     │                          │        │           │ │
+│ │ - close_no_action:       │                          │        │           │ │
+│ │ reason =                 │                          │        │           │ │
+│ │ already_resolved,        │                          │        │           │ │
+│ │ duplicate_or_spam, or    │                          │        │           │ │
+│ │   no_consumer_harm_dete… │                          │        │           │ │
+│ │ - escalate_to_regulator: │                          │        │           │ │
+│ │ complaint_id integer and │                          │        │           │ │
+│ │ meaningful nonempty      │                          │        │           │ │
+│ │ reason.                  │                          │        │           │ │
+│ │ - start_refund_workflow: │                          │        │           │ │
+│ │ company string, issue    │                          │        │           │ │
+│ │ string,                  │                          │        │           │ │
+│ │ evidence_required true.  │                          │        │           │ │
+│ │ - route_to_company:      │                          │        │           │ │
+│ │ company string and issue │                          │        │           │ │
+│ │ string.                  │                          │        │           │ │
+│ │ No Markdown, reasoning,  │                          │        │           │ │
+│ │ comments, or extra       │                          │        │           │ │
+│ │ fields.                  │                          │        │           │ │
+│ │ user                     │                          │        │           │ │
+│ │ {"complaint_id":2783644… │                          │        │           │ │
+│ │ : XXXX XXXX fraudulent   │                          │        │           │ │
+│ │ sale of property ;       │                          │        │           │ │
+│ │ forgery, deceit and      │                          │        │           │ │
+│ │ fraud with property      │                          │        │           │ │
+│ │ Title Insurance.         │                          │        │           │ │
+│ │ \r\n\r\nI am writing     │                          │        │           │ │
+│ │ this complaint regarding │                          │        │           │ │
+│ │ the sale of the property │                          │        │           │ │
+│ │ in XXXX, Illinois where  │                          │        │           │ │
+│ │ I am a BUYER who paid    │                          │        │           │ │
+│ │ CASH in full amount of   │                          │        │           │ │
+│ │ the sale price, so here  │                          │        │           │ │
+│ │ is no mortgage on this   │                          │        │           │ │
+│ │ property. \r\n\r\nThe    │                          │        │           │ │
+│ │ Seller and purported     │                          │        │           │ │
+│ │ owner was XXXX XXXX      │                          │        │           │ │
+│ │ XXXX. as Trustee for     │                          │        │           │ │
+│ │ XXXX Mortgage XXXX XXXX  │                          │        │           │ │
+│ │ XXXX ( XXXX ), who       │                          │        │           │ │
+│ │ claimed to be duly       │                          │        │           │ │
+│ │ authorized to transact   │                          │        │           │ │
+│ │ business in Illinois.    │                          │        │           │ │
+│ │ XXXX XXXX prepared a     │                          │        │           │ │
+│ │ Special Warranty Deed on │                          │        │           │ │
+│ │ behalf of XXXX Board of  │                          │        │           │ │
+│ │ Directors or Trustees.   │                          │        │           │ │
+│ │ Based on my review of    │                          │        │           │ │
+│ │ Court records, XXXX XXXX │                          │        │           │ │
+│ │ sold me a fraudulent     │                          │        │           │ │
+│ │ foreclosure based on     │                          │        │           │ │
+│ │ forged documents         │                          │        │           │ │
+│ │ prepared by fake \"      │                          │        │           │ │
+│ │ authorities ; and likely │                          │        │           │ │
+│ │ defrauded me from a      │                          │        │           │ │
+│ │ Title Insurance on this  │                          │        │           │ │
+│ │ property. \r\n\r\nXXXX   │                          │        │           │ │
+│ │ XXXX responded to me     │                          │        │           │ │
+│ │ with a deceptive letter  │                          │        │           │ │
+│ │ prepared by XXXX XXXX    │                          │        │           │ │
+│ │ XXXX who stated that ( 1 │                          │        │           │ │
+│ │ ) XXXX XXXX was merely a │                          │        │           │ │
+│ │ Trustee for the Trust    │                          │        │           │ │
+│ │ that owned the mortgage  │                          │        │           │ │
+│ │ and the Note for this    │                          │        │           │ │
+│ │ property ; ( 2 ) my      │                          │        │           │ │
+│ │ correspondence does not  │                          │        │           │ │
+│ │ form any contract or     │                          │        │           │ │
+│ │ agreement ; ( 3 ) my     │                          │        │           │ │
+│ │ account is governed by   │                          │        │           │ │
+│ │ terms of MY LOAN and     │                          │        │           │ │
+│ │ Trust governing          │                          │        │           │ │
+│ │ documents ; and ( 4 )    │                          │        │           │ │
+│ │ and my contractual       │                          │        │           │ │
+│ │ obligation to repay the  │                          │        │           │ │
+│ │ balance owed (??? ). Ex. │                          │        │           │ │
+│ │ 1. This is absurd.       │                          │        │           │ │
+│ │ \r\n\r\nFirst, as stated │                          │        │           │ │
+│ │ above, I paid CASH for   │                          │        │           │ │
+│ │ this property in the     │                          │        │           │ │
+│ │ full amount of the sale  │                          │        │           │ │
+│ │ price, so here are NO    │                          │        │           │ │
+│ │ loan which I am          │                          │        │           │ │
+│ │ obligated to repay. The  │                          │        │           │ │
+│ │ only party who have      │                          │        │           │ │
+│ │ contractual obligations  │                          │        │           │ │
+│ │ to is XXXX XXXX, the     │                          │        │           │ │
+│ │ seller and purported     │                          │        │           │ │
+│ │ owner of this property   │                          │        │           │ │
+│ │ who must provide me a    │                          │        │           │ │
+│ │ clean and reliable       │                          │        │           │ │
+│ │ Title, which they        │                          │        │           │ │
+│ │ failed. \r\n\r\nSecond,  │                          │        │           │ │
+│ │ XXXX XXXX words that my  │                          │        │           │ │
+│ │ correspondence does not  │                          │        │           │ │
+│ │ form any contract        │                          │        │           │ │
+│ │ or\n[...middle           │                          │        │           │ │
+│ │ truncated...]\n XXXX     │                          │        │           │ │
+│ │ XXXX who was associated  │                          │        │           │ │
+│ │ with Wells Fargo bank -  │                          │        │           │ │
+│ │ and he does not work for │                          │        │           │ │
+│ │ Wells Fargo since XXXX.  │                          │        │           │ │
+│ │ \r\n\r\n\" XXXX XXXX ''  │                          │        │           │ │
+│ │ XXXX XXXX. XXXX is       │                          │        │           │ │
+│ │ actually Wells Fargo     │                          │        │           │ │
+│ │ XXXX XXXX. XXXX XXXX     │                          │        │           │ │
+│ │ XXXX is XXXX XXXX        │                          │        │           │ │
+│ │ coordinator who also     │                          │        │           │ │
+│ │ worked for XXXX XXXX     │                          │        │           │ │
+│ │ XXXX XXXX PAS ), a       │                          │        │           │ │
+│ │ Maryland XXXX. According │                          │        │           │ │
+│ │ to IL Secretary of XXXX, │                          │        │           │ │
+│ │ PAS does not have        │                          │        │           │ │
+│ │ registration to conduct  │                          │        │           │ │
+│ │ real estate business in  │                          │        │           │ │
+│ │ IL while WFHM has a very │                          │        │           │ │
+│ │ questionable status.     │                          │        │           │ │
+│ │ According to the record, │                          │        │           │ │
+│ │ WFHM filed for           │                          │        │           │ │
+│ │ registration with the    │                          │        │           │ │
+│ │ State in XXXX. The last  │                          │        │           │ │
+│ │ annual report was filed  │                          │        │           │ │
+│ │ in XXXX. \r\n\r\nThe     │                          │        │           │ │
+│ │ President, XXXX XXXX     │                          │        │           │ │
+│ │ XXXX XXXX, since XXXX    │                          │        │           │ │
+│ │ works for XXXX XXXX      │                          │        │           │ │
+│ │ XXXX, WFB XXXX XXXX,     │                          │        │           │ │
+│ │ currently under          │                          │        │           │ │
+│ │ investigation for fraud  │                          │        │           │ │
+│ │ and facing license       │                          │        │           │ │
+│ │ suspension in            │                          │        │           │ │
+│ │ California. See          │                          │        │           │ │
+│ │ attached. I also found   │                          │        │           │ │
+│ │ an article that WFB, PAS │                          │        │           │ │
+│ │ and their agents         │                          │        │           │ │
+│ │ intentionally lie to     │                          │        │           │ │
+│ │ property buyers. See     │                          │        │           │ │
+│ │ http : XXXX. Last        │                          │        │           │ │
+│ │ assessed XX/XX/XXXX.     │                          │        │           │ │
+│ │ \r\n\r\nWhen I contacted │                          │        │           │ │
+│ │ a Title Insurance        │                          │        │           │ │
+│ │ Company, XXXX XXXX XXXX  │                          │        │           │ │
+│ │ who received {$1300.00}  │                          │        │           │ │
+│ │ for the Title insurance  │                          │        │           │ │
+│ │ on my property, they     │                          │        │           │ │
+│ │ advised me that they     │                          │        │           │ │
+│ │ don't have any records   │                          │        │           │ │
+│ │ on my policy.            │                          │        │           │ │
+│ │ \r\n\r\nPlease provide   │                          │        │           │ │
+│ │ me verification of XXXX  │                          │        │           │ │
+│ │ XXXX XXXX Status as      │                          │        │           │ │
+│ │ Trustee ; good legal     │                          │        │           │ │
+│ │ standing for of this     │                          │        │           │ │
+│ │ XXXX XXXX ; legitimacy   │                          │        │           │ │
+│ │ of the Assignment 6      │                          │        │           │ │
+│ │ years after Trust        │                          │        │           │ │
+│ │ closing day ; copy of    │                          │        │           │ │
+│ │ the original Note with   │                          │        │           │ │
+│ │ full chain of Assignment │                          │        │           │ │
+│ │ ; explanation why this   │                          │        │           │ │
+│ │ Note was not assigned    │                          │        │           │ │
+│ │ into the Trust ; copies  │                          │        │           │ │
+│ │ of SEC and IRS filings   │                          │        │           │ │
+│ │ for this XXXX XXXX which │                          │        │           │ │
+│ │ can verify its good      │                          │        │           │ │
+│ │ corporate Standing ; and │                          │        │           │ │
+│ │ any and all other        │                          │        │           │ │
+│ │ documents to prove that  │                          │        │           │ │
+│ │ his foreclosure was      │                          │        │           │ │
+│ │ legit ; and the Seller   │                          │        │           │ │
+│ │ had a valid Title for    │                          │        │           │ │
+│ │ this property, eligible  │                          │        │           │ │
+│ │ for sale.                │                          │        │           │ │
+│ │ \r\n\r\n\r\nSincerely,   │                          │        │           │ │
+│ │ XXXX                     │                          │        │           │ │
+│ │ XXXX","source_company":… │                          │        │           │ │
+│ │ FARGO &                  │                          │        │           │ │
+│ │ COMPANY","source_issue"… │                          │        │           │ │
+│ │ on a                     │                          │        │           │ │
+│ │ mortgage","source_produ… │                          │        │           │ │
+│ │ assistant                │                          │        │           │ │
+│ │ <think>                  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ </think>                 │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ ├──────────────────────────┼──────────────────────────┼────────┼───────────┤ │
+│ │ system                   │ {"ambiguity_flag":false… │   1.00 │      0.00 │ │
+│ │ You convert one CFPB     │ FARGO &                  │        │           │ │
+│ │ complaint into exactly   │ COMPANY","issue":"       │        │           │ │
+│ │ one strict JSON ticket.  │ fraudulent property sale │        │           │ │
+│ │ The user input is        │ and title insurance      │        │           │ │
+│ │ input-contract-v2 JSON   │ fraud","product":"mortg… │        │           │ │
+│ │ with complaint_id,       │ alleges identity theft,  │        │           │ │
+│ │ narrative,               │ forged documents,        │        │           │ │
+│ │ source_product,          │ fraudulent foreclosure,  │        │           │ │
+│ │ source_issue,            │ and title insurance      │        │           │ │
+│ │ and source_company.      │ fraud involving property │        │           │ │
+│ │ Return JSON only, with   │ sale. Consumer claims    │        │           │ │
+│ │ exactly: product, issue, │ payment of full cash     │        │           │ │
+│ │ company, urgency,        │ amount but suspects      │        │           │ │
+│ │ ambiguity_flag, and      │ being defrauded through  │        │           │ │
+│ │ tool_call.               │ fake trusteeship, forged │        │           │ │
+│ │                          │ deeds, and invalid       │        │           │ │
+│ │ product is one of card,  │ title. High-urgency red  │        │           │ │
+│ │ credit_reporting,        │ flags include            │        │           │ │
+│ │ debt_collection,         │ allegations of forgery,  │        │           │ │
+│ │ deposit_account,         │ deception, and potential │        │           │ │
+│ │ money_service, mortgage, │ account takeover through │        │           │ │
+│ │ payday_personal_loan,    │ fraudulent mortgage      │        │           │ │
+│ │ student_loan,            │ origination."},"name":"… │        │           │ │
+│ │ vehicle_loan. Map CFPB   │                          │        │           │ │
+│ │ products by meaning:     │                          │        │           │ │
+│ │ cards/prepaid -> card;   │                          │        │           │ │
+│ │ credit                   │                          │        │           │ │
+│ │ reporting/repair/consum… │                          │        │           │ │
+│ │ reports                  │                          │        │           │ │
+│ │ or debt/credit           │                          │        │           │ │
+│ │ management ->            │                          │        │           │ │
+│ │ credit_reporting; debt   │                          │        │           │ │
+│ │ collection ->            │                          │        │           │ │
+│ │ debt_collection;         │                          │        │           │ │
+│ │ bank/checking/savings -> │                          │        │           │ │
+│ │ deposit_account;         │                          │        │           │ │
+│ │ transfers/virtual        │                          │        │           │ │
+│ │ currency/money service   │                          │        │           │ │
+│ │ ->                       │                          │        │           │ │
+│ │ money_service; mortgage  │                          │        │           │ │
+│ │ -> mortgage;             │                          │        │           │ │
+│ │ payday/title/personal/a… │                          │        │           │ │
+│ │ loan ->                  │                          │        │           │ │
+│ │ payday_personal_loan;    │                          │        │           │ │
+│ │ student loan ->          │                          │        │           │ │
+│ │ student_loan;            │                          │        │           │ │
+│ │ consumer/vehicle loan or │                          │        │           │ │
+│ │ lease ->                 │                          │        │           │ │
+│ │ vehicle_loan. issue is   │                          │        │           │ │
+│ │ the nonempty source      │                          │        │           │ │
+│ │ issue, or "unspecified". │                          │        │           │ │
+│ │ company is the           │                          │        │           │ │
+│ │ source company or null.  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Urgency policy: high if  │                          │        │           │ │
+│ │ the narrative contains   │                          │        │           │ │
+│ │ foreclosure, eviction,   │                          │        │           │ │
+│ │ identity                 │                          │        │           │ │
+│ │ theft, garnishment,      │                          │        │           │ │
+│ │ repossession, threatened │                          │        │           │ │
+│ │ to take legal action,    │                          │        │           │ │
+│ │ unable to access         │                          │        │           │ │
+│ │ funds, or account        │                          │        │           │ │
+│ │ takeover. Otherwise      │                          │        │           │ │
+│ │ medium if source_issue   │                          │        │           │ │
+│ │ plus narrative contains  │                          │        │           │ │
+│ │ fraud, unauthorized,     │                          │        │           │ │
+│ │ dispute, incorrect       │                          │        │           │ │
+│ │ information, late fee,   │                          │        │           │ │
+│ │ collection, charged,     │                          │        │           │ │
+│ │ or denied. Otherwise     │                          │        │           │ │
+│ │ low. Match               │                          │        │           │ │
+│ │ Unicode-normalized,      │                          │        │           │ │
+│ │ collapsed,               │                          │        │           │ │
+│ │ case-insensitive text.   │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Ambiguity means          │                          │        │           │ │
+│ │ source_issue or          │                          │        │           │ │
+│ │ source_company is        │                          │        │           │ │
+│ │ missing, normalized      │                          │        │           │ │
+│ │ narrative is             │                          │        │           │ │
+│ │ under 40 characters, or  │                          │        │           │ │
+│ │ a narrative of at most   │                          │        │           │ │
+│ │ 200 characters contains  │                          │        │           │ │
+│ │ "not sure",              │                          │        │           │ │
+│ │ "do not know what        │                          │        │           │ │
+│ │ happened", "don't know   │                          │        │           │ │
+│ │ what happened",          │                          │        │           │ │
+│ │ "insufficient            │                          │        │           │ │
+│ │ information",            │                          │        │           │ │
+│ │ or "no details           │                          │        │           │ │
+│ │ available".              │                          │        │           │ │
+│ │ ambiguity_flag is true   │                          │        │           │ │
+│ │ exactly when the tool is │                          │        │           │ │
+│ │ request_more_info.       │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Choose the first         │                          │        │           │ │
+│ │ applicable tool: (1)     │                          │        │           │ │
+│ │ request_more_info for    │                          │        │           │ │
+│ │ ambiguity; (2)           │                          │        │           │ │
+│ │ close_no_action if issue │                          │        │           │ │
+│ │ plus narrative says      │                          │        │           │ │
+│ │ resolved, filed in       │                          │        │           │ │
+│ │ error, or duplicate;     │                          │        │           │ │
+│ │ (3)                      │                          │        │           │ │
+│ │ escalate_to_regulator    │                          │        │           │ │
+│ │ for high urgency; (4)    │                          │        │           │ │
+│ │ start_refund_workflow if │                          │        │           │ │
+│ │ narrative                │                          │        │           │ │
+│ │ contains refund,         │                          │        │           │ │
+│ │ reimbursement, money     │                          │        │           │ │
+│ │ back, reverse the        │                          │        │           │ │
+│ │ charge, or chargeback;   │                          │        │           │ │
+│ │ (5)                      │                          │        │           │ │
+│ │ route_to_company         │                          │        │           │ │
+│ │ otherwise.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Tool arguments must have │                          │        │           │ │
+│ │ exactly one registered   │                          │        │           │ │
+│ │ shape:                   │                          │        │           │ │
+│ │ - request_more_info:     │                          │        │           │ │
+│ │ missing_fields (unique   │                          │        │           │ │
+│ │ values from product,     │                          │        │           │ │
+│ │ issue, company,          │                          │        │           │ │
+│ │   details) and a         │                          │        │           │ │
+│ │ meaningful question.     │                          │        │           │ │
+│ │ - close_no_action:       │                          │        │           │ │
+│ │ reason =                 │                          │        │           │ │
+│ │ already_resolved,        │                          │        │           │ │
+│ │ duplicate_or_spam, or    │                          │        │           │ │
+│ │   no_consumer_harm_dete… │                          │        │           │ │
+│ │ - escalate_to_regulator: │                          │        │           │ │
+│ │ complaint_id integer and │                          │        │           │ │
+│ │ meaningful nonempty      │                          │        │           │ │
+│ │ reason.                  │                          │        │           │ │
+│ │ - start_refund_workflow: │                          │        │           │ │
+│ │ company string, issue    │                          │        │           │ │
+│ │ string,                  │                          │        │           │ │
+│ │ evidence_required true.  │                          │        │           │ │
+│ │ - route_to_company:      │                          │        │           │ │
+│ │ company string and issue │                          │        │           │ │
+│ │ string.                  │                          │        │           │ │
+│ │ No Markdown, reasoning,  │                          │        │           │ │
+│ │ comments, or extra       │                          │        │           │ │
+│ │ fields.                  │                          │        │           │ │
+│ │ user                     │                          │        │           │ │
+│ │ {"complaint_id":2783644… │                          │        │           │ │
+│ │ : XXXX XXXX fraudulent   │                          │        │           │ │
+│ │ sale of property ;       │                          │        │           │ │
+│ │ forgery, deceit and      │                          │        │           │ │
+│ │ fraud with property      │                          │        │           │ │
+│ │ Title Insurance.         │                          │        │           │ │
+│ │ \r\n\r\nI am writing     │                          │        │           │ │
+│ │ this complaint regarding │                          │        │           │ │
+│ │ the sale of the property │                          │        │           │ │
+│ │ in XXXX, Illinois where  │                          │        │           │ │
+│ │ I am a BUYER who paid    │                          │        │           │ │
+│ │ CASH in full amount of   │                          │        │           │ │
+│ │ the sale price, so here  │                          │        │           │ │
+│ │ is no mortgage on this   │                          │        │           │ │
+│ │ property. \r\n\r\nThe    │                          │        │           │ │
+│ │ Seller and purported     │                          │        │           │ │
+│ │ owner was XXXX XXXX      │                          │        │           │ │
+│ │ XXXX. as Trustee for     │                          │        │           │ │
+│ │ XXXX Mortgage XXXX XXXX  │                          │        │           │ │
+│ │ XXXX ( XXXX ), who       │                          │        │           │ │
+│ │ claimed to be duly       │                          │        │           │ │
+│ │ authorized to transact   │                          │        │           │ │
+│ │ business in Illinois.    │                          │        │           │ │
+│ │ XXXX XXXX prepared a     │                          │        │           │ │
+│ │ Special Warranty Deed on │                          │        │           │ │
+│ │ behalf of XXXX Board of  │                          │        │           │ │
+│ │ Directors or Trustees.   │                          │        │           │ │
+│ │ Based on my review of    │                          │        │           │ │
+│ │ Court records, XXXX XXXX │                          │        │           │ │
+│ │ sold me a fraudulent     │                          │        │           │ │
+│ │ foreclosure based on     │                          │        │           │ │
+│ │ forged documents         │                          │        │           │ │
+│ │ prepared by fake \"      │                          │        │           │ │
+│ │ authorities ; and likely │                          │        │           │ │
+│ │ defrauded me from a      │                          │        │           │ │
+│ │ Title Insurance on this  │                          │        │           │ │
+│ │ property. \r\n\r\nXXXX   │                          │        │           │ │
+│ │ XXXX responded to me     │                          │        │           │ │
+│ │ with a deceptive letter  │                          │        │           │ │
+│ │ prepared by XXXX XXXX    │                          │        │           │ │
+│ │ XXXX who stated that ( 1 │                          │        │           │ │
+│ │ ) XXXX XXXX was merely a │                          │        │           │ │
+│ │ Trustee for the Trust    │                          │        │           │ │
+│ │ that owned the mortgage  │                          │        │           │ │
+│ │ and the Note for this    │                          │        │           │ │
+│ │ property ; ( 2 ) my      │                          │        │           │ │
+│ │ correspondence does not  │                          │        │           │ │
+│ │ form any contract or     │                          │        │           │ │
+│ │ agreement ; ( 3 ) my     │                          │        │           │ │
+│ │ account is governed by   │                          │        │           │ │
+│ │ terms of MY LOAN and     │                          │        │           │ │
+│ │ Trust governing          │                          │        │           │ │
+│ │ documents ; and ( 4 )    │                          │        │           │ │
+│ │ and my contractual       │                          │        │           │ │
+│ │ obligation to repay the  │                          │        │           │ │
+│ │ balance owed (??? ). Ex. │                          │        │           │ │
+│ │ 1. This is absurd.       │                          │        │           │ │
+│ │ \r\n\r\nFirst, as stated │                          │        │           │ │
+│ │ above, I paid CASH for   │                          │        │           │ │
+│ │ this property in the     │                          │        │           │ │
+│ │ full amount of the sale  │                          │        │           │ │
+│ │ price, so here are NO    │                          │        │           │ │
+│ │ loan which I am          │                          │        │           │ │
+│ │ obligated to repay. The  │                          │        │           │ │
+│ │ only party who have      │                          │        │           │ │
+│ │ contractual obligations  │                          │        │           │ │
+│ │ to is XXXX XXXX, the     │                          │        │           │ │
+│ │ seller and purported     │                          │        │           │ │
+│ │ owner of this property   │                          │        │           │ │
+│ │ who must provide me a    │                          │        │           │ │
+│ │ clean and reliable       │                          │        │           │ │
+│ │ Title, which they        │                          │        │           │ │
+│ │ failed. \r\n\r\nSecond,  │                          │        │           │ │
+│ │ XXXX XXXX words that my  │                          │        │           │ │
+│ │ correspondence does not  │                          │        │           │ │
+│ │ form any contract        │                          │        │           │ │
+│ │ or\n[...middle           │                          │        │           │ │
+│ │ truncated...]\n XXXX     │                          │        │           │ │
+│ │ XXXX who was associated  │                          │        │           │ │
+│ │ with Wells Fargo bank -  │                          │        │           │ │
+│ │ and he does not work for │                          │        │           │ │
+│ │ Wells Fargo since XXXX.  │                          │        │           │ │
+│ │ \r\n\r\n\" XXXX XXXX ''  │                          │        │           │ │
+│ │ XXXX XXXX. XXXX is       │                          │        │           │ │
+│ │ actually Wells Fargo     │                          │        │           │ │
+│ │ XXXX XXXX. XXXX XXXX     │                          │        │           │ │
+│ │ XXXX is XXXX XXXX        │                          │        │           │ │
+│ │ coordinator who also     │                          │        │           │ │
+│ │ worked for XXXX XXXX     │                          │        │           │ │
+│ │ XXXX XXXX PAS ), a       │                          │        │           │ │
+│ │ Maryland XXXX. According │                          │        │           │ │
+│ │ to IL Secretary of XXXX, │                          │        │           │ │
+│ │ PAS does not have        │                          │        │           │ │
+│ │ registration to conduct  │                          │        │           │ │
+│ │ real estate business in  │                          │        │           │ │
+│ │ IL while WFHM has a very │                          │        │           │ │
+│ │ questionable status.     │                          │        │           │ │
+│ │ According to the record, │                          │        │           │ │
+│ │ WFHM filed for           │                          │        │           │ │
+│ │ registration with the    │                          │        │           │ │
+│ │ State in XXXX. The last  │                          │        │           │ │
+│ │ annual report was filed  │                          │        │           │ │
+│ │ in XXXX. \r\n\r\nThe     │                          │        │           │ │
+│ │ President, XXXX XXXX     │                          │        │           │ │
+│ │ XXXX XXXX, since XXXX    │                          │        │           │ │
+│ │ works for XXXX XXXX      │                          │        │           │ │
+│ │ XXXX, WFB XXXX XXXX,     │                          │        │           │ │
+│ │ currently under          │                          │        │           │ │
+│ │ investigation for fraud  │                          │        │           │ │
+│ │ and facing license       │                          │        │           │ │
+│ │ suspension in            │                          │        │           │ │
+│ │ California. See          │                          │        │           │ │
+│ │ attached. I also found   │                          │        │           │ │
+│ │ an article that WFB, PAS │                          │        │           │ │
+│ │ and their agents         │                          │        │           │ │
+│ │ intentionally lie to     │                          │        │           │ │
+│ │ property buyers. See     │                          │        │           │ │
+│ │ http : XXXX. Last        │                          │        │           │ │
+│ │ assessed XX/XX/XXXX.     │                          │        │           │ │
+│ │ \r\n\r\nWhen I contacted │                          │        │           │ │
+│ │ a Title Insurance        │                          │        │           │ │
+│ │ Company, XXXX XXXX XXXX  │                          │        │           │ │
+│ │ who received {$1300.00}  │                          │        │           │ │
+│ │ for the Title insurance  │                          │        │           │ │
+│ │ on my property, they     │                          │        │           │ │
+│ │ advised me that they     │                          │        │           │ │
+│ │ don't have any records   │                          │        │           │ │
+│ │ on my policy.            │                          │        │           │ │
+│ │ \r\n\r\nPlease provide   │                          │        │           │ │
+│ │ me verification of XXXX  │                          │        │           │ │
+│ │ XXXX XXXX Status as      │                          │        │           │ │
+│ │ Trustee ; good legal     │                          │        │           │ │
+│ │ standing for of this     │                          │        │           │ │
+│ │ XXXX XXXX ; legitimacy   │                          │        │           │ │
+│ │ of the Assignment 6      │                          │        │           │ │
+│ │ years after Trust        │                          │        │           │ │
+│ │ closing day ; copy of    │                          │        │           │ │
+│ │ the original Note with   │                          │        │           │ │
+│ │ full chain of Assignment │                          │        │           │ │
+│ │ ; explanation why this   │                          │        │           │ │
+│ │ Note was not assigned    │                          │        │           │ │
+│ │ into the Trust ; copies  │                          │        │           │ │
+│ │ of SEC and IRS filings   │                          │        │           │ │
+│ │ for this XXXX XXXX which │                          │        │           │ │
+│ │ can verify its good      │                          │        │           │ │
+│ │ corporate Standing ; and │                          │        │           │ │
+│ │ any and all other        │                          │        │           │ │
+│ │ documents to prove that  │                          │        │           │ │
+│ │ his foreclosure was      │                          │        │           │ │
+│ │ legit ; and the Seller   │                          │        │           │ │
+│ │ had a valid Title for    │                          │        │           │ │
+│ │ this property, eligible  │                          │        │           │ │
+│ │ for sale.                │                          │        │           │ │
+│ │ \r\n\r\n\r\nSincerely,   │                          │        │           │ │
+│ │ XXXX                     │                          │        │           │ │
+│ │ XXXX","source_company":… │                          │        │           │ │
+│ │ FARGO &                  │                          │        │           │ │
+│ │ COMPANY","source_issue"… │                          │        │           │ │
+│ │ on a                     │                          │        │           │ │
+│ │ mortgage","source_produ… │                          │        │           │ │
+│ │ assistant                │                          │        │           │ │
+│ │ <think>                  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ </think>                 │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ └──────────────────────────┴──────────────────────────┴────────┴───────────┘ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+  2%|▏         | 2/100 [01:47<1:25:16, 52.21s/it]                                                   2%|▏         | 2/100 [01:47<1:25:16, 52.21s/it]{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.95e-06', 'num_tokens': '1.77e+04', 'completions/mean_length': '68.5', 'completions/min_length': '61', 'completions/max_length': '85', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '68.5', 'completions/min_terminated_length': '61', 'completions/max_terminated_length': '85', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.01939', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '44.84', 'epoch': '0.002759'}
+╭─────────────────────────────────── Step 2 ───────────────────────────────────╮
+│ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━┓ │
+│ ┃ Prompt                   ┃ Completion               ┃ reward ┃ Advantage ┃ │
+│ ┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━┩ │
+│ │ system                   │ {"ambiguity_flag":false… │   1.00 │      0.00 │ │
+│ │ You convert one CFPB     │ ONE FINANCIAL            │        │           │ │
+│ │ complaint into exactly   │ CORPORATION","issue":"U… │        │           │ │
+│ │ one strict JSON ticket.  │ membership fee charged   │        │           │ │
+│ │ The user input is        │ for 6 years without      │        │           │ │
+│ │ input-contract-v2 JSON   │ clear benefits or        │        │           │ │
+│ │ with complaint_id,       │ justification","product… │        │           │ │
+│ │ narrative,               │ ONE FINANCIAL            │        │           │ │
+│ │ source_product,          │ CORPORATION","issue":"U… │        │           │ │
+│ │ source_issue,            │ membership fee charged   │        │           │ │
+│ │ and source_company.      │ for 6 years without      │        │           │ │
+│ │ Return JSON only, with   │ clear benefits or        │        │           │ │
+│ │ exactly: product, issue, │ justification"},"name":… │        │           │ │
+│ │ company, urgency,        │                          │        │           │ │
+│ │ ambiguity_flag, and      │                          │        │           │ │
+│ │ tool_call.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ product is one of card,  │                          │        │           │ │
+│ │ credit_reporting,        │                          │        │           │ │
+│ │ debt_collection,         │                          │        │           │ │
+│ │ deposit_account,         │                          │        │           │ │
+│ │ money_service, mortgage, │                          │        │           │ │
+│ │ payday_personal_loan,    │                          │        │           │ │
+│ │ student_loan,            │                          │        │           │ │
+│ │ vehicle_loan. Map CFPB   │                          │        │           │ │
+│ │ products by meaning:     │                          │        │           │ │
+│ │ cards/prepaid -> card;   │                          │        │           │ │
+│ │ credit                   │                          │        │           │ │
+│ │ reporting/repair/consum… │                          │        │           │ │
+│ │ reports                  │                          │        │           │ │
+│ │ or debt/credit           │                          │        │           │ │
+│ │ management ->            │                          │        │           │ │
+│ │ credit_reporting; debt   │                          │        │           │ │
+│ │ collection ->            │                          │        │           │ │
+│ │ debt_collection;         │                          │        │           │ │
+│ │ bank/checking/savings -> │                          │        │           │ │
+│ │ deposit_account;         │                          │        │           │ │
+│ │ transfers/virtual        │                          │        │           │ │
+│ │ currency/money service   │                          │        │           │ │
+│ │ ->                       │                          │        │           │ │
+│ │ money_service; mortgage  │                          │        │           │ │
+│ │ -> mortgage;             │                          │        │           │ │
+│ │ payday/title/personal/a… │                          │        │           │ │
+│ │ loan ->                  │                          │        │           │ │
+│ │ payday_personal_loan;    │                          │        │           │ │
+│ │ student loan ->          │                          │        │           │ │
+│ │ student_loan;            │                          │        │           │ │
+│ │ consumer/vehicle loan or │                          │        │           │ │
+│ │ lease ->                 │                          │        │           │ │
+│ │ vehicle_loan. issue is   │                          │        │           │ │
+│ │ the nonempty source      │                          │        │           │ │
+│ │ issue, or "unspecified". │                          │        │           │ │
+│ │ company is the           │                          │        │           │ │
+│ │ source company or null.  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Urgency policy: high if  │                          │        │           │ │
+│ │ the narrative contains   │                          │        │           │ │
+│ │ foreclosure, eviction,   │                          │        │           │ │
+│ │ identity                 │                          │        │           │ │
+│ │ theft, garnishment,      │                          │        │           │ │
+│ │ repossession, threatened │                          │        │           │ │
+│ │ to take legal action,    │                          │        │           │ │
+│ │ unable to access         │                          │        │           │ │
+│ │ funds, or account        │                          │        │           │ │
+│ │ takeover. Otherwise      │                          │        │           │ │
+│ │ medium if source_issue   │                          │        │           │ │
+│ │ plus narrative contains  │                          │        │           │ │
+│ │ fraud, unauthorized,     │                          │        │           │ │
+│ │ dispute, incorrect       │                          │        │           │ │
+│ │ information, late fee,   │                          │        │           │ │
+│ │ collection, charged,     │                          │        │           │ │
+│ │ or denied. Otherwise     │                          │        │           │ │
+│ │ low. Match               │                          │        │           │ │
+│ │ Unicode-normalized,      │                          │        │           │ │
+│ │ collapsed,               │                          │        │           │ │
+│ │ case-insensitive text.   │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Ambiguity means          │                          │        │           │ │
+│ │ source_issue or          │                          │        │           │ │
+│ │ source_company is        │                          │        │           │ │
+│ │ missing, normalized      │                          │        │           │ │
+│ │ narrative is             │                          │        │           │ │
+│ │ under 40 characters, or  │                          │        │           │ │
+│ │ a narrative of at most   │                          │        │           │ │
+│ │ 200 characters contains  │                          │        │           │ │
+│ │ "not sure",              │                          │        │           │ │
+│ │ "do not know what        │                          │        │           │ │
+│ │ happened", "don't know   │                          │        │           │ │
+│ │ what happened",          │                          │        │           │ │
+│ │ "insufficient            │                          │        │           │ │
+│ │ information",            │                          │        │           │ │
+│ │ or "no details           │                          │        │           │ │
+│ │ available".              │                          │        │           │ │
+│ │ ambiguity_flag is true   │                          │        │           │ │
+│ │ exactly when the tool is │                          │        │           │ │
+│ │ request_more_info.       │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Choose the first         │                          │        │           │ │
+│ │ applicable tool: (1)     │                          │        │           │ │
+│ │ request_more_info for    │                          │        │           │ │
+│ │ ambiguity; (2)           │                          │        │           │ │
+│ │ close_no_action if issue │                          │        │           │ │
+│ │ plus narrative says      │                          │        │           │ │
+│ │ resolved, filed in       │                          │        │           │ │
+│ │ error, or duplicate;     │                          │        │           │ │
+│ │ (3)                      │                          │        │           │ │
+│ │ escalate_to_regulator    │                          │        │           │ │
+│ │ for high urgency; (4)    │                          │        │           │ │
+│ │ start_refund_workflow if │                          │        │           │ │
+│ │ narrative                │                          │        │           │ │
+│ │ contains refund,         │                          │        │           │ │
+│ │ reimbursement, money     │                          │        │           │ │
+│ │ back, reverse the        │                          │        │           │ │
+│ │ charge, or chargeback;   │                          │        │           │ │
+│ │ (5)                      │                          │        │           │ │
+│ │ route_to_company         │                          │        │           │ │
+│ │ otherwise.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Tool arguments must have │                          │        │           │ │
+│ │ exactly one registered   │                          │        │           │ │
+│ │ shape:                   │                          │        │           │ │
+│ │ - request_more_info:     │                          │        │           │ │
+│ │ missing_fields (unique   │                          │        │           │ │
+│ │ values from product,     │                          │        │           │ │
+│ │ issue, company,          │                          │        │           │ │
+│ │   details) and a         │                          │        │           │ │
+│ │ meaningful question.     │                          │        │           │ │
+│ │ - close_no_action:       │                          │        │           │ │
+│ │ reason =                 │                          │        │           │ │
+│ │ already_resolved,        │                          │        │           │ │
+│ │ duplicate_or_spam, or    │                          │        │           │ │
+│ │   no_consumer_harm_dete… │                          │        │           │ │
+│ │ - escalate_to_regulator: │                          │        │           │ │
+│ │ complaint_id integer and │                          │        │           │ │
+│ │ meaningful nonempty      │                          │        │           │ │
+│ │ reason.                  │                          │        │           │ │
+│ │ - start_refund_workflow: │                          │        │           │ │
+│ │ company string, issue    │                          │        │           │ │
+│ │ string,                  │                          │        │           │ │
+│ │ evidence_required true.  │                          │        │           │ │
+│ │ - route_to_company:      │                          │        │           │ │
+│ │ company string and issue │                          │        │           │ │
+│ │ string.                  │                          │        │           │ │
+│ │ No Markdown, reasoning,  │                          │        │           │ │
+│ │ comments, or extra       │                          │        │           │ │
+│ │ fields.                  │                          │        │           │ │
+│ │ user                     │                          │        │           │ │
+│ │ {"complaint_id":1831718… │                          │        │           │ │
+│ │ has been charging me a   │                          │        │           │ │
+│ │ membership fee of        │                          │        │           │ │
+│ │ {$3.00} for the past 6   │                          │        │           │ │
+│ │ years. \nThe customer    │                          │        │           │ │
+│ │ service agents can not   │                          │        │           │ │
+│ │ tell me what its for, or │                          │        │           │ │
+│ │ what benefits it         │                          │        │           │ │
+│ │ provides. \nI have an    │                          │        │           │ │
+│ │ identical card, but Visa │                          │        │           │ │
+│ │ branded, the one in      │                          │        │           │ │
+│ │ reference is a           │                          │        │           │ │
+│ │ mastercard, and it DOES  │                          │        │           │ │
+│ │ NOT have this fee. \nMy  │                          │        │           │ │
+│ │ wife has the mastercard  │                          │        │           │ │
+│ │ version and visa         │                          │        │           │ │
+│ │ version, so the          │                          │        │           │ │
+│ │ identical set up i have, │                          │        │           │ │
+│ │ and she DOES NOT have    │                          │        │           │ │
+│ │ the fee on either        │                          │        │           │ │
+│ │ account. \nThe customer  │                          │        │           │ │
+│ │ service folks are        │                          │        │           │ │
+│ │ totally unwilling to     │                          │        │           │ │
+│ │ resolve the issue or     │                          │        │           │ │
+│ │ offer a VALID            │                          │        │           │ │
+│ │ explanation. There is no │                          │        │           │ │
+│ │ reason i should be       │                          │        │           │ │
+│ │ charged this arbitrary   │                          │        │           │ │
+│ │ fee that literally does  │                          │        │           │ │
+│ │ nothing. The listing of  │                          │        │           │ │
+│ │ benefits for my card     │                          │        │           │ │
+│ │ with the fee and my      │                          │        │           │ │
+│ │ wifes identical card     │                          │        │           │ │
+│ │ without the fee are      │                          │        │           │ │
+│ │ identical. There is      │                          │        │           │ │
+│ │ ABSOLUTELY no value from │                          │        │           │ │
+│ │ paying this fee.         │                          │        │           │ │
+│ │ \n\nThis is my OLDEST    │                          │        │           │ │
+│ │ credit account and i do  │                          │        │           │ │
+│ │ not want to close it,    │                          │        │           │ │
+│ │ however i will happily   │                          │        │           │ │
+│ │ enter in to a lawsuit    │                          │        │           │ │
+│ │ just because my uncle is │                          │        │           │ │
+│ │ a lawyer and he needs to │                          │        │           │ │
+│ │ eat, if you understand   │                          │        │           │ │
+│ │ me, because as he put it │                          │        │           │ │
+│ │ \" this occurrence is a  │                          │        │           │ │
+│ │ cash cow ''. He seems to │                          │        │           │ │
+│ │ think that UDAAP can be  │                          │        │           │ │
+│ │ invoked in this instance │                          │        │           │ │
+│ │ and wonders how much he  │                          │        │           │ │
+│ │ can make from this.      │                          │        │           │ │
+│ │ \n\nSo we can go either  │                          │        │           │ │
+│ │ route, drag capitalones  │                          │        │           │ │
+│ │ name through the mud on  │                          │        │           │ │
+│ │ social media, the        │                          │        │           │ │
+│ │ traditional media ( one  │                          │        │           │ │
+│ │ of my XXXX works for the │                          │        │           │ │
+│ │ XXXX in town ), the      │                          │        │           │ │
+│ │ court system ( my friend │                          │        │           │ │
+│ │ from highschool works in │                          │        │           │ │
+│ │ the DA office ). \n\nI   │                          │        │           │ │
+│ │ currently have XXXX      │                          │        │           │ │
+│ │ connections on facebook  │                          │        │           │ │
+│ │ on my personal page, i   │                          │        │           │ │
+│ │ have over XXXX reach on  │                          │        │           │ │
+│ │ my professional facebook │                          │        │           │ │
+│ │ page which is finance    │                          │        │           │ │
+│ │ related, i have          │                          │        │           │ │
+│ │ thousands of connections │                          │        │           │ │
+│ │ on XXXX, and i have a    │                          │        │           │ │
+│ │ XXXX account for my      │                          │        │           │ │
+│ │ nonprofit that is        │                          │        │           │ │
+│ │ reaching XXXX followers  │                          │        │           │ │
+│ │ very soon. I have no     │                          │        │           │ │
+│ │ problem bringing the     │                          │        │           │ │
+│ │ truth to light, i also   │                          │        │           │ │
+│ │ have time as well to do  │                          │        │           │ │
+│ │ all of this as i have    │                          │        │           │ │
+│ │ plenty of PTO accrued.   │                          │        │           │ │
+│ │ \n\nSo will we get rid   │                          │        │           │ │
+│ │ of the fee for the past  │                          │        │           │ │
+│ │ 5 years? or Will we      │                          │        │           │ │
+│ │ begin a journey we can   │                          │        │           │ │
+│ │ not un-begin? \n\nYour   │                          │        │           │ │
+│ │ choice, i hope you take  │                          │        │           │ │
+│ │ this seriously as i have │                          │        │           │ │
+│ │ a network of individuals │                          │        │           │ │
+│ │ in XXXX who work at      │                          │        │           │ │
+│ │ capitalone offices and i │                          │        │           │ │
+│ │ would hate to have to    │                          │        │           │ │
+│ │ call in a favor and get  │                          │        │           │ │
+│ │ them jobs elsewhere      │                          │        │           │ │
+│ │ leaving you high and dry │                          │        │           │ │
+│ │ intentionally, because   │                          │        │           │ │
+│ │ honestly i have that     │                          │        │           │ │
+│ │ type of                  │                          │        │           │ │
+│ │ influence.","source_com… │                          │        │           │ │
+│ │ ONE FINANCIAL            │                          │        │           │ │
+│ │ CORPORATION","source_is… │                          │        │           │ │
+│ │ fee","source_product":"… │                          │        │           │ │
+│ │ card"}                   │                          │        │           │ │
+│ │ assistant                │                          │        │           │ │
+│ │ <think>                  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ </think>                 │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ ├──────────────────────────┼──────────────────────────┼────────┼───────────┤ │
+│ │ system                   │ {"ambiguity_flag":false… │   1.00 │      0.00 │ │
+│ │ You convert one CFPB     │ Information Solutions    │        │           │ │
+│ │ complaint into exactly   │ Inc.","issue":"Incorrect │        │           │ │
+│ │ one strict JSON ticket.  │ information on your      │        │           │ │
+│ │ The user input is        │ report","product":"cred… │        │           │ │
+│ │ input-contract-v2 JSON   │ Information Solutions    │        │           │ │
+│ │ with complaint_id,       │ Inc.","issue":"Incorrect │        │           │ │
+│ │ narrative,               │ information on your      │        │           │ │
+│ │ source_product,          │ report"},"name":"route_… │        │           │ │
+│ │ source_issue,            │                          │        │           │ │
+│ │ and source_company.      │                          │        │           │ │
+│ │ Return JSON only, with   │                          │        │           │ │
+│ │ exactly: product, issue, │                          │        │           │ │
+│ │ company, urgency,        │                          │        │           │ │
+│ │ ambiguity_flag, and      │                          │        │           │ │
+│ │ tool_call.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ product is one of card,  │                          │        │           │ │
+│ │ credit_reporting,        │                          │        │           │ │
+│ │ debt_collection,         │                          │        │           │ │
+│ │ deposit_account,         │                          │        │           │ │
+│ │ money_service, mortgage, │                          │        │           │ │
+│ │ payday_personal_loan,    │                          │        │           │ │
+│ │ student_loan,            │                          │        │           │ │
+│ │ vehicle_loan. Map CFPB   │                          │        │           │ │
+│ │ products by meaning:     │                          │        │           │ │
+│ │ cards/prepaid -> card;   │                          │        │           │ │
+│ │ credit                   │                          │        │           │ │
+│ │ reporting/repair/consum… │                          │        │           │ │
+│ │ reports                  │                          │        │           │ │
+│ │ or debt/credit           │                          │        │           │ │
+│ │ management ->            │                          │        │           │ │
+│ │ credit_reporting; debt   │                          │        │           │ │
+│ │ collection ->            │                          │        │           │ │
+│ │ debt_collection;         │                          │        │           │ │
+│ │ bank/checking/savings -> │                          │        │           │ │
+│ │ deposit_account;         │                          │        │           │ │
+│ │ transfers/virtual        │                          │        │           │ │
+│ │ currency/money service   │                          │        │           │ │
+│ │ ->                       │                          │        │           │ │
+│ │ money_service; mortgage  │                          │        │           │ │
+│ │ -> mortgage;             │                          │        │           │ │
+│ │ payday/title/personal/a… │                          │        │           │ │
+│ │ loan ->                  │                          │        │           │ │
+│ │ payday_personal_loan;    │                          │        │           │ │
+│ │ student loan ->          │                          │        │           │ │
+│ │ student_loan;            │                          │        │           │ │
+│ │ consumer/vehicle loan or │                          │        │           │ │
+│ │ lease ->                 │                          │        │           │ │
+│ │ vehicle_loan. issue is   │                          │        │           │ │
+│ │ the nonempty source      │                          │        │           │ │
+│ │ issue, or "unspecified". │                          │        │           │ │
+│ │ company is the           │                          │        │           │ │
+│ │ source company or null.  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Urgency policy: high if  │                          │        │           │ │
+│ │ the narrative contains   │                          │        │           │ │
+│ │ foreclosure, eviction,   │                          │        │           │ │
+│ │ identity                 │                          │        │           │ │
+│ │ theft, garnishment,      │                          │        │           │ │
+│ │ repossession, threatened │                          │        │           │ │
+│ │ to take legal action,    │                          │        │           │ │
+│ │ unable to access         │                          │        │           │ │
+│ │ funds, or account        │                          │        │           │ │
+│ │ takeover. Otherwise      │                          │        │           │ │
+│ │ medium if source_issue   │                          │        │           │ │
+│ │ plus narrative contains  │                          │        │           │ │
+│ │ fraud, unauthorized,     │                          │        │           │ │
+│ │ dispute, incorrect       │                          │        │           │ │
+│ │ information, late fee,   │                          │        │           │ │
+│ │ collection, charged,     │                          │        │           │ │
+│ │ or denied. Otherwise     │                          │        │           │ │
+│ │ low. Match               │                          │        │           │ │
+│ │ Unicode-normalized,      │                          │        │           │ │
+│ │ collapsed,               │                          │        │           │ │
+│ │ case-insensitive text.   │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Ambiguity means          │                          │        │           │ │
+│ │ source_issue or          │                          │        │           │ │
+│ │ source_company is        │                          │        │           │ │
+│ │ missing, normalized      │                          │        │           │ │
+│ │ narrative is             │                          │        │           │ │
+│ │ under 40 characters, or  │                          │        │           │ │
+│ │ a narrative of at most   │                          │        │           │ │
+│ │ 200 characters contains  │                          │        │           │ │
+│ │ "not sure",              │                          │        │           │ │
+│ │ "do not know what        │                          │        │           │ │
+│ │ happened", "don't know   │                          │        │           │ │
+│ │ what happened",          │                          │        │           │ │
+│ │ "insufficient            │                          │        │           │ │
+│ │ information",            │                          │        │           │ │
+│ │ or "no details           │                          │        │           │ │
+│ │ available".              │                          │        │           │ │
+│ │ ambiguity_flag is true   │                          │        │           │ │
+│ │ exactly when the tool is │                          │        │           │ │
+│ │ request_more_info.       │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Choose the first         │                          │        │           │ │
+│ │ applicable tool: (1)     │                          │        │           │ │
+│ │ request_more_info for    │                          │        │           │ │
+│ │ ambiguity; (2)           │                          │        │           │ │
+│ │ close_no_action if issue │                          │        │           │ │
+│ │ plus narrative says      │                          │        │           │ │
+│ │ resolved, filed in       │                          │        │           │ │
+│ │ error, or duplicate;     │                          │        │           │ │
+│ │ (3)                      │                          │        │           │ │
+│ │ escalate_to_regulator    │                          │        │           │ │
+│ │ for high urgency; (4)    │                          │        │           │ │
+│ │ start_refund_workflow if │                          │        │           │ │
+│ │ narrative                │                          │        │           │ │
+│ │ contains refund,         │                          │        │           │ │
+│ │ reimbursement, money     │                          │        │           │ │
+│ │ back, reverse the        │                          │        │           │ │
+│ │ charge, or chargeback;   │                          │        │           │ │
+│ │ (5)                      │                          │        │           │ │
+│ │ route_to_company         │                          │        │           │ │
+│ │ otherwise.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Tool arguments must have │                          │        │           │ │
+│ │ exactly one registered   │                          │        │           │ │
+│ │ shape:                   │                          │        │           │ │
+│ │ - request_more_info:     │                          │        │           │ │
+│ │ missing_fields (unique   │                          │        │           │ │
+│ │ values from product,     │                          │        │           │ │
+│ │ issue, company,          │                          │        │           │ │
+│ │   details) and a         │                          │        │           │ │
+│ │ meaningful question.     │                          │        │           │ │
+│ │ - close_no_action:       │                          │        │           │ │
+│ │ reason =                 │                          │        │           │ │
+│ │ already_resolved,        │                          │        │           │ │
+│ │ duplicate_or_spam, or    │                          │        │           │ │
+│ │   no_consumer_harm_dete… │                          │        │           │ │
+│ │ - escalate_to_regulator: │                          │        │           │ │
+│ │ complaint_id integer and │                          │        │           │ │
+│ │ meaningful nonempty      │                          │        │           │ │
+│ │ reason.                  │                          │        │           │ │
+│ │ - start_refund_workflow: │                          │        │           │ │
+│ │ company string, issue    │                          │        │           │ │
+│ │ string,                  │                          │        │           │ │
+│ │ evidence_required true.  │                          │        │           │ │
+│ │ - route_to_company:      │                          │        │           │ │
+│ │ company string and issue │                          │        │           │ │
+│ │ string.                  │                          │        │           │ │
+│ │ No Markdown, reasoning,  │                          │        │           │ │
+│ │ comments, or extra       │                          │        │           │ │
+│ │ fields.                  │                          │        │           │ │
+│ │ user                     │                          │        │           │ │
+│ │ {"complaint_id":4848676… │                          │        │           │ │
+│ │ husband and I had an     │                          │        │           │ │
+│ │ auto financed through    │                          │        │           │ │
+│ │ XXXX XXXX. My husband,   │                          │        │           │ │
+│ │ unfortunately, had to    │                          │        │           │ │
+│ │ file bankruptcy and we   │                          │        │           │ │
+│ │ gave back the vehicle.   │                          │        │           │ │
+│ │ It is my understanding   │                          │        │           │ │
+│ │ that it was sold at      │                          │        │           │ │
+│ │ auction and that the     │                          │        │           │ │
+│ │ balance was reduced from │                          │        │           │ │
+│ │ $ XXXX to $ XXXX.        │                          │        │           │ │
+│ │ \n\nThe XXXX XXXX        │                          │        │           │ │
+│ │ installment loan stopped │                          │        │           │ │
+│ │ reporting any updates to │                          │        │           │ │
+│ │ my credit report since   │                          │        │           │ │
+│ │ XX/XX/2020 so it appears │                          │        │           │ │
+│ │ to be stuck at a rolling │                          │        │           │ │
+│ │ 60 day late. When we     │                          │        │           │ │
+│ │ call XXXX XXXX the       │                          │        │           │ │
+│ │ representatives tell us  │                          │        │           │ │
+│ │ that I am going to       │                          │        │           │ │
+│ │ receive a XXXX because   │                          │        │           │ │
+│ │ the balance is being     │                          │        │           │ │
+│ │ forgiven which I am fine │                          │        │           │ │
+│ │ with but I need the      │                          │        │           │ │
+│ │ account to be updated on │                          │        │           │ │
+│ │ my credit report since   │                          │        │           │ │
+│ │ XXXX  XXXX is saying I   │                          │        │           │ │
+│ │ am not able to pay on it │                          │        │           │ │
+│ │ as there isn't a balance │                          │        │           │ │
+│ │ due by                   │                          │        │           │ │
+│ │ me.","source_company":"… │                          │        │           │ │
+│ │ Information Solutions    │                          │        │           │ │
+│ │ Inc.","source_issue":"I… │                          │        │           │ │
+│ │ information on your      │                          │        │           │ │
+│ │ report","source_product… │                          │        │           │ │
+│ │ reporting, credit repair │                          │        │           │ │
+│ │ services, or other       │                          │        │           │ │
+│ │ personal consumer        │                          │        │           │ │
+│ │ reports"}                │                          │        │           │ │
+│ │ assistant                │                          │        │           │ │
+│ │ <think>                  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ </think>                 │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ └──────────────────────────┴──────────────────────────┴────────┴───────────┘ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+  3%|▎         | 3/100 [02:31<1:18:10, 48.36s/it]                                                   3%|▎         | 3/100 [02:31<1:18:10, 48.36s/it]{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.9e-06', 'num_tokens': '2.552e+04', 'completions/mean_length': '91', 'completions/min_length': '80', 'completions/max_length': '103', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '91', 'completions/min_terminated_length': '80', 'completions/max_terminated_length': '103', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.04756', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '43.68', 'epoch': '0.004138'}
+╭─────────────────────────────────── Step 3 ───────────────────────────────────╮
+│ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━┓ │
+│ ┃ Prompt                   ┃ Completion               ┃ reward ┃ Advantage ┃ │
+│ ┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━┩ │
+│ │ system                   │ {"ambiguity_flag":false… │   1.00 │      0.00 │ │
+│ │ You convert one CFPB     │ INTERMEDIATE HOLDINGS,   │        │           │ │
+│ │ complaint into exactly   │ INC.","issue":"Incorrect │        │           │ │
+│ │ one strict JSON ticket.  │ information on your      │        │           │ │
+│ │ The user input is        │ report","product":"cred… │        │           │ │
+│ │ input-contract-v2 JSON   │ theft with police report │        │           │ │
+│ │ with complaint_id,       │ filed; consumer reports  │        │           │ │
+│ │ narrative,               │ intentional delay by     │        │           │ │
+│ │ source_product,          │ credit bureau in placing │        │           │ │
+│ │ source_issue,            │ security freeze and      │        │           │ │
+│ │ and source_company.      │ removing hard inquiries  │        │           │ │
+│ │ Return JSON only, with   │ as required, with        │        │           │ │
+│ │ exactly: product, issue, │ Threatened Legal and     │        │           │ │
+│ │ company, urgency,        │ Criminal                 │        │           │ │
+│ │ ambiguity_flag, and      │ Action"},"name":"escala… │        │           │ │
+│ │ tool_call.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ product is one of card,  │                          │        │           │ │
+│ │ credit_reporting,        │                          │        │           │ │
+│ │ debt_collection,         │                          │        │           │ │
+│ │ deposit_account,         │                          │        │           │ │
+│ │ money_service, mortgage, │                          │        │           │ │
+│ │ payday_personal_loan,    │                          │        │           │ │
+│ │ student_loan,            │                          │        │           │ │
+│ │ vehicle_loan. Map CFPB   │                          │        │           │ │
+│ │ products by meaning:     │                          │        │           │ │
+│ │ cards/prepaid -> card;   │                          │        │           │ │
+│ │ credit                   │                          │        │           │ │
+│ │ reporting/repair/consum… │                          │        │           │ │
+│ │ reports                  │                          │        │           │ │
+│ │ or debt/credit           │                          │        │           │ │
+│ │ management ->            │                          │        │           │ │
+│ │ credit_reporting; debt   │                          │        │           │ │
+│ │ collection ->            │                          │        │           │ │
+│ │ debt_collection;         │                          │        │           │ │
+│ │ bank/checking/savings -> │                          │        │           │ │
+│ │ deposit_account;         │                          │        │           │ │
+│ │ transfers/virtual        │                          │        │           │ │
+│ │ currency/money service   │                          │        │           │ │
+│ │ ->                       │                          │        │           │ │
+│ │ money_service; mortgage  │                          │        │           │ │
+│ │ -> mortgage;             │                          │        │           │ │
+│ │ payday/title/personal/a… │                          │        │           │ │
+│ │ loan ->                  │                          │        │           │ │
+│ │ payday_personal_loan;    │                          │        │           │ │
+│ │ student loan ->          │                          │        │           │ │
+│ │ student_loan;            │                          │        │           │ │
+│ │ consumer/vehicle loan or │                          │        │           │ │
+│ │ lease ->                 │                          │        │           │ │
+│ │ vehicle_loan. issue is   │                          │        │           │ │
+│ │ the nonempty source      │                          │        │           │ │
+│ │ issue, or "unspecified". │                          │        │           │ │
+│ │ company is the           │                          │        │           │ │
+│ │ source company or null.  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Urgency policy: high if  │                          │        │           │ │
+│ │ the narrative contains   │                          │        │           │ │
+│ │ foreclosure, eviction,   │                          │        │           │ │
+│ │ identity                 │                          │        │           │ │
+│ │ theft, garnishment,      │                          │        │           │ │
+│ │ repossession, threatened │                          │        │           │ │
+│ │ to take legal action,    │                          │        │           │ │
+│ │ unable to access         │                          │        │           │ │
+│ │ funds, or account        │                          │        │           │ │
+│ │ takeover. Otherwise      │                          │        │           │ │
+│ │ medium if source_issue   │                          │        │           │ │
+│ │ plus narrative contains  │                          │        │           │ │
+│ │ fraud, unauthorized,     │                          │        │           │ │
+│ │ dispute, incorrect       │                          │        │           │ │
+│ │ information, late fee,   │                          │        │           │ │
+│ │ collection, charged,     │                          │        │           │ │
+│ │ or denied. Otherwise     │                          │        │           │ │
+│ │ low. Match               │                          │        │           │ │
+│ │ Unicode-normalized,      │                          │        │           │ │
+│ │ collapsed,               │                          │        │           │ │
+│ │ case-insensitive text.   │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Ambiguity means          │                          │        │           │ │
+│ │ source_issue or          │                          │        │           │ │
+│ │ source_company is        │                          │        │           │ │
+│ │ missing, normalized      │                          │        │           │ │
+│ │ narrative is             │                          │        │           │ │
+│ │ under 40 characters, or  │                          │        │           │ │
+│ │ a narrative of at most   │                          │        │           │ │
+│ │ 200 characters contains  │                          │        │           │ │
+│ │ "not sure",              │                          │        │           │ │
+│ │ "do not know what        │                          │        │           │ │
+│ │ happened", "don't know   │                          │        │           │ │
+│ │ what happened",          │                          │        │           │ │
+│ │ "insufficient            │                          │        │           │ │
+│ │ information",            │                          │        │           │ │
+│ │ or "no details           │                          │        │           │ │
+│ │ available".              │                          │        │           │ │
+│ │ ambiguity_flag is true   │                          │        │           │ │
+│ │ exactly when the tool is │                          │        │           │ │
+│ │ request_more_info.       │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Choose the first         │                          │        │           │ │
+│ │ applicable tool: (1)     │                          │        │           │ │
+│ │ request_more_info for    │                          │        │           │ │
+│ │ ambiguity; (2)           │                          │        │           │ │
+│ │ close_no_action if issue │                          │        │           │ │
+│ │ plus narrative says      │                          │        │           │ │
+│ │ resolved, filed in       │                          │        │           │ │
+│ │ error, or duplicate;     │                          │        │           │ │
+│ │ (3)                      │                          │        │           │ │
+│ │ escalate_to_regulator    │                          │        │           │ │
+│ │ for high urgency; (4)    │                          │        │           │ │
+│ │ start_refund_workflow if │                          │        │           │ │
+│ │ narrative                │                          │        │           │ │
+│ │ contains refund,         │                          │        │           │ │
+│ │ reimbursement, money     │                          │        │           │ │
+│ │ back, reverse the        │                          │        │           │ │
+│ │ charge, or chargeback;   │                          │        │           │ │
+│ │ (5)                      │                          │        │           │ │
+│ │ route_to_company         │                          │        │           │ │
+│ │ otherwise.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Tool arguments must have │                          │        │           │ │
+│ │ exactly one registered   │                          │        │           │ │
+│ │ shape:                   │                          │        │           │ │
+│ │ - request_more_info:     │                          │        │           │ │
+│ │ missing_fields (unique   │                          │        │           │ │
+│ │ values from product,     │                          │        │           │ │
+│ │ issue, company,          │                          │        │           │ │
+│ │   details) and a         │                          │        │           │ │
+│ │ meaningful question.     │                          │        │           │ │
+│ │ - close_no_action:       │                          │        │           │ │
+│ │ reason =                 │                          │        │           │ │
+│ │ already_resolved,        │                          │        │           │ │
+│ │ duplicate_or_spam, or    │                          │        │           │ │
+│ │   no_consumer_harm_dete… │                          │        │           │ │
+│ │ - escalate_to_regulator: │                          │        │           │ │
+│ │ complaint_id integer and │                          │        │           │ │
+│ │ meaningful nonempty      │                          │        │           │ │
+│ │ reason.                  │                          │        │           │ │
+│ │ - start_refund_workflow: │                          │        │           │ │
+│ │ company string, issue    │                          │        │           │ │
+│ │ string,                  │                          │        │           │ │
+│ │ evidence_required true.  │                          │        │           │ │
+│ │ - route_to_company:      │                          │        │           │ │
+│ │ company string and issue │                          │        │           │ │
+│ │ string.                  │                          │        │           │ │
+│ │ No Markdown, reasoning,  │                          │        │           │ │
+│ │ comments, or extra       │                          │        │           │ │
+│ │ fields.                  │                          │        │           │ │
+│ │ user                     │                          │        │           │ │
+│ │ {"complaint_id":2777148… │                          │        │           │ │
+│ │ am a victim of consumer  │                          │        │           │ │
+│ │ fraud and identity       │                          │        │           │ │
+│ │ theft. Police Report     │                          │        │           │ │
+│ │ Number : XXXX. Please    │                          │        │           │ │
+│ │ find the attached police │                          │        │           │ │
+│ │ report. It was filed at  │                          │        │           │ │
+│ │ XXXX Police Department   │                          │        │           │ │
+│ │ on XX/XX/XXXX. Complaint │                          │        │           │ │
+│ │ with the Bureau of       │                          │        │           │ │
+│ │ Consumer Frauds and      │                          │        │           │ │
+│ │ Protection New York      │                          │        │           │ │
+│ │ Attorney General file    │                          │        │           │ │
+│ │ number XXXX on           │                          │        │           │ │
+│ │ XX/XX/XXXX. New Jersey   │                          │        │           │ │
+│ │ Attorney General         │                          │        │           │ │
+│ │ Complaint Number XXXX.   │                          │        │           │ │
+│ │ Federal Trade Commission │                          │        │           │ │
+│ │ complaint number : XXXX. │                          │        │           │ │
+│ │ \r\n\r\nPlease place a   │                          │        │           │ │
+│ │ credit freeze on all my  │                          │        │           │ │
+│ │ credit reports on all    │                          │        │           │ │
+│ │ credit bureaus : XXXX,   │                          │        │           │ │
+│ │ XXXX, Transunion and     │                          │        │           │ │
+│ │ XXXX. Please remove all  │                          │        │           │ │
+│ │ hard inquiries from      │                          │        │           │ │
+│ │ XX/XX/XXXX until         │                          │        │           │ │
+│ │ XX/XX/XXXX on all my     │                          │        │           │ │
+│ │ credit reports on all    │                          │        │           │ │
+│ │ credit bureaus : XXXX,   │                          │        │           │ │
+│ │ XXXX, Transunion and     │                          │        │           │ │
+│ │ XXXX. Equifax and XXXX   │                          │        │           │ │
+│ │ has already placed the   │                          │        │           │ │
+│ │ security freeze and int  │                          │        │           │ │
+│ │ the process of complying │                          │        │           │ │
+│ │ of my requests.          │                          │        │           │ │
+│ │ Transunion and XXXX are  │                          │        │           │ │
+│ │ INTENTIONALLY delaying   │                          │        │           │ │
+│ │ the process and they     │                          │        │           │ │
+│ │ will be liable for all   │                          │        │           │ │
+│ │ financial losses I incur │                          │        │           │ │
+│ │ because of their         │                          │        │           │ │
+│ │ reckless behavior. You   │                          │        │           │ │
+│ │ will be hold accountable │                          │        │           │ │
+│ │ in court. This is not    │                          │        │           │ │
+│ │ just a civil case and it │                          │        │           │ │
+│ │ implies criminal         │                          │        │           │ │
+│ │ charges. Transunion and  │                          │        │           │ │
+│ │ XXXX will be liable too  │                          │        │           │ │
+│ │ for those criminal       │                          │        │           │ │
+│ │ charges if they do n't   │                          │        │           │ │
+│ │ act accordingly in the   │                          │        │           │ │
+│ │ NEXT 48 hours of         │                          │        │           │ │
+│ │ receiving this           │                          │        │           │ │
+│ │ complaint. I DARE YOU!   │                          │        │           │ │
+│ │ \r\n\r\nXX/XX/XXXX","so… │                          │        │           │ │
+│ │ INTERMEDIATE HOLDINGS,   │                          │        │           │ │
+│ │ INC.","source_issue":"I… │                          │        │           │ │
+│ │ information on your      │                          │        │           │ │
+│ │ report","source_product… │                          │        │           │ │
+│ │ reporting, credit repair │                          │        │           │ │
+│ │ services, or other       │                          │        │           │ │
+│ │ personal consumer        │                          │        │           │ │
+│ │ reports"}                │                          │        │           │ │
+│ │ assistant                │                          │        │           │ │
+│ │ <think>                  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ </think>                 │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ ├──────────────────────────┼──────────────────────────┼────────┼───────────┤ │
+│ │ system                   │ {"ambiguity_flag":false… │   1.00 │      0.00 │ │
+│ │ You convert one CFPB     │ INTERMEDIATE HOLDINGS,   │        │           │ │
+│ │ complaint into exactly   │ INC.","issue":"Incorrect │        │           │ │
+│ │ one strict JSON ticket.  │ information on your      │        │           │ │
+│ │ The user input is        │ report","product":"cred… │        │           │ │
+│ │ input-contract-v2 JSON   │ theft with police report │        │           │ │
+│ │ with complaint_id,       │ filed; consumer reports  │        │           │ │
+│ │ narrative,               │ intentional delay in     │        │           │ │
+│ │ source_product,          │ credit freeze            │        │           │ │
+│ │ source_issue,            │ implementation by credit │        │           │ │
+│ │ and source_company.      │ bureau, potential        │        │           │ │
+│ │ Return JSON only, with   │ financial harm, and      │        │           │ │
+│ │ exactly: product, issue, │ threatened legal action  │        │           │ │
+│ │ company, urgency,        │ including criminal       │        │           │ │
+│ │ ambiguity_flag, and      │ charges"},"name":"escal… │        │           │ │
+│ │ tool_call.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ product is one of card,  │                          │        │           │ │
+│ │ credit_reporting,        │                          │        │           │ │
+│ │ debt_collection,         │                          │        │           │ │
+│ │ deposit_account,         │                          │        │           │ │
+│ │ money_service, mortgage, │                          │        │           │ │
+│ │ payday_personal_loan,    │                          │        │           │ │
+│ │ student_loan,            │                          │        │           │ │
+│ │ vehicle_loan. Map CFPB   │                          │        │           │ │
+│ │ products by meaning:     │                          │        │           │ │
+│ │ cards/prepaid -> card;   │                          │        │           │ │
+│ │ credit                   │                          │        │           │ │
+│ │ reporting/repair/consum… │                          │        │           │ │
+│ │ reports                  │                          │        │           │ │
+│ │ or debt/credit           │                          │        │           │ │
+│ │ management ->            │                          │        │           │ │
+│ │ credit_reporting; debt   │                          │        │           │ │
+│ │ collection ->            │                          │        │           │ │
+│ │ debt_collection;         │                          │        │           │ │
+│ │ bank/checking/savings -> │                          │        │           │ │
+│ │ deposit_account;         │                          │        │           │ │
+│ │ transfers/virtual        │                          │        │           │ │
+│ │ currency/money service   │                          │        │           │ │
+│ │ ->                       │                          │        │           │ │
+│ │ money_service; mortgage  │                          │        │           │ │
+│ │ -> mortgage;             │                          │        │           │ │
+│ │ payday/title/personal/a… │                          │        │           │ │
+│ │ loan ->                  │                          │        │           │ │
+│ │ payday_personal_loan;    │                          │        │           │ │
+│ │ student loan ->          │                          │        │           │ │
+│ │ student_loan;            │                          │        │           │ │
+│ │ consumer/vehicle loan or │                          │        │           │ │
+│ │ lease ->                 │                          │        │           │ │
+│ │ vehicle_loan. issue is   │                          │        │           │ │
+│ │ the nonempty source      │                          │        │           │ │
+│ │ issue, or "unspecified". │                          │        │           │ │
+│ │ company is the           │                          │        │           │ │
+│ │ source company or null.  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Urgency policy: high if  │                          │        │           │ │
+│ │ the narrative contains   │                          │        │           │ │
+│ │ foreclosure, eviction,   │                          │        │           │ │
+│ │ identity                 │                          │        │           │ │
+│ │ theft, garnishment,      │                          │        │           │ │
+│ │ repossession, threatened │                          │        │           │ │
+│ │ to take legal action,    │                          │        │           │ │
+│ │ unable to access         │                          │        │           │ │
+│ │ funds, or account        │                          │        │           │ │
+│ │ takeover. Otherwise      │                          │        │           │ │
+│ │ medium if source_issue   │                          │        │           │ │
+│ │ plus narrative contains  │                          │        │           │ │
+│ │ fraud, unauthorized,     │                          │        │           │ │
+│ │ dispute, incorrect       │                          │        │           │ │
+│ │ information, late fee,   │                          │        │           │ │
+│ │ collection, charged,     │                          │        │           │ │
+│ │ or denied. Otherwise     │                          │        │           │ │
+│ │ low. Match               │                          │        │           │ │
+│ │ Unicode-normalized,      │                          │        │           │ │
+│ │ collapsed,               │                          │        │           │ │
+│ │ case-insensitive text.   │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Ambiguity means          │                          │        │           │ │
+│ │ source_issue or          │                          │        │           │ │
+│ │ source_company is        │                          │        │           │ │
+│ │ missing, normalized      │                          │        │           │ │
+│ │ narrative is             │                          │        │           │ │
+│ │ under 40 characters, or  │                          │        │           │ │
+│ │ a narrative of at most   │                          │        │           │ │
+│ │ 200 characters contains  │                          │        │           │ │
+│ │ "not sure",              │                          │        │           │ │
+│ │ "do not know what        │                          │        │           │ │
+│ │ happened", "don't know   │                          │        │           │ │
+│ │ what happened",          │                          │        │           │ │
+│ │ "insufficient            │                          │        │           │ │
+│ │ information",            │                          │        │           │ │
+│ │ or "no details           │                          │        │           │ │
+│ │ available".              │                          │        │           │ │
+│ │ ambiguity_flag is true   │                          │        │           │ │
+│ │ exactly when the tool is │                          │        │           │ │
+│ │ request_more_info.       │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Choose the first         │                          │        │           │ │
+│ │ applicable tool: (1)     │                          │        │           │ │
+│ │ request_more_info for    │                          │        │           │ │
+│ │ ambiguity; (2)           │                          │        │           │ │
+│ │ close_no_action if issue │                          │        │           │ │
+│ │ plus narrative says      │                          │        │           │ │
+│ │ resolved, filed in       │                          │        │           │ │
+│ │ error, or duplicate;     │                          │        │           │ │
+│ │ (3)                      │                          │        │           │ │
+│ │ escalate_to_regulator    │                          │        │           │ │
+│ │ for high urgency; (4)    │                          │        │           │ │
+│ │ start_refund_workflow if │                          │        │           │ │
+│ │ narrative                │                          │        │           │ │
+│ │ contains refund,         │                          │        │           │ │
+│ │ reimbursement, money     │                          │        │           │ │
+│ │ back, reverse the        │                          │        │           │ │
+│ │ charge, or chargeback;   │                          │        │           │ │
+│ │ (5)                      │                          │        │           │ │
+│ │ route_to_company         │                          │        │           │ │
+│ │ otherwise.               │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ Tool arguments must have │                          │        │           │ │
+│ │ exactly one registered   │                          │        │           │ │
+│ │ shape:                   │                          │        │           │ │
+│ │ - request_more_info:     │                          │        │           │ │
+│ │ missing_fields (unique   │                          │        │           │ │
+│ │ values from product,     │                          │        │           │ │
+│ │ issue, company,          │                          │        │           │ │
+│ │   details) and a         │                          │        │           │ │
+│ │ meaningful question.     │                          │        │           │ │
+│ │ - close_no_action:       │                          │        │           │ │
+│ │ reason =                 │                          │        │           │ │
+│ │ already_resolved,        │                          │        │           │ │
+│ │ duplicate_or_spam, or    │                          │        │           │ │
+│ │   no_consumer_harm_dete… │                          │        │           │ │
+│ │ - escalate_to_regulator: │                          │        │           │ │
+│ │ complaint_id integer and │                          │        │           │ │
+│ │ meaningful nonempty      │                          │        │           │ │
+│ │ reason.                  │                          │        │           │ │
+│ │ - start_refund_workflow: │                          │        │           │ │
+│ │ company string, issue    │                          │        │           │ │
+│ │ string,                  │                          │        │           │ │
+│ │ evidence_required true.  │                          │        │           │ │
+│ │ - route_to_company:      │                          │        │           │ │
+│ │ company string and issue │                          │        │           │ │
+│ │ string.                  │                          │        │           │ │
+│ │ No Markdown, reasoning,  │                          │        │           │ │
+│ │ comments, or extra       │                          │        │           │ │
+│ │ fields.                  │                          │        │           │ │
+│ │ user                     │                          │        │           │ │
+│ │ {"complaint_id":2777148… │                          │        │           │ │
+│ │ am a victim of consumer  │                          │        │           │ │
+│ │ fraud and identity       │                          │        │           │ │
+│ │ theft. Police Report     │                          │        │           │ │
+│ │ Number : XXXX. Please    │                          │        │           │ │
+│ │ find the attached police │                          │        │           │ │
+│ │ report. It was filed at  │                          │        │           │ │
+│ │ XXXX Police Department   │                          │        │           │ │
+│ │ on XX/XX/XXXX. Complaint │                          │        │           │ │
+│ │ with the Bureau of       │                          │        │           │ │
+│ │ Consumer Frauds and      │                          │        │           │ │
+│ │ Protection New York      │                          │        │           │ │
+│ │ Attorney General file    │                          │        │           │ │
+│ │ number XXXX on           │                          │        │           │ │
+│ │ XX/XX/XXXX. New Jersey   │                          │        │           │ │
+│ │ Attorney General         │                          │        │           │ │
+│ │ Complaint Number XXXX.   │                          │        │           │ │
+│ │ Federal Trade Commission │                          │        │           │ │
+│ │ complaint number : XXXX. │                          │        │           │ │
+│ │ \r\n\r\nPlease place a   │                          │        │           │ │
+│ │ credit freeze on all my  │                          │        │           │ │
+│ │ credit reports on all    │                          │        │           │ │
+│ │ credit bureaus : XXXX,   │                          │        │           │ │
+│ │ XXXX, Transunion and     │                          │        │           │ │
+│ │ XXXX. Please remove all  │                          │        │           │ │
+│ │ hard inquiries from      │                          │        │           │ │
+│ │ XX/XX/XXXX until         │                          │        │           │ │
+│ │ XX/XX/XXXX on all my     │                          │        │           │ │
+│ │ credit reports on all    │                          │        │           │ │
+│ │ credit bureaus : XXXX,   │                          │        │           │ │
+│ │ XXXX, Transunion and     │                          │        │           │ │
+│ │ XXXX. Equifax and XXXX   │                          │        │           │ │
+│ │ has already placed the   │                          │        │           │ │
+│ │ security freeze and int  │                          │        │           │ │
+│ │ the process of complying │                          │        │           │ │
+│ │ of my requests.          │                          │        │           │ │
+│ │ Transunion and XXXX are  │                          │        │           │ │
+│ │ INTENTIONALLY delaying   │                          │        │           │ │
+│ │ the process and they     │                          │        │           │ │
+│ │ will be liable for all   │                          │        │           │ │
+│ │ financial losses I incur │                          │        │           │ │
+│ │ because of their         │                          │        │           │ │
+│ │ reckless behavior. You   │                          │        │           │ │
+│ │ will be hold accountable │                          │        │           │ │
+│ │ in court. This is not    │                          │        │           │ │
+│ │ just a civil case and it │                          │        │           │ │
+│ │ implies criminal         │                          │        │           │ │
+│ │ charges. Transunion and  │                          │        │           │ │
+│ │ XXXX will be liable too  │                          │        │           │ │
+│ │ for those criminal       │                          │        │           │ │
+│ │ charges if they do n't   │                          │        │           │ │
+│ │ act accordingly in the   │                          │        │           │ │
+│ │ NEXT 48 hours of         │                          │        │           │ │
+│ │ receiving this           │                          │        │           │ │
+│ │ complaint. I DARE YOU!   │                          │        │           │ │
+│ │ \r\n\r\nXX/XX/XXXX","so… │                          │        │           │ │
+│ │ INTERMEDIATE HOLDINGS,   │                          │        │           │ │
+│ │ INC.","source_issue":"I… │                          │        │           │ │
+│ │ information on your      │                          │        │           │ │
+│ │ report","source_product… │                          │        │           │ │
+│ │ reporting, credit repair │                          │        │           │ │
+│ │ services, or other       │                          │        │           │ │
+│ │ personal consumer        │                          │        │           │ │
+│ │ reports"}                │                          │        │           │ │
+│ │ assistant                │                          │        │           │ │
+│ │ <think>                  │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │ </think>                 │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ │                          │                          │        │           │ │
+│ └──────────────────────────┴──────────────────────────┴────────┴───────────┘ │
+╰──────────────────────────────────────────────────────────────────────────────╯
+  4%|▍         | 4/100 [03:19<1:17:10, 48.24s/it]                                                   4%|▍         | 4/100 [03:19<1:17:10, 48.24s/it]  5%|▌         | 5/100 [04:07<1:16:12, 48.13s/it]                                                   5%|▌         | 5/100 [04:07<1:16:12, 48.13s/it]  6%|▌         | 6/100 [04:48<1:11:30, 45.64s/it]                                                   6%|▌         | 6/100 [04:48<1:11:30, 45.64s/it]  7%|▋         | 7/100 [05:25<1:06:41, 43.03s/it]                                                   7%|▋         | 7/100 [05:25<1:06:41, 43.03s/it]  8%|▊         | 8/100 [06:04<1:03:57, 41.71s/it]                                                   8%|▊         | 8/100 [06:04<1:03:57, 41.71s/it]  9%|▉         | 9/100 [06:53<1:06:42, 43.98s/it]                                                   9%|▉         | 9/100 [06:53<1:06:42, 43.98s/it] 10%|█         | 10/100 [07:47<1:10:29, 46.99s/it]                                                   10%|█         | 10/100 [07:47<1:10:29, 46.99s/it]Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 381, in <module>
+    main()
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 377, in main
+    run(args.config, seed=args.seed, smoke=args.smoke, backend=args.backend)
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 348, in run
+    result = trainer.train(resume_from_checkpoint=str(resume) if resume else None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 1449, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 1531, in _inner_training_loop
+    self._run_epoch(
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 1800, in _run_epoch
+    self._maybe_log_save_evaluate(
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 2109, in _maybe_log_save_evaluate
+    self.log(logs, start_time)
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/trl/trainer/grpo_trainer.py", line 3361, in log
+    super().log(logs, start_time)
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer.py", line 3915, in log
+    self.control = self.callback_handler.on_log(self.args, self.state, self.control, logs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer_callback.py", line 535, in on_log
+    return self.call_event("on_log", args, state, control, logs=logs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/.venv/lib/python3.12/site-packages/transformers/trainer_callback.py", line 545, in call_event
+    result = getattr(callback, event)(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 170, in on_log
+    guard.observe(step, logs or {})
+  File "/root/autodl-tmp/frontier-forge/src/forge/train/grpo.py", line 139, in observe
+    raise RuntimeError(
+RuntimeError: GRPO reward-signal guard aborted: frac_reward_zero_std stayed 1.0 for the first 10 steps
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.85e-06', 'num_tokens': '3.537e+04', 'completions/mean_length': '72.5', 'completions/min_length': '71', 'completions/max_length': '74', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '72.5', 'completions/min_terminated_length': '71', 'completions/max_terminated_length': '74', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.0004111', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '47.99', 'epoch': '0.005517'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.8e-06', 'num_tokens': '4.31e+04', 'completions/mean_length': '103.6', 'completions/min_length': '92', 'completions/max_length': '121', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '103.6', 'completions/min_terminated_length': '92', 'completions/max_terminated_length': '121', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.04951', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '47.87', 'epoch': '0.006897'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.75e-06', 'num_tokens': '5.052e+04', 'completions/mean_length': '67.5', 'completions/min_length': '64', 'completions/max_length': '71', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '67.5', 'completions/min_terminated_length': '64', 'completions/max_terminated_length': '71', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.0005305', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '40.74', 'epoch': '0.008276'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.7e-06', 'num_tokens': '5.762e+04', 'completions/mean_length': '61.5', 'completions/min_length': '60', 'completions/max_length': '63', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '61.5', 'completions/min_terminated_length': '60', 'completions/max_terminated_length': '63', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.002252', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '37.57', 'epoch': '0.009655'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.65e-06', 'num_tokens': '6.458e+04', 'completions/mean_length': '69.5', 'completions/min_length': '66', 'completions/max_length': '73', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '69.5', 'completions/min_terminated_length': '66', 'completions/max_terminated_length': '73', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.000445', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '38.83', 'epoch': '0.01103'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.6e-06', 'num_tokens': '7.336e+04', 'completions/mean_length': '87.25', 'completions/min_length': '64', 'completions/max_length': '119', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '87.25', 'completions/min_terminated_length': '64', 'completions/max_terminated_length': '119', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.08887', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '48.89', 'epoch': '0.01241'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '4.55e-06', 'num_tokens': '8.248e+04', 'completions/mean_length': '88.12', 'completions/min_length': '61', 'completions/max_length': '121', 'completions/clipped_ratio': '0', 'completions/mean_terminated_length': '88.12', 'completions/min_terminated_length': '61', 'completions/max_terminated_length': '121', 'rewards/reward/mean': '1', 'rewards/reward/std': '0', 'reward': '1', 'reward_std': '0', 'frac_reward_zero_std': '1', 'entropy': '0.1195', 'clip_ratio/low_mean': '0', 'clip_ratio/high_mean': '0', 'clip_ratio/region_mean': '0', 'clip_ratio/low_min': '0', 'clip_ratio/high_max': '0', 'step_time': '53.7', 'epoch': '0.01379'}
+ 10%|█         | 10/100 [07:48<1:10:12, 46.81s/it]
+recorded failed GPU training attempt: failed_ccb9d60b8779c9232365 (0.354h)
