@@ -15,6 +15,7 @@ from forge.data.ingest import sha256_file
 from forge.teacher.filters import contamination_audit, minhash_deduplicate
 from forge.teacher.freeze import (
     DEFAULT_CONFIG_PATH,
+    PayloadMissing,
     load_teacher_config,
     resolve_path,
     verify_frozen_source,
@@ -28,6 +29,7 @@ from forge.teacher.generate import (
     SFT_DISTILLED_NAME,
     SFT_RULE_NAME,
     _successful_records,
+    verify_completed_smoke_bundle,
 )
 
 
@@ -72,7 +74,15 @@ def run_teacher_audit(
 
     config_path = Path(config_path)
     config = load_teacher_config(config_path)
-    frozen = verify_frozen_source(config_path)
+    source_payload_replay = True
+    try:
+        frozen = verify_frozen_source(config_path)
+    except PayloadMissing:
+        if not smoke:
+            raise
+        source_payload_replay = False
+        frozen = verify_frozen_source(config_path, check_payloads=False)
+        verify_completed_smoke_bundle(config_path=config_path)
     output_dir = resolve_path(
         config["outputs"]["smoke_dir"] if smoke else config["outputs"]["full_dir"]
     )
@@ -115,7 +125,8 @@ def run_teacher_audit(
     test_paths = {
         name: resolve_path(item["path"]) for name, item in config["source"]["test_splits"].items()
     }
-    _verify_membership(complaint_ids, train_path=train_path, test_paths=test_paths)
+    if source_payload_replay:
+        _verify_membership(complaint_ids, train_path=train_path, test_paths=test_paths)
 
     schema_valid = [record for record in latest if record["score"]["schema_valid"]]
     verifier_valid = [
@@ -132,11 +143,33 @@ def run_teacher_audit(
         bands=int(minhash["bands"]),
         similarity_threshold=float(minhash["similarity_threshold"]),
     )
-    clean, quarantine, scanned = contamination_audit(
-        deduplicated,
-        test_paths=test_paths,
-        token_ngram=int(config["filter"]["contamination"]["token_ngram"]),
+    outputs = config["outputs"]
+    quarantine_path = (
+        output_dir / "phase2_contamination_quarantine.json"
+        if smoke
+        else resolve_path(outputs["quarantine"])
     )
+    quarantine_receipt = json.loads(quarantine_path.read_text())
+    if source_payload_replay:
+        clean, quarantine, scanned = contamination_audit(
+            deduplicated,
+            test_paths=test_paths,
+            token_ngram=int(config["filter"]["contamination"]["token_ngram"]),
+        )
+    else:
+        quarantine = quarantine_receipt["rows"]
+        quarantine_ids = [int(record["complaint_id"]) for record in quarantine]
+        if len(quarantine_ids) != len(set(quarantine_ids)):
+            raise ValueError("committed quarantine receipt contains duplicate ids")
+        deduplicated_ids = {int(record["complaint_id"]) for record in deduplicated}
+        if not set(quarantine_ids).issubset(deduplicated_ids):
+            raise ValueError("committed quarantine receipt contains a non-candidate id")
+        clean = [
+            record
+            for record in deduplicated
+            if int(record["complaint_id"]) not in set(quarantine_ids)
+        ]
+        scanned = manifest["contamination"]["test_rows_scanned"]
     reproduced_counts = [
         len(latest),
         len(latest),
@@ -157,13 +190,6 @@ def run_teacher_audit(
     if len(quarantine) != manifest["contamination"]["quarantined_rows"]:
         raise ValueError("contamination quarantine count mismatch")
 
-    outputs = config["outputs"]
-    quarantine_path = (
-        output_dir / "phase2_contamination_quarantine.json"
-        if smoke
-        else resolve_path(outputs["quarantine"])
-    )
-    quarantine_receipt = json.loads(quarantine_path.read_text())
     if quarantine_receipt["rows"] != quarantine:
         raise ValueError("committed quarantine receipt does not reproduce from raw logs")
     if sha256_file(quarantine_path) != manifest["contamination"]["quarantine_sha256"]:
@@ -319,6 +345,7 @@ def run_teacher_audit(
         "api_usd": account_cost,
         "unique_response_api_usd": unique_cost,
         "phase2_dataset_hash": manifest["phase2_dataset_hash"],
+        "source_payload_replay": source_payload_replay,
     }
 
 
@@ -332,6 +359,7 @@ def main(argv: list[str] | None = None) -> int:
         f"teacher audit: {result['status']}; mode={result['mode']}; "
         f"selected={result['selected_rows']}; corpus_rows={result['corpus_rows']}; "
         f"quarantined={result['quarantined_rows']}; api_usd={result['api_usd']:.6f}; "
+        f"source_payload_replay={str(result['source_payload_replay']).lower()}; "
         "network_calls=0"
     )
     return 0

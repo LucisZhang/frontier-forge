@@ -656,6 +656,158 @@ def _artifact_entry(path: Path, rows: int) -> dict[str, Any]:
     }
 
 
+def verify_completed_smoke_bundle(
+    *,
+    config_path: Path = DEFAULT_CONFIG_PATH,
+) -> dict[str, Any]:
+    """Verify the committed Phase 2 smoke bundle without gitignored payloads.
+
+    This is a receipt replay, not a substitute for the TRAIN-membership and
+    TEST-contamination replay performed by :mod:`forge.teacher.audit` when the
+    frozen parquet payloads are present. It exists so a fresh clone can prove
+    that the checked-in smoke artifacts are internally complete and still
+    anchored to the tracked frozen manifests.
+    """
+
+    config_path = Path(config_path)
+    config = load_teacher_config(config_path)
+    frozen = verify_frozen_source(config_path, check_payloads=False)
+    output_dir = resolve_path(config["outputs"]["smoke_dir"])
+    manifest_path = output_dir / MANIFEST_NAME
+    mirror_path = output_dir / "phase2_manifest.json"
+    if not manifest_path.is_file() or not mirror_path.is_file():
+        raise FileNotFoundError("committed Phase 2 smoke manifests are missing")
+    manifest = json.loads(manifest_path.read_text())
+    mirror = json.loads(mirror_path.read_text())
+    if manifest != mirror:
+        raise ValueError("committed Phase 2 smoke manifest mirrors differ")
+    if manifest.get("status") != "complete" or manifest.get("mode") != "smoke":
+        raise ValueError("committed Phase 2 smoke manifest is not complete")
+    if manifest.get("config_sha256") != sha256_file(config_path):
+        raise ValueError("committed Phase 2 smoke config hash mismatch")
+
+    source = manifest.get("source", {})
+    expected_source = {
+        "dataset_hash": frozen["dataset_hash"],
+        "dataset_manifest_sha256": frozen["dataset_manifest_sha256"],
+        "label_rules_version": frozen["label_rules_version"],
+        "label_rules_sha256": frozen["label_rules_sha256"],
+        "train_payload_sha256": frozen["splits"]["train"]["payload_sha256"],
+        "input_contract_version": frozen["input_contract_version"],
+        "scorer_version": frozen["scorer_version"],
+    }
+    if source != expected_source:
+        raise ValueError("committed Phase 2 smoke source lineage mismatch")
+
+    prompt_path = resolve_path(config["teacher"]["prompt"])
+    generation = manifest.get("generation", {})
+    if generation.get("prompt_sha256") != sha256_file(prompt_path):
+        raise ValueError("committed Phase 2 smoke prompt hash mismatch")
+    if generation.get("teacher_model_id") != config["teacher"]["mock_model"]:
+        raise ValueError("committed Phase 2 smoke model id mismatch")
+
+    artifact_paths = {
+        "raw_teacher_generations": output_dir / RAW_LOG_NAME,
+        "filter_funnel_log": output_dir / FILTER_LOG_NAME,
+        "sft_rule": output_dir / SFT_RULE_NAME,
+        "sft_distilled": output_dir / SFT_DISTILLED_NAME,
+        "dpo_pairs": output_dir / DPO_NAME,
+    }
+    for name, path in artifact_paths.items():
+        if not path.is_file():
+            raise FileNotFoundError(f"committed Phase 2 smoke artifact is missing: {path}")
+        declared = manifest.get("artifacts", {}).get(name, {})
+        if declared.get("path") != str(path.relative_to(REPO_ROOT)):
+            raise ValueError(f"{name} path differs from the committed smoke layout")
+        if declared.get("sha256") != sha256_file(path):
+            raise ValueError(f"{name} SHA-256 mismatch")
+        if declared.get("size_bytes") != path.stat().st_size:
+            raise ValueError(f"{name} byte-size mismatch")
+        rows = sum(bool(line) for line in path.read_text().splitlines())
+        if declared.get("rows") != rows:
+            raise ValueError(f"{name} row count mismatch")
+
+    raw_path = artifact_paths["raw_teacher_generations"]
+    raw_records = [json.loads(line) for line in raw_path.read_text().splitlines() if line]
+    fingerprint = generation.get("run_fingerprint")
+    if not isinstance(fingerprint, str) or any(
+        record.get("run_fingerprint") != fingerprint for record in raw_records
+    ):
+        raise ValueError("committed Phase 2 smoke run fingerprint mismatch")
+    attempts = [(int(record["complaint_id"]), int(record["attempt"])) for record in raw_records]
+    if len(attempts) != len(set(attempts)):
+        raise ValueError("duplicate complaint_id/attempt pair in committed smoke log")
+    if any(
+        record.get("teacher_model_id") != generation.get("teacher_model_id")
+        or record.get("prompt_sha256") != generation.get("prompt_sha256")
+        for record in raw_records
+    ):
+        raise ValueError("committed Phase 2 smoke record provenance mismatch")
+    selected_ids = [
+        int(record["complaint_id"])
+        for record in sorted(raw_records, key=lambda record: int(record["sequence"]))
+    ]
+    if len(selected_ids) != generation.get("selected_rows"):
+        raise ValueError("committed Phase 2 smoke selected-row count mismatch")
+    if _canonical_hash(selected_ids) != generation.get("selected_complaint_ids_sha256"):
+        raise ValueError("committed Phase 2 smoke selected-id hash mismatch")
+    if sha256_file(raw_path) != generation.get("raw_log_sha256"):
+        raise ValueError("committed Phase 2 smoke raw-log hash mismatch")
+
+    ledger_path = output_dir / LEDGER_NAME
+    ledger = json.loads(ledger_path.read_text())
+    ledger_checks = {
+        "status": "complete",
+        "mode": "smoke",
+        "run_fingerprint": fingerprint,
+        "teacher_model_id": generation.get("teacher_model_id"),
+        "selected_rows": generation.get("selected_rows"),
+        "selected_complaint_ids_sha256": generation.get("selected_complaint_ids_sha256"),
+        "attempt_records": generation.get("attempt_records"),
+        "raw_log_sha256": generation.get("raw_log_sha256"),
+    }
+    for key, expected in ledger_checks.items():
+        if ledger.get(key) != expected:
+            raise ValueError(f"committed Phase 2 smoke ledger {key} mismatch")
+
+    quarantine_path = output_dir / "phase2_contamination_quarantine.json"
+    data_card_path = output_dir / "phase2_data_card.md"
+    cost_ledger_path = output_dir / "phase2_cost_ledger.json"
+    if sha256_file(quarantine_path) != manifest["contamination"]["quarantine_sha256"]:
+        raise ValueError("committed Phase 2 smoke quarantine hash mismatch")
+    quarantine = json.loads(quarantine_path.read_text())
+    if quarantine.get("dataset_hash") != frozen["dataset_hash"] or quarantine.get(
+        "quarantined_rows"
+    ) != len(quarantine.get("rows", [])):
+        raise ValueError("committed Phase 2 smoke quarantine receipt mismatch")
+    if len(quarantine["rows"]) != manifest["contamination"]["quarantined_rows"]:
+        raise ValueError("committed Phase 2 smoke quarantine count mismatch")
+    if sha256_file(data_card_path) != manifest["receipts"]["data_card_sha256"]:
+        raise ValueError("committed Phase 2 smoke data-card hash mismatch")
+    if sha256_file(cost_ledger_path) != manifest["receipts"]["cost_ledger_sha256"]:
+        raise ValueError("committed Phase 2 smoke cost-ledger hash mismatch")
+    cost_ledger = json.loads(cost_ledger_path.read_text())
+    if (
+        cost_ledger.get("raw_log_sha256") != generation.get("raw_log_sha256")
+        or cost_ledger.get("within_run_cap") is not True
+    ):
+        raise ValueError("committed Phase 2 smoke cost ledger mismatch")
+
+    phase2_dataset_hash = _canonical_hash(
+        {
+            "source_dataset_hash": frozen["dataset_hash"],
+            "config_sha256": sha256_file(config_path),
+            "prompt_sha256": generation["prompt_sha256"],
+            "artifact_sha256": {
+                name: manifest["artifacts"][name]["sha256"] for name in artifact_paths
+            },
+        }
+    )
+    if phase2_dataset_hash != manifest.get("phase2_dataset_hash"):
+        raise ValueError("committed Phase 2 smoke dataset hash mismatch")
+    return manifest
+
+
 def _data_card(manifest: Mapping[str, Any]) -> str:
     artifacts = manifest["artifacts"]
     cost = manifest["cost"]
@@ -1107,7 +1259,6 @@ def run_teacher_data(
     config_path = Path(config_path)
     api_env_path = Path(api_env_path)
     config = load_teacher_config(config_path)
-    frozen = verify_frozen_source(config_path)
     selection = config["selection"]
     configured_limit = int(
         selection["smoke_candidate_cap"] if smoke else selection["live_candidate_cap"]
@@ -1115,6 +1266,16 @@ def run_teacher_data(
     selected_limit = configured_limit if limit is None else int(limit)
     if selected_limit < 1 or selected_limit > configured_limit:
         raise ValueError(f"requested limit must be between 1 and {configured_limit}")
+    if smoke:
+        output_dir = resolve_path(config["outputs"]["smoke_dir"])
+        if (output_dir / MANIFEST_NAME).is_file():
+            manifest = verify_completed_smoke_bundle(config_path=config_path)
+            if selected_limit != int(manifest["generation"]["selected_rows"]):
+                raise RuntimeError(
+                    "existing Phase 2 smoke bundle does not match the requested limit"
+                )
+            return manifest, True
+    frozen = verify_frozen_source(config_path)
     train_path = resolve_path(config["source"]["train"]["path"])
     prompt_path = resolve_path(config["teacher"]["prompt"])
     prompt = prompt_path.read_text()
