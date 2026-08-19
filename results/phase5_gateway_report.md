@@ -1,16 +1,17 @@
 # Phase 5 gateway remote benchmark report
 
-Status: **complete**. Run `phase5_gateway_r1b_bf16_native_mtp` on git `9dff2a6758a1ed2facd5f132d0f22de182a592bb`; baseline gateway git `2c5d6a4a364f13e84e999dfd78d32288d002f205`. Raw receipt: `results/phase5/raw/phase5_gateway_bench.json`.
+Status: **complete with a known overload limitation**. Run `phase5_gateway_r1b_bf16_native_mtp` on git `9dff2a6758a1ed2facd5f132d0f22de182a592bb`; baseline gateway git `2c5d6a4a364f13e84e999dfd78d32288d002f205`. Raw receipt: `results/phase5/raw/phase5_gateway_bench.json`.
 
 ## Result
 
 - Bare-vLLM measured capacity: **2.000 QPS**; max stable observed concurrency **6**.
 - Across 5 stable direct/gateway cells, median gateway E2E overhead was **p50 0.3% / p95 0.5%**; median throughput delta **-0.9%**.
 - Profile-driven optimization: `Adaptive queued-admission polling backoff from 5 ms to 10 ms and then 20 ms while preserving immediate first admission and deadline semantics`. Matched profile cell E2E p50 changed **3.655 → 3.821 s (4.5%)**; throughput **7.752 → 8.029 req/s (3.6%)**.
+- **Known limitation:** every overload error was an admitted `primary` request returning HTTP 502/`upstream_error`; `reject_overload=0`, so this run did **not** demonstrate the designed 429 admission fast-reject path. In the non-stable concurrency/length cells, gateway error rates were **10–85%** while the paired bare-vLLM cells were **0%**. Lower success-only p95 values in those cells are survivor-biased and are not latency wins. The connection-handling defect remains uncorrected in this measured build.
 
 ## Resume claim draft
 
-> 在单卡 RTX 4090 上为 R1b BF16 + 原生 MTP vLLM 实现 C++20 token-aware admission gateway：稳定单元格端到端 p50 中位开销 0.3%，5× 过载时队列峰值 10、HTTP 502/upstream_error 快速失败 p50 5.0 ms，恢复 4.485 s（裸 vLLM 4.649 s）。
+> 在单卡 RTX 4090 上为 R1b BF16 + 原生 MTP vLLM 实现 C++20 token-aware admission gateway：稳定单元格端到端 p50 中位开销 0.3%；5× 过载时队列峰值 10，但通过 admission 的请求产生 HTTP 502/upstream_error 错误响应 p50 5.0 ms，错误率 23.3%（裸 vLLM 0.0%）。
 
 ## Capacity calibration
 
@@ -31,37 +32,37 @@ Capacity is the highest offered Poisson QPS that passes the pinned error, deadli
 |---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|
 | short | 1 | direct | 81.0/87.6 | 7.4/7.4 | 0.602/0.679 | 1.635 | 118.6 | 0.0510 | 0.0% | 21601 |
 | short | 1 | gateway | 83.4/97.6 | 7.4/7.5 | 0.604/0.683 | 1.627 | 118.0 | 0.0512 | 0.0% | 21601 |
-|  |  | paired overhead |  |  | p50 0.3%, p95 0.5% | throughput -0.5% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 0.3%, p95 0.5% (stable success-only comparison) | throughput -0.5% |  |  |  |  |
 | short | 8 | direct | 263.1/483.6 | 10.2/12.7 | 1.023/1.235 | 7.060 | 510.8 | 0.0118 | 0.0% | 21601 |
 | short | 8 | gateway | 259.2/496.0 | 10.1/12.0 | 1.035/1.224 | 6.936 | 501.8 | 0.0120 | 0.0% | 21601 |
-|  |  | paired overhead |  |  | p50 1.2%, p95 -0.9% | throughput -1.8% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 1.2%, p95 -0.9% (stable success-only comparison) | throughput -1.8% |  |  |  |  |
 | short | 32 | direct | 743.1/1135.2 | 14.5/20.8 | 1.762/1.838 | 10.653 | 752.7 | 0.0078 | 0.0% | 21601 |
 | short | 32 | gateway | 567.9/833.3 | 12.4/16.1 | 1.404/1.491 | 9.768 | 698.1 | 0.0085 | 25.0% | 21601 |
-|  |  | paired overhead |  |  | p50 -20.3%, p95 -18.9% | throughput -8.3% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 -20.3%, p95 -18.9% (NOT a latency win: success-only survivor set; gateway error 25.0% vs direct 0.0%) | throughput -8.3% |  |  |  |  |
 | mixed | 1 | direct | 111.7/122.3 | 7.4/7.5 | 0.640/0.720 | 1.546 | 113.7 | 0.0539 | 0.0% | 21601 |
 | mixed | 1 | gateway | 117.4/127.2 | 7.4/7.5 | 0.641/0.722 | 1.531 | 112.6 | 0.0544 | 0.0% | 21601 |
-|  |  | paired overhead |  |  | p50 0.3%, p95 0.3% | throughput -0.9% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 0.3%, p95 0.3% (stable success-only comparison) | throughput -0.9% |  |  |  |  |
 | mixed | 8 | direct | 415.0/718.7 | 11.4/14.6 | 1.252/1.636 | 5.840 | 421.4 | 0.0143 | 0.0% | 21601 |
 | mixed | 8 | gateway | 374.1/665.0 | 12.1/14.6 | 1.198/1.773 | 5.604 | 405.4 | 0.0149 | 10.0% | 21601 |
-|  |  | paired overhead |  |  | p50 -4.3%, p95 8.4% | throughput -4.0% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 -4.3%, p95 8.4% (NOT a latency win: success-only survivor set; gateway error 10.0% vs direct 0.0%) | throughput -4.0% |  |  |  |  |
 | mixed | 32 | direct | 1121.6/1712.5 | 17.5/23.9 | 2.361/2.443 | 8.085 | 602.8 | 0.0103 | 0.0% | 21601 |
 | mixed | 32 | gateway | 472.7/644.6 | 10.4/13.1 | 1.257/1.290 | 6.813 | 510.2 | 0.0122 | 55.0% | 21601 |
-|  |  | paired overhead |  |  | p50 -46.8%, p95 -47.2% | throughput -15.7% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 -46.8%, p95 -47.2% (NOT a latency win: success-only survivor set; gateway error 55.0% vs direct 0.0%) | throughput -15.7% |  |  |  |  |
 | long | 1 | direct | 121.3/138.2 | 7.5/7.6 | 0.670/0.753 | 1.469 | 109.8 | 0.0567 | 0.0% | 21601 |
 | long | 1 | gateway | 123.6/133.6 | 7.5/7.6 | 0.672/0.761 | 1.464 | 109.5 | 0.0569 | 0.0% | 21601 |
-|  |  | paired overhead |  |  | p50 0.3%, p95 1.0% | throughput -0.3% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 0.3%, p95 1.0% (stable success-only comparison) | throughput -0.3% |  |  |  |  |
 | long | 8 | direct | 366.5/873.6 | 13.7/16.3 | 1.367/1.952 | 5.188 | 389.1 | 0.0161 | 0.0% | 21601 |
 | long | 8 | gateway | 338.3/349.7 | 7.8/8.9 | 0.880/0.883 | 3.326 | 236.2 | 0.0251 | 85.0% | 21601 |
-|  |  | paired overhead |  |  | p50 -35.6%, p95 -54.8% | throughput -35.9% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 -35.6%, p95 -54.8% (NOT a latency win: success-only survivor set; gateway error 85.0% vs direct 0.0%) | throughput -35.9% |  |  |  |  |
 | long | 32 | direct | 1263.8/2110.0 | 19.3/29.6 | 2.720/2.861 | 6.846 | 512.7 | 0.0122 | 0.0% | 21601 |
 | long | 32 | gateway | 1115.7/2430.2 | 16.4/22.5 | 2.441/3.132 | 5.954 | 445.9 | 0.0140 | 5.0% | 21601 |
-|  |  | paired overhead |  |  | p50 -10.3%, p95 9.5% | throughput -13.0% |  |  |  |  |
+|  |  | paired overhead |  |  | p50 -10.3%, p95 9.5% (stable success-only comparison) | throughput -13.0% |  |  |  |  |
 
 Every direct/gateway pair used identical serialized request hashes, offsets, warm-up count, model artifact, precision, and hardware. Pair execution order alternated to reduce ordering bias.
 
 ## Overload: 2× / 3× / 5× capacity
 
-| 倍数 | 端点 | offered QPS | E2E all p95 s | 成功 p95 s | error | fast-reject p50 ms | queue max | fallback | recovery s | 错误语义 |
+| 倍数 | 端点 | offered QPS | E2E all p95 s | 成功 p95 s | error | <1 s 错误响应 p50 ms | queue max | fallback | recovery s | 错误语义 |
 |---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
 | 2× | direct | 4.000 | 1.390 | 1.390 | 0.0% | n/a | n/a | 0.0% | 2.336 | status[200:60] code[none] |
 | 2× | gateway | 4.000 | 1.097 | 1.106 | 13.3% | 5.3 | 0 | 0.0% | 2.359 | status[200:52, 502:8] code[upstream_error:8] |
@@ -71,6 +72,8 @@ Every direct/gateway pair used identical serialized request hashes, offsets, war
 | 5× | gateway | 10.000 | 2.550 | 2.570 | 23.3% | 5.0 | 10 | 0.0% | 4.485 | status[200:46, 502:14] code[upstream_error:14] |
 
 Fallback was deliberately disabled: this run had one physical R1b MTP vLLM replica, so routing the same backend through a second logical pool would fabricate independent fallback capacity. Fallback share is therefore honestly reported as zero.
+
+The `<1 s` column describes how quickly the observed error responses returned; it does **not** classify them as admission rejects. All gateway overload errors passed admission as `primary` and then returned HTTP 502/`upstream_error`. The designed 429/`reject_overload` path recorded zero decisions. Consequently, lower all-response or success-only p95 in an error-bearing cell is conditional on failed work and must not be read as an unconditional gateway win.
 
 ## Profile-driven optimization
 
@@ -105,7 +108,8 @@ make gateway-bench-report
 - [x] ASan/UBSan green
 - [x] TSan green
 - [x] failure-injection suite green on mock upstream
-- [x] overload = bounded queue + fast failure, never unbounded growth
+- [x] overload queue remained bounded
+- [ ] designed admission overload fast-reject semantics demonstrated (not met: measured errors were admitted HTTP 502/upstream_error responses)
 - [x] direct-vs-gateway overhead quantified
 - [x] one profile-driven optimization documented with matched before/after requests
 - [x] resume-claim sentence drafted from measured numbers

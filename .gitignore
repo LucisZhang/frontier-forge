@@ -38,6 +38,8 @@ gateway/build/
 gateway/out/
 gateway/compile_commands.json
 gateway/profile/
+demo/dist/
+demo/.dist-phase6.tmp/
 
 # os / editor
 .DS_Store

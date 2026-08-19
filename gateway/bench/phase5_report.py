@@ -141,14 +141,14 @@ def _resume_claim(receipt: Mapping[str, Any], overhead: Mapping[str, Any]) -> st
     direct = overload_pair["direct"]
     multiplier = overload_pair["multiplier"]
     queue_max = gateway["gateway_samples"]["queue_depth_max"]
-    reject_p50 = gateway["client"]["fast_reject"]["p50_s"]
+    error_p50 = gateway["client"]["fast_reject"]["p50_s"]
     fast_error = _dominant_fast_error(gateway)
     return (
         "在单卡 RTX 4090 上为 R1b BF16 + 原生 MTP vLLM 实现 C++20 token-aware "
-        f"admission gateway：稳定单元格端到端 p50 中位开销 {_pct(overhead['p50_median_pct'])}，"
-        f"{_fmt(multiplier, 0)}× 过载时队列峰值 {_fmt(queue_max, 0)}、{fast_error} 快速失败 p50 "
-        f"{_ms(reject_p50)} ms，恢复 {_fmt(gateway['recovery_time_s'])} s（裸 vLLM "
-        f"{_fmt(direct['recovery_time_s'])} s）。"
+        f"admission gateway：稳定单元格端到端 p50 中位开销 {_pct(overhead['p50_median_pct'])}；"
+        f"{_fmt(multiplier, 0)}× 过载时队列峰值 {_fmt(queue_max, 0)}，但通过 admission 的请求"
+        f"产生 {fast_error} 错误响应 p50 {_ms(error_p50)} ms，错误率 "
+        f"{_pct(gateway['error_rate'] * 100)}（裸 vLLM {_pct(direct['error_rate'] * 100)}）。"
     )
 
 
@@ -181,10 +181,22 @@ def _direct_gateway_table(receipt: Mapping[str, Any]) -> str:
                     vram=_fmt(cell["vram"]["peak_mib"], 0),
                 )
             )
+        gateway_error = float(pair["gateway"]["error_rate"])
+        direct_error = float(pair["direct"]["error_rate"])
+        comparison = (
+            "stable success-only comparison"
+            if _at_most(gateway_error, 0.05) and _at_most(direct_error, 0.05)
+            else (
+                "NOT a latency win: success-only survivor set; "
+                f"gateway error {_pct(gateway_error * 100)} vs direct "
+                f"{_pct(direct_error * 100)}"
+            )
+        )
         lines.append(
-            "|  |  | paired overhead |  |  | p50 {p50}, p95 {p95} | throughput {throughput} |  |  |  |  |".format(
+            "|  |  | paired overhead |  |  | p50 {p50}, p95 {p95} ({comparison}) | throughput {throughput} |  |  |  |  |".format(
                 p50=_pct(pair["overhead"]["e2e_p50_overhead_pct"]),
                 p95=_pct(pair["overhead"]["e2e_p95_overhead_pct"]),
+                comparison=comparison,
                 throughput=_pct(pair["overhead"]["throughput_delta_pct"]),
             )
         )
@@ -215,7 +227,7 @@ def _capacity_table(receipt: Mapping[str, Any]) -> str:
 
 def _overload_table(receipt: Mapping[str, Any]) -> str:
     lines = [
-        "| 倍数 | 端点 | offered QPS | E2E all p95 s | 成功 p95 s | error | fast-reject p50 ms | queue max | fallback | recovery s | 错误语义 |",
+        "| 倍数 | 端点 | offered QPS | E2E all p95 s | 成功 p95 s | error | <1 s 错误响应 p50 ms | queue max | fallback | recovery s | 错误语义 |",
         "|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---|",
     ]
     for pair in receipt["metrics"]["overload"]["pairs"]:
@@ -248,14 +260,16 @@ def _gate_lines(receipt: Mapping[str, Any], verification: Mapping[str, Any]) -> 
         and cell["gateway_samples"]["queue_depth_max"] <= receipt["gateway"]["max_queue_requests"]
         for cell in overload_cells
     )
-    fast_failure = any(
-        cell["error_semantics"]["fast_rejects_under_1s"] > 0 for cell in overload_cells
+    designed_overload_reject = any(
+        (cell.get("gateway") or {}).get("routing_decisions", {}).get("reject_overload", 0) > 0
+        for cell in overload_cells
     )
     return [
         f"- [{'x' if verification.get('asan_ubsan') == 'green' else ' '}] ASan/UBSan green",
         f"- [{'x' if verification.get('tsan') == 'green' else ' '}] TSan green",
         f"- [{'x' if verification.get('failure_injection') == 'green' else ' '}] failure-injection suite green on mock upstream",
-        f"- [{'x' if bounded and fast_failure else ' '}] overload = bounded queue + fast failure, never unbounded growth",
+        f"- [{'x' if bounded else ' '}] overload queue remained bounded",
+        f"- [{'x' if designed_overload_reject else ' '}] designed admission overload fast-reject semantics demonstrated (not met: measured errors were admitted HTTP 502/upstream_error responses)",
         "- [x] direct-vs-gateway overhead quantified",
         "- [x] one profile-driven optimization documented with matched before/after requests",
         "- [x] resume-claim sentence drafted from measured numbers",
@@ -275,13 +289,14 @@ def _report(
     gates = "\n".join(_gate_lines(receipt, verification))
     report = f"""# Phase 5 gateway remote benchmark report
 
-Status: **complete**. Run `{receipt["run_id"]}` on git `{receipt["git_sha"]}`; baseline gateway git `{receipt["baseline_git_sha"]}`. Raw receipt: `{receipt["raw_artifact"]}`.
+Status: **complete with a known overload limitation**. Run `{receipt["run_id"]}` on git `{receipt["git_sha"]}`; baseline gateway git `{receipt["baseline_git_sha"]}`. Raw receipt: `{receipt["raw_artifact"]}`.
 
 ## Result
 
 - Bare-vLLM measured capacity: **{_fmt(receipt["metrics"]["capacity"]["measured_capacity_qps"])} QPS**; max stable observed concurrency **{receipt["metrics"]["capacity"]["max_stable_concurrency"]}**.
 - Across {overhead["stable_pairs"]} stable direct/gateway cells, median gateway E2E overhead was **p50 {_pct(overhead["p50_median_pct"])} / p95 {_pct(overhead["p95_median_pct"])}**; median throughput delta **{_pct(overhead["throughput_median_pct"])}**.
 - Profile-driven optimization: `{evidence["optimization"]["summary"]}`. Matched profile cell E2E p50 changed **{_fmt(optimization["e2e_p50_before_s"])} → {_fmt(optimization["e2e_p50_after_s"])} s ({_pct(optimization["e2e_p50_delta_pct"])})**; throughput **{_fmt(optimization["throughput_before_per_s"])} → {_fmt(optimization["throughput_after_per_s"])} req/s ({_pct(optimization["throughput_delta_pct"])})**.
+- **Known limitation:** every overload error was an admitted `primary` request returning HTTP 502/`upstream_error`; `reject_overload=0`, so this run did **not** demonstrate the designed 429 admission fast-reject path. In the non-stable concurrency/length cells, gateway error rates were **10–85%** while the paired bare-vLLM cells were **0%**. Lower success-only p95 values in those cells are survivor-biased and are not latency wins. The connection-handling defect remains uncorrected in this measured build.
 
 ## Resume claim draft
 
@@ -304,6 +319,8 @@ Every direct/gateway pair used identical serialized request hashes, offsets, war
 {_overload_table(receipt)}
 
 Fallback was deliberately disabled: this run had one physical R1b MTP vLLM replica, so routing the same backend through a second logical pool would fabricate independent fallback capacity. Fallback share is therefore honestly reported as zero.
+
+The `<1 s` column describes how quickly the observed error responses returned; it does **not** classify them as admission rejects. All gateway overload errors passed admission as `primary` and then returned HTTP 502/`upstream_error`. The designed 429/`reject_overload` path recorded zero decisions. Consequently, lower all-response or success-only p95 in an error-bearing cell is conditional on failed work and must not be read as an unconditional gateway win.
 
 ## Profile-driven optimization
 
@@ -343,6 +360,7 @@ make gateway-bench-report
 - R1b BF16 + native-MTP vLLM capacity: **{_fmt(receipt["metrics"]["capacity"]["measured_capacity_qps"])} QPS**.
 - Stable-cell gateway E2E overhead: median **p50 {_pct(overhead["p50_median_pct"])}, p95 {_pct(overhead["p95_median_pct"])}**.
 - Profiled optimization: E2E p50 **{_fmt(optimization["e2e_p50_before_s"])} → {_fmt(optimization["e2e_p50_after_s"])} s**; throughput **{_fmt(optimization["throughput_before_per_s"])} → {_fmt(optimization["throughput_after_per_s"])} req/s**.
+- Known limitation: overload errors were admitted HTTP 502/`upstream_error` responses, not designed 429 fast rejects (`reject_overload=0`). Non-stable cells had 10–85% gateway errors versus 0% for bare vLLM; their lower success-only p95 is not a latency win.
 - Full methodology, overload semantics, disclosure, raw-artifact pointers, and gate checklist: [`results/phase5_gateway_report.md`](../results/phase5_gateway_report.md).
 
 Resume claim draft:

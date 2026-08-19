@@ -1,0 +1,54 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "b525421d8de577ea31aef6ae503f00fe1be1586470c76230c32256f4589c416b"
+    },
+    {
+      "path": "MODEL_CARD.md",
+      "sha256": "96d9ef29c6c4b6e4d47706b8cc229fd1b316247e5009d908b4e594aa64a0d0fd"
+    },
+    {
+      "path": "gateway/README.md",
+      "sha256": "668f0ecb43b907b240b2228bc68cbe5a3d1638c7a1b9f20ff846d8a524307541"
+    },
+    {
+      "path": "results/phase5_gateway_report.md",
+      "sha256": "98fc7426da2302020f823f12afbe377ee65f8967f1a620054e22de512c94268d"
+    },
+    {
+      "path": "results/phase6/source_manifest.json",
+      "sha256": "0b91f0a2974305afb8a7c291b959b2deb44a87d2ad366f660519f337e5e9fe18"
+    },
+    {
+      "path": "results/phase6/headline.json",
+      "sha256": "365c49dff6eb7d77794a94c1b006df17415d95d46d642dce45c569d31ff3b964"
+    },
+    {
+      "path": "results/phase6/cascade_handoff.json",
+      "sha256": "5038a91ab883116ad8607bf442e0e73016d1fb42ef44623c37593a2a90253b0b"
+    },
+    {
+      "path": "demo/index.html",
+      "sha256": "e0cbfbd1d5f3775243c51de273a84c1c70ae7e95a8a73cc3c9ef94dfebc12b2a"
+    },
+    {
+      "path": "demo/assets/styles.css",
+      "sha256": "c39ee6bdbf716157b92b07f1fe323ef5feb9300392d557d186afa6b5058fb018"
+    },
+    {
+      "path": "demo/assets/app.js",
+      "sha256": "63a469d9aeb8c761e0084c82495aec3f6e33a696e22ca0f0c1259a9883185f86"
+    },
+    {
+      "path": "demo/data/release.json",
+      "sha256": "365c49dff6eb7d77794a94c1b006df17415d95d46d642dce45c569d31ff3b964"
+    },
+    {
+      "path": "demo/data/release.js",
+      "sha256": "08664a086ed00cfb4dc89a5200eae9e36923818b1cae22bafc1736cca155da04"
+    }
+  ],
+  "phase": 6,
+  "version": 1
+}

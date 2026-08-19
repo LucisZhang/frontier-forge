@@ -14,11 +14,11 @@
   "outputs": {
     "gateway_readme": {
       "path": "gateway/README.md",
-      "sha256": "1eb8aac07e35a06cb17ea3ec5b2d2cc05e05990dc6fb1e23e57927081e3ed24c"
+      "sha256": "668f0ecb43b907b240b2228bc68cbe5a3d1638c7a1b9f20ff846d8a524307541"
     },
     "report": {
       "path": "results/phase5_gateway_report.md",
-      "sha256": "e288e83fb9f00e9a63cef1e50bbc124711cacf0fc1ce33271a392b44c42bff60"
+      "sha256": "98fc7426da2302020f823f12afbe377ee65f8967f1a620054e22de512c94268d"
     }
   },
   "phase": 5,

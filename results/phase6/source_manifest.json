@@ -1,0 +1,66 @@
+{
+  "files": [
+    {
+      "path": "data/ingest/manifest.json",
+      "sha256": "5fa5eb82c9c47155933162d007221fbe4eb3665a0b4a07e01cfbd3327438c708"
+    },
+    {
+      "path": "results/runs.jsonl",
+      "sha256": "f31f12d99fac2cb96816e674710733afb4e54e314946c8f4220830bd24f07847"
+    },
+    {
+      "path": "results/phase3_paired_deltas.json",
+      "sha256": "17ef25a45ca6f9eecd40c9bd250171d604dc7bd26f65f34e4c0c61105b9d4c25"
+    },
+    {
+      "path": "results/phase3_backend_agreement.json",
+      "sha256": "214124a4402a3f11a12c945b15d09ed2c09797178828284517fa7f62e410afdd"
+    },
+    {
+      "path": "results/phase3_export_manifest_r1b_trl_s0.json",
+      "sha256": "2ef70012abe90c5489ca30d500fb994c147205cf1aa740266a603029fe9f5dba"
+    },
+    {
+      "path": "results/phase3_export_selection.json",
+      "sha256": "29631045a4f095f344a990d2e9ef964f2952ac448b4fbc962d0877ccc843d7a6"
+    },
+    {
+      "path": "results/phase4/raw/phase4_serve_r1b_bf16_v2.json",
+      "sha256": "07aed1f63e23b41f7ad7233eb54fa08fd422288a353a52f898a58e0001b2936e"
+    },
+    {
+      "path": "results/phase4/raw/phase4_serve_r1b_gptq_int4.json",
+      "sha256": "3204327877fc506f5d86dd06ded136f4fff9f1934dbfdedef72f122a70f3c61d"
+    },
+    {
+      "path": "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline_v2.json",
+      "sha256": "ea2ce23b56a1fc8cf1796e866650143c6a16bb94e22d9eb753a8236ce20c92f7"
+    },
+    {
+      "path": "results/phase4/raw/phase4_spec_decode_r1b_bf16_native_mtp.json",
+      "sha256": "aed1da988e40c57532c7ba4a9912369bff9f05803b3a56d76efcc8b8f65fb2f5"
+    },
+    {
+      "path": "results/phase4/raw/phase4_structured_r1b_bf16_xgrammar.json",
+      "sha256": "7c65ebe055fc2a756c357a64e708cf7d359b8b5aa595002a8ac91975ccaf00db"
+    },
+    {
+      "path": "results/phase4/raw/phase4_structured_r1b_bf16_outlines.json",
+      "sha256": "6d7e724b8936cba3026378ab410e84da67330441731f84ca62deb7c6981e5926"
+    },
+    {
+      "path": "results/phase4/r1b_mtp_reexport_manifest.json",
+      "sha256": "fd2085f6666bd399b9a22d3d51658d6c36407bc0c558f2e4848b56cf5d01b86e"
+    },
+    {
+      "path": "results/phase5/raw/phase5_gateway_bench.json",
+      "sha256": "6e71a2455db0c69d5a2fc10447e9243c801aca297e3bbca19c38fa5c70176f29"
+    },
+    {
+      "path": "results/phase5/verification.json",
+      "sha256": "c04c66ed146875363e45fd2c6659c068a4566b29ed76f355b7fb9e582d564697"
+    }
+  ],
+  "phase": 6,
+  "version": 1
+}
