@@ -67,6 +67,8 @@ def _co_tenancy_summary(receipt: Mapping[str, Any]) -> dict[str, Any]:
         "load1_max": max(float(item["load1_max"] or 0) for item in all_samples),
         "cpu_utilization_max": max(float(item["cpu_utilization_max"] or 0) for item in all_samples),
         "logical_cpu_count": all_samples[0]["logical_cpu_count"],
+        "host_logical_cpu_count": all_samples[0]["host_logical_cpu_count"],
+        "core_count_source": all_samples[0]["core_count_source"],
         "threshold": all_samples[0]["load1_contamination_threshold"],
         "contaminated_stage_attempts": sum(
             len(stage["contaminated_attempts"])
@@ -294,7 +296,7 @@ Fallback was deliberately disabled: this run had one physical R1b MTP vLLM repli
 - Server: vLLM `{config["server"]["vllm_version"]}`, native MTP speculative decoding with {config["server"]["num_speculative_tokens"]} speculative token, max model length {config["server"]["max_model_len"]}, max sequences {config["server"]["max_num_seqs"]}.
 - Load: closed-loop fixed concurrency for overhead cells; fixed-seed Poisson arrivals for capacity and overload. Warm-up: {config["workload"]["warmup_requests"]} requests per cell, excluded.
 - Measurement side: client monotonic streaming latency; vLLM and gateway Prometheus deltas; device-wide `nvidia-smi` VRAM; server-host load average and `/proc/stat` CPU utilization.
-- Co-tenancy: shared pod with an unrelated CPU-only task. Maximum sampled load1 **{_fmt(co_tenancy["load1_max"], 2)}** vs contamination threshold **{_fmt(co_tenancy["threshold"], 1)}** ({co_tenancy["logical_cpu_count"]} logical CPUs); max host CPU utilization **{_pct(co_tenancy["cpu_utilization_max"] * 100)}**. Contaminated stage attempts retained/rerun: **{co_tenancy["contaminated_stage_attempts"]}**.
+- Co-tenancy: {receipt["disclosure"]["co_tenancy"]} Maximum sampled load1 **{_fmt(co_tenancy["load1_max"], 2)}** vs contamination threshold **{_fmt(co_tenancy["threshold"], 1)}** ({co_tenancy["logical_cpu_count"]} effective CPUs from `{co_tenancy["core_count_source"]}`; host exposes {co_tenancy["host_logical_cpu_count"]} logical CPUs); max host CPU utilization **{_pct(co_tenancy["cpu_utilization_max"] * 100)}**. Contaminated stage attempts retained/rerun: **{co_tenancy["contaminated_stage_attempts"]}**.
 - Cost: `${receipt["cost"]["hourly_usd"]:.2f}/GPU-hour`; accounted task uptime {_fmt(receipt["cost"]["gpu_hours"], 4)} h = `${receipt["cost"]["usd"]:.4f}`. Owner-requested post-task running time is not yet in this closed receipt.
 - Successful-task cost uses verifier successes, never raw token counts.
 

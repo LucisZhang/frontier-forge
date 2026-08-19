@@ -791,7 +791,7 @@ async def _run_clean_stage(
         attempt_receipt = {
             **payload,
             "status": "contaminated-rerun-required",
-            "reason": "sampled_load1_exceeded_half_logical_core_count",
+            "reason": "sampled_load1_exceeded_half_effective_core_count",
             "request_artifact": {
                 "path": relative_path(attempt_requests),
                 "sha256": sha256_file(attempt_requests),
@@ -1433,9 +1433,12 @@ def _write_final_receipt(
                 "cpu_co_tenancy": "server-host getloadavg and /proc/stat CPU utilization",
             },
             "co_tenancy": (
-                "The pod was shared with an unrelated CPU-only task. Every warm-up and measured "
-                "cell sampled load average and CPU utilization; any load1 sample above half the "
-                "logical core count contaminated and reran the entire stage."
+                "The original pod was shared with an unrelated CPU-only task but had no GPU "
+                "capacity, so the owner authorized a same-region clone on a separate host. The "
+                "clone had no unrelated task inside its container; the provider host may still be "
+                "multi-tenant. Every warm-up and measured cell sampled host load average and CPU "
+                "utilization; any load1 sample above half the cgroup-effective CPU capacity "
+                "contaminated and reran the entire stage."
             ),
             "fallback": (
                 "Disabled because the contract colocates one R1b MTP vLLM replica; fallback share "
