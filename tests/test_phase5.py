@@ -121,6 +121,33 @@ def test_readme_result_markers_replace_idempotently() -> None:
     assert once.count(REPORT.START_MARKER) == 1
 
 
+def test_resume_claim_uses_measured_fast_error_semantics() -> None:
+    receipt = {
+        "metrics": {
+            "overload": {
+                "pairs": [
+                    {
+                        "multiplier": 5,
+                        "direct": {"recovery_time_s": 4.649},
+                        "gateway": {
+                            "recovery_time_s": 4.485,
+                            "gateway_samples": {"queue_depth_max": 10},
+                            "client": {"fast_reject": {"p50_s": 0.005}},
+                            "http_status_counts": {"200": 46, "502": 14},
+                            "error_semantics": {"error_codes": {"upstream_error": 14}},
+                        },
+                    }
+                ]
+            }
+        }
+    }
+
+    claim = REPORT._resume_claim(receipt, {"p50_median_pct": 0.3})
+
+    assert "HTTP 502/upstream_error 快速失败" in claim
+    assert "503 快速拒绝" not in claim
+
+
 def test_makefile_gateway_bench_is_not_a_stub() -> None:
     makefile = (REPO_ROOT / "Makefile").read_text()
     assert "gateway-bench:" in makefile

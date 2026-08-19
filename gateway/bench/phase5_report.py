@@ -110,6 +110,26 @@ def _error_semantics(cell: Mapping[str, Any]) -> str:
     return f"status[{statuses}] code[{rendered_codes}]"
 
 
+def _dominant_fast_error(cell: Mapping[str, Any]) -> str:
+    statuses = [
+        (str(status), int(count))
+        for status, count in cell["http_status_counts"].items()
+        if int(status) >= 400 and int(count) > 0
+    ]
+    codes = [
+        (str(code), int(count))
+        for code, count in cell["error_semantics"]["error_codes"].items()
+        if int(count) > 0
+    ]
+    if not statuses:
+        return "no-error"
+    status = max(statuses, key=lambda item: item[1])[0]
+    if not codes:
+        return f"HTTP {status}"
+    code = max(codes, key=lambda item: item[1])[0]
+    return f"HTTP {status}/{code}"
+
+
 def _resume_claim(receipt: Mapping[str, Any], overhead: Mapping[str, Any]) -> str:
     overload_pair = receipt["metrics"]["overload"]["pairs"][-1]
     gateway = overload_pair["gateway"]
@@ -117,10 +137,11 @@ def _resume_claim(receipt: Mapping[str, Any], overhead: Mapping[str, Any]) -> st
     multiplier = overload_pair["multiplier"]
     queue_max = gateway["gateway_samples"]["queue_depth_max"]
     reject_p50 = gateway["client"]["fast_reject"]["p50_s"]
+    fast_error = _dominant_fast_error(gateway)
     return (
         "在单卡 RTX 4090 上为 R1b BF16 + 原生 MTP vLLM 实现 C++20 token-aware "
         f"admission gateway：稳定单元格端到端 p50 中位开销 {_pct(overhead['p50_median_pct'])}，"
-        f"{_fmt(multiplier, 0)}× 过载时队列峰值 {_fmt(queue_max, 0)}、503 快速拒绝 p50 "
+        f"{_fmt(multiplier, 0)}× 过载时队列峰值 {_fmt(queue_max, 0)}、{fast_error} 快速失败 p50 "
         f"{_ms(reject_p50)} ms，恢复 {_fmt(gateway['recovery_time_s'])} s（裸 vLLM "
         f"{_fmt(direct['recovery_time_s'])} s）。"
     )
