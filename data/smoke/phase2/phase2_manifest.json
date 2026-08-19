@@ -1,0 +1,202 @@
+{
+  "artifacts": {
+    "dpo_pairs": {
+      "path": "data/smoke/phase2/dpo_pairs.jsonl",
+      "rows": 6,
+      "sha256": "8704197eacab8a3cf32c4c4616af5cfbeb3a225a622a221cbd8d2f1df4408652",
+      "size_bytes": 51758
+    },
+    "filter_funnel_log": {
+      "path": "data/smoke/phase2/filter_funnel.jsonl",
+      "rows": 10,
+      "sha256": "984896efecc87adb034f01350ef1a6de07020ff98ac7f858bca5ae366fe393f0",
+      "size_bytes": 1442
+    },
+    "raw_teacher_generations": {
+      "path": "data/smoke/phase2/raw_teacher_generations.jsonl",
+      "rows": 10,
+      "sha256": "5664deb8c0b7689cc698d3e42421290011744ad5491536f7edfeecb2c44b6f4a",
+      "size_bytes": 37640
+    },
+    "sft_distilled": {
+      "path": "data/smoke/phase2/sft_distilled.jsonl",
+      "rows": 6,
+      "sha256": "5c9f0d063d955daa0573c2642698cc52ebd07c099cb2a2f9994da0a0a4fd4d6a",
+      "size_bytes": 48875
+    },
+    "sft_rule": {
+      "path": "data/smoke/phase2/sft_rule.jsonl",
+      "rows": 6,
+      "sha256": "cf1c0fb7bbd9ff0ce47efa6a83e05aeeadc594ed1360a5b80c9f45374112dde4",
+      "size_bytes": 43816
+    }
+  },
+  "audit_reproduction": {
+    "command": "make teacher-audit SMOKE=1",
+    "network_calls": 0
+  },
+  "config_path": "configs/teacher_data.yaml",
+  "config_sha256": "085d7cff01bbe7a5e3addd5a85cd4a1aa863550cb9e032ae1d5c93f13ff8542e",
+  "contamination": {
+    "policy": "any exact normalized n-gram overlap quarantines the TRAIN sample",
+    "quarantine_path": "data/smoke/phase2/phase2_contamination_quarantine.json",
+    "quarantine_sha256": "662129f490931d6448670299d978266c1a9f4f2afced732c1efa134b86618313",
+    "quarantined_rows": 0,
+    "test_rows_scanned": {
+      "test_drift": 80000,
+      "test_iid": 104443
+    },
+    "token_ngram": 13
+  },
+  "cost": {
+    "api_usd": 0.0,
+    "gpu_usd": 0.0,
+    "project_envelope_usd": [
+      20.0,
+      50.0
+    ],
+    "run_cap_usd": 0.0,
+    "within_run_cap": true
+  },
+  "coverage": {
+    "complaint_ids_sha256": "e5658adc7dc03c2da39b0edc24c385562d901b1d494adb084f4c54ffc542e891",
+    "rule_equals_distilled_equals_dpo": true,
+    "shared_complaint_ids": 6
+  },
+  "dpo": {
+    "pairs": 6,
+    "perturbation_counts": {
+      "ambiguity_flip": 4,
+      "tool_choice_substitution": 2
+    },
+    "perturbation_taxonomy": [
+      "urgency_cycle",
+      "tool_choice_substitution",
+      "ambiguity_flip"
+    ],
+    "rejected_source": "deterministic_perturbed_near_miss"
+  },
+  "filter_funnel": [
+    {
+      "count": 10,
+      "retention_from_previous": 1.0,
+      "retention_from_selected": 1.0,
+      "stage": "selected TRAIN inputs"
+    },
+    {
+      "count": 10,
+      "retention_from_previous": 1.0,
+      "retention_from_selected": 1.0,
+      "stage": "teacher response recorded"
+    },
+    {
+      "count": 8,
+      "retention_from_previous": 0.8,
+      "retention_from_selected": 0.8,
+      "stage": "schema valid"
+    },
+    {
+      "count": 6,
+      "retention_from_previous": 0.75,
+      "retention_from_selected": 0.6,
+      "stage": "verifier accepted"
+    },
+    {
+      "count": 6,
+      "retention_from_previous": 1.0,
+      "retention_from_selected": 0.6,
+      "stage": "MinHash unique"
+    },
+    {
+      "count": 6,
+      "retention_from_previous": 1.0,
+      "retention_from_selected": 0.6,
+      "stage": "contamination clean"
+    }
+  ],
+  "generation": {
+    "attempt_records": 10,
+    "finished_at": "2026-08-16T03:58:30.579089+00:00",
+    "prompt_path": "configs/teacher_prompts/phase2_teacher_v1.txt",
+    "prompt_sha256": "6c5c5e48f77b2595729eb249da1a11947a5998a4a8a3b0856b1532e01b55b64e",
+    "raw_log_sha256": "5664deb8c0b7689cc698d3e42421290011744ad5491536f7edfeecb2c44b6f4a",
+    "run_fingerprint": "a12b49352a0601fbb694d063f476ed3085a0780d44fe5cbb946acb49d41db577",
+    "selected_complaint_ids_sha256": "5b164f7d4f1528a8f21e27517d8e1abe820700a9a76c4dee1b959900ce40092f",
+    "selected_rows": 10,
+    "started_at": "2026-08-16T03:58:30.574880+00:00",
+    "teacher_model_id": "mock/phase2-deterministic-v1"
+  },
+  "minhash": {
+    "bands": 16,
+    "duplicates_removed": 0,
+    "permutations": 64,
+    "similarity_threshold": 0.85,
+    "token_ngram": 5
+  },
+  "mode": "smoke",
+  "phase": 2,
+  "phase2_dataset_hash": "b7b15cf99118f436bcb34a890aadf8c5d55d5028f5ad5e0652d268c1abb4b898",
+  "receipts": {
+    "cost_ledger_sha256": "9bddbdc034680c277c88a93cc03d6f07e6c5c60cffbc526e2166c424a5b3ab1c",
+    "data_card_sha256": "cea7355dde023af9c869a6ff88131b73cd9e25b35d3c417e19aa150166cd948d"
+  },
+  "source": {
+    "dataset_hash": "2f2498c95ea224e48cfc7ee9c705ecef00563c616b0ec14512800706cd8f2573",
+    "dataset_manifest_sha256": "dc8299726faf20a8d300f510a69f05566f150a319c6dcf43c5f9241cc3c28407",
+    "input_contract_version": 2,
+    "label_rules_sha256": "216199a541c360645927fb195d12c0da779e3e4f4743c6dcda189c63aa0e1812",
+    "label_rules_version": 3,
+    "scorer_version": 2,
+    "train_payload_sha256": "a753b3de8cbf85aabf71dc06ab960b371c586ff764e8f221c83a889d09676057"
+  },
+  "status": "complete",
+  "teacher_vs_rule_disagreement": {
+    "decision_fields": {
+      "ambiguity_flag": {
+        "disagreements": 0,
+        "matches": 8
+      },
+      "tool_arguments_structural": {
+        "disagreements": 0,
+        "matches": 8
+      },
+      "tool_choice": {
+        "disagreements": 0,
+        "matches": 8
+      },
+      "urgency": {
+        "disagreements": 2,
+        "matches": 6
+      }
+    },
+    "denominator": 8,
+    "population": "schema-valid teacher outputs before verifier rejection",
+    "secondary_fields": {
+      "company_normalized_match": {
+        "disagreements": 0,
+        "matches": 8
+      },
+      "issue_normalized_match": {
+        "disagreements": 0,
+        "matches": 8
+      },
+      "product_match": {
+        "disagreements": 0,
+        "matches": 8
+      },
+      "tool_arguments_semantic_valid": {
+        "disagreements": 0,
+        "matches": 8
+      }
+    },
+    "tool_choice_matrix": {
+      "route_to_company": {
+        "route_to_company": 7
+      },
+      "start_refund_workflow": {
+        "start_refund_workflow": 1
+      }
+    }
+  },
+  "version": 1
+}

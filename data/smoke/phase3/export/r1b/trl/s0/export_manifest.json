@@ -1,0 +1,27 @@
+{
+  "backend": "trl",
+  "config_hash": "aad4c613a265ade6b181dbc0785583e68248ab5da6bba91efe5be758b4fc8dbd",
+  "config_path": "configs/r1b_sft_rule_20k.yaml",
+  "deployment_int4_export": {
+    "artifact_type": "packing_contract_rehearsal_not_deployable",
+    "method": "synthetic_int4_pack",
+    "packed_sample_sha256": "e76fa181b57d2449a8a4d390384274e1c58f727dd15a2d47682a94871510c3ac",
+    "path": "data/smoke/phase3/export/r1b/trl/s0/gptq_int4_contract_rehearsal",
+    "sha256": "5d296c4cc41cfbbeea5812f256ada9ea668913a9ff71945a12acc91934105f66"
+  },
+  "finished_at": "2026-08-18T01:06:32.259170+00:00",
+  "full_precision_export": {
+    "artifact_type": "adapter_input_only_not_merged_weights",
+    "path": "checkpoints/smoke/r1b/trl/s0/adapter",
+    "sha256": "b52f331c73a152155afcee0fe73a7b2977fd40fc6831c73baa9d01493aa99691"
+  },
+  "git_sha": "7a89269fe324bdcc129e0d69526d2bce87f91a50",
+  "mode": "smoke",
+  "notes": "SMOKE_ONLY. Full merge and GPTQModel quantization remain remote GPU actions.",
+  "phase": 3,
+  "rung": "r1b",
+  "seed": 0,
+  "status": "complete",
+  "training_time_quantization": "none",
+  "version": 1
+}

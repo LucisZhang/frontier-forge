@@ -1,0 +1,23 @@
+{
+  "mode": "smoke",
+  "phase": 3,
+  "phase4_serving_artifact": {
+    "gptq_int4_sha256": "5d296c4cc41cfbbeea5812f256ada9ea668913a9ff71945a12acc91934105f66",
+    "manifest_path": "data/smoke/phase3/export/r1b/trl/s0/export_manifest.json",
+    "merged_bf16_sha256": "b52f331c73a152155afcee0fe73a7b2977fd40fc6831c73baa9d01493aa99691",
+    "run_id": "smoke_r1b_sft_rule_20k_s0",
+    "rung": "r1b",
+    "seed": 0,
+    "status": "complete"
+  },
+  "r4_best_seed_export_contract": {
+    "required_seeds": [
+      0,
+      1,
+      2
+    ],
+    "selection_metric": "task_success_then_mean_reward_then_lowest_seed",
+    "status": "pending"
+  },
+  "version": 1
+}

@@ -1,0 +1,25 @@
+{
+  "candidate_clean_rows": 9,
+  "candidate_quarantined_rows": 0,
+  "candidate_rows": 9,
+  "disjointness": {
+    "fresh_overlap_phase2": 0,
+    "fresh_overlap_previous_training": 0,
+    "fresh_unique_rows": 8,
+    "phase2_is_subset_of_previous_training": true,
+    "phase2_unique_rows": 6,
+    "previously_trained_unique_rows": 10
+  },
+  "mode": "smoke",
+  "phase": 3.2,
+  "policy": "Phase 2 exact normalized token n-gram quarantine",
+  "quarantine": [],
+  "selected_fresh_rows": 8,
+  "status": "complete",
+  "test_rows_scanned": {
+    "test_drift": 12,
+    "test_iid": 12
+  },
+  "token_ngram": 13,
+  "version": 1
+}

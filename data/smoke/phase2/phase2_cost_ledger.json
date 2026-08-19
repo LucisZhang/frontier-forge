@@ -1,0 +1,17 @@
+{
+  "gpu_hours": 0.0,
+  "gpu_type": "none",
+  "gpu_usd": 0.0,
+  "missing_cost_complaint_ids": [],
+  "phase": 2,
+  "project_teacher_api_envelope_usd": [
+    20.0,
+    50.0
+  ],
+  "provider_reported_api_usd": 0.0,
+  "raw_log_sha256": "5664deb8c0b7689cc698d3e42421290011744ad5491536f7edfeecb2c44b6f4a",
+  "run_cap_usd": 0.0,
+  "teacher_model_id": "mock/phase2-deterministic-v1",
+  "version": 1,
+  "within_run_cap": true
+}

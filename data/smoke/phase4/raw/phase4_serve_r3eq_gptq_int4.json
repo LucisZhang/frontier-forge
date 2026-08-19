@@ -1,0 +1,259 @@
+{
+  "artifact_verification": null,
+  "artifact_verification_path": null,
+  "config_hash": "3bc7a885ac66a8ecc59e74e169d7d33dde4c6cffb37f8bf7e6838b1f1da7b09d",
+  "config_path": "configs/phase4/serve_r3eq_gptq_int4.yaml",
+  "contaminated_sweeps": [],
+  "cost": {
+    "api_usd": 0.0,
+    "gpu_hours": 0.0,
+    "hourly_usd": 0.3,
+    "usd": 0.0
+  },
+  "experiment": "serve",
+  "finished_at": "2026-08-18T16:30:13.106435+00:00",
+  "git_sha": "253e7cca3c377adc771017363e2d074a02d77f7a",
+  "hardware": {
+    "driver_version": null,
+    "gpu": null,
+    "gpu_memory_total_mib": null,
+    "hourly_usd": 0.3,
+    "logical_cpu_count": 10,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python": "3.12.13",
+    "rate_source": "smoke_config_only"
+  },
+  "metrics": {
+    "max_stable_concurrency": null,
+    "points": [
+      {
+        "achieved_qps_ratio": 0.7848979129809907,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 50.0,
+        "client": {
+          "dispatch_delay": {
+            "count": 4,
+            "mean_s": 0.0005587216292042285,
+            "p50_s": 7.287616608664393e-05,
+            "p95_s": 0.0017600304854568088
+          },
+          "e2e": {
+            "count": 4,
+            "mean_s": 0.02131988570909016,
+            "p50_s": 0.020685583469457924,
+            "p95_s": 0.025772452587261793
+          },
+          "elapsed_s": 0.10192408296279609,
+          "itl": {
+            "count": 4,
+            "mean_s": 0.00026797737236540335,
+            "p50_s": 0.00026871263138386175,
+            "p95_s": 0.00027399051675609755
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "output_tokens_per_s": 2962.98962150324,
+          "request_throughput_per_s": 39.24489564904953,
+          "successful_task_throughput_per_s": 39.24489564904953,
+          "ttft": {
+            "count": 4,
+            "mean_s": 0.0014195729745551944,
+            "p50_s": 0.0012540834723040462,
+            "p95_s": 0.00192799549549818
+          }
+        },
+        "co_tenancy": {
+          "contaminated": true,
+          "cpu_utilization_max": null,
+          "cpu_utilization_mean": null,
+          "load15_max": 4.20556640625,
+          "load15_mean": 4.20556640625,
+          "load1_contamination_threshold": 5.0,
+          "load1_max": 5.56396484375,
+          "load1_mean": 5.56396484375,
+          "load5_max": 4.48291015625,
+          "load5_mean": 4.48291015625,
+          "logical_cpu_count": 10,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 2
+        },
+        "completed": 4,
+        "concurrency_cap": 32,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.0021234183950582524,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "error_rate": 0.0,
+        "errors": 0,
+        "max_observed_in_flight": 2,
+        "point_index": 0,
+        "requests": 4,
+        "server": {
+          "e2e": {
+            "count": 4,
+            "mean_s": 0.004,
+            "p50_s": 0.005,
+            "p95_s": 0.0095
+          },
+          "itl": {
+            "count": 298,
+            "mean_s": 0.0010000000000000002,
+            "p50_s": 0.005,
+            "p95_s": 0.009499999999999998
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": null,
+            "accepted_tokens": 0,
+            "draft_tokens": 0,
+            "drafts": 0,
+            "mean_acceptance_length": null
+          },
+          "ttft": {
+            "count": 4,
+            "mean_s": 0.001,
+            "p50_s": 0.005,
+            "p95_s": 0.0095
+          }
+        },
+        "stability_checks": {
+          "achieved_qps_ratio": false,
+          "deadline_miss_rate": true,
+          "error_rate": true,
+          "p95_inflation": true
+        },
+        "stable": false,
+        "verifier_successes": 4,
+        "verifier_task_success_rate": 1.0,
+        "vram": {
+          "mean_mib": null,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": null,
+          "samples": 0
+        }
+      }
+    ]
+  },
+  "mode": "smoke",
+  "model": {
+    "artifact_path": "checkpoints/full/r4/trl/s0/export/gptq_int4",
+    "artifact_sha256": "3d3bed316134e3d583b7be16a8a89d4de2bf2f40c34365623d0e1c2edec10958",
+    "comparison_only": true,
+    "deployment_quantization": "gptq_int4",
+    "equivalence_evidence": {
+      "adapter_weights_sha256": "0188166e07cef16097267da5a68f45bfa3c54d08c68c25cd22b1f5649da37f66",
+      "interpretation": "The superseded original R4 seed-0 run had zero gradient; its adapter weights are byte-identical to R3 seed 0.",
+      "left_adapter_weights": "checkpoints/full/r3/trl/s0/adapter/adapter_model.safetensors",
+      "right_adapter_weights": "checkpoints/full/r4/trl/s0/adapter/adapter_model.safetensors"
+    },
+    "export_manifest": "checkpoints/full/r4/trl/s0/export/export_manifest.json",
+    "precision": "gptq_int4",
+    "served_name": "forge-r3eq-gptq-int4",
+    "training_time_quantization": "qlora_nf4",
+    "variant": "r3_equivalent_legacy_r4_zero_update"
+  },
+  "phase": 4,
+  "raw_artifact": "data/smoke/phase4/raw/phase4_serve_r3eq_gptq_int4.json",
+  "request_artifact": {
+    "path": "data/smoke/phase4/raw/phase4_serve_r3eq_gptq_int4.requests.jsonl",
+    "rows": 4,
+    "sha256": "e9183a24105eab0d0c20c065d3ed87b89f446363cbe1a059314f944214e974b7"
+  },
+  "run_id": "phase4_serve_r3eq_gptq_int4",
+  "server": {
+    "base_url": "http://127.0.0.1:62238",
+    "declared_vllm_version": "0.17.0",
+    "engine_args": {
+      "generation_config": "vllm",
+      "gpu_memory_utilization": 0.9,
+      "host": "127.0.0.1",
+      "language_model_only": true,
+      "max_model_len": 4096,
+      "max_num_seqs": 32,
+      "port": 8000,
+      "structured_backend": "auto",
+      "tool_call_parser": "hermes",
+      "vllm_version": "0.17.0"
+    },
+    "identity": {
+      "models_endpoint": {
+        "data": [
+          {
+            "id": "forge-r3eq-gptq-int4"
+          }
+        ],
+        "object": "list"
+      },
+      "version_endpoint": {
+        "version": "smoke-0"
+      }
+    },
+    "packages": {
+      "outlines": null,
+      "torch": "2.13.0",
+      "transformers": "5.15.0",
+      "vllm": null,
+      "xgrammar": null
+    }
+  },
+  "speculative": null,
+  "speculative_method_evidence": null,
+  "started_at": "2026-08-18T16:30:12.885212+00:00",
+  "status": "complete",
+  "supersedes": null,
+  "timing_disclosure": {
+    "client": "monotonic wall clock around streamed OpenAI HTTP request",
+    "co_tenancy": "server-host getloadavg plus /proc/stat CPU utilization; any load1 sample above half logical core count contaminates and reruns the entire sweep",
+    "server": "delta of vLLM Prometheus histograms over each measurement point",
+    "vram": "device-total nvidia-smi samples on the server host",
+    "warmup_excluded": true
+  },
+  "verifier_disclosure": {
+    "implementation": "forge.verify.verifier.score",
+    "input_normalization": "forge.train.grpo._completion_text: keep the suffix after the final </think>, then strip",
+    "raw_and_normalized_outputs_preserved": true
+  },
+  "version": 1,
+  "workload": {
+    "arrival_process": "Poisson with fixed seed",
+    "arrival_rates_qps": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "contract_hash": "9ed3d99a9d75c357febd82b2c3ac537c066451f1dd6399caaba2e88afb4dff89",
+    "dataset_manifest": "data/phase1_2/manifest.json",
+    "deadline_s": 60,
+    "input_length_measurement": "UTF-8 byte-length divided by four (SMOKE_ONLY)",
+    "input_token_targets": [
+      800,
+      1400,
+      2000
+    ],
+    "input_token_weights": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "max_concurrency": 32,
+    "measurement_requests": 20,
+    "output_length_control": "per-request max_tokens fixed weighted distribution",
+    "output_token_caps": [
+      192,
+      256
+    ],
+    "output_token_weights": [
+      0.5,
+      0.5
+    ],
+    "path": "data/smoke/phase4/workload-9ed3d99a9d75c357.jsonl",
+    "request_seed": 20260818,
+    "rows": 96,
+    "selection_seed": 20260816,
+    "sha256": "852c9f7f1de6ebed7037ba4dae862364dadcafd296ee4fa5f7e3d19e2821cbbd",
+    "split": "mixed",
+    "warmup_requests": 6
+  }
+}

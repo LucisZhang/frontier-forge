@@ -1,0 +1,92 @@
+{
+  "adjacent_pairs": [
+    {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "from": "r0",
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.0,
+      "paired_rows": 4,
+      "status": "complete",
+      "to": "r1",
+      "to_backend": "trl"
+    },
+    {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "from": "r1",
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.0,
+      "paired_rows": 4,
+      "status": "complete",
+      "to": "r2",
+      "to_backend": "trl"
+    },
+    {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "from": "r2",
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.0,
+      "paired_rows": 4,
+      "status": "complete",
+      "to": "r3",
+      "to_backend": "trl"
+    },
+    {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "from": "r3",
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.0,
+      "paired_rows": 4,
+      "status": "complete",
+      "to": "r4",
+      "to_backend": "trl"
+    }
+  ],
+  "mode": "smoke",
+  "optional_ablation_pairs": [
+    {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "from": "r1",
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.0,
+      "paired_rows": 4,
+      "status": "complete",
+      "to": "r1b",
+      "to_backend": "trl"
+    },
+    {
+      "bootstrap_resamples": 1000,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "from": "r2",
+      "from_backend": "trl",
+      "mean_task_success_delta": 0.0,
+      "paired_rows": 4,
+      "status": "complete",
+      "to": "r1b",
+      "to_backend": "trl"
+    }
+  ],
+  "phase": 3
+}

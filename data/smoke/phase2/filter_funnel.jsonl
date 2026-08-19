@@ -1,0 +1,10 @@
+{"complaint_id":2199750,"contamination":null,"duplicate":null,"outcome":"accepted","reason":null,"task_success":true,"teacher_reward":1.0}
+{"complaint_id":2640210,"contamination":null,"duplicate":null,"outcome":"accepted","reason":null,"task_success":true,"teacher_reward":1.0}
+{"complaint_id":2827063,"contamination":null,"duplicate":null,"outcome":"rejected","reason":"verifier_score","task_success":false,"teacher_reward":0.8}
+{"complaint_id":4177795,"contamination":null,"duplicate":null,"outcome":"rejected","reason":"schema_invalid","task_success":false,"teacher_reward":0.0}
+{"complaint_id":1640103,"contamination":null,"duplicate":null,"outcome":"accepted","reason":null,"task_success":true,"teacher_reward":1.0}
+{"complaint_id":2795274,"contamination":null,"duplicate":null,"outcome":"accepted","reason":null,"task_success":true,"teacher_reward":1.0}
+{"complaint_id":4091262,"contamination":null,"duplicate":null,"outcome":"accepted","reason":null,"task_success":true,"teacher_reward":1.0}
+{"complaint_id":3953277,"contamination":null,"duplicate":null,"outcome":"rejected","reason":"verifier_score","task_success":false,"teacher_reward":0.8}
+{"complaint_id":4730265,"contamination":null,"duplicate":null,"outcome":"rejected","reason":"schema_invalid","task_success":false,"teacher_reward":0.0}
+{"complaint_id":2646741,"contamination":null,"duplicate":null,"outcome":"accepted","reason":null,"task_success":true,"teacher_reward":1.0}

@@ -1,0 +1,153 @@
+{
+  "backend": "trl",
+  "config_hash": "06e3f0c235f69960ed199eb636b2a448f15633eca74ba402a9a97de11a314405",
+  "config_path": "configs/r1_sft_rule.yaml",
+  "dataset_hash": "c2ec800f55b2086178883b6e6956b9f4ab4e3ab3279d0b9139fbfc459017c233",
+  "deployment_quantization": "not_evaluated_here",
+  "evaluation_precision": "float32",
+  "finished_at": "2026-08-18T02:04:20.194053+00:00",
+  "general_instruction_regression": {
+    "accuracy": 0.0,
+    "rows": [
+      {
+        "correct": false,
+        "expected": "42",
+        "id": "arithmetic_01",
+        "output": "Return only the integer result of 17 + 25.acco\nacco\nReturn only the integer result of 17 + 25.",
+        "prompt": "Return only the integer result of 17 + 25."
+      },
+      {
+        "correct": false,
+        "expected": "72",
+        "id": "arithmetic_02",
+        "output": "Return only the integer result of 9 * 8.鲕\n鲕\n鲕\n鲕\n鲕\n鲕\n鲕\n鲕\n鲕\n鲕",
+        "prompt": "Return only the integer result of 9 * 8."
+      }
+    ]
+  },
+  "git_sha": "ea6a2c7fa23a098ca4b7481b382aa0887fd6ce33",
+  "metrics": {
+    "abstain_correct": 0.0,
+    "ambiguity_flag_match": 0.0,
+    "ci95": [
+      0.0,
+      0.0
+    ],
+    "failure_categories_nonexclusive": {
+      "invalid_json": 4,
+      "invalid_tool_arguments": 4,
+      "wrong_ambiguity": 4,
+      "wrong_tool": 4,
+      "wrong_urgency": 4
+    },
+    "field_f1": {
+      "company": 0.0,
+      "issue": 0.0,
+      "product": 0.0
+    },
+    "mean_reward": 0.0,
+    "rows": 4,
+    "schema_valid": 0.0,
+    "task_success": 0.0,
+    "tool_acc": 0.0,
+    "tool_arguments_structural_valid": 0.0,
+    "urgency_match": 0.0
+  },
+  "mode": "smoke",
+  "model": {
+    "dtype": "float32",
+    "id": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987"
+  },
+  "notes": "Local smoke evidence only; excluded from results/runs.jsonl.",
+  "packages": {
+    "accelerate": "1.14.0",
+    "datasets": "4.8.5",
+    "numpy": "2.2.6",
+    "peft": "0.20.0",
+    "pyarrow": "25.0.0",
+    "torch": "2.13.0",
+    "transformers": "5.15.0",
+    "trl": "1.10.0"
+  },
+  "phase": 3,
+  "predictions_path": "data/smoke/phase3/eval/r1/trl/s0/predictions.jsonl",
+  "reward_hacking_probes": {
+    "degenerate_abstention": {
+      "always_abstain_mean_reward": 0.6,
+      "always_abstain_task_success": 0.0,
+      "model_abstention_rate": 0.0
+    },
+    "format_exploitation": {
+      "mean_reward_before": 0.0,
+      "mean_reward_markdown_fenced": 0.0,
+      "reward_increase_rows": 0
+    },
+    "length_inflation": {
+      "mean_reward_after": 0.0,
+      "mean_reward_before": 0.0,
+      "reward_increase_rows": 0
+    }
+  },
+  "rung": "r1",
+  "seed": 0,
+  "split_metrics": {
+    "test_drift": {
+      "abstain_correct": 0.0,
+      "ambiguity_flag_match": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "failure_categories_nonexclusive": {
+        "invalid_json": 2,
+        "invalid_tool_arguments": 2,
+        "wrong_ambiguity": 2,
+        "wrong_tool": 2,
+        "wrong_urgency": 2
+      },
+      "field_f1": {
+        "company": 0.0,
+        "issue": 0.0,
+        "product": 0.0
+      },
+      "mean_reward": 0.0,
+      "rows": 2,
+      "schema_valid": 0.0,
+      "task_success": 0.0,
+      "tool_acc": 0.0,
+      "tool_arguments_structural_valid": 0.0,
+      "urgency_match": 0.0
+    },
+    "test_iid": {
+      "abstain_correct": 0.0,
+      "ambiguity_flag_match": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "failure_categories_nonexclusive": {
+        "invalid_json": 2,
+        "invalid_tool_arguments": 2,
+        "wrong_ambiguity": 2,
+        "wrong_tool": 2,
+        "wrong_urgency": 2
+      },
+      "field_f1": {
+        "company": 0.0,
+        "issue": 0.0,
+        "product": 0.0
+      },
+      "mean_reward": 0.0,
+      "rows": 2,
+      "schema_valid": 0.0,
+      "task_success": 0.0,
+      "tool_acc": 0.0,
+      "tool_arguments_structural_valid": 0.0,
+      "urgency_match": 0.0
+    }
+  },
+  "status": "complete",
+  "training_time_quantization": "none",
+  "version": 1
+}

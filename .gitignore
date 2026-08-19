@@ -8,6 +8,8 @@
 /data/**
 !/data/**/
 !/data/**/manifest.json
+# smoke fixtures are small deterministic files CI depends on — track the whole tree
+!/data/smoke/**
 /checkpoints/
 *.gguf
 *.safetensors

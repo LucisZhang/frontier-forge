@@ -1,0 +1,225 @@
+{
+  "artifact_verification": null,
+  "artifact_verification_path": null,
+  "config_hash": "0a075a0d5c19d6ba0042a1a968231f76f3315ff79f659cf15fe9413148040e7e",
+  "config_path": "configs/phase4/serve_r1b_bf16.yaml",
+  "cost": {
+    "api_usd": 0.0,
+    "gpu_hours": 0.0,
+    "hourly_usd": 0.3,
+    "usd": 0.0
+  },
+  "experiment": "serve",
+  "finished_at": "2026-08-18T08:22:28.483572+00:00",
+  "git_sha": "6fd40185b1bf9a54b5785ada06e7cab1853d2d57",
+  "hardware": {
+    "driver_version": null,
+    "gpu": null,
+    "gpu_memory_total_mib": null,
+    "hourly_usd": 0.3,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python": "3.12.13",
+    "rate_source": "smoke_config_only"
+  },
+  "metrics": {
+    "max_stable_concurrency": null,
+    "points": [
+      {
+        "achieved_qps_ratio": 0.8121933945673273,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 50.0,
+        "client": {
+          "dispatch_delay": {
+            "count": 4,
+            "mean_s": 0.0002172323875129223,
+            "p50_s": 0.0001070016878657043,
+            "p95_s": 0.0005558355653192846
+          },
+          "e2e": {
+            "count": 4,
+            "mean_s": 0.018343062518397346,
+            "p50_s": 0.017522562528029084,
+            "p95_s": 0.023254049976821987
+          },
+          "elapsed_s": 0.09849870798643678,
+          "itl": {
+            "count": 4,
+            "mean_s": 0.0002270852914669575,
+            "p50_s": 0.00022684303859373743,
+            "p95_s": 0.0002323450707559253
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "output_tokens_per_s": 3066.0300644916606,
+          "request_throughput_per_s": 40.60966972836636,
+          "successful_task_throughput_per_s": 40.60966972836636,
+          "ttft": {
+            "count": 4,
+            "mean_s": 0.0014332707796711475,
+            "p50_s": 0.0012490000226534903,
+            "p95_s": 0.0020189500413835045
+          }
+        },
+        "completed": 4,
+        "concurrency_cap": 32,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.0020520564163841,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "error_rate": 0.0,
+        "errors": 0,
+        "max_observed_in_flight": 2,
+        "point_index": 0,
+        "requests": 4,
+        "server": {
+          "e2e": {
+            "count": 4,
+            "mean_s": 0.004,
+            "p50_s": 0.005,
+            "p95_s": 0.0095
+          },
+          "itl": {
+            "count": 298,
+            "mean_s": 0.0010000000000000002,
+            "p50_s": 0.005,
+            "p95_s": 0.009499999999999998
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": null,
+            "accepted_tokens": 0,
+            "draft_tokens": 0,
+            "drafts": 0,
+            "mean_acceptance_length": null
+          },
+          "ttft": {
+            "count": 4,
+            "mean_s": 0.001,
+            "p50_s": 0.005,
+            "p95_s": 0.0095
+          }
+        },
+        "stability_checks": {
+          "achieved_qps_ratio": false,
+          "deadline_miss_rate": true,
+          "error_rate": true,
+          "p95_inflation": true
+        },
+        "stable": false,
+        "verifier_successes": 4,
+        "verifier_task_success_rate": 1.0,
+        "vram": {
+          "mean_mib": null,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": null,
+          "samples": 0
+        }
+      }
+    ]
+  },
+  "mode": "smoke",
+  "model": {
+    "artifact_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "deployment_quantization": "none",
+    "export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json",
+    "precision": "bfloat16",
+    "served_name": "forge-r1b-bf16",
+    "training_time_quantization": "qlora_nf4",
+    "variant": "r1b"
+  },
+  "phase": 4,
+  "raw_artifact": "data/smoke/phase4/raw/phase4_serve_r1b_bf16.json",
+  "request_artifact": {
+    "path": "data/smoke/phase4/raw/phase4_serve_r1b_bf16.requests.jsonl",
+    "rows": 4,
+    "sha256": "1544352f53893824090931c1d2a309b1b40f9c3d3503d9248a89012c9ede3a15"
+  },
+  "run_id": "phase4_serve_r1b_bf16",
+  "server": {
+    "base_url": "http://127.0.0.1:55070",
+    "declared_vllm_version": "0.17.0",
+    "engine_args": {
+      "generation_config": "vllm",
+      "gpu_memory_utilization": 0.9,
+      "host": "127.0.0.1",
+      "language_model_only": true,
+      "max_model_len": 4096,
+      "max_num_seqs": 32,
+      "port": 8000,
+      "structured_backend": "auto",
+      "tool_call_parser": "hermes",
+      "vllm_version": "0.17.0"
+    },
+    "identity": {
+      "models_endpoint": {
+        "data": [
+          {
+            "id": "forge-r1b-bf16"
+          }
+        ],
+        "object": "list"
+      },
+      "version_endpoint": {
+        "version": "smoke-0"
+      }
+    },
+    "packages": {
+      "outlines": null,
+      "torch": "2.13.0",
+      "transformers": "5.15.0",
+      "vllm": null,
+      "xgrammar": null
+    }
+  },
+  "started_at": "2026-08-18T08:22:28.255677+00:00",
+  "status": "complete",
+  "timing_disclosure": {
+    "client": "monotonic wall clock around streamed OpenAI HTTP request",
+    "server": "delta of vLLM Prometheus histograms over each measurement point",
+    "vram": "device-total nvidia-smi samples on the server host",
+    "warmup_excluded": true
+  },
+  "version": 1,
+  "workload": {
+    "arrival_process": "Poisson with fixed seed",
+    "arrival_rates_qps": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "contract_hash": "9ed3d99a9d75c357febd82b2c3ac537c066451f1dd6399caaba2e88afb4dff89",
+    "dataset_manifest": "data/phase1_2/manifest.json",
+    "deadline_s": 60,
+    "input_length_measurement": "UTF-8 byte-length divided by four (SMOKE_ONLY)",
+    "input_token_targets": [
+      800,
+      1400,
+      2000
+    ],
+    "input_token_weights": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "max_concurrency": 32,
+    "measurement_requests": 20,
+    "output_length_control": "per-request max_tokens fixed weighted distribution",
+    "output_token_caps": [
+      192,
+      256
+    ],
+    "output_token_weights": [
+      0.5,
+      0.5
+    ],
+    "path": "data/smoke/phase4/workload-9ed3d99a9d75c357.jsonl",
+    "request_seed": 20260818,
+    "rows": 96,
+    "selection_seed": 20260816,
+    "sha256": "852c9f7f1de6ebed7037ba4dae862364dadcafd296ee4fa5f7e3d19e2821cbbd",
+    "split": "mixed",
+    "warmup_requests": 6
+  }
+}

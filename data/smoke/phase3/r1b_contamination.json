@@ -1,0 +1,17 @@
+{
+  "candidate_clean_rows": 13,
+  "candidate_quarantined_rows": 0,
+  "candidate_rows": 13,
+  "inherited_r1_rows": 6,
+  "mode": "smoke",
+  "policy": "Phase 2 exact normalized token n-gram quarantine",
+  "quarantine": [],
+  "selected_added_rows": 4,
+  "status": "complete",
+  "test_rows_scanned": {
+    "test_drift": 12,
+    "test_iid": 12
+  },
+  "token_ngram": 13,
+  "version": 1
+}

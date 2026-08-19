@@ -1,0 +1,252 @@
+{
+  "artifact_verification": null,
+  "artifact_verification_path": null,
+  "config_hash": "a81d4cfaea14f73c67c5ab157ca4aab3b675cce9e60bfa779cd9cf796cbbf497",
+  "config_path": "configs/phase4/spec_r1b_bf16_qwen08b.yaml",
+  "cost": {
+    "api_usd": 0.0,
+    "gpu_hours": 0.0,
+    "hourly_usd": 0.3,
+    "usd": 0.0
+  },
+  "experiment": "spec_decode",
+  "finished_at": "2026-08-18T13:40:19.073079+00:00",
+  "git_sha": "111740577ddd5b9a46602e59ac826d5ff91c14cb",
+  "hardware": {
+    "driver_version": null,
+    "gpu": null,
+    "gpu_memory_total_mib": null,
+    "hourly_usd": 0.3,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python": "3.12.13",
+    "rate_source": "smoke_config_only"
+  },
+  "metrics": {
+    "max_stable_concurrency": null,
+    "points": [
+      {
+        "achieved_qps_ratio": 0.8273312353175504,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 50.0,
+        "client": {
+          "dispatch_delay": {
+            "count": 4,
+            "mean_s": 0.0003567428211681545,
+            "p50_s": 0.00017484958516433835,
+            "p95_s": 0.0009308273671194908
+          },
+          "e2e": {
+            "count": 4,
+            "mean_s": 0.017409979278454557,
+            "p50_s": 0.016796666546724737,
+            "p95_s": 0.021539148152805866
+          },
+          "elapsed_s": 0.09669645794201642,
+          "itl": {
+            "count": 4,
+            "mean_s": 0.00022054292497238008,
+            "p50_s": 0.00022016544436382696,
+            "p95_s": 0.00022509826989047913
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "output_tokens_per_s": 3123.1754133237528,
+          "request_throughput_per_s": 41.36656176587752,
+          "successful_task_throughput_per_s": 41.36656176587752,
+          "ttft": {
+            "count": 4,
+            "mean_s": 0.001024270779453218,
+            "p50_s": 0.0009794789948500693,
+            "p95_s": 0.0012205081118736416
+          }
+        },
+        "completed": 4,
+        "concurrency_cap": 32,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.0020145095404586755,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "error_rate": 0.0,
+        "errors": 0,
+        "max_observed_in_flight": 2,
+        "point_index": 0,
+        "requests": 4,
+        "server": {
+          "e2e": {
+            "count": 4,
+            "mean_s": 0.004,
+            "p50_s": 0.005,
+            "p95_s": 0.0095
+          },
+          "itl": {
+            "count": 298,
+            "mean_s": 0.0010000000000000002,
+            "p50_s": 0.005,
+            "p95_s": 0.009499999999999998
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": 0.7,
+            "accepted_tokens": 112,
+            "draft_tokens": 160,
+            "drafts": 40,
+            "mean_acceptance_length": 3.8
+          },
+          "ttft": {
+            "count": 4,
+            "mean_s": 0.001,
+            "p50_s": 0.005,
+            "p95_s": 0.0095
+          }
+        },
+        "stability_checks": {
+          "achieved_qps_ratio": false,
+          "deadline_miss_rate": true,
+          "error_rate": true,
+          "p95_inflation": true
+        },
+        "stable": false,
+        "verifier_successes": 4,
+        "verifier_task_success_rate": 1.0,
+        "vram": {
+          "mean_mib": null,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": null,
+          "samples": 0
+        }
+      }
+    ]
+  },
+  "mode": "smoke",
+  "model": {
+    "artifact_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "deployment_quantization": "none",
+    "export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json",
+    "precision": "bfloat16",
+    "served_name": "forge-r1b-bf16-qwen08b-patched-spec",
+    "speculative_enabled": true,
+    "training_time_quantization": "qlora_nf4",
+    "variant": "r1b"
+  },
+  "phase": 4,
+  "raw_artifact": "data/smoke/phase4/raw/phase4_spec_decode_r1b_bf16_qwen08b_patched.json",
+  "request_artifact": {
+    "path": "data/smoke/phase4/raw/phase4_spec_decode_r1b_bf16_qwen08b_patched.requests.jsonl",
+    "rows": 4,
+    "sha256": "fa5be6dd32bbc0354b1ddd97167578bfa1d57e1aa9b87908e3e6127c2fd4443d"
+  },
+  "run_id": "phase4_spec_decode_r1b_bf16_qwen08b_patched",
+  "server": {
+    "base_url": "http://127.0.0.1:63701",
+    "declared_vllm_version": "0.17.0",
+    "engine_args": {
+      "generation_config": "vllm",
+      "gpu_memory_utilization": 0.9,
+      "host": "127.0.0.1",
+      "language_model_only": true,
+      "max_model_len": 4096,
+      "max_num_seqs": 32,
+      "port": 8000,
+      "structured_backend": "auto",
+      "tool_call_parser": "hermes",
+      "vllm_version": "0.17.0"
+    },
+    "identity": {
+      "models_endpoint": {
+        "data": [
+          {
+            "id": "forge-r1b-bf16-qwen08b-patched-spec"
+          }
+        ],
+        "object": "list"
+      },
+      "version_endpoint": {
+        "version": "smoke-0"
+      }
+    },
+    "packages": {
+      "outlines": null,
+      "torch": "2.13.0",
+      "transformers": "5.15.0",
+      "vllm": null,
+      "xgrammar": null
+    }
+  },
+  "speculative": {
+    "draft_model": "Qwen/Qwen3.5-0.8B-Base",
+    "draft_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "enabled": true,
+    "method": "draft_model",
+    "method_selection": {
+      "compatibility_patch": "scripts/remote/vllm_compat/sitecustomize.py",
+      "compatibility_source_sha256": "3c7b6b19d80854619eb01068d70f5e83ce6f17798c643493c836eee4514d76f5",
+      "compatibility_vllm_version": "0.17.0",
+      "native_mtp_audit": "results/phase4/r1b_native_mtp_audit.json",
+      "prior_failure_receipts": [
+        "results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json",
+        "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json"
+      ],
+      "reason": "r1b_merged_export_declares_mtp_but_contains_no_mtp_weight_keys",
+      "selected": "external_draft_fallback"
+    },
+    "num_speculative_tokens": 5
+  },
+  "speculative_method_evidence": null,
+  "started_at": "2026-08-18T13:40:18.861355+00:00",
+  "status": "complete",
+  "supersedes": null,
+  "timing_disclosure": {
+    "client": "monotonic wall clock around streamed OpenAI HTTP request",
+    "server": "delta of vLLM Prometheus histograms over each measurement point",
+    "vram": "device-total nvidia-smi samples on the server host",
+    "warmup_excluded": true
+  },
+  "verifier_disclosure": {
+    "implementation": "forge.verify.verifier.score",
+    "input_normalization": "forge.train.grpo._completion_text: keep the suffix after the final </think>, then strip",
+    "raw_and_normalized_outputs_preserved": true
+  },
+  "version": 1,
+  "workload": {
+    "arrival_process": "Poisson with fixed seed",
+    "arrival_rates_qps": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "contract_hash": "9ed3d99a9d75c357febd82b2c3ac537c066451f1dd6399caaba2e88afb4dff89",
+    "dataset_manifest": "data/phase1_2/manifest.json",
+    "deadline_s": 60,
+    "input_length_measurement": "UTF-8 byte-length divided by four (SMOKE_ONLY)",
+    "input_token_targets": [
+      800,
+      1400,
+      2000
+    ],
+    "input_token_weights": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "max_concurrency": 32,
+    "measurement_requests": 20,
+    "output_length_control": "per-request max_tokens fixed weighted distribution",
+    "output_token_caps": [
+      192,
+      256
+    ],
+    "output_token_weights": [
+      0.5,
+      0.5
+    ],
+    "path": "data/smoke/phase4/workload-9ed3d99a9d75c357.jsonl",
+    "request_seed": 20260818,
+    "rows": 96,
+    "selection_seed": 20260816,
+    "sha256": "852c9f7f1de6ebed7037ba4dae862364dadcafd296ee4fa5f7e3d19e2821cbbd",
+    "split": "mixed",
+    "warmup_requests": 6
+  }
+}

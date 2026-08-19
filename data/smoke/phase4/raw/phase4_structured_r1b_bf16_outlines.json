@@ -1,0 +1,408 @@
+{
+  "artifact_verification": null,
+  "artifact_verification_path": null,
+  "config_hash": "41aeb15f68fa5a6e783d90e659062a7c6ad356936b9a642d3b4dbd3ceef4cdd8",
+  "config_path": "configs/phase4/structured_r1b_bf16_outlines.yaml",
+  "contaminated_sweeps": [],
+  "cost": {
+    "api_usd": 0.0,
+    "gpu_hours": 0.0,
+    "hourly_usd": 0.3,
+    "usd": 0.0
+  },
+  "experiment": "structured",
+  "finished_at": "2026-08-18T16:30:16.417430+00:00",
+  "git_sha": "253e7cca3c377adc771017363e2d074a02d77f7a",
+  "hardware": {
+    "driver_version": null,
+    "gpu": null,
+    "gpu_memory_total_mib": null,
+    "hourly_usd": 0.3,
+    "logical_cpu_count": 10,
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "python": "3.12.13",
+    "rate_source": "smoke_config_only"
+  },
+  "metrics": {
+    "backend": "outlines",
+    "co_tenancy": {
+      "contaminated": true,
+      "cpu_utilization_max": null,
+      "cpu_utilization_mean": null,
+      "load15_max": 4.20556640625,
+      "load15_mean": 4.20556640625,
+      "load1_contamination_threshold": 5.0,
+      "load1_max": 5.56396484375,
+      "load1_mean": 5.56396484375,
+      "load5_max": 4.48291015625,
+      "load5_mean": 4.48291015625,
+      "logical_cpu_count": 10,
+      "measurement_side": "server_host_getloadavg_and_proc_stat",
+      "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+      "samples": 2
+    },
+    "constraint_tax_and_mitigation": {
+      "constraint_tax_tool_call_rate_delta": -1.0,
+      "latency_delta_p50_s": 0.0009044999023899436,
+      "mitigation_task_success_delta": 0.0,
+      "requests": 2,
+      "simultaneous_latency_p50_s": 0.0008826045086607337,
+      "simultaneous_latency_p95_s": 0.000904035777784884,
+      "simultaneous_schema_tool_call_rate": 0.0,
+      "simultaneous_task_success": 1.0,
+      "task_success_denominator": "all original requests; uncovered two-pass rows count as failure",
+      "two_pass_coverage": 1.0,
+      "two_pass_latency_p50_s": 0.0017871044110506773,
+      "two_pass_latency_p95_s": 0.0018099602893926203,
+      "two_pass_task_success": 1.0,
+      "unconstrained_tool_call_rate": 1.0
+    },
+    "schema_compile": [
+      {
+        "cold": {
+          "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_a\"}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.0012497080024331808,
+          "request_id": null,
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 12,
+            "prompt_tokens": 8,
+            "total_tokens": 20
+          }
+        },
+        "cold_compile_overhead_s": 0.00028370798099786043,
+        "schema_required_fields": 2,
+        "steady": [
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_a\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.0009660000214353204,
+            "request_id": null,
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 12,
+              "prompt_tokens": 8,
+              "total_tokens": 20
+            }
+          }
+        ],
+        "steady_constraint_overhead_s": 8.241704199463129e-05,
+        "unconstrained_control": {
+          "content": "{}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.0008835829794406891,
+          "request_id": null,
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 1,
+            "prompt_tokens": 8,
+            "total_tokens": 9
+          }
+        }
+      },
+      {
+        "cold": {
+          "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_a\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_a\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_a\"}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.0008623750181868672,
+          "request_id": null,
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 36,
+            "prompt_tokens": 8,
+            "total_tokens": 44
+          }
+        },
+        "cold_compile_overhead_s": -0.00016812491230666637,
+        "schema_required_fields": 6,
+        "steady": [
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_a\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_a\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_a\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.0010304999304935336,
+            "request_id": null,
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 36,
+              "prompt_tokens": 8,
+              "total_tokens": 44
+            }
+          }
+        ],
+        "steady_constraint_overhead_s": 0.00011279189493507147,
+        "unconstrained_control": {
+          "content": "{}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.0009177080355584621,
+          "request_id": null,
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 1,
+            "prompt_tokens": 8,
+            "total_tokens": 9
+          }
+        }
+      },
+      {
+        "cold": {
+          "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_a\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_a\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_a\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_a\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_a\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_a\"}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.0010312080848962069,
+          "request_id": null,
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 72,
+            "prompt_tokens": 8,
+            "total_tokens": 80
+          }
+        },
+        "cold_compile_overhead_s": -5.4582953453063965e-05,
+        "schema_required_fields": 12,
+        "steady": [
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_a\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_a\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_a\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_a\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_a\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_a\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.0010857910383492708,
+            "request_id": null,
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 72,
+              "prompt_tokens": 8,
+              "total_tokens": 80
+            }
+          }
+        ],
+        "steady_constraint_overhead_s": 0.00021349906455725431,
+        "unconstrained_control": {
+          "content": "{}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.0008722919737920165,
+          "request_id": null,
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 1,
+            "prompt_tokens": 8,
+            "total_tokens": 9
+          }
+        }
+      },
+      {
+        "cold": {
+          "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_a\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_a\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_a\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_a\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_a\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_a\",\"field_12\":\"value_12_a\",\"field_13\":\"value_13_a\",\"field_14\":\"value_14_a\",\"field_15\":\"value_15_a\",\"field_16\":\"value_16_a\",\"field_17\":\"value_17_a\",\"field_18\":\"value_18_a\",\"field_19\":\"value_19_a\",\"field_20\":\"value_20_a\",\"field_21\":\"value_21_a\",\"field_22\":\"value_22_a\",\"field_23\":\"value_23_a\"}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.0009008339839056134,
+          "request_id": null,
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 144,
+            "prompt_tokens": 8,
+            "total_tokens": 152
+          }
+        },
+        "cold_compile_overhead_s": 1.2126052752137184e-05,
+        "schema_required_fields": 24,
+        "steady": [
+          {
+            "content": "{\"field_00\":\"value_00_a\",\"field_01\":\"value_01_a\",\"field_02\":\"value_02_a\",\"field_03\":\"value_03_a\",\"field_04\":\"value_04_a\",\"field_05\":\"value_05_a\",\"field_06\":\"value_06_a\",\"field_07\":\"value_07_a\",\"field_08\":\"value_08_a\",\"field_09\":\"value_09_a\",\"field_10\":\"value_10_a\",\"field_11\":\"value_11_a\",\"field_12\":\"value_12_a\",\"field_13\":\"value_13_a\",\"field_14\":\"value_14_a\",\"field_15\":\"value_15_a\",\"field_16\":\"value_16_a\",\"field_17\":\"value_17_a\",\"field_18\":\"value_18_a\",\"field_19\":\"value_19_a\",\"field_20\":\"value_20_a\",\"field_21\":\"value_21_a\",\"field_22\":\"value_22_a\",\"field_23\":\"value_23_a\"}",
+            "error": null,
+            "finish_reason": "stop",
+            "latency_s": 0.0008887079311534762,
+            "request_id": null,
+            "status": 200,
+            "tool_calls": [],
+            "usage": {
+              "completion_tokens": 144,
+              "prompt_tokens": 8,
+              "total_tokens": 152
+            }
+          }
+        ],
+        "steady_constraint_overhead_s": 1.5332945622503757e-05,
+        "unconstrained_control": {
+          "content": "{}",
+          "error": null,
+          "finish_reason": "stop",
+          "latency_s": 0.0008733749855309725,
+          "request_id": null,
+          "status": 200,
+          "tool_calls": [],
+          "usage": {
+            "completion_tokens": 1,
+            "prompt_tokens": 8,
+            "total_tokens": 9
+          }
+        }
+      }
+    ],
+    "server": {
+      "e2e": {
+        "count": 18,
+        "mean_s": 0.004,
+        "p50_s": 0.005,
+        "p95_s": 0.009499999999999998
+      },
+      "itl": {
+        "count": 826,
+        "mean_s": 0.001,
+        "p50_s": 0.005,
+        "p95_s": 0.0095
+      },
+      "measurement_side": "server_prometheus",
+      "speculative": {
+        "acceptance_rate": null,
+        "accepted_tokens": 0,
+        "draft_tokens": 0,
+        "drafts": 0,
+        "mean_acceptance_length": null
+      },
+      "ttft": {
+        "count": 18,
+        "mean_s": 0.001,
+        "p50_s": 0.005,
+        "p95_s": 0.009499999999999998
+      }
+    },
+    "vram": {
+      "mean_mib": null,
+      "measurement_side": "host_nvidia_smi_device_total",
+      "peak_mib": null,
+      "samples": 0
+    }
+  },
+  "mode": "smoke",
+  "model": {
+    "artifact_path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+    "artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+    "deployment_quantization": "none",
+    "export_manifest": "results/phase3_export_manifest_r1b_trl_s0.json",
+    "precision": "bfloat16",
+    "served_name": "forge-r1b-bf16-outlines",
+    "training_time_quantization": "qlora_nf4",
+    "variant": "r1b"
+  },
+  "phase": 4,
+  "raw_artifact": "data/smoke/phase4/raw/phase4_structured_r1b_bf16_outlines.json",
+  "request_artifact": {
+    "path": "data/smoke/phase4/raw/phase4_structured_r1b_bf16_outlines.requests.jsonl",
+    "rows": 2,
+    "sha256": "950ae642939a76207d6285b0c5db4d81a7efa9e8533a2cee47168d311cb5ca96"
+  },
+  "run_id": "phase4_structured_r1b_bf16_outlines",
+  "server": {
+    "base_url": "http://127.0.0.1:62301",
+    "declared_vllm_version": "0.17.0",
+    "engine_args": {
+      "generation_config": "vllm",
+      "gpu_memory_utilization": 0.9,
+      "host": "127.0.0.1",
+      "language_model_only": true,
+      "max_model_len": 4096,
+      "max_num_seqs": 32,
+      "port": 8000,
+      "structured_backend": "outlines",
+      "tool_call_parser": "hermes",
+      "vllm_version": "0.17.0"
+    },
+    "identity": {
+      "models_endpoint": {
+        "data": [
+          {
+            "id": "forge-r1b-bf16-outlines"
+          }
+        ],
+        "object": "list"
+      },
+      "version_endpoint": {
+        "version": "smoke-0"
+      }
+    },
+    "packages": {
+      "outlines": null,
+      "torch": "2.13.0",
+      "transformers": "5.15.0",
+      "vllm": null,
+      "xgrammar": null
+    }
+  },
+  "speculative": null,
+  "speculative_method_evidence": null,
+  "started_at": "2026-08-18T16:30:16.371161+00:00",
+  "status": "complete",
+  "supersedes": null,
+  "timing_disclosure": {
+    "client": "monotonic wall clock around streamed OpenAI HTTP request",
+    "co_tenancy": "server-host getloadavg plus /proc/stat CPU utilization; any load1 sample above half logical core count contaminates and reruns the entire sweep",
+    "server": "delta of vLLM Prometheus histograms over each measurement point",
+    "vram": "device-total nvidia-smi samples on the server host",
+    "warmup_excluded": true
+  },
+  "verifier_disclosure": {
+    "implementation": "forge.verify.verifier.score",
+    "input_normalization": "forge.train.grpo._completion_text: keep the suffix after the final </think>, then strip",
+    "raw_and_normalized_outputs_preserved": true
+  },
+  "version": 1,
+  "workload": {
+    "arrival_process": "Poisson with fixed seed",
+    "arrival_rates_qps": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "contract_hash": "9ed3d99a9d75c357febd82b2c3ac537c066451f1dd6399caaba2e88afb4dff89",
+    "dataset_manifest": "data/phase1_2/manifest.json",
+    "deadline_s": 60,
+    "input_length_measurement": "UTF-8 byte-length divided by four (SMOKE_ONLY)",
+    "input_token_targets": [
+      800,
+      1400,
+      2000
+    ],
+    "input_token_weights": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "max_concurrency": 32,
+    "measurement_requests": 20,
+    "output_length_control": "per-request max_tokens fixed weighted distribution",
+    "output_token_caps": [
+      192,
+      256
+    ],
+    "output_token_weights": [
+      0.5,
+      0.5
+    ],
+    "path": "data/smoke/phase4/workload-9ed3d99a9d75c357.jsonl",
+    "request_seed": 20260818,
+    "rows": 96,
+    "selection_seed": 20260816,
+    "sha256": "852c9f7f1de6ebed7037ba4dae862364dadcafd296ee4fa5f7e3d19e2821cbbd",
+    "split": "mixed",
+    "warmup_requests": 6
+  }
+}
