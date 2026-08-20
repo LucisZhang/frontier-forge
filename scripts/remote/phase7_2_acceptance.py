@@ -1105,6 +1105,129 @@ def command_latency_alert(_: argparse.Namespace) -> None:
     write_json_atomic(RAW / "alert_ForgeLatencyBurnRate.json", receipt)
 
 
+def write_report(final: dict[str, Any], payloads: dict[str, dict[str, Any]]) -> Path:
+    cold = payloads["cold_start"]
+    gateway = payloads["gateway_scale"]
+    canary = payloads["canary"]
+    availability = payloads["availability_alert"]
+    latency = payloads["latency_alert"]
+    kill = payloads["drill_kill"]
+    distribution = cold["distribution_s"]
+    stage_rows = []
+    for stage in canary["promotion_stages"]:
+        stage_rows.append(
+            "| {variant} | {int4} | {bf16} | {unknown} | {guard} |".format(
+                variant=stage["variant"],
+                int4=stage["counts"]["vllm-int4"],
+                bf16=stage["counts"]["vllm-bf16"],
+                unknown=stage["counts"]["unknown"],
+                guard="pass" if stage["slo_guard"]["pass"] else "fail",
+            )
+        )
+    checks = final["gate"]["checks"]
+    checklist = "\n".join(
+        f"- [{'x' if passed else ' '}] {name.replace('_', ' ')}" for name, passed in checks.items()
+    )
+    cold_row = (
+        f"| trigger → verified response | {distribution['min']:.3f} | "
+        f"{distribution['p50']:.3f} | {distribution['p95']:.3f} | "
+        f"{distribution['max']:.3f} | {distribution['mean']:.3f} |"
+    )
+    report = f"""# Phase 7.2 single-node k3s acceptance report
+
+Status: **Gate 7.2 PASS**. Run `{final["run_id"]}` at git
+`{final["git_sha"]}`. Raw receipt:
+`results/phase7_2/raw/phase7_2_acceptance.json`.
+
+## Scope and disclosure
+
+This is a real-VM rehearsal on one k3s node and one physical NVIDIA A10. The
+NVIDIA device plugin exposes two time-sliced `nvidia.com/gpu.shared` allocations
+so GPTQ-int4 and BF16 can coexist. It is not cloud-production or multi-GPU
+evidence; Kafka remains out of scope. Every application and dashboard Service is
+`ClusterIP`, and operator access used loopback-only kubectl port-forwards through
+an SSH tunnel. No security-group port was opened.
+
+Both serving trees were verified before launch: GPTQ-int4
+`c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2`
+and BF16/MTP-preserved
+`7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce`.
+
+## Autoscaling and cold start
+
+- Gateway custom-metric KEDA scale: 1 → **{gateway["max_ready_replicas"]}**
+  ready replicas, then back to 1 after cooldown.
+- Saturation evidence: queue high-watermark **{gateway["max_queue_high_watermark"]:.0f}/24**;
+  k6 observed **{gateway["k6_counts"]["http_429"]}** HTTP 429 responses and every
+  one carried `Retry-After`.
+- GPU scale-to-zero/from-zero: **n={cold["iterations_completed"]}**, measured from
+  the Prometheus demand trigger through the first task-success-verified gateway
+  response.
+
+| cold-start seconds | min | p50 | p95 | max | mean |
+|---|---:|---:|---:|---:|---:|
+{cold_row}
+
+## One-GPU canary
+
+Both deployments were Ready concurrently under the two time-sliced allocations.
+The router exposed the selected upstream address in a response header so the
+weighted stages were measured rather than inferred from configuration alone.
+
+| router stage | int4 responses | BF16 responses | unknown | SLO guard |
+|---|---:|---:|---:|---:|
+{chr(10).join(stage_rows)}
+
+After 100% BF16 promotion, a controlled HTTP-500 upstream deliberately degraded
+the promoted path. `ForgeAvailabilityBurnRate` entered `firing`; the router was
+then rolled back to stable GPTQ-int4 and a task-success-verified request recovered.
+
+## Alerts and runbook drills
+
+- Availability multi-window burn alert: fired under the `fault-500` k6 scenario
+  ({availability["k6_counts"]["forge_http_500"]} observed HTTP 500 responses).
+- Latency multi-window burn alert: fired under the three-second latency injector
+  ({latency["k6_counts"]["forge_http_200"]} observed HTTP 200 responses), isolating
+  latency from availability.
+- Kill-vLLM drill: old pod `{kill["old_pod"]["uid"]}` was replaced by
+  `{kill["new_pod"]["uid"]}`; the gateway failed closed with HTTP 503 and recovered
+  a verified request in **{kill["recovery_seconds"]:.3f} s**.
+- Saturation and bad-canary rollback drills reuse the same k6/KEDA and alert
+  receipts above; all three are scripted by
+  `scripts/remote/phase7_2_acceptance.py` and documented in
+  `docs/runbooks/phase7_2.md`.
+
+## CI and cost
+
+- CPU-only kind manifest smoke and the full test job passed in
+  {final["ci"]["run_url"]} at `{final["ci"]["tested_git_sha"]}`.
+- VM rate: `FORGE_GPU_HOURLY_USD=1.53` (¥11/hour at 7.2 CNY/USD).
+- Phase 7.2 delegated VM interval: **{final["cost"]["gpu_hours"]:.4f} h =
+  ${final["cost"]["usd"]:.4f}**. This records the whole Phase 7.2 interval after
+  Gate 7.1 finalization, including cluster/image setup and idle orchestration time.
+
+## Gate 7.2
+
+{checklist}
+
+## Reproduction
+
+```sh
+export FORGE_GPU_HOURLY_USD=1.53
+export PYTHONPATH=src:.
+.venv-phase4/bin/python scripts/remote/phase7_2_acceptance.py inventory
+.venv-phase4/bin/python scripts/remote/phase7_2_acceptance.py cold-start --iterations 10
+.venv-phase4/bin/python scripts/remote/phase7_2_acceptance.py kill-drill
+.venv-phase4/bin/python scripts/remote/phase7_2_acceptance.py gateway-scale
+.venv-phase4/bin/python scripts/remote/phase7_2_acceptance.py canary
+.venv-phase4/bin/python scripts/remote/phase7_2_acceptance.py latency-alert
+```
+"""
+    path = REPO_ROOT / "results/phase7_2_k3s_report.md"
+    path.write_text(report)
+    return path
+
+
 def command_finalize(args: argparse.Namespace) -> None:
     required = {
         "inventory": RAW / "inventory.json",
@@ -1175,6 +1298,11 @@ def command_finalize(args: argparse.Namespace) -> None:
             "rate_source": "FORGE_GPU_HOURLY_USD=1.53; CNY 11/h at 7.2 CNY/USD",
             "scope": "entire Phase 7.2 delegated VM session after Gate 7.1 finalization",
         },
+    }
+    report_path = write_report(final, payloads)
+    final["artifacts"]["report"] = {
+        "path": relative_path(report_path),
+        "sha256": sha256_file(report_path),
     }
     final_path = RAW / "phase7_2_acceptance.json"
     write_json_atomic(final_path, final)

@@ -62,6 +62,9 @@ def test_single_gpu_is_time_sliced_for_exactly_two_workloads() -> None:
         resources = deployment["spec"]["template"]["spec"]["containers"][0]["resources"]
         assert resources["requests"]["nvidia.com/gpu.shared"] == "1"
         assert resources["limits"]["nvidia.com/gpu.shared"] == "1"
+        volumes = deployment["spec"]["template"]["spec"]["volumes"]
+        dshm = next(item for item in volumes if item["name"] == "dshm")
+        assert dshm["emptyDir"] == {"medium": "Memory", "sizeLimit": "2Gi"}
 
 
 def test_keda_scopes_cpu_and_gpu_scaling_honestly() -> None:

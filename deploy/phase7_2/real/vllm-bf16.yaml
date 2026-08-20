@@ -85,6 +85,8 @@ spec:
               memory: 24Gi
               nvidia.com/gpu.shared: "1"
           volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
             - name: checkpoints
               mountPath: /mnt/frontier-forge/repo/checkpoints
               readOnly: true
@@ -94,6 +96,10 @@ spec:
             - name: cache
               mountPath: /cache
       volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 2Gi
         - name: checkpoints
           hostPath:
             path: /mnt/frontier-forge/repo/checkpoints
