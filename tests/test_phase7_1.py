@@ -169,6 +169,7 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     gateway = (REPO_ROOT / "scripts/remote/launch_phase7_1_gateway.sh").read_text()
     prefill = (REPO_ROOT / "scripts/remote/prefill_phase7_1_env.sh").read_text()
     bootstrap = (REPO_ROOT / "scripts/remote/bootstrap_phase7_1_a10.sh").read_text()
+    blob_recovery = (REPO_ROOT / "scripts/remote/complete_phase7_1_model_blob.sh").read_text()
     toolchain = (REPO_ROOT / "scripts/remote/bootstrap_phase7_1_toolchain.sh").read_text()
     build = (REPO_ROOT / "scripts/remote/build_phase7_1_gateway.sh").read_text()
 
@@ -192,6 +193,11 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     assert "https://hf-mirror.com" in bootstrap
     assert "a10_model_transfer.json" in bootstrap
     assert 'role:"transport_only"' in bootstrap
+    assert "b4d18ccadf1231d2e89a365449690d6494a620ed6d78ccafd8a1dfbb22d4c58d" in blob_recovery
+    assert "blob_bytes=3991298872" in blob_recovery
+    assert "FORGE_MODEL_RANGE_JOBS:-8" in blob_recovery
+    assert 'method:"parallel_http_range_resume"' in blob_recovery
+    assert "sha256sum -c -" in blob_recovery
     assert "cmake_version=4.2.3" in toolchain
     assert "8e91b381aaea3c47110583dccc52f4562333d1accdbb806939f953c16e74ec0a" in toolchain
     assert "boost_version=1.86.0" in toolchain
