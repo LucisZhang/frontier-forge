@@ -21,6 +21,7 @@ spec:
     spec:
       runtimeClassName: nvidia
       automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         seccompProfile:
           type: RuntimeDefault
@@ -46,12 +47,22 @@ spec:
             - "4096"
             - --max-num-seqs
             - "8"
+            - --dtype
+            - float16
             - --gpu-memory-utilization
             - "0.32"
             - --generation-config
             - vllm
+            - --language-model-only
+            - --no-enable-log-requests
+            - --enable-request-id-headers
+            - --enable-auto-tool-choice
             - --tool-call-parser
             - hermes
+            - --structured-outputs-config
+            - '{"backend":"auto","disable_fallback":false}'
+            - --quantization
+            - gptq
             - --enforce-eager
           env:
             - name: HF_HUB_OFFLINE

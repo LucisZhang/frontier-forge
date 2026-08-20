@@ -72,6 +72,13 @@ def test_real_model_storage_keeps_baseline_and_containers_are_not_privileged() -
     for name in ("vllm-int4", "vllm-bf16"):
         deployment = _named(_real_documents(), "Deployment", name)
         pod_spec = deployment["spec"]["template"]["spec"]
+        args = pod_spec["containers"][0]["args"]
+        assert "--language-model-only" in args
+        assert "--no-enable-log-requests" in args
+        assert "--enable-request-id-headers" in args
+        assert "--enable-auto-tool-choice" in args
+        assert "--structured-outputs-config" in args
+        assert pod_spec["enableServiceLinks"] is False
         assert all("hostPath" not in volume for volume in pod_spec["volumes"])
         assert all(
             volume.get("persistentVolumeClaim", {}).get("readOnly") is True

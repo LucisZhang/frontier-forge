@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "phase": "7.2",
+  "status": "failed",
+  "finding_id": "phase7_2_first_vllm_launch_multimodal_profile",
+  "captured_from_git_sha": "e0423d5a8b54f2c36f1ab73eeb2777ee689bd8a2",
+  "started_at": "2026-08-20T18:54:17Z",
+  "stopped_at": "2026-08-20T18:56:28.846047+00:00",
+  "component": "pod/vllm-int4-6c55d9f669-x29w9",
+  "observed": {
+    "local_persistent_volumes_bound": true,
+    "pod_created": true,
+    "model_weights_loaded": true,
+    "pod_ready": false,
+    "gpu_process_memory_mib": 21744,
+    "last_log": "Encoder cache will be initialized with a budget of 114688 tokens, and profiled with 1 video items of the maximum feature size"
+  },
+  "scope": "unmeasured launch validation after the storage fix; no request was accepted and no duration was retained as a cold-start sample",
+  "root_cause": "the Kubernetes vLLM command omitted the Phase 4 language-model-only serving contract, so Qwen3.5 entered multimodal encoder profiling",
+  "remediation": "align both Kubernetes variants with the Phase 4 vLLM command contract, including language-model-only, dtype, request-ID, tool-choice, structured-output, and logging flags"
+}
