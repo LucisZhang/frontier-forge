@@ -1,0 +1,1990 @@
+{
+  "cells": [
+    {
+      "achieved_qps_ratio": 0.9196087690242803,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 4.0,
+      "cell_id": "phase7-1-overload-2x-gateway",
+      "client": {
+        "dispatch_delay": {
+          "count": 60,
+          "mean_s": 0.0008087384556953718,
+          "p50_s": 0.0006817181129008532,
+          "p95_s": 0.0016590547515988874
+        },
+        "e2e_all_responses": {
+          "count": 60,
+          "mean_s": 4.4754867995000795,
+          "p50_s": 4.2465819369999735,
+          "p95_s": 5.879300022098505
+        },
+        "e2e_success": {
+          "count": 60,
+          "mean_s": 4.4754867995000795,
+          "p50_s": 4.2465819369999735,
+          "p95_s": 5.879300022098505
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 60,
+          "mean_s": 0.04317694004861923,
+          "p50_s": 0.04447345067961664,
+          "p95_s": 0.052672935117909984
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 60,
+          "mean_s": 1.3466268537500583,
+          "p50_s": 1.372542030499062,
+          "p95_s": 2.3818095505002925
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.13437500000000002,
+        "cpu_utilization_mean": 0.11699717744520441,
+        "load15_max": 0.791015625,
+        "load15_mean": 0.7796959005376344,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 1.0302734375,
+        "load1_mean": 0.8817466817876344,
+        "load5_max": 1.09228515625,
+        "load5_mean": 1.0662644909274193,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 93
+      },
+      "concurrency": 256,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.11749653885126694,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 16.31128421699941,
+      "endpoint": "gateway",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": {
+        "fallback_share": 0.0,
+        "measurement_side": "gateway_prometheus_delta",
+        "queue_high_watermark_process": 8.0,
+        "response_classes": {
+          "2xx": 63,
+          "4xx": 0,
+          "5xx": 0
+        },
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 63,
+          "queued": 40,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 0,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        }
+      },
+      "gateway_samples": {
+        "active_requests_max": 16.0,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": 8.0,
+        "queue_depth_mean": 2.65,
+        "samples": 180
+      },
+      "http_status_counts": {
+        "200": 60
+      },
+      "max_observed_in_flight": 24,
+      "output_tokens_per_s": 269.81321283172383,
+      "recovery_probe_count": 3,
+      "recovery_probes": [
+        {
+          "cell_id": "phase7-1-overload-2x-gateway-recovery",
+          "client_e2e_s": 2.459604183999545,
+          "client_mean_itl_s": 0.01740669701666775,
+          "client_ttft_s": 1.41520236299948,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.007992167000338668,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+          "output_tokens": 61,
+          "request_id": "f71412bc972da06f8a3c157b",
+          "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 31,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+        },
+        {
+          "cell_id": "phase7-1-overload-2x-gateway-recovery",
+          "client_e2e_s": 0.9770784669999557,
+          "client_mean_itl_s": 0.0132725574166822,
+          "client_ttft_s": 0.18072502199902374,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.008383074000448687,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+          "output_tokens": 61,
+          "request_id": "f71412bc972da06f8a3c157b",
+          "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 31,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+        },
+        {
+          "cell_id": "phase7-1-overload-2x-gateway-recovery",
+          "client_e2e_s": 0.9236757000016951,
+          "client_mean_itl_s": 0.01326919356667228,
+          "client_ttft_s": 0.12752408600135823,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.005011683999327943,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+          "output_tokens": 61,
+          "request_id": "f71412bc972da06f8a3c157b",
+          "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 31,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+        }
+      ],
+      "recovery_threshold_s": 2.831715271298708,
+      "recovery_time_s": 4.888356638632104,
+      "request_schedule_sha256": "ecfadabfce51bacca9c84dd01b84d74f37d1ad8ea008cb94856194316aed25ae",
+      "requests": 60,
+      "response_throughput_per_s": 3.6784350760971214,
+      "successful_request_throughput_per_s": 3.6784350760971214,
+      "successful_task_throughput_per_s": 3.617127824828836,
+      "verifier_successes": 59,
+      "verifier_task_success_rate": 0.9833333333333333,
+      "vllm": {
+        "e2e": {
+          "count": 63,
+          "mean_s": 3.550284468938434,
+          "p50_s": 3.59375,
+          "p95_s": 4.859375
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9610111396743788,
+          "accepted_tokens": 2243,
+          "draft_tokens": 2334,
+          "drafts": 2334,
+          "mean_acceptance_length": 1.9610111396743788
+        },
+        "ttft": {
+          "count": 63,
+          "mean_s": 0.5288906854296488,
+          "p50_s": 0.5659722222222222,
+          "p95_s": 0.8424999999999997
+        }
+      },
+      "vram": {
+        "mean_mib": 21201.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21201.0,
+        "samples": 85
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.12187499999999996,
+        "cpu_utilization_mean": 0.11432685913902096,
+        "load15_max": 0.763671875,
+        "load15_mean": 0.763671875,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 0.64501953125,
+        "load1_mean": 0.64501953125,
+        "load5_max": 1.0283203125,
+        "load5_mean": 1.0283203125,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 10
+      },
+      "warmup_schedule_sha256": "219de24566cadbca1ee114ae80806ac6446e23f465e20fa1db69e2d055dc5253"
+    },
+    {
+      "achieved_qps_ratio": 0.6196057553564581,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 6.0,
+      "cell_id": "phase7-1-overload-3x-gateway",
+      "client": {
+        "dispatch_delay": {
+          "count": 60,
+          "mean_s": 0.0009087333040345887,
+          "p50_s": 0.000712025011125661,
+          "p95_s": 0.0019190928861462448
+        },
+        "e2e_all_responses": {
+          "count": 60,
+          "mean_s": 5.5660788126666985,
+          "p50_s": 5.078101880500071,
+          "p95_s": 7.7037540589005395
+        },
+        "e2e_success": {
+          "count": 60,
+          "mean_s": 5.5660788126666985,
+          "p50_s": 5.078101880500071,
+          "p95_s": 7.7037540589005395
+        },
+        "fast_reject": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "itl": {
+          "count": 60,
+          "mean_s": 0.04326939304582035,
+          "p50_s": 0.045093150189966895,
+          "p95_s": 0.05224302703606418
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 60,
+          "mean_s": 2.412191749983261,
+          "p50_s": 2.0561690945005466,
+          "p95_s": 5.524386925149884
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.13749999999999996,
+        "cpu_utilization_mean": 0.1157836932947747,
+        "load15_max": 0.81298828125,
+        "load15_mean": 0.8053434738005051,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 1.232421875,
+        "load1_mean": 1.171016808712121,
+        "load5_max": 1.134765625,
+        "load5_mean": 1.1210789535984849,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 99
+      },
+      "concurrency": 256,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.1162576326677982,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 16.139294888000222,
+      "endpoint": "gateway",
+      "error_rate": 0.0,
+      "error_semantics": {
+        "error_codes": {},
+        "fast_rejects_under_1s": 0,
+        "retry_after_present": 0
+      },
+      "errors": 0,
+      "gateway": {
+        "fallback_share": 0.0,
+        "measurement_side": "gateway_prometheus_delta",
+        "queue_high_watermark_process": 20.0,
+        "response_classes": {
+          "2xx": 64,
+          "4xx": 0,
+          "5xx": 0
+        },
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 64,
+          "queued": 40,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 0,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        }
+      },
+      "gateway_samples": {
+        "active_requests_max": 16.0,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": 20.0,
+        "queue_depth_mean": 5.848167539267016,
+        "samples": 191
+      },
+      "http_status_counts": {
+        "200": 60
+      },
+      "max_observed_in_flight": 35,
+      "output_tokens_per_s": 274.7331919250535,
+      "recovery_probe_count": 4,
+      "recovery_probes": [
+        {
+          "cell_id": "phase7-1-overload-3x-gateway-recovery",
+          "client_e2e_s": 6.688906149998729,
+          "client_mean_itl_s": 0.021272751933308125,
+          "client_ttft_s": 5.412541034000242,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.0051858870010619285,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+          "output_tokens": 61,
+          "request_id": "79f8c06aa2bcf416a7a5b11e",
+          "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 31,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+        },
+        {
+          "cell_id": "phase7-1-overload-3x-gateway-recovery",
+          "client_e2e_s": 0.9241991140006576,
+          "client_mean_itl_s": 0.013272927166660035,
+          "client_ttft_s": 0.12782348400105548,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004935276998367044,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+          "output_tokens": 61,
+          "request_id": "79f8c06aa2bcf416a7a5b11e",
+          "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 31,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+        },
+        {
+          "cell_id": "phase7-1-overload-3x-gateway-recovery",
+          "client_e2e_s": 0.9235784820011759,
+          "client_mean_itl_s": 0.013279647650021313,
+          "client_ttft_s": 0.1267996229998971,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004914578999887453,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+          "output_tokens": 61,
+          "request_id": "79f8c06aa2bcf416a7a5b11e",
+          "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 31,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+        },
+        {
+          "cell_id": "phase7-1-overload-3x-gateway-recovery",
+          "client_e2e_s": 0.9241186799990828,
+          "client_mean_itl_s": 0.013271378416660203,
+          "client_ttft_s": 0.12783597499947064,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004885837000983884,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+          "output_tokens": 61,
+          "request_id": "79f8c06aa2bcf416a7a5b11e",
+          "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 31,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+        }
+      ],
+      "recovery_threshold_s": 2.831715271298708,
+      "recovery_time_s": 10.236276513789562,
+      "request_schedule_sha256": "b10231de059dc1c4db28ecdca47a2a56bb3f32607b5cd26357282ef9b5173acd",
+      "requests": 60,
+      "response_throughput_per_s": 3.7176345321387485,
+      "successful_request_throughput_per_s": 3.7176345321387485,
+      "successful_task_throughput_per_s": 3.6556739566031027,
+      "verifier_successes": 59,
+      "verifier_task_success_rate": 0.9833333333333333,
+      "vllm": {
+        "e2e": {
+          "count": 64,
+          "mean_s": 3.566915489733219,
+          "p50_s": 3.611111111111111,
+          "p95_s": 4.944444444444445
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9576874738165061,
+          "accepted_tokens": 2286,
+          "draft_tokens": 2387,
+          "drafts": 2387,
+          "mean_acceptance_length": 1.957687473816506
+        },
+        "ttft": {
+          "count": 64,
+          "mean_s": 0.5529076941311359,
+          "p50_s": 0.5340909090909091,
+          "p95_s": 1.299999999999999
+        }
+      },
+      "vram": {
+        "mean_mib": 21201.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21201.0,
+        "samples": 90
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.12693498452012386,
+        "cpu_utilization_mean": 0.11668130037251769,
+        "load15_max": 0.7978515625,
+        "load15_mean": 0.79169921875,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 1.1083984375,
+        "load1_mean": 1.0380859375,
+        "load5_max": 1.107421875,
+        "load5_mean": 1.093798828125,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 10
+      },
+      "warmup_schedule_sha256": "c40d22172bfd7a077a7771c93252e21da861e907a44d8c3b08a0d8a81c0bffd3"
+    },
+    {
+      "achieved_qps_ratio": 0.37599661291329034,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 10.0,
+      "cell_id": "phase7-1-overload-5x-gateway",
+      "client": {
+        "dispatch_delay": {
+          "count": 60,
+          "mean_s": 0.0008357343132350555,
+          "p50_s": 0.0006559572102560196,
+          "p95_s": 0.0018638193994775065
+        },
+        "e2e_all_responses": {
+          "count": 60,
+          "mean_s": 4.947261552633426,
+          "p50_s": 5.067983693000315,
+          "p95_s": 8.831046249200154
+        },
+        "e2e_success": {
+          "count": 46,
+          "mean_s": 6.45256345493489,
+          "p50_s": 6.930844025999249,
+          "p95_s": 8.867953220000345
+        },
+        "fast_reject": {
+          "count": 14,
+          "mean_s": 0.0012695879286184208,
+          "p50_s": 0.0012685170004260726,
+          "p95_s": 0.001444336850545369
+        },
+        "itl": {
+          "count": 46,
+          "mean_s": 0.04144479567748383,
+          "p50_s": 0.043446773037971925,
+          "p95_s": 0.05305150029906627
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 46,
+          "mean_s": 3.45339751034799,
+          "p50_s": 3.7372318795005413,
+          "p95_s": 6.399946237749191
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.1370716510903427,
+        "cpu_utilization_mean": 0.11643194391249537,
+        "load15_max": 0.83349609375,
+        "load15_mean": 0.8259740901898734,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 1.376953125,
+        "load1_mean": 1.3316727650316456,
+        "load5_max": 1.1748046875,
+        "load5_mean": 1.1608052314082278,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 79
+      },
+      "concurrency": 256,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.11554477607611666,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 12.234152761000587,
+      "endpoint": "gateway",
+      "error_rate": 0.23333333333333328,
+      "error_semantics": {
+        "error_codes": {
+          "overloaded": 14
+        },
+        "fast_rejects_under_1s": 14,
+        "retry_after_present": 14
+      },
+      "errors": 14,
+      "gateway": {
+        "fallback_share": 0.0,
+        "measurement_side": "gateway_prometheus_delta",
+        "queue_high_watermark_process": 24.0,
+        "response_classes": {
+          "2xx": 50,
+          "4xx": 14,
+          "5xx": 0
+        },
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 50,
+          "queued": 30,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 14,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        }
+      },
+      "gateway_samples": {
+        "active_requests_max": 16.0,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": 24.0,
+        "queue_depth_mean": 8.292207792207792,
+        "samples": 154
+      },
+      "http_status_counts": {
+        "200": 46,
+        "429": 14
+      },
+      "max_observed_in_flight": 41,
+      "output_tokens_per_s": 275.458388156041,
+      "recovery_probe_count": 4,
+      "recovery_probes": [
+        {
+          "cell_id": "phase7-1-overload-5x-gateway-recovery",
+          "client_e2e_s": 7.462030683998819,
+          "client_mean_itl_s": 0.021352266786871937,
+          "client_ttft_s": 6.159542409999631,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.00522086099954322,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 62,
+          "request_id": "d1c5b9addc7a031e890addb2",
+          "request_input_sha256": "630e19a7b999b001ae239172d4bd34c52b7fc86d7a2c041055f12cae9a257f2f",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 32,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-overload-5x-gateway-recovery",
+          "client_e2e_s": 0.960531787999571,
+          "client_mean_itl_s": 0.013499582327864626,
+          "client_ttft_s": 0.13705726599982881,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.0050089279993699165,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 62,
+          "request_id": "d1c5b9addc7a031e890addb2",
+          "request_input_sha256": "630e19a7b999b001ae239172d4bd34c52b7fc86d7a2c041055f12cae9a257f2f",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 32,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-overload-5x-gateway-recovery",
+          "client_e2e_s": 0.9517208439992828,
+          "client_mean_itl_s": 0.01348931585246154,
+          "client_ttft_s": 0.1288725769991288,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004950358001224231,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 62,
+          "request_id": "d1c5b9addc7a031e890addb2",
+          "request_input_sha256": "630e19a7b999b001ae239172d4bd34c52b7fc86d7a2c041055f12cae9a257f2f",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 32,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-overload-5x-gateway-recovery",
+          "client_e2e_s": 0.9525526549987262,
+          "client_mean_itl_s": 0.013494187737691033,
+          "client_ttft_s": 0.1294072029995732,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.0049804640002548695,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 62,
+          "request_id": "d1c5b9addc7a031e890addb2",
+          "request_input_sha256": "630e19a7b999b001ae239172d4bd34c52b7fc86d7a2c041055f12cae9a257f2f",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 32,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        }
+      ],
+      "recovery_threshold_s": 2.831715271298708,
+      "recovery_time_s": 11.104282085356317,
+      "request_schedule_sha256": "d8d3e5aee52f60422014b32c2254e92be9c7202f5cae71b10671601c5d022fd7",
+      "requests": 60,
+      "response_throughput_per_s": 4.904303646695092,
+      "successful_request_throughput_per_s": 3.7599661291329034,
+      "successful_task_throughput_per_s": 3.6782277350213186,
+      "verifier_successes": 45,
+      "verifier_task_success_rate": 0.9782608695652174,
+      "vllm": {
+        "e2e": {
+          "count": 50,
+          "mean_s": 3.5262281990051267,
+          "p50_s": 3.486842105263158,
+          "p95_s": 4.967105263157895
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9598698481561823,
+          "accepted_tokens": 1770,
+          "draft_tokens": 1844,
+          "drafts": 1844,
+          "mean_acceptance_length": 1.9598698481561823
+        },
+        "ttft": {
+          "count": 50,
+          "mean_s": 0.6915217924118042,
+          "p50_s": 0.6,
+          "p95_s": 2.159090909090909
+        }
+      },
+      "vram": {
+        "mean_mib": 21201.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21201.0,
+        "samples": 72
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.12422360248447206,
+        "cpu_utilization_mean": 0.11578877848940833,
+        "load15_max": 0.81982421875,
+        "load15_mean": 0.81845703125,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 1.2939453125,
+        "load1_mean": 1.281640625,
+        "load5_max": 1.1494140625,
+        "load5_mean": 1.146484375,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 10
+      },
+      "warmup_schedule_sha256": "9f220b17b01faffe0dbaf7ad1251396e2294324d8703d06129f29c29a7858936"
+    }
+  ],
+  "config_hash": "54a9310273d1a3882b9b79c6c0d82d3d093ac864a062d893e39a64f77e056964",
+  "config_path": "configs/phase7_1/gateway_r1b_mtp_a10.yaml",
+  "contaminated_attempts": [],
+  "endpoint": "gateway",
+  "entries": [
+    {
+      "cell": {
+        "achieved_qps_ratio": 0.9196087690242803,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 4.0,
+        "cell_id": "phase7-1-overload-2x-gateway",
+        "client": {
+          "dispatch_delay": {
+            "count": 60,
+            "mean_s": 0.0008087384556953718,
+            "p50_s": 0.0006817181129008532,
+            "p95_s": 0.0016590547515988874
+          },
+          "e2e_all_responses": {
+            "count": 60,
+            "mean_s": 4.4754867995000795,
+            "p50_s": 4.2465819369999735,
+            "p95_s": 5.879300022098505
+          },
+          "e2e_success": {
+            "count": 60,
+            "mean_s": 4.4754867995000795,
+            "p50_s": 4.2465819369999735,
+            "p95_s": 5.879300022098505
+          },
+          "fast_reject": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "itl": {
+            "count": 60,
+            "mean_s": 0.04317694004861923,
+            "p50_s": 0.04447345067961664,
+            "p95_s": 0.052672935117909984
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "ttft": {
+            "count": 60,
+            "mean_s": 1.3466268537500583,
+            "p50_s": 1.372542030499062,
+            "p95_s": 2.3818095505002925
+          }
+        },
+        "co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.13437500000000002,
+          "cpu_utilization_mean": 0.11699717744520441,
+          "load15_max": 0.791015625,
+          "load15_mean": 0.7796959005376344,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 1.0302734375,
+          "load1_mean": 0.8817466817876344,
+          "load5_max": 1.09228515625,
+          "load5_mean": 1.0662644909274193,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 93
+        },
+        "concurrency": 256,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.11749653885126694,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "elapsed_s": 16.31128421699941,
+        "endpoint": "gateway",
+        "error_rate": 0.0,
+        "error_semantics": {
+          "error_codes": {},
+          "fast_rejects_under_1s": 0,
+          "retry_after_present": 0
+        },
+        "errors": 0,
+        "gateway": {
+          "fallback_share": 0.0,
+          "measurement_side": "gateway_prometheus_delta",
+          "queue_high_watermark_process": 8.0,
+          "response_classes": {
+            "2xx": 63,
+            "4xx": 0,
+            "5xx": 0
+          },
+          "routing_decisions": {
+            "fallback": 0,
+            "primary": 63,
+            "queued": 40,
+            "reject_bad_request": 0,
+            "reject_deadline": 0,
+            "reject_overload": 0,
+            "reject_rate_limit": 0,
+            "reject_unavailable": 0
+          }
+        },
+        "gateway_samples": {
+          "active_requests_max": 16.0,
+          "measurement_side": "gateway_prometheus_poll",
+          "queue_depth_max": 8.0,
+          "queue_depth_mean": 2.65,
+          "samples": 180
+        },
+        "http_status_counts": {
+          "200": 60
+        },
+        "max_observed_in_flight": 24,
+        "output_tokens_per_s": 269.81321283172383,
+        "recovery_probe_count": 3,
+        "recovery_probes": [
+          {
+            "cell_id": "phase7-1-overload-2x-gateway-recovery",
+            "client_e2e_s": 2.459604183999545,
+            "client_mean_itl_s": 0.01740669701666775,
+            "client_ttft_s": 1.41520236299948,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.007992167000338668,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+            "output_tokens": 61,
+            "request_id": "f71412bc972da06f8a3c157b",
+            "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 31,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+          },
+          {
+            "cell_id": "phase7-1-overload-2x-gateway-recovery",
+            "client_e2e_s": 0.9770784669999557,
+            "client_mean_itl_s": 0.0132725574166822,
+            "client_ttft_s": 0.18072502199902374,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.008383074000448687,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+            "output_tokens": 61,
+            "request_id": "f71412bc972da06f8a3c157b",
+            "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 31,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+          },
+          {
+            "cell_id": "phase7-1-overload-2x-gateway-recovery",
+            "client_e2e_s": 0.9236757000016951,
+            "client_mean_itl_s": 0.01326919356667228,
+            "client_ttft_s": 0.12752408600135823,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.005011683999327943,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+            "output_tokens": 61,
+            "request_id": "f71412bc972da06f8a3c157b",
+            "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 31,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+          }
+        ],
+        "recovery_threshold_s": 2.831715271298708,
+        "recovery_time_s": 4.888356638632104,
+        "request_schedule_sha256": "ecfadabfce51bacca9c84dd01b84d74f37d1ad8ea008cb94856194316aed25ae",
+        "requests": 60,
+        "response_throughput_per_s": 3.6784350760971214,
+        "successful_request_throughput_per_s": 3.6784350760971214,
+        "successful_task_throughput_per_s": 3.617127824828836,
+        "verifier_successes": 59,
+        "verifier_task_success_rate": 0.9833333333333333,
+        "vllm": {
+          "e2e": {
+            "count": 63,
+            "mean_s": 3.550284468938434,
+            "p50_s": 3.59375,
+            "p95_s": 4.859375
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": 0.9610111396743788,
+            "accepted_tokens": 2243,
+            "draft_tokens": 2334,
+            "drafts": 2334,
+            "mean_acceptance_length": 1.9610111396743788
+          },
+          "ttft": {
+            "count": 63,
+            "mean_s": 0.5288906854296488,
+            "p50_s": 0.5659722222222222,
+            "p95_s": 0.8424999999999997
+          }
+        },
+        "vram": {
+          "mean_mib": 21201.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 21201.0,
+          "samples": 85
+        },
+        "warmup_co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.12187499999999996,
+          "cpu_utilization_mean": 0.11432685913902096,
+          "load15_max": 0.763671875,
+          "load15_mean": 0.763671875,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 0.64501953125,
+          "load1_mean": 0.64501953125,
+          "load5_max": 1.0283203125,
+          "load5_mean": 1.0283203125,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 10
+        },
+        "warmup_schedule_sha256": "219de24566cadbca1ee114ae80806ac6446e23f465e20fa1db69e2d055dc5253"
+      },
+      "endpoint": "gateway",
+      "multiplier": 2.0,
+      "offered_qps": 4.0
+    },
+    {
+      "cell": {
+        "achieved_qps_ratio": 0.6196057553564581,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 6.0,
+        "cell_id": "phase7-1-overload-3x-gateway",
+        "client": {
+          "dispatch_delay": {
+            "count": 60,
+            "mean_s": 0.0009087333040345887,
+            "p50_s": 0.000712025011125661,
+            "p95_s": 0.0019190928861462448
+          },
+          "e2e_all_responses": {
+            "count": 60,
+            "mean_s": 5.5660788126666985,
+            "p50_s": 5.078101880500071,
+            "p95_s": 7.7037540589005395
+          },
+          "e2e_success": {
+            "count": 60,
+            "mean_s": 5.5660788126666985,
+            "p50_s": 5.078101880500071,
+            "p95_s": 7.7037540589005395
+          },
+          "fast_reject": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "itl": {
+            "count": 60,
+            "mean_s": 0.04326939304582035,
+            "p50_s": 0.045093150189966895,
+            "p95_s": 0.05224302703606418
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "ttft": {
+            "count": 60,
+            "mean_s": 2.412191749983261,
+            "p50_s": 2.0561690945005466,
+            "p95_s": 5.524386925149884
+          }
+        },
+        "co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.13749999999999996,
+          "cpu_utilization_mean": 0.1157836932947747,
+          "load15_max": 0.81298828125,
+          "load15_mean": 0.8053434738005051,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 1.232421875,
+          "load1_mean": 1.171016808712121,
+          "load5_max": 1.134765625,
+          "load5_mean": 1.1210789535984849,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 99
+        },
+        "concurrency": 256,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.1162576326677982,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "elapsed_s": 16.139294888000222,
+        "endpoint": "gateway",
+        "error_rate": 0.0,
+        "error_semantics": {
+          "error_codes": {},
+          "fast_rejects_under_1s": 0,
+          "retry_after_present": 0
+        },
+        "errors": 0,
+        "gateway": {
+          "fallback_share": 0.0,
+          "measurement_side": "gateway_prometheus_delta",
+          "queue_high_watermark_process": 20.0,
+          "response_classes": {
+            "2xx": 64,
+            "4xx": 0,
+            "5xx": 0
+          },
+          "routing_decisions": {
+            "fallback": 0,
+            "primary": 64,
+            "queued": 40,
+            "reject_bad_request": 0,
+            "reject_deadline": 0,
+            "reject_overload": 0,
+            "reject_rate_limit": 0,
+            "reject_unavailable": 0
+          }
+        },
+        "gateway_samples": {
+          "active_requests_max": 16.0,
+          "measurement_side": "gateway_prometheus_poll",
+          "queue_depth_max": 20.0,
+          "queue_depth_mean": 5.848167539267016,
+          "samples": 191
+        },
+        "http_status_counts": {
+          "200": 60
+        },
+        "max_observed_in_flight": 35,
+        "output_tokens_per_s": 274.7331919250535,
+        "recovery_probe_count": 4,
+        "recovery_probes": [
+          {
+            "cell_id": "phase7-1-overload-3x-gateway-recovery",
+            "client_e2e_s": 6.688906149998729,
+            "client_mean_itl_s": 0.021272751933308125,
+            "client_ttft_s": 5.412541034000242,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.0051858870010619285,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+            "output_tokens": 61,
+            "request_id": "79f8c06aa2bcf416a7a5b11e",
+            "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 31,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+          },
+          {
+            "cell_id": "phase7-1-overload-3x-gateway-recovery",
+            "client_e2e_s": 0.9241991140006576,
+            "client_mean_itl_s": 0.013272927166660035,
+            "client_ttft_s": 0.12782348400105548,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004935276998367044,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+            "output_tokens": 61,
+            "request_id": "79f8c06aa2bcf416a7a5b11e",
+            "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 31,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+          },
+          {
+            "cell_id": "phase7-1-overload-3x-gateway-recovery",
+            "client_e2e_s": 0.9235784820011759,
+            "client_mean_itl_s": 0.013279647650021313,
+            "client_ttft_s": 0.1267996229998971,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004914578999887453,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+            "output_tokens": 61,
+            "request_id": "79f8c06aa2bcf416a7a5b11e",
+            "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 31,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+          },
+          {
+            "cell_id": "phase7-1-overload-3x-gateway-recovery",
+            "client_e2e_s": 0.9241186799990828,
+            "client_mean_itl_s": 0.013271378416660203,
+            "client_ttft_s": 0.12783597499947064,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004885837000983884,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}",
+            "output_tokens": 61,
+            "request_id": "79f8c06aa2bcf416a7a5b11e",
+            "request_input_sha256": "5007a42e1ebc278351545802a37e08dea6f96a088403d6c5b8dba2a261697951",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 31,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\",\"product\":\"card\",\"tool_call\":{\"arguments\":{\"company\":\"AMERICAN EXPRESS COMPANY\",\"issue\":\"Problem when making payments\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+          }
+        ],
+        "recovery_threshold_s": 2.831715271298708,
+        "recovery_time_s": 10.236276513789562,
+        "request_schedule_sha256": "b10231de059dc1c4db28ecdca47a2a56bb3f32607b5cd26357282ef9b5173acd",
+        "requests": 60,
+        "response_throughput_per_s": 3.7176345321387485,
+        "successful_request_throughput_per_s": 3.7176345321387485,
+        "successful_task_throughput_per_s": 3.6556739566031027,
+        "verifier_successes": 59,
+        "verifier_task_success_rate": 0.9833333333333333,
+        "vllm": {
+          "e2e": {
+            "count": 64,
+            "mean_s": 3.566915489733219,
+            "p50_s": 3.611111111111111,
+            "p95_s": 4.944444444444445
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": 0.9576874738165061,
+            "accepted_tokens": 2286,
+            "draft_tokens": 2387,
+            "drafts": 2387,
+            "mean_acceptance_length": 1.957687473816506
+          },
+          "ttft": {
+            "count": 64,
+            "mean_s": 0.5529076941311359,
+            "p50_s": 0.5340909090909091,
+            "p95_s": 1.299999999999999
+          }
+        },
+        "vram": {
+          "mean_mib": 21201.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 21201.0,
+          "samples": 90
+        },
+        "warmup_co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.12693498452012386,
+          "cpu_utilization_mean": 0.11668130037251769,
+          "load15_max": 0.7978515625,
+          "load15_mean": 0.79169921875,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 1.1083984375,
+          "load1_mean": 1.0380859375,
+          "load5_max": 1.107421875,
+          "load5_mean": 1.093798828125,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 10
+        },
+        "warmup_schedule_sha256": "c40d22172bfd7a077a7771c93252e21da861e907a44d8c3b08a0d8a81c0bffd3"
+      },
+      "endpoint": "gateway",
+      "multiplier": 3.0,
+      "offered_qps": 6.0
+    },
+    {
+      "cell": {
+        "achieved_qps_ratio": 0.37599661291329034,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 10.0,
+        "cell_id": "phase7-1-overload-5x-gateway",
+        "client": {
+          "dispatch_delay": {
+            "count": 60,
+            "mean_s": 0.0008357343132350555,
+            "p50_s": 0.0006559572102560196,
+            "p95_s": 0.0018638193994775065
+          },
+          "e2e_all_responses": {
+            "count": 60,
+            "mean_s": 4.947261552633426,
+            "p50_s": 5.067983693000315,
+            "p95_s": 8.831046249200154
+          },
+          "e2e_success": {
+            "count": 46,
+            "mean_s": 6.45256345493489,
+            "p50_s": 6.930844025999249,
+            "p95_s": 8.867953220000345
+          },
+          "fast_reject": {
+            "count": 14,
+            "mean_s": 0.0012695879286184208,
+            "p50_s": 0.0012685170004260726,
+            "p95_s": 0.001444336850545369
+          },
+          "itl": {
+            "count": 46,
+            "mean_s": 0.04144479567748383,
+            "p50_s": 0.043446773037971925,
+            "p95_s": 0.05305150029906627
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "ttft": {
+            "count": 46,
+            "mean_s": 3.45339751034799,
+            "p50_s": 3.7372318795005413,
+            "p95_s": 6.399946237749191
+          }
+        },
+        "co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.1370716510903427,
+          "cpu_utilization_mean": 0.11643194391249537,
+          "load15_max": 0.83349609375,
+          "load15_mean": 0.8259740901898734,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 1.376953125,
+          "load1_mean": 1.3316727650316456,
+          "load5_max": 1.1748046875,
+          "load5_mean": 1.1608052314082278,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 79
+        },
+        "concurrency": 256,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.11554477607611666,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "elapsed_s": 12.234152761000587,
+        "endpoint": "gateway",
+        "error_rate": 0.23333333333333328,
+        "error_semantics": {
+          "error_codes": {
+            "overloaded": 14
+          },
+          "fast_rejects_under_1s": 14,
+          "retry_after_present": 14
+        },
+        "errors": 14,
+        "gateway": {
+          "fallback_share": 0.0,
+          "measurement_side": "gateway_prometheus_delta",
+          "queue_high_watermark_process": 24.0,
+          "response_classes": {
+            "2xx": 50,
+            "4xx": 14,
+            "5xx": 0
+          },
+          "routing_decisions": {
+            "fallback": 0,
+            "primary": 50,
+            "queued": 30,
+            "reject_bad_request": 0,
+            "reject_deadline": 0,
+            "reject_overload": 14,
+            "reject_rate_limit": 0,
+            "reject_unavailable": 0
+          }
+        },
+        "gateway_samples": {
+          "active_requests_max": 16.0,
+          "measurement_side": "gateway_prometheus_poll",
+          "queue_depth_max": 24.0,
+          "queue_depth_mean": 8.292207792207792,
+          "samples": 154
+        },
+        "http_status_counts": {
+          "200": 46,
+          "429": 14
+        },
+        "max_observed_in_flight": 41,
+        "output_tokens_per_s": 275.458388156041,
+        "recovery_probe_count": 4,
+        "recovery_probes": [
+          {
+            "cell_id": "phase7-1-overload-5x-gateway-recovery",
+            "client_e2e_s": 7.462030683998819,
+            "client_mean_itl_s": 0.021352266786871937,
+            "client_ttft_s": 6.159542409999631,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.00522086099954322,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 62,
+            "request_id": "d1c5b9addc7a031e890addb2",
+            "request_input_sha256": "630e19a7b999b001ae239172d4bd34c52b7fc86d7a2c041055f12cae9a257f2f",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 32,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-overload-5x-gateway-recovery",
+            "client_e2e_s": 0.960531787999571,
+            "client_mean_itl_s": 0.013499582327864626,
+            "client_ttft_s": 0.13705726599982881,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.0050089279993699165,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 62,
+            "request_id": "d1c5b9addc7a031e890addb2",
+            "request_input_sha256": "630e19a7b999b001ae239172d4bd34c52b7fc86d7a2c041055f12cae9a257f2f",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 32,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-overload-5x-gateway-recovery",
+            "client_e2e_s": 0.9517208439992828,
+            "client_mean_itl_s": 0.01348931585246154,
+            "client_ttft_s": 0.1288725769991288,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004950358001224231,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 62,
+            "request_id": "d1c5b9addc7a031e890addb2",
+            "request_input_sha256": "630e19a7b999b001ae239172d4bd34c52b7fc86d7a2c041055f12cae9a257f2f",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 32,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-overload-5x-gateway-recovery",
+            "client_e2e_s": 0.9525526549987262,
+            "client_mean_itl_s": 0.013494187737691033,
+            "client_ttft_s": 0.1294072029995732,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.0049804640002548695,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 62,
+            "request_id": "d1c5b9addc7a031e890addb2",
+            "request_input_sha256": "630e19a7b999b001ae239172d4bd34c52b7fc86d7a2c041055f12cae9a257f2f",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 32,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Freedom Mortgage Company\",\"issue\":\"Trouble during payment process\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          }
+        ],
+        "recovery_threshold_s": 2.831715271298708,
+        "recovery_time_s": 11.104282085356317,
+        "request_schedule_sha256": "d8d3e5aee52f60422014b32c2254e92be9c7202f5cae71b10671601c5d022fd7",
+        "requests": 60,
+        "response_throughput_per_s": 4.904303646695092,
+        "successful_request_throughput_per_s": 3.7599661291329034,
+        "successful_task_throughput_per_s": 3.6782277350213186,
+        "verifier_successes": 45,
+        "verifier_task_success_rate": 0.9782608695652174,
+        "vllm": {
+          "e2e": {
+            "count": 50,
+            "mean_s": 3.5262281990051267,
+            "p50_s": 3.486842105263158,
+            "p95_s": 4.967105263157895
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": 0.9598698481561823,
+            "accepted_tokens": 1770,
+            "draft_tokens": 1844,
+            "drafts": 1844,
+            "mean_acceptance_length": 1.9598698481561823
+          },
+          "ttft": {
+            "count": 50,
+            "mean_s": 0.6915217924118042,
+            "p50_s": 0.6,
+            "p95_s": 2.159090909090909
+          }
+        },
+        "vram": {
+          "mean_mib": 21201.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 21201.0,
+          "samples": 72
+        },
+        "warmup_co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.12422360248447206,
+          "cpu_utilization_mean": 0.11578877848940833,
+          "load15_max": 0.81982421875,
+          "load15_mean": 0.81845703125,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 1.2939453125,
+          "load1_mean": 1.281640625,
+          "load5_max": 1.1494140625,
+          "load5_mean": 1.146484375,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 10
+        },
+        "warmup_schedule_sha256": "9f220b17b01faffe0dbaf7ad1251396e2294324d8703d06129f29c29a7858936"
+      },
+      "endpoint": "gateway",
+      "multiplier": 5.0,
+      "offered_qps": 10.0
+    }
+  ],
+  "finished_at": "2026-08-20T15:42:09.492790+00:00",
+  "git_sha": "14f03be64000efc539944fce91d9cb77153b1fa4",
+  "measured_capacity_qps": 2.0,
+  "phase": "7.1",
+  "raw_artifact": "results/phase7_1/raw/overload-a10-gateway.json",
+  "recovery_definition": "seconds after last scheduled arrival until 3 consecutive probes complete within 2.0x low-load p95",
+  "request_artifact": {
+    "path": "results/phase7_1/requests/overload-a10-gateway.requests.jsonl",
+    "rows": 191,
+    "sha256": "9509047274a2e316da14892cd30c14496d7cb42bf3d0c92f74ab947378a78599"
+  },
+  "stage": "overload-a10-gateway",
+  "started_at": "2026-08-20T15:41:10.380373+00:00",
+  "status": "complete",
+  "version": 1
+}

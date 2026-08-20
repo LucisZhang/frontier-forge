@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "status": "complete",
+  "phase": "7.1",
+  "git_sha": "a04754499e374d6d184a2b9606ce509ad2f8ebb0",
+  "transport": {
+    "endpoint": "https://hf-mirror.com",
+    "method": "parallel_http_range_resume",
+    "jobs": 8,
+    "chunk_bytes": 67108864
+  },
+  "identity": {
+    "fixed_revision": "fd4ae1e1989dcb1641a496bf796031491518983e",
+    "model_file": "bf16-mtp-preserved/model-00001-of-00003.safetensors",
+    "lfs_sha256": "b4d18ccadf1231d2e89a365449690d6494a620ed6d78ccafd8a1dfbb22d4c58d",
+    "bytes": 3991298872
+  },
+  "retained_prefix": {
+    "bytes": 796917760,
+    "sha256": "a390904da6924c9747770c8e7e60c5d33f78f76d84d9366e7ecb8b8f9c64bdee"
+  },
+  "segments": {
+    "ranges": "/mnt/frontier-forge/cache/model-segments/b4d18ccadf1231d2e89a365449690d6494a620ed6d78ccafd8a1dfbb22d4c58d/796917760/ranges.tsv",
+    "manifest": "/mnt/frontier-forge/cache/model-segments/b4d18ccadf1231d2e89a365449690d6494a620ed6d78ccafd8a1dfbb22d4c58d/796917760/segments.sha256",
+    "manifest_sha256": "5c58fb956aaf49c8a1f064a6d282f986e90ed711b3f0964036c6d29dc875e0f0"
+  },
+  "final_blob": "/mnt/frontier-forge/cache/huggingface/hub/models--Luciss007--frontier-forge-r1b/blobs/b4d18ccadf1231d2e89a365449690d6494a620ed6d78ccafd8a1dfbb22d4c58d",
+  "finished_at": "2026-08-20T15:11:19+00:00"
+}

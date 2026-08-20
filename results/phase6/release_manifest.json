@@ -22,15 +22,15 @@
     },
     {
       "path": "results/phase6/source_manifest.json",
-      "sha256": "fce45fdc4d537ca98370d58f4be3857a7e4380ad01ac93e0f211d4ec6bb2cb25"
+      "sha256": "17d79f1c3c01ffae4a82b404f355f8630741a395dd5c852ff3c8129a9ff10f97"
     },
     {
       "path": "results/phase6/headline.json",
-      "sha256": "f409ced2e9d1a08a52e0cb74d955f83c25b697c382a0253a5007bab6c7a909b6"
+      "sha256": "4bd45ef0d21cd60dfd684f6b95086eeefdd1e045947a6dac08222bfe38276ded"
     },
     {
       "path": "results/phase6/cascade_handoff.json",
-      "sha256": "a3b37bdb224063ab7a54de3f9f4f75c42cbd196a284a4719f05c4fd83817278a"
+      "sha256": "189b27836c1270eb1eac1fedb458ce388ee3ce81bf439375538d9a0b379c7333"
     },
     {
       "path": "results/phase6/hf_archive_receipt.json",
@@ -58,11 +58,11 @@
     },
     {
       "path": "demo/data/release.json",
-      "sha256": "f409ced2e9d1a08a52e0cb74d955f83c25b697c382a0253a5007bab6c7a909b6"
+      "sha256": "4bd45ef0d21cd60dfd684f6b95086eeefdd1e045947a6dac08222bfe38276ded"
     },
     {
       "path": "demo/data/release.js",
-      "sha256": "c606a64f4896fdeb0f187a7df337cdef5d82cc973dc8ac0c8eb3449aad39bb6c"
+      "sha256": "bc94f5ecb24de47b7c5801c8fb0d7bc3052dc638ba448911bc51a6bbd31638a6"
     }
   ],
   "phase": 6,

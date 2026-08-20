@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "status": "complete",
+  "phase": "7.1",
+  "device": "/dev/vdb",
+  "filesystem": "ext4",
+  "uuid": "ae64ecd7-5f45-4fe9-b88b-a8e49f21e8e5",
+  "mount": "/mnt/frontier-forge",
+  "formatted_now": false,
+  "filesystem_created_at": "2026-08-20T12:46:35+00:00",
+  "booted_at": "2026-08-20T12:21:12+00:00",
+  "formatted_during_current_boot": true,
+  "repo": "/mnt/frontier-forge/repo",
+  "git_sha": "a04754499e374d6d184a2b9606ce509ad2f8ebb0",
+  "gpu": "NVIDIA A10, 23028, 580.126.09",
+  "br_netfilter_loaded": true,
+  "br_netfilter_persisted": true,
+  "nvidia_fabricmanager_disabled": true,
+  "security_group_changes": "none; this script has no cloud-control-plane operations",
+  "listening_addresses": [
+    "0.0.0.0:22",
+    "127.0.0.53%lo:53",
+    "[::]:22"
+  ]
+}

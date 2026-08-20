@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "status": "complete",
+  "phase": "7.1",
+  "git_sha": "14f03be64000efc539944fce91d9cb77153b1fa4",
+  "transport": {
+    "endpoint": "https://hf-mirror.com",
+    "role": "transport_only"
+  },
+  "identity": {
+    "repo_id": "Luciss007/frontier-forge-r1b",
+    "fixed_revision": "fd4ae1e1989dcb1641a496bf796031491518983e",
+    "allow_pattern": "bf16-mtp-preserved/*",
+    "verified_tree_sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce"
+  },
+  "artifact_verification": {
+    "path": "results/phase7_1/artifact_verification.json",
+    "sha256": "f8a4326a711a1e4edab46ffd7e8f63723e5680308f8fc9d231aa63609fae3b87"
+  },
+  "finished_at": "2026-08-20T15:22:42+00:00"
+}

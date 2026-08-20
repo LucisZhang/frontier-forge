@@ -1,0 +1,12 @@
+Phase 7.1 model transport endpoint: https://hf-mirror.com
+Python 3.12 is already installed
+Resolved 280 packages in 0.72ms
+Checked 185 packages in 1ms
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Fetching 11 files:  64%|██████▎   | 7/11 [00:20<00:11,  2.86s/it]Fetching 11 files:  73%|███████▎  | 8/11 [01:02<00:23,  7.84s/it]Error while downloading from https://us.aws.cdn.hf.co/xet-bridge-us/6a858b54272740ff48c7697b/68939b08af7cd91759c2ec0e57881dd9a442e3656d8dd8e85da6df309233c15b?[signed-query-redacted] HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Read timed out.
+Trying to resume download...
+Fetching 11 files:  82%|████████▏ | 9/11 [03:16<00:43, 21.78s/it]Error while downloading from https://us.aws.cdn.hf.co/xet-bridge-us/6a858b54272740ff48c7697b/68939b08af7cd91759c2ec0e57881dd9a442e3656d8dd8e85da6df309233c15b?[signed-query-redacted] HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Read timed out.
+Trying to resume download...
+Fetching 11 files:  91%|█████████ | 10/11 [12:10<01:13, 73.06s/it]Error while downloading from https://us.aws.cdn.hf.co/xet-bridge-us/6a858b54272740ff48c7697b/68939b08af7cd91759c2ec0e57881dd9a442e3656d8dd8e85da6df309233c15b?[signed-query-redacted] HTTPSConnectionPool(host='us.aws.cdn.hf.co', port=443): Read timed out.
+Trying to resume download...
+Fetching 11 files:  91%|█████████ | 10/11 [19:24<01:56, 116.47s/it]
+Terminated

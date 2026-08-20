@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "status": "complete",
+  "phase": "7.1",
+  "git_sha": "14f03be64000efc539944fce91d9cb77153b1fa4",
+  "cmake": {
+    "version": "4.2.3",
+    "wheel_sha256": "8e91b381aaea3c47110583dccc52f4562333d1accdbb806939f953c16e74ec0a",
+    "path": "/mnt/frontier-forge/tooling/cmake-4.2.3/bin/cmake"
+  },
+  "boost": {
+    "version": "1.86.0",
+    "authoritative_source_url": "https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.bz2",
+    "download_mirror_url": "https://sources.cdn.immortalwrt.org/boost_1_86_0.tar.bz2",
+    "source_sha256": "1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b",
+    "prefix": "/mnt/frontier-forge/tooling/boost-1.86.0",
+    "libraries": [
+      "json",
+      "system"
+    ],
+    "linkage": "static"
+  },
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "root": "/mnt/frontier-forge/tooling",
+  "finished_at": "2026-08-20T15:23:40+00:00"
+}

@@ -1,0 +1,9 @@
+Phase 7.1 model transport endpoint: https://hf-mirror.com
+Python 3.12 is already installed
+Resolved 280 packages in 0.73ms
+Checked 185 packages in 1ms
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Fetching 11 files: 100%|██████████| 11/11 [00:01<00:00,  7.02it/s]Fetching 11 files: 100%|██████████| 11/11 [00:01<00:00,  7.02it/s]
+NVIDIA A10 12.8
+0.17.0
+{"gate": null, "stage": "verify-artifact", "status": "complete"}
+Phase 7.1 A10 serving environment and model artifact are verified on /mnt/frontier-forge
