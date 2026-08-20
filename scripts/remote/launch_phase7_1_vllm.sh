@@ -31,7 +31,16 @@ mkdir -p results/phase7_1/logs results/phase7_1/runtime "${cache_root}"/{cuda,cu
 mapfile -d '' command < <(.venv-phase4/bin/python -m forge.bench.server_args \
   --config configs/phase4/spec_r1b_bf16_mtp.yaml \
   --executable .venv-phase4/bin/vllm --null)
-vm_started_at="${FORGE_VM_STARTED_AT:-$(date -u -d "$(uptime -s)" +%Y-%m-%dT%H:%M:%SZ)}"
+if [[ -n "${FORGE_VM_STARTED_AT:-}" ]]; then
+  vm_started_at="${FORGE_VM_STARTED_AT}"
+else
+  boot_epoch="$(awk '$1 == "btime" {print $2; exit}' /proc/stat)"
+  if [[ ! "${boot_epoch}" =~ ^[0-9]+$ ]]; then
+    echo "could not read an epoch boot time from /proc/stat" >&2
+    exit 1
+  fi
+  vm_started_at="$(date --utc --date="@${boot_epoch}" +%Y-%m-%dT%H:%M:%SZ)"
+fi
 vllm_started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 log_path="results/phase7_1/logs/vllm-${vllm_started_at//:/}.log"
 tmux new-session -d -s "${session}" \

@@ -180,6 +180,9 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     assert "formatted_during_current_boot" in provision
     assert "filesystem_created_at" in provision
     assert "FORGE_GPU_HOURLY_USD=1.53" in launch
+    assert 'awk \'$1 == "btime"' in launch
+    assert "/proc/stat" in launch
+    assert "uptime -s" not in launch
     assert "baseline must finish before the gateway starts" in run
     assert "--listen-host 127.0.0.1" in gateway
     assert "pip install" in prefill

@@ -702,6 +702,8 @@ def _write_final_receipt(
         raise RuntimeError("FORGE_VM_STARTED_AT is required for the delegated VM-session ledger")
     started_at = _parse_time(started_value)
     finished_at = datetime.now(UTC)
+    if started_at > finished_at:
+        raise RuntimeError("delegated VM start time is later than receipt finalization")
     session_hours = (finished_at - started_at).total_seconds() / 3600
     hourly_usd = float(config["hardware"]["hourly_usd"])
     receipt = {
