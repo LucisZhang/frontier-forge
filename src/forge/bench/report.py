@@ -13,7 +13,12 @@ from typing import Any
 from forge.train.artifacts import write_json_atomic, write_text_atomic
 from forge.train.config import REPO_ROOT, relative_path, sha256_file
 
-from .config import load_phase4_config, phase4_config_paths, phase4_raw_path
+from .config import (
+    load_phase4_config,
+    phase4_config_paths,
+    phase4_raw_path,
+    phase4_smoke_output_root,
+)
 
 CACHE_EXCEPTION_LOG = REPO_ROOT / "results/phase4/logs/phase4_serve_r1b_bf16.server.log"
 
@@ -500,15 +505,15 @@ def _disclosure(receipts: list[dict[str, Any]], *, smoke: bool) -> list[str]:
 
 def build_report(*, smoke: bool) -> dict[str, Any]:
     configs, receipts = _load_receipts(smoke=smoke)
-    report_path = REPO_ROOT / (
-        "data/smoke/phase4/phase4_serving_report.md"
+    report_path = (
+        phase4_smoke_output_root() / "phase4_serving_report.md"
         if smoke
-        else "results/phase4_serving_report.md"
+        else REPO_ROOT / "results/phase4_serving_report.md"
     )
-    figure_path = REPO_ROOT / (
-        "data/smoke/phase4/phase4_spec_decode_boundary.svg"
+    figure_path = (
+        phase4_smoke_output_root() / "phase4_spec_decode_boundary.svg"
         if smoke
-        else "results/phase4_spec_decode_boundary.svg"
+        else REPO_ROOT / "results/phase4_spec_decode_boundary.svg"
     )
     title = "# Phase 4 serving and inference engineering report"
     lines = [title, "", *_disclosure(receipts, smoke=smoke), ""]
@@ -577,8 +582,10 @@ def build_report(*, smoke: bool) -> dict[str, Any]:
         )
     content = "\n".join(lines) + "\n"
     write_text_atomic(report_path, content)
-    manifest_path = REPO_ROOT / (
-        "data/smoke/phase4/report_manifest.json" if smoke else "results/phase4_report_manifest.json"
+    manifest_path = (
+        phase4_smoke_output_root() / "report_manifest.json"
+        if smoke
+        else REPO_ROOT / "results/phase4_report_manifest.json"
     )
     manifest = {
         "version": 1,

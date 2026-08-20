@@ -12,8 +12,8 @@ cost, and retained negative results—not a best-checkpoint victory lap.
 **The release model is R1b, the rule-label scaling ablation—not GRPO.** Scaling
 free rule labels from 1,450 to 20,000 raised frozen-eval task success from **66.35%
 to 99.05%** (**+32.70 percentage points**, paired 95% CI **[30.60, 34.50]**, n=2,000)
-for **15.236 measured RTX 4090 GPU-hours ($4.571)**. R1b's own 95% bootstrap CI is
-**[98.60%, 99.45%]**.
+in a **single training seed (seed 0)**, for **15.236 measured RTX 4090 GPU-hours
+($4.571)**. R1b's own 95% bootstrap CI is **[98.60%, 99.45%]**.
 
 The task is strict JSON: normalized product/issue/company fields, urgency,
 ambiguity, and exactly one tool call. Headline success is a hard AND over the
@@ -33,6 +33,17 @@ reward.
 All task-success intervals use 1,000 fixed-seed bootstrap resamples. The exact
 records live in [`results/runs.jsonl`](results/runs.jsonl); paired deltas live in
 [`results/phase3_paired_deltas.json`](results/phase3_paired_deltas.json).
+
+The executable rule engine itself scores **100% at $0 model-inference cost** on its
+own policy benchmark. R1b's prospective value is generalization beyond exact
+literal-rule coverage; this rule-grounded evaluation does not establish that value.
+
+Across all committed, de-duplicated cost receipts—including failed and superseded
+attempts—the recorded project spend is **37.581 RTX 4090 GPU-hours ($11.274) +
+$13.038 teacher API = $24.313**. `make reproduce-headline` derives this total from
+the Phase 1/2 API ledgers, billable Phase 3 rows, Phase 4 operation receipts, and
+the Phase 5 ledger. It is a recorded-operation total, not an estimate of unmetered
+idle time or a cloud-provider invoice.
 
 ## What shipped
 
@@ -58,7 +69,7 @@ flowchart LR
   fallback policy, and Prometheus metrics.
 - An offline evidence explorer in [`demo/`](demo/) and a hash-gated claim replay.
 - A cascade handoff landed in [triage-router PR #1](https://github.com/LucisZhang/triage-router/pull/1).
-  Its committed CAL grid selects τ=0.8483569229 and models $254.68/1k only under
+  Its committed CAL grid selects τ=0.8484 and models $254.68/1k only under
   a cross-task 5% terminal-failure assumption. Because R1b's structured-action
   input includes source metadata and no joint per-row CAL predictions exist, this
   is explicitly a scenario—not a new certified classification claim—and the
@@ -74,6 +85,10 @@ vLLM 0.17.0, client wall-clock streaming latency, and a $0.30/GPU-hour rate.
 | BF16 | 1.424 / 1.690 s | 307.0 | 95% | 22,829 MiB | $0.0211 |
 | GPTQ-int4 | 0.809 / 0.963 s | 335.6 | 95% | 22,591 MiB | $0.0193 |
 | BF16 + native MTP | **1.063 / 1.311 s** | **320.6** | 95% | 21,587 MiB | $0.0202 |
+
+Each 95% entry is only 19/20 requests; its 95% Wilson interval is **[76.4%,
+99.1%]**. The n=20 serving success rates are therefore fragile boundary
+measurements, not precise deployment-reliability estimates.
 
 Native MTP was not an unconditional checkbox win: it lost at 0.25 QPS and won at
 0.50, 1, 2, and 4 QPS, with 95.6–96.4% draft-token acceptance. The external 0.5B
@@ -136,6 +151,10 @@ For a fresh-clone CPU smoke of the implementation chain:
 SMOKE=1 make phase6-smoke
 ```
 
+The target writes mutable Phase 3 and Phase 4 smoke artifacts only under the
+ignored `.tmp-phase6-smoke/` tree, so the advertised command leaves tracked smoke
+fixtures unchanged.
+
 ## Model archives and card
 
 The Phase 6 archive publishes three independently hash-verified variants in one
@@ -164,8 +183,11 @@ statement is in the [Model Card](MODEL_CARD.md).
 ## Limitations and negative results
 
 - The 99.05% headline is against a deterministic rule policy, not human semantic
-  truth. A stratified human review found a 14% wrong-label rate, concentrated in
-  escalation/refund false negatives; the rules are also negation-blind.
+  truth. A deliberately enriched 50-row strong-action stratified review found
+  7/50 wrong labels (14.0%), all escalation/refund false negatives. That sample
+  balanced changed action transitions, so 14.0% is neither a population error-rate
+  estimate nor comparable to the earlier v2 4% audit; the rules are also
+  negation-blind. See the [audit qualification](results/phase1_2_label_audit.md#final-stratified-review-result).
 - Input contract v2 exposes source product/issue/company metadata. That mirrors the
   intended structured-triage setting, but it makes R1b unsuitable as evidence for a
   narrative-only product classifier.
@@ -183,3 +205,10 @@ statement is in the [Model Card](MODEL_CARD.md).
 
 Execution details: [PLAN.md](PLAN.md). Locked decisions: [DECISIONS.md](DECISIONS.md).
 Agent rules: [AGENTS.md](AGENTS.md).
+
+## License
+
+Source code is licensed under [Apache-2.0](LICENSE). Released model variants follow
+the Apache-2.0 license declared by the fixed Qwen3.5-4B-Base checkpoint; the code
+license does not relicense the CFPB source records. See the [Model Card](MODEL_CARD.md)
+for the base-model inheritance and public-data provenance statement.

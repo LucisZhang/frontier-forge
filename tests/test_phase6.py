@@ -17,11 +17,59 @@ def test_release_headline_is_derived_from_ledger_and_paired_receipt() -> None:
     headline = payload["training"]["headline"]
 
     assert headline["run_id"] == "r1b_sft_rule_20k_s0"
+    assert headline["training_seeds"] == [0]
     assert headline["task_success"] == pytest.approx(0.9905)
     assert headline["ci95"] == [0.986, 0.9945]
     assert headline["paired_delta_vs_r1"]["mean_task_success_delta"] == pytest.approx(0.327)
     assert headline["paired_delta_vs_r1"]["ci95"] == [0.306, 0.345]
     assert payload["training"]["r4_v2"]["status"] == "aborted-zero-reward-variance"
+
+
+def test_project_spend_includes_negative_attempts_and_all_teacher_api_receipts() -> None:
+    spend = release.build_payload("f" * 64)["project_spend"]
+
+    assert spend["gpu_components"]["phase3"]["receipt_rows"] == 21
+    assert spend["gpu_components"]["phase4"]["receipt_rows"] == 13
+    assert spend["gpu_components"]["phase5"]["receipt_rows"] == 1
+    assert spend["teacher_api_receipt_rows"] == 5
+    assert spend["gpu_hours"] == pytest.approx(37.58140120110837)
+    assert spend["gpu_usd"] == pytest.approx(11.274420360332511)
+    assert spend["teacher_api_usd"] == pytest.approx(13.038138)
+    assert spend["total_usd"] == pytest.approx(24.31255836033251)
+
+
+def test_n20_serving_points_disclose_wilson_interval_fragility() -> None:
+    points = release.build_payload("f" * 64)["serving"]["serving_at_4_qps"]
+
+    assert len(points) == 3
+    assert all(point["requests"] == 20 for point in points)
+    assert all(point["verifier_successes"] == 19 for point in points)
+    assert all(
+        point["task_success_wilson95"] == pytest.approx([0.763868806553258, 0.9911185511992047])
+        for point in points
+    )
+
+
+def test_release_copy_preserves_reviewed_license_and_disclosure_language() -> None:
+    model_card = (ROOT / "MODEL_CARD.md").read_text()
+    readme = (ROOT / "README.md").read_text()
+    license_text = (ROOT / "LICENSE").read_text()
+
+    assert "license: apache-2.0" in model_card
+    assert "7/50 wrong" in model_card
+    assert "deliberately enriched 50-row strong-action" in model_card
+    assert "not comparable to the earlier v2 4% figure" in model_card
+    assert "200-row stratified human audit" not in model_card
+    assert "CFPB Consumer Complaint Database" in model_card
+    assert license_text.startswith("                                 Apache License\n")
+    assert "Version 2.0, January 2004" in license_text
+
+    assert "single training seed (seed 0)" in readme
+    assert "τ=0.8484" in readme
+    assert "τ=0.8483569229" not in readme
+    assert "95% Wilson interval is **[76.4%,\n99.1%]**" in readme
+    assert "100% at $0 model-inference cost" in readme
+    assert readme.count("$24.313") == 1
 
 
 def test_gateway_payload_preserves_the_overload_failure_semantics() -> None:
@@ -123,6 +171,16 @@ def test_makefile_phase6_targets_are_real_and_smoke_is_guarded() -> None:
     )
     assert "forge.release" in dry.stdout
     assert "[stub]" not in dry.stdout
+
+    smoke_dry = subprocess.run(
+        ["make", "--no-print-directory", "--dry-run", "phase6-smoke", "SMOKE=1"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "FORGE_SMOKE_OUTPUT_ROOT=" in smoke_dry.stdout
+    assert "FORGE_PHASE4_SMOKE_OUTPUT_ROOT=" in smoke_dry.stdout
 
     blocked = subprocess.run(
         ["make", "--no-print-directory", "phase6-smoke", "SMOKE=0"],

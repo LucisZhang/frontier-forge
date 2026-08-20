@@ -78,8 +78,11 @@
       "to_seed": 0
     },
     "run_id": "r1b_sft_rule_20k_s0",
-    "statement": "Scaling free rule labels from 1,450 to 20,000 raised frozen-eval task success from 66.35% to 99.05%: +32.70 percentage points, paired 95% CI [30.60, 34.50], using 15.236 measured RTX 4090 GPU-hours ($4.571).",
+    "statement": "Scaling free rule labels from 1,450 to 20,000 raised frozen-eval task success from 66.35% to 99.05%: +32.70 percentage points, paired 95% CI [30.60, 34.50], in one training seed (seed 0), using 15.236 measured RTX 4090 GPU-hours ($4.571).",
     "task_success": 0.9905,
+    "training_seeds": [
+      0
+    ],
     "usd": 4.57075
   },
   "schema_version": "frontier-forge-cascade-handoff-v1",
@@ -96,7 +99,12 @@
     "run_id": "phase4_spec_decode_r1b_bf16_native_mtp",
     "stable": true,
     "task_success": 0.95,
+    "task_success_wilson95": [
+      0.763868806553258,
+      0.9911185511992047
+    ],
     "ttft_p50_s": 0.19990521483123302,
+    "verifier_successes": 19,
     "vram_peak_mib": 21587.0
   },
   "shared_frozen_cal": {
@@ -104,6 +112,6 @@
     "rows": 86972,
     "source_split_sha256": "d7c24d6db05f337ac3fca1922b16c4324775e2007833af1eae684ddc37533c94"
   },
-  "source_manifest_sha256": "0b91f0a2974305afb8a7c291b959b2deb44a87d2ad366f660519f337e5e9fe18",
+  "source_manifest_sha256": "fce45fdc4d537ca98370d58f4be3857a7e4380ad01ac93e0f211d4ec6bb2cb25",
   "source_repository": "https://github.com/LucisZhang/frontier-forge"
 }

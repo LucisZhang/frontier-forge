@@ -193,11 +193,36 @@
     "stable_pair_count": 5
   },
   "phase": 6,
+  "project_spend": {
+    "gpu_components": {
+      "phase3": {
+        "gpu_hours": 35.96666666666667,
+        "receipt_rows": 21,
+        "usd": 10.790000000000001
+      },
+      "phase4": {
+        "gpu_hours": 0.4645818263861454,
+        "receipt_rows": 13,
+        "usd": 0.1393745479158436
+      },
+      "phase5": {
+        "gpu_hours": 1.1501527080555556,
+        "receipt_rows": 1,
+        "usd": 0.34504581241666665
+      }
+    },
+    "gpu_hours": 37.58140120110837,
+    "gpu_usd": 11.274420360332511,
+    "scope": "Committed operation receipts, including failed and superseded attempts. Overlapping Phase 3 wrapper rows are de-duplicated by config/start time; the total is not an estimate of unmetered idle time or a cloud-provider invoice.",
+    "teacher_api_receipt_rows": 5,
+    "teacher_api_usd": 13.038138,
+    "total_usd": 24.31255836033251
+  },
   "provenance": {
     "bootstrap_resamples": 1000,
     "dataset_hash": "d1092cd16f604c25ed6d5034bf0fed33afbe975af4048fbd2a0cd93d7b25e564",
     "source_manifest": "results/phase6/source_manifest.json",
-    "source_manifest_sha256": "0b91f0a2974305afb8a7c291b959b2deb44a87d2ad366f660519f337e5e9fe18"
+    "source_manifest_sha256": "fce45fdc4d537ca98370d58f4be3857a7e4380ad01ac93e0f211d4ec6bb2cb25"
   },
   "schema_version": "frontier-forge-release-v1",
   "serving": {
@@ -215,7 +240,12 @@
         "run_id": "phase4_serve_r1b_bf16_v2",
         "stable": true,
         "task_success": 0.95,
+        "task_success_wilson95": [
+          0.763868806553258,
+          0.9911185511992047
+        ],
         "ttft_p50_s": 0.17455950565636158,
+        "verifier_successes": 19,
         "vram_peak_mib": 22829.0
       },
       {
@@ -231,7 +261,12 @@
         "run_id": "phase4_serve_r1b_gptq_int4",
         "stable": true,
         "task_success": 0.95,
+        "task_success_wilson95": [
+          0.763868806553258,
+          0.9911185511992047
+        ],
         "ttft_p50_s": 0.1531981471925974,
+        "verifier_successes": 19,
         "vram_peak_mib": 22591.0
       },
       {
@@ -247,7 +282,12 @@
         "run_id": "phase4_spec_decode_r1b_bf16_native_mtp",
         "stable": true,
         "task_success": 0.95,
+        "task_success_wilson95": [
+          0.763868806553258,
+          0.9911185511992047
+        ],
         "ttft_p50_s": 0.19990521483123302,
+        "verifier_successes": 19,
         "vram_peak_mib": 21587.0
       }
     ],
@@ -392,8 +432,11 @@
         "to_seed": 0
       },
       "run_id": "r1b_sft_rule_20k_s0",
-      "statement": "Scaling free rule labels from 1,450 to 20,000 raised frozen-eval task success from 66.35% to 99.05%: +32.70 percentage points, paired 95% CI [30.60, 34.50], using 15.236 measured RTX 4090 GPU-hours ($4.571).",
+      "statement": "Scaling free rule labels from 1,450 to 20,000 raised frozen-eval task success from 66.35% to 99.05%: +32.70 percentage points, paired 95% CI [30.60, 34.50], in one training seed (seed 0), using 15.236 measured RTX 4090 GPU-hours ($4.571).",
       "task_success": 0.9905,
+      "training_seeds": [
+        0
+      ],
       "usd": 4.57075
     },
     "ladder": [

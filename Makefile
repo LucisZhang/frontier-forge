@@ -227,6 +227,7 @@ phase6-smoke:
 	@$(MAKE) teacher-data teacher-audit SMOKE=1
 	@FORGE_SMOKE_OUTPUT_ROOT="$(CURDIR)/.tmp-phase6-smoke/$(shell git rev-parse --short=12 HEAD)/phase3" \
 		$(MAKE) phase3-smoke SMOKE=1
-	@$(MAKE) phase4-smoke SMOKE=1
+	@FORGE_PHASE4_SMOKE_OUTPUT_ROOT="$(CURDIR)/.tmp-phase6-smoke/$(shell git rev-parse --short=12 HEAD)/phase4" \
+		$(MAKE) phase4-smoke SMOKE=1
 	@$(MAKE) gateway-test SMOKE=1
 	@$(MAKE) reproduce-headline demo-build SMOKE=1

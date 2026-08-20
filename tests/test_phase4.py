@@ -12,6 +12,10 @@ import pytest
 from forge.bench.config import (
     load_phase4_config,
     phase4_config_paths,
+    phase4_raw_path,
+    phase4_requests_path,
+    phase4_smoke_output_root,
+    phase4_workload_path,
     workload_contract_hash,
 )
 from forge.bench.loadgen import (
@@ -31,6 +35,21 @@ from forge.bench.workload import _allocation, build_workload, load_workload
 from forge.train.config import sha256_file
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_phase6_can_isolate_all_mutable_phase4_smoke_outputs(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    isolated = tmp_path / "phase4"
+    monkeypatch.setenv("FORGE_PHASE4_SMOKE_OUTPUT_ROOT", str(isolated))
+    config = load_phase4_config("configs/phase4/serve_r1b_bf16.yaml")
+
+    assert phase4_smoke_output_root() == isolated
+    assert phase4_raw_path(config, smoke=True) == isolated / "raw/phase4_serve_r1b_bf16_v2.json"
+    assert phase4_requests_path(config, smoke=True) == (
+        isolated / "raw/phase4_serve_r1b_bf16_v2.requests.jsonl"
+    )
+    assert phase4_workload_path(config, smoke=True).parent == isolated
 
 
 def test_phase4_configs_cover_the_locked_matrix() -> None:

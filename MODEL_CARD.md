@@ -2,6 +2,7 @@
 language:
 - en
 library_name: transformers
+license: apache-2.0
 pipeline_tag: text-generation
 tags:
 - qwen3.5
@@ -63,6 +64,7 @@ be presented as a leakage-free narrative-only product classifier.
 
 - Base: Qwen3.5-4B-Base, pretrained-only checkpoint.
 - Rung: R1b, one epoch of language-model-only QLoRA SFT.
+- Training seed: 0; no multi-seed R1b aggregate exists.
 - Data: 20,000 deterministic rule-labeled TRAIN examples, disjoint from frozen
   TEST-IID and TEST-DRIFT under a 13-token contamination audit.
 - LoRA: rank 16, alpha 32, dropout 0; attention and MLP projection targets; visual
@@ -113,6 +115,27 @@ requests returning HTTP 502/`upstream_error`, not designed 429 admission rejects
 Non-stable gateway cells had 10–85% errors versus 0% for bare vLLM. Lower
 success-only p95 in those cells is survivor-biased and is not a model or gateway win.
 
+## License and data provenance
+
+- The source repository's code is licensed under
+  [Apache-2.0](https://github.com/LucisZhang/frontier-forge/blob/codex/phase6-release/LICENSE).
+- The released weights are derivatives of
+  [`Qwen/Qwen3.5-4B-Base`](https://huggingface.co/Qwen/Qwen3.5-4B-Base) at revision
+  `1001bb4d826a52d1f399e183466143f4da7b741b`. The upstream model card declares
+  `apache-2.0`; these variants inherit and are distributed under that same
+  base-model license. Consult the upstream license as well as this card.
+- Training and evaluation records derive from a byte-frozen snapshot of the
+  [CFPB Consumer Complaint Database](https://www.consumerfinance.gov/data-research/consumer-complaints/),
+  whose published data the CFPB describes as freely available to use, analyze,
+  and build on. The source ZIP SHA-256 is
+  `b4d1eac8ef9f2e7710224848d321f355c480ff95baa742a2f6d1e3c704705600`; the project
+  materialized 571,415 labeled rows while preserving frozen split membership.
+  Narratives in the snapshot were publicly shared only after consumer opt-in and
+  CFPB personal-information scrubbing. Complaints are unverified and are not a
+  representative statistical sample.
+- No raw CFPB complaint rows are bundled in this Hugging Face model repository.
+  The repository's Apache-2.0 code license does not relicense the CFPB records.
+
 ## Uses
 
 Appropriate uses:
@@ -132,9 +155,13 @@ Out-of-scope uses:
 
 ## Limitations and risks
 
-- A 200-row stratified human audit found a 14% wrong-label rate in the rule policy,
-  including escalation and refund false negatives. Evaluation measures fidelity to
-  those rules, so a high score can faithfully reproduce a flawed policy.
+- A deliberately enriched 50-row strong-action stratified sample found 7/50 wrong
+  labels (14.0%), all escalation or refund false negatives. The review balanced
+  changed action transitions, so this is not a population error-rate estimate and
+  is not comparable to the earlier v2 4% figure, which used a different population,
+  protocol, and error opportunity. Evaluation measures fidelity to those rules, so
+  a high score can faithfully reproduce a flawed policy. See
+  [`results/phase1_2_label_audit.md`](https://github.com/LucisZhang/frontier-forge/blob/codex/phase6-release/results/phase1_2_label_audit.md#final-stratified-review-result).
 - Keyword rules are negation-blind. The single-action taxonomy also prioritizes
   escalation over refund when both triggers appear.
 - R2 distilled SFT lost 14.2 points to R1; this is a task-specific result where

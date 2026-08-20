@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import shutil
 from pathlib import Path
 from statistics import median
@@ -11,6 +12,7 @@ from typing import Any
 
 from forge.train.artifacts import write_json_atomic
 from forge.train.config import REPO_ROOT, relative_path, sha256_file
+from forge.train.ledger import billable_records
 
 RESULTS = REPO_ROOT / "results"
 SOURCE_MANIFEST = RESULTS / "phase6/source_manifest.json"
@@ -21,30 +23,68 @@ DEMO_DATA_PATH = REPO_ROOT / "demo/data/release.json"
 DEMO_DATA_JS = REPO_ROOT / "demo/data/release.js"
 DEMO_DIST = REPO_ROOT / "demo/dist"
 
-SOURCE_PATHS = tuple(
+TEACHER_API_COST_PATHS = tuple(
     REPO_ROOT / path
     for path in (
-        "data/ingest/manifest.json",
-        "results/runs.jsonl",
-        "results/phase3_paired_deltas.json",
-        "results/phase3_backend_agreement.json",
-        "results/phase3_export_manifest_r1b_trl_s0.json",
-        "results/phase3_export_selection.json",
+        "results/phase1_api_calibration_ledger.json",
+        "results/phase1_1_api_calibration_ledger.json",
+        "results/phase1_teacher_spot_label_ledger.json",
+        "results/phase1_teacher_spot_label_ledger_v2.json",
+        "results/phase2_cost_ledger.json",
+    )
+)
+
+PHASE4_COST_PATHS = tuple(
+    REPO_ROOT / path
+    for path in (
+        "results/phase4/raw/phase4_serve_r1b_bf16.json",
         "results/phase4/raw/phase4_serve_r1b_bf16_v2.json",
         "results/phase4/raw/phase4_serve_r1b_gptq_int4.json",
+        "results/phase4/raw/phase4_serve_r3eq_bf16.json",
+        "results/phase4/raw/phase4_serve_r3eq_gptq_int4.json",
+        "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline.json",
         "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline_v2.json",
         "results/phase4/raw/phase4_spec_decode_r1b_bf16_native_mtp.json",
         "results/phase4/raw/phase4_structured_r1b_bf16_xgrammar.json",
         "results/phase4/raw/phase4_structured_r1b_bf16_outlines.json",
-        "results/phase4/r1b_mtp_reexport_manifest.json",
-        "results/phase5/raw/phase5_gateway_bench.json",
-        "results/phase5/verification.json",
+        "results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json",
+        "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json",
+        "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_patched_failure.json",
+    )
+)
+
+SOURCE_PATHS = tuple(
+    dict.fromkeys(
+        REPO_ROOT / path
+        for path in (
+            "data/ingest/manifest.json",
+            "results/phase1_2_label_audit.md",
+            "results/runs.jsonl",
+            "results/phase3_gpu_ledger.jsonl",
+            "results/phase3_paired_deltas.json",
+            "results/phase3_backend_agreement.json",
+            "results/phase3_export_manifest_r1b_trl_s0.json",
+            "results/phase3_export_selection.json",
+            "results/phase4/raw/phase4_serve_r1b_bf16_v2.json",
+            "results/phase4/raw/phase4_serve_r1b_gptq_int4.json",
+            "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline_v2.json",
+            "results/phase4/raw/phase4_spec_decode_r1b_bf16_native_mtp.json",
+            "results/phase4/raw/phase4_structured_r1b_bf16_xgrammar.json",
+            "results/phase4/raw/phase4_structured_r1b_bf16_outlines.json",
+            "results/phase4/r1b_mtp_reexport_manifest.json",
+            "results/phase5/raw/phase5_gateway_bench.json",
+            "results/phase5/gpu_ledger.jsonl",
+            "results/phase5/verification.json",
+        )
+        + tuple(relative_path(path) for path in TEACHER_API_COST_PATHS)
+        + tuple(relative_path(path) for path in PHASE4_COST_PATHS)
     )
 )
 
 RELEASE_FILES = tuple(
     REPO_ROOT / path
     for path in (
+        "LICENSE",
         "README.md",
         "MODEL_CARD.md",
         "gateway/README.md",
@@ -91,6 +131,57 @@ def _records() -> dict[str, dict[str, Any]]:
             raise RuntimeError(f"duplicate run_id in append-only ledger: {run_id}")
         records[str(run_id)] = record
     return records
+
+
+def _jsonl(path: Path) -> list[dict[str, Any]]:
+    return [json.loads(line) for line in path.read_text().splitlines() if line]
+
+
+def _project_spend_payload() -> dict[str, Any]:
+    phase1_api = [_json(path) for path in TEACHER_API_COST_PATHS[:-1]]
+    phase2_api = _json(TEACHER_API_COST_PATHS[-1])
+    teacher_api_usd = sum(float(item["reported_api_usd"]) for item in phase1_api) + float(
+        phase2_api["account_reconciled_api_usd"]
+    )
+
+    phase3_rows = billable_records(_jsonl(RESULTS / "phase3_gpu_ledger.jsonl"))
+    phase4_rows = [_json(path) for path in PHASE4_COST_PATHS]
+    phase5_rows = _jsonl(RESULTS / "phase5/gpu_ledger.jsonl")
+    if any(item.get("status") != "complete" for item in phase5_rows):
+        raise RuntimeError("Phase 5 GPU ledger contains a non-complete project-spend row")
+
+    components = {
+        "phase3": {
+            "receipt_rows": len(phase3_rows),
+            "gpu_hours": sum(float(item["gpu_hours"]) for item in phase3_rows),
+            "usd": sum(float(item["usd"]) for item in phase3_rows),
+        },
+        "phase4": {
+            "receipt_rows": len(phase4_rows),
+            "gpu_hours": sum(float(item["cost"]["gpu_hours"]) for item in phase4_rows),
+            "usd": sum(float(item["cost"]["usd"]) for item in phase4_rows),
+        },
+        "phase5": {
+            "receipt_rows": len(phase5_rows),
+            "gpu_hours": sum(float(item["gpu_hours"]) for item in phase5_rows),
+            "usd": sum(float(item["usd"]) for item in phase5_rows),
+        },
+    }
+    gpu_hours = sum(float(item["gpu_hours"]) for item in components.values())
+    gpu_usd = sum(float(item["usd"]) for item in components.values())
+    return {
+        "gpu_hours": gpu_hours,
+        "gpu_usd": gpu_usd,
+        "teacher_api_usd": teacher_api_usd,
+        "total_usd": gpu_usd + teacher_api_usd,
+        "gpu_components": components,
+        "teacher_api_receipt_rows": len(TEACHER_API_COST_PATHS),
+        "scope": (
+            "Committed operation receipts, including failed and superseded attempts. "
+            "Overlapping Phase 3 wrapper rows are de-duplicated by config/start time; "
+            "the total is not an estimate of unmetered idle time or a cloud-provider invoice."
+        ),
+    }
 
 
 def build_source_manifest() -> dict[str, Any]:
@@ -159,6 +250,7 @@ def _phase3_payload(records: dict[str, dict[str, Any]]) -> dict[str, Any]:
     return {
         "headline": {
             "run_id": headline_run["run_id"],
+            "training_seeds": [int(headline_run["seed"])],
             "task_success": headline_run["metrics"]["task_success"],
             "ci95": headline_run["metrics"]["ci95"],
             "paired_delta_vs_r1": delta,
@@ -167,7 +259,8 @@ def _phase3_payload(records: dict[str, dict[str, Any]]) -> dict[str, Any]:
             "statement": (
                 "Scaling free rule labels from 1,450 to 20,000 raised frozen-eval task "
                 "success from 66.35% to 99.05%: +32.70 percentage points, paired 95% "
-                "CI [30.60, 34.50], using 15.236 measured RTX 4090 GPU-hours ($4.571)."
+                "CI [30.60, 34.50], in one training seed (seed 0), using 15.236 measured "
+                "RTX 4090 GPU-hours ($4.571)."
             ),
         },
         "ladder": ladder,
@@ -188,16 +281,33 @@ def _point(receipt: dict[str, Any], qps: float) -> dict[str, Any]:
     return matches[0]
 
 
+def _wilson_interval(successes: int, total: int) -> list[float]:
+    if total <= 0 or successes < 0 or successes > total:
+        raise ValueError("Wilson interval requires 0 <= successes <= total and total > 0")
+    z = 1.959963984540054
+    observed = successes / total
+    denominator = 1.0 + z * z / total
+    center = (observed + z * z / (2.0 * total)) / denominator
+    margin = (
+        z * math.sqrt((observed * (1.0 - observed) + z * z / (4.0 * total)) / total) / denominator
+    )
+    return [center - margin, center + margin]
+
+
 def _serving_point(receipt: dict[str, Any], *, label: str) -> dict[str, Any]:
     point = _point(receipt, 4.0)
+    verifier_successes = int(point["verifier_successes"])
+    requests = int(point["requests"])
     return {
         "label": label,
         "run_id": receipt["run_id"],
         "artifact_sha256": receipt["model"]["artifact_sha256"],
         "precision": receipt["model"]["precision"],
         "arrival_rate_qps": point["arrival_rate_qps"],
-        "requests": point["requests"],
+        "requests": requests,
+        "verifier_successes": verifier_successes,
         "task_success": point["verifier_task_success_rate"],
+        "task_success_wilson95": _wilson_interval(verifier_successes, requests),
         "stable": point["stable"],
         "ttft_p50_s": point["client"]["ttft"]["p50_s"],
         "e2e_p50_s": point["client"]["e2e"]["p50_s"],
@@ -350,6 +460,7 @@ def build_payload(source_manifest_sha256: str) -> dict[str, Any]:
             "bootstrap_resamples": 1000,
         },
         "training": _phase3_payload(records),
+        "project_spend": _project_spend_payload(),
         "serving": _phase4_payload(),
         "gateway": _phase5_payload(),
         "exports": _exports_payload(),
