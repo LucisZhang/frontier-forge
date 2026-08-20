@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $# -ne 1 || ( "$1" != "verify-artifact" && "$1" != "bare" && "$1" != "gateway" ) ]]; then
-  echo "usage: FORGE_PHASE7_SESSION_STARTED_AT=<UTC ISO-8601> $0 verify-artifact|bare|gateway" >&2
+if [[ $# -ne 1 || ( "$1" != "verify-artifact" && "$1" != "bare" && "$1" != "gateway" && "$1" != "finalize-existing" ) ]]; then
+  echo "usage: FORGE_PHASE7_SESSION_STARTED_AT=<UTC ISO-8601> $0 verify-artifact|bare|gateway|finalize-existing" >&2
   exit 2
 fi
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -29,8 +29,11 @@ if [[ ! -f "${session_receipt}" ]]; then
 fi
 export FORGE_PHASE7_SESSION_STARTED_AT="$(jq -r .started_at "${session_receipt}")"
 export FORGE_GPU_HOURLY_USD="$(jq -r .hourly_usd "${session_receipt}")"
-export FORGE_BENCH_GIT_SHA="$(jq -r .git_sha "${session_receipt}")"
-if [[ "$(git rev-parse HEAD)" != "${FORGE_BENCH_GIT_SHA}" ]]; then
+measurement_git_sha="$(jq -r .git_sha "${session_receipt}")"
+export FORGE_BENCH_GIT_SHA="$(git rev-parse HEAD)"
+if [[ "$1" == "finalize-existing" ]]; then
+  export FORGE_MEASUREMENT_GIT_SHA="${measurement_git_sha}"
+elif [[ "${FORGE_BENCH_GIT_SHA}" != "${measurement_git_sha}" ]]; then
   echo "sustained benchmark SHA differs from checked-out source" >&2
   exit 2
 fi
@@ -50,6 +53,6 @@ elif [[ "${stage}" == "gateway" ]]; then
 fi
 
 .venv-phase4/bin/python -m gateway.bench.phase7_1_sustained --stage "${stage}"
-if [[ "${stage}" == "gateway" ]]; then
+if [[ "${stage}" == "gateway" || "${stage}" == "finalize-existing" ]]; then
   .venv-phase4/bin/python -m gateway.bench.phase7_1_sustained_report
 fi

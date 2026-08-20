@@ -173,13 +173,16 @@ def _verify_artifact(config: Mapping[str, Any]) -> dict[str, Any]:
     return receipt
 
 
-def _require_artifact(config: Mapping[str, Any]) -> dict[str, Any]:
+def _require_artifact(
+    config: Mapping[str, Any], *, expected_git_sha: str | None = None
+) -> dict[str, Any]:
     if not ARTIFACT_RECEIPT.is_file():
         raise FileNotFoundError("run sustained artifact verification before benchmarking")
     receipt = json.loads(ARTIFACT_RECEIPT.read_text())
+    expected = expected_git_sha or benchmark_git_sha()
     if (
         receipt.get("status") != "complete"
-        or receipt.get("git_sha") != benchmark_git_sha()
+        or receipt.get("git_sha") != expected
         or receipt.get("artifact", {}).get("sha256") != config["model"]["artifact_sha256"]
     ):
         raise RuntimeError("sustained artifact receipt conflicts with the active benchmark")
@@ -327,11 +330,15 @@ def _pair_stages(
 
 
 def _http_5xx_count(cell: Mapping[str, Any]) -> int:
-    return sum(
-        int(value)
-        for status, value in cell.get("http_status_counts", {}).items()
-        if 500 <= int(status) < 600
-    )
+    count = 0
+    for status, value in cell.get("http_status_counts", {}).items():
+        try:
+            code = int(status)
+        except (TypeError, ValueError):
+            continue
+        if 500 <= code < 600:
+            count += int(value)
+    return count
 
 
 def _status_count(cell: Mapping[str, Any], status: int) -> int:
@@ -473,6 +480,7 @@ def _append_run_record(receipt: Mapping[str, Any]) -> bool:
         "config_hash": receipt["config_hash"],
         "dataset_hash": receipt["workload"]["sha256"],
         "git_sha": receipt["git_sha"],
+        "finalizer_git_sha": receipt.get("finalizer_git_sha", receipt["git_sha"]),
         "model": receipt["model"],
         "metrics": receipt["metrics"],
         "gate": receipt["gate"],
@@ -495,6 +503,7 @@ def _write_final_receipt(
     direct_stage: Mapping[str, Any],
     gateway_stage: Mapping[str, Any],
     identity: Mapping[str, Any],
+    measurement_git_sha: str,
 ) -> dict[str, Any]:
     paired = _pair_stages(direct_stage, gateway_stage)
     gate = _evaluate_gate(config, paired, gateway_stage)
@@ -520,7 +529,8 @@ def _write_final_receipt(
         "run_id": config["run_id"],
         "config_path": config["_config_path"],
         "config_hash": config["_config_hash"],
-        "git_sha": benchmark_git_sha(),
+        "git_sha": measurement_git_sha,
+        "finalizer_git_sha": benchmark_git_sha(),
         "model": config["model"],
         "server": {"identity": identity, "declared": config["server"]},
         "gateway": config["gateway"],
@@ -557,6 +567,11 @@ def _write_final_receipt(
             "execution_order": (
                 "All same-box sustained bare-vLLM cells completed before the gateway process "
                 "was started and measured with identical schedules."
+            ),
+            "finalization_provenance": (
+                "git_sha identifies the code that generated both request stages; "
+                "finalizer_git_sha identifies the append-only parser/report code that sealed "
+                "those hash-verified existing stages."
             ),
             "comparison_scope": config["comparison_scope"],
             "source_phase7_1_config": {
@@ -596,7 +611,8 @@ def _write_final_receipt(
             "gate_status": gate["status"],
             "config_path": config["_config_path"],
             "config_hash": config["_config_hash"],
-            "git_sha": benchmark_git_sha(),
+            "git_sha": measurement_git_sha,
+            "finalizer_git_sha": benchmark_git_sha(),
             "gpu_type": config["hardware"]["gpu_type"],
             "gpu_hours": session_hours,
             "hourly_usd": hourly_usd,
@@ -656,8 +672,58 @@ async def _run_stage(
             direct_stage=direct_stage,
             gateway_stage=gateway_stage,
             identity=await finite._identity(config, direct_url, gateway_url),
+            measurement_git_sha=benchmark_git_sha(),
         )
     raise ValueError(f"unsupported sustained Gate 7.1 stage: {stage}")
+
+
+def _require_measurement_stage(
+    stage: str, config: Mapping[str, Any], *, measurement_git_sha: str
+) -> dict[str, Any]:
+    raw_path, request_path = finite._stage_paths(stage)
+    if not raw_path.is_file() or not request_path.is_file():
+        raise FileNotFoundError(f"required sustained measurement stage is missing: {stage}")
+    receipt = json.loads(raw_path.read_text())
+    if (
+        receipt.get("status") != "complete"
+        or receipt.get("config_hash") != config["_config_hash"]
+        or receipt.get("git_sha") != measurement_git_sha
+        or receipt.get("request_artifact", {}).get("sha256") != sha256_file(request_path)
+    ):
+        raise RuntimeError(f"existing sustained measurement stage failed provenance: {stage}")
+    return receipt
+
+
+async def _finalize_existing(
+    config: Mapping[str, Any],
+    workload_receipt: Mapping[str, Any],
+    *,
+    direct_url: str,
+    gateway_url: str,
+) -> dict[str, Any]:
+    measurement_git_sha = os.environ.get("FORGE_MEASUREMENT_GIT_SHA", "")
+    if _GIT_SHA.fullmatch(measurement_git_sha) is None:
+        raise RuntimeError("FORGE_MEASUREMENT_GIT_SHA must identify the completed request stages")
+    direct_stage = _require_measurement_stage(
+        "sustained-overload-a10-bare",
+        config,
+        measurement_git_sha=measurement_git_sha,
+    )
+    gateway_stage = _require_measurement_stage(
+        "sustained-overload-a10-gateway",
+        config,
+        measurement_git_sha=measurement_git_sha,
+    )
+    return _write_final_receipt(
+        config,
+        workload_receipt,
+        archived=_finite_receipt(config),
+        artifact=_require_artifact(config, expected_git_sha=measurement_git_sha),
+        direct_stage=direct_stage,
+        gateway_stage=gateway_stage,
+        identity=await finite._identity(config, direct_url, gateway_url),
+        measurement_git_sha=measurement_git_sha,
+    )
 
 
 def main() -> None:
@@ -667,7 +733,7 @@ def main() -> None:
     parser.add_argument("--gateway-url", default="http://127.0.0.1:9000")
     parser.add_argument(
         "--stage",
-        choices=("verify-artifact", "bare", "gateway", "import-final"),
+        choices=("verify-artifact", "bare", "gateway", "finalize-existing", "import-final"),
         required=True,
     )
     args = parser.parse_args()
@@ -689,18 +755,28 @@ def main() -> None:
             raise RuntimeError("synced sustained Gate 7.1 receipt conflicts with local config")
         _append_run_record(result)
     else:
-        _require_artifact(config)
         workload, workload_receipt = core._phase4_workload(config)
-        result = asyncio.run(
-            _run_stage(
-                args.stage,
-                config,
-                workload,
-                workload_receipt,
-                direct_url=args.direct_url,
-                gateway_url=args.gateway_url,
+        if args.stage == "finalize-existing":
+            result = asyncio.run(
+                _finalize_existing(
+                    config,
+                    workload_receipt,
+                    direct_url=args.direct_url,
+                    gateway_url=args.gateway_url,
+                )
             )
-        )
+        else:
+            _require_artifact(config)
+            result = asyncio.run(
+                _run_stage(
+                    args.stage,
+                    config,
+                    workload,
+                    workload_receipt,
+                    direct_url=args.direct_url,
+                    gateway_url=args.gateway_url,
+                )
+            )
     print(
         json.dumps(
             {

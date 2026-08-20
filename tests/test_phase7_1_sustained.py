@@ -43,6 +43,12 @@ def test_duration_schedule_is_deterministic_and_crosses_minimum() -> None:
     assert all(later > earlier for earlier, later in zip(left[:-1], left[1:], strict=True))
 
 
+def test_http_5xx_count_ignores_transport_status_bucket() -> None:
+    cell = {"http_status_counts": {"200": 10, "500": 2, "502": 3, "transport_error": 7}}
+
+    assert bench._http_5xx_count(cell) == 5
+
+
 def _cell(
     *,
     cell_id: str,
@@ -166,6 +172,8 @@ def test_sustained_remote_script_preserves_order_and_loopback_only() -> None:
 
     assert "all sustained bare-vLLM cells must finish before the gateway starts" in script
     assert "FORGE_PHASE7_SESSION_STARTED_AT" in script
+    assert "FORGE_MEASUREMENT_GIT_SHA" in script
+    assert "finalize-existing" in script
     assert "FORGE_GPU_HOURLY_USD=1.53" in script
     assert 'PYTHONPATH="${repo_root}/src:${repo_root}' in script
     assert "http://127.0.0.1:8000" in script
