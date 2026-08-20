@@ -1,0 +1,1290 @@
+{
+  "condition": "Complete",
+  "duration": "120s",
+  "finished_at": "2026-08-20T19:33:53.385894+00:00",
+  "log": "results/phase7_2/logs/forge-k6-saturation.log",
+  "name": "forge-k6-saturation",
+  "pod": "forge-k6-saturation-tzcn2",
+  "rate": 40,
+  "samples": [
+    {
+      "at": "2026-08-20T19:31:17.252078+00:00",
+      "queue_depth": 0.0,
+      "queue_high_watermark": 0.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:19.438115+00:00",
+      "queue_depth": 0.0,
+      "queue_high_watermark": 0.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:21.625835+00:00",
+      "queue_depth": 0.0,
+      "queue_high_watermark": 0.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:23.819746+00:00",
+      "queue_depth": 0.0,
+      "queue_high_watermark": 0.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:26.016664+00:00",
+      "queue_depth": 16.0,
+      "queue_high_watermark": 16.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:28.204144+00:00",
+      "queue_depth": 16.0,
+      "queue_high_watermark": 16.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:30.417582+00:00",
+      "queue_depth": 16.0,
+      "queue_high_watermark": 16.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:32.619375+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:34.812798+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:37.001397+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 1,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:39.197814+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:41.387117+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:43.576139+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:45.770099+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 2,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 2,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:47.960454+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 2,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 2,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:50.152294+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 2,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 2,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:52.339625+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 2,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 2,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:54.536580+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 2,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 2,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:56.730884+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 2,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 2,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:31:58.921136+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 2,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 2,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:01.113966+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:03.308513+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:05.497548+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:07.702850+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:09.896535+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:12.087221+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:14.276743+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:16.497336+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:18.686950+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:20.883008+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:23.096566+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:25.289191+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:27.478707+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:29.669827+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:31.861362+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:34.050329+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:36.246354+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:38.433982+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:40.624845+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:42.816960+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:45.006558+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:47.206461+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:49.395159+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:51.591285+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:53.785052+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:55.976358+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:32:58.167518+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:00.358284+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:02.551436+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:04.754182+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:06.944246+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:09.134342+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:11.324796+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:13.528657+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:15.719514+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:17.912712+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:20.110067+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:22.301193+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:24.501156+00:00",
+      "queue_depth": 24.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:26.690057+00:00",
+      "queue_depth": 23.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:28.880422+00:00",
+      "queue_depth": 23.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:31.067767+00:00",
+      "queue_depth": 23.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:33.277758+00:00",
+      "queue_depth": 23.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:35.473316+00:00",
+      "queue_depth": 14.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:37.665497+00:00",
+      "queue_depth": 14.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:39.854360+00:00",
+      "queue_depth": 8.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:42.047145+00:00",
+      "queue_depth": 8.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:44.235980+00:00",
+      "queue_depth": 8.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:46.423328+00:00",
+      "queue_depth": 8.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:48.610415+00:00",
+      "queue_depth": 8.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:50.801627+00:00",
+      "queue_depth": 0.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    },
+    {
+      "at": "2026-08-20T19:33:52.998113+00:00",
+      "queue_depth": 0.0,
+      "queue_high_watermark": 24.0,
+      "replicas": {
+        "available_replicas": 3,
+        "desired_replicas": 3,
+        "generation": 2,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 3,
+        "replicas": 3
+      }
+    }
+  ],
+  "scenario": "saturation",
+  "started_at": "2026-08-20T19:31:17.167003+00:00",
+  "summary": {
+    "metrics": {
+      "checks": {
+        "contains": "default",
+        "thresholds": {
+          "rate>0.90": {
+            "ok": true
+          }
+        },
+        "type": "rate",
+        "values": {
+          "fails": 18,
+          "passes": 9510,
+          "rate": 0.9981108312342569
+        }
+      },
+      "data_received": {
+        "contains": "data",
+        "type": "counter",
+        "values": {
+          "count": 1601217,
+          "rate": 10674.630411280225
+        }
+      },
+      "data_sent": {
+        "contains": "data",
+        "type": "counter",
+        "values": {
+          "count": 21009176,
+          "rate": 140059.21061638655
+        }
+      },
+      "forge_http_200": {
+        "contains": "default",
+        "type": "counter",
+        "values": {
+          "count": 409,
+          "rate": 2.7266284571133155
+        }
+      },
+      "forge_http_429": {
+        "contains": "default",
+        "type": "counter",
+        "values": {
+          "count": 3799,
+          "rate": 25.326311756903387
+        }
+      },
+      "forge_http_503": {
+        "contains": "default",
+        "type": "counter",
+        "values": {
+          "count": 538,
+          "rate": 3.586616405689398
+        }
+      },
+      "forge_request_latency": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 2532.298776854958,
+          "max": 47934.914847,
+          "med": 0.248133,
+          "min": 0.1687,
+          "p(90)": 0.3789779999999998,
+          "p(95)": 30830.677494999993
+        }
+      },
+      "forge_retry_after_429": {
+        "contains": "default",
+        "type": "counter",
+        "values": {
+          "count": 3799,
+          "rate": 25.326311756903387
+        }
+      },
+      "http_req_blocked": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 0.12213063035264482,
+          "max": 30.14643,
+          "med": 0.1109185,
+          "min": 0.081149,
+          "p(90)": 0.1354893,
+          "p(95)": 0.1468788
+        }
+      },
+      "http_req_connecting": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 0.09276482115869013,
+          "max": 30.098992,
+          "med": 0.08263200000000001,
+          "min": 0.060624,
+          "p(90)": 0.1010028,
+          "p(95)": 0.10959594999999996
+        }
+      },
+      "http_req_duration": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 2532.298776854958,
+          "max": 47934.914847,
+          "med": 0.248133,
+          "min": 0.1687,
+          "p(90)": 0.3789779999999998,
+          "p(95)": 30830.677494999993
+        }
+      },
+      "http_req_duration{expected_response:true}": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 29492.97812984842,
+          "max": 47934.914847,
+          "med": 34242.068056,
+          "min": 2816.884906,
+          "p(90)": 45388.5208148,
+          "p(95)": 45610.1944708
+        }
+      },
+      "http_req_failed": {
+        "contains": "default",
+        "type": "rate",
+        "values": {
+          "fails": 409,
+          "passes": 4355,
+          "rate": 0.9141477749790092
+        }
+      },
+      "http_req_receiving": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 0.06570135453400486,
+          "max": 0.604843,
+          "med": 0.0442085,
+          "min": 0.018836,
+          "p(90)": 0.08408979999999999,
+          "p(95)": 0.27276764999999964
+        }
+      },
+      "http_req_sending": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 0.06617687195633934,
+          "max": 0.299506,
+          "med": 0.064643,
+          "min": 0.039175,
+          "p(90)": 0.0803517,
+          "p(95)": 0.08863874999999999
+        }
+      },
+      "http_req_tls_handshaking": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 0,
+          "max": 0,
+          "med": 0,
+          "min": 0,
+          "p(90)": 0,
+          "p(95)": 0
+        }
+      },
+      "http_req_waiting": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 2532.166898628464,
+          "max": 47934.543564,
+          "med": 0.1374875,
+          "min": 0.083371,
+          "p(90)": 0.23592669999999968,
+          "p(95)": 30830.370600599992
+        }
+      },
+      "http_reqs": {
+        "contains": "default",
+        "type": "counter",
+        "values": {
+          "count": 4764,
+          "rate": 31.759554938112064
+        }
+      },
+      "iteration_duration": {
+        "contains": "time",
+        "type": "trend",
+        "values": {
+          "avg": 2542.677266513855,
+          "max": 47945.304768,
+          "med": 10.588821,
+          "min": 10.424893,
+          "p(90)": 11.0141796,
+          "p(95)": 30841.238343399993
+        }
+      },
+      "iterations": {
+        "contains": "default",
+        "type": "counter",
+        "values": {
+          "count": 4764,
+          "rate": 31.759554938112064
+        }
+      },
+      "vus": {
+        "contains": "default",
+        "type": "gauge",
+        "values": {
+          "max": 118,
+          "min": 1,
+          "value": 37
+        }
+      },
+      "vus_max": {
+        "contains": "default",
+        "type": "gauge",
+        "values": {
+          "max": 128,
+          "min": 128,
+          "value": 128
+        }
+      }
+    },
+    "options": {
+      "noColor": false,
+      "summaryTimeUnit": "",
+      "summaryTrendStats": [
+        "avg",
+        "min",
+        "med",
+        "max",
+        "p(90)",
+        "p(95)"
+      ]
+    },
+    "root_group": {
+      "checks": [
+        {
+          "fails": 18,
+          "id": "24ec5da88e98a9a8483bb70d0d6c1b72",
+          "name": "expected HTTP contract",
+          "passes": 4746,
+          "path": "::expected HTTP contract"
+        },
+        {
+          "fails": 0,
+          "id": "e34e0b7e49750e1cb66b23f41a467c1b",
+          "name": "429 includes Retry-After",
+          "passes": 4764,
+          "path": "::429 includes Retry-After"
+        }
+      ],
+      "groups": [],
+      "id": "d41d8cd98f00b204e9800998ecf8427e",
+      "name": "",
+      "path": ""
+    },
+    "state": {
+      "isStdErrTTY": false,
+      "isStdOutTTY": false,
+      "testRunDurationMs": 150002.102022
+    }
+  },
+  "wall_seconds": 156.21888717299953
+}

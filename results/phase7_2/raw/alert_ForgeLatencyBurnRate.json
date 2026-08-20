@@ -1,0 +1,160 @@
+{
+  "alert": "ForgeLatencyBurnRate",
+  "all_alerts_at_capture": [
+    {
+      "activeAt": "2026-08-20T19:59:32.016370452Z",
+      "annotations": {
+        "runbook_url": "docs/runbooks/phase7_2.md#latency-burn",
+        "summary": "Frontier Forge p95 latency error budget is burning fast"
+      },
+      "labels": {
+        "alertname": "ForgeLatencyBurnRate",
+        "phase": "7.2",
+        "severity": "critical",
+        "slo": "p95_latency"
+      },
+      "state": "firing",
+      "value": "8.290598290598291e-01"
+    }
+  ],
+  "captured_at": "2026-08-20T20:00:49.905180+00:00",
+  "firing_payload": {
+    "activeAt": "2026-08-20T19:59:32.016370452Z",
+    "annotations": {
+      "runbook_url": "docs/runbooks/phase7_2.md#latency-burn",
+      "summary": "Frontier Forge p95 latency error budget is burning fast"
+    },
+    "labels": {
+      "alertname": "ForgeLatencyBurnRate",
+      "phase": "7.2",
+      "severity": "critical",
+      "slo": "p95_latency"
+    },
+    "state": "firing",
+    "value": "8.290598290598291e-01"
+  },
+  "injected_fault": "fault-latency",
+  "k6_counts": {
+    "forge_http_200": 573,
+    "forge_http_500": 0,
+    "forge_http_503": 8
+  },
+  "k6_receipt": "results/phase7_2/k6/forge-k6-fault-latency.json",
+  "phase": "7.2",
+  "restore": {
+    "at": "2026-08-20T20:00:51.491233+00:00",
+    "sha256": "4a63148319da81b72f9e2bc095dc367fa0c7c022a18699a6f5aae1eed4054722",
+    "variant": "stable"
+  },
+  "restored_verified_request": {
+    "attempts": [
+      {
+        "at": "2026-08-20T20:00:51.509935+00:00",
+        "body": {
+          "error": {
+            "code": "upstream_error",
+            "message": "Connection refused [system:111 at /usr/include/boost/asio/detail/reactive_socket_connect_op.hpp:98:5 in function 'static void boost::asio::detail::reactive_socket_connect_op<Handler, IoExecutor>::do_complete(void*, boost::asio::detail::operation*, const boost::system::error_code&, std::size_t)']",
+            "type": "gateway_error"
+          }
+        },
+        "elapsed_s": 0.0069440769984794315,
+        "forge_route": null,
+        "forge_upstream": null,
+        "http_status": 502,
+        "request_id": "p4-0088-5946494",
+        "retry_after": "1",
+        "verified": false
+      },
+      {
+        "at": "2026-08-20T20:00:54.023793+00:00",
+        "body": {
+          "error": {
+            "code": "upstream_error",
+            "message": "The socket was closed due to a timeout [boost.beast:1 at /usr/include/boost/beast/core/impl/basic_stream.hpp:577:21 in function 'void boost::beast::basic_stream< <template-parameter-1-1>, <template-parameter-1-2>, <template-parameter-1-3> >::ops::connect_op<Handler>::operator()(boost::beast::error_code, Args&& ...)']",
+            "type": "gateway_error"
+          }
+        },
+        "elapsed_s": 2.006892269000673,
+        "forge_route": null,
+        "forge_upstream": null,
+        "http_status": 504,
+        "request_id": "p4-0000-6014489",
+        "retry_after": "1",
+        "verified": false
+      },
+      {
+        "at": "2026-08-20T20:00:57.459817+00:00",
+        "elapsed_s": 2.92899138699795,
+        "forge_route": "primary",
+        "forge_upstream": "10.43.193.187:8000",
+        "http_status": 200,
+        "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Mr. Cooper Group Inc.\",\"issue\":\"Problem with a company's investigation into an existing problem\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Mr. Cooper Group Inc.\",\"issue\":\"Problem with a company's investigation into an existing problem\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}\n",
+        "request_id": "p4-0001-18490890",
+        "retry_after": null,
+        "verified": true,
+        "verifier": {
+          "decision_checks": {
+            "ambiguity_flag": true,
+            "tool_arguments_structural": true,
+            "tool_choice": true,
+            "urgency": true
+          },
+          "errors": [],
+          "json_valid": true,
+          "reward": 1.0,
+          "schema_valid": true,
+          "scorer_version": 2,
+          "secondary_metrics": {
+            "abstention_correct": true,
+            "company_normalized_match": true,
+            "issue_normalized_match": true,
+            "product_match": true,
+            "tool_arguments_semantic_valid": true
+          },
+          "task_success": true
+        },
+        "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Mr. Cooper Group Inc.\",\"issue\":\"Problem with a company's investigation into an existing problem\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Mr. Cooper Group Inc.\",\"issue\":\"Problem with a company's investigation into an existing problem\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+      }
+    ],
+    "successful": {
+      "at": "2026-08-20T20:00:57.459817+00:00",
+      "elapsed_s": 2.92899138699795,
+      "forge_route": "primary",
+      "forge_upstream": "10.43.193.187:8000",
+      "http_status": 200,
+      "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Mr. Cooper Group Inc.\",\"issue\":\"Problem with a company's investigation into an existing problem\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Mr. Cooper Group Inc.\",\"issue\":\"Problem with a company's investigation into an existing problem\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}\n",
+      "request_id": "p4-0001-18490890",
+      "retry_after": null,
+      "verified": true,
+      "verifier": {
+        "decision_checks": {
+          "ambiguity_flag": true,
+          "tool_arguments_structural": true,
+          "tool_choice": true,
+          "urgency": true
+        },
+        "errors": [],
+        "json_valid": true,
+        "reward": 1.0,
+        "schema_valid": true,
+        "scorer_version": 2,
+        "secondary_metrics": {
+          "abstention_correct": true,
+          "company_normalized_match": true,
+          "issue_normalized_match": true,
+          "product_match": true,
+          "tool_arguments_semantic_valid": true
+        },
+        "task_success": true
+      },
+      "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Mr. Cooper Group Inc.\",\"issue\":\"Problem with a company's investigation into an existing problem\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"company\":\"Mr. Cooper Group Inc.\",\"issue\":\"Problem with a company's investigation into an existing problem\"},\"name\":\"route_to_company\"},\"urgency\":\"low\"}"
+    }
+  },
+  "router_config": {
+    "at": "2026-08-20T19:58:16.179399+00:00",
+    "sha256": "47bf581164d84cbdd6fd783dd189edbacd2046490205056d68c52ade152ce674",
+    "variant": "fault-latency"
+  },
+  "status": "complete",
+  "version": 1
+}

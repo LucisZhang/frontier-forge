@@ -1,0 +1,7 @@
+{
+  "captured_at": "2026-08-20T18:09:30.035808+00:00",
+  "k6_receipt": "results/phase7_2/k6/forge-k6-smoke.json",
+  "phase": "7.2",
+  "status": "complete",
+  "version": 1
+}

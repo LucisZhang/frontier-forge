@@ -1,0 +1,1 @@
+{"kind":"MetricValueList","apiVersion":"custom.metrics.k8s.io/v1beta1","metadata":{},"items":[{"describedObject":{"kind":"Pod","namespace":"forge-system","name":"forge-gateway-7bd85bb8cc-pxhqr","apiVersion":"/v1"},"metricName":"forge_gateway_queue_depth","timestamp":"2026-08-20T18:15:26Z","value":"0","selector":null}]}

@@ -1,0 +1,51 @@
+{
+  "alert": "ForgeAvailabilityBurnRate",
+  "all_alerts_at_capture": [
+    {
+      "activeAt": "2026-08-20T19:43:27.016370452Z",
+      "annotations": {
+        "runbook_url": "docs/runbooks/phase7_2.md#availability-burn",
+        "summary": "Frontier Forge availability error budget is burning fast"
+      },
+      "labels": {
+        "alertname": "ForgeAvailabilityBurnRate",
+        "phase": "7.2",
+        "severity": "critical",
+        "slo": "availability"
+      },
+      "state": "firing",
+      "value": "1e+00"
+    }
+  ],
+  "captured_at": "2026-08-20T19:45:44.780005+00:00",
+  "firing_payload": {
+    "activeAt": "2026-08-20T19:43:27.016370452Z",
+    "annotations": {
+      "runbook_url": "docs/runbooks/phase7_2.md#availability-burn",
+      "summary": "Frontier Forge availability error budget is burning fast"
+    },
+    "labels": {
+      "alertname": "ForgeAvailabilityBurnRate",
+      "phase": "7.2",
+      "severity": "critical",
+      "slo": "availability"
+    },
+    "state": "firing",
+    "value": "1e+00"
+  },
+  "injected_fault": "fault-500",
+  "k6_counts": {
+    "forge_http_200": 0,
+    "forge_http_500": 64,
+    "forge_http_503": 371
+  },
+  "k6_receipt": "results/phase7_2/k6/forge-k6-fault-availability.json",
+  "phase": "7.2",
+  "router_config": {
+    "at": "2026-08-20T19:43:15.347764+00:00",
+    "sha256": "0b35342a42a8a70117e6da96993e405621f78a28ee2544ade91d2a89e63340e5",
+    "variant": "fault-500"
+  },
+  "status": "complete",
+  "version": 1
+}

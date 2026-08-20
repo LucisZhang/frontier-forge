@@ -1,0 +1,13 @@
+Release "prometheus-adapter" does not exist. Installing it now.
+NAME: prometheus-adapter
+LAST DEPLOYED: Fri Aug 21 01:38:52 2026
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+NOTES:
+prometheus-adapter has been deployed.
+In a few minutes you should be able to list metrics using the following command(s):
+
+  kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1

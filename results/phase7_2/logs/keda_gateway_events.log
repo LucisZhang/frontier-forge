@@ -1,0 +1,222 @@
+LAST SEEN   TYPE      REASON                       OBJECT                                           MESSAGE
+12m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-7grkb                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-7grkb to frontier-forge-a10-j
+12m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+32m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-hbn97                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-hbn97 to frontier-forge-a10-j
+34m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-bh5sx                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-bh5sx to frontier-forge-a10-j
+32m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+32m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+30m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+2m32s       Normal    Scheduled                    pod/forge-gateway-7bd85bb8cc-jkwss               Successfully assigned forge-system/forge-gateway-7bd85bb8cc-jkwss to frontier-forge-a10-j
+2m32s       Normal    Scheduled                    pod/forge-gateway-7bd85bb8cc-668nn               Successfully assigned forge-system/forge-gateway-7bd85bb8cc-668nn to frontier-forge-a10-j
+30m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+14m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-hfl66                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-hfl66 to frontier-forge-a10-j
+16m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-kmtcr                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-kmtcr to frontier-forge-a10-j
+21m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-7fw5w                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-7fw5w to frontier-forge-a10-j
+10m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+28m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+52m         Normal    Scheduled                    pod/vllm-router-7bb55667c9-kt7bj                 Successfully assigned forge-system/vllm-router-7bb55667c9-kt7bj to frontier-forge-a10-j
+28m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-lkpkn                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-lkpkn to frontier-forge-a10-j
+5m27s       Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-9mnpx                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-9mnpx to frontier-forge-a10-j
+19m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-zr6c7                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-zr6c7 to frontier-forge-a10-j
+10m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+52m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+2m52s       Normal    Scheduled                    pod/forge-k6-saturation-tzcn2                    Successfully assigned forge-system/forge-k6-saturation-tzcn2 to frontier-forge-a10-j
+30m         Normal    Scheduled                    pod/vllm-router-6c659c7968-l69r6                 Successfully assigned forge-system/vllm-router-6c659c7968-l69r6 to frontier-forge-a10-j
+23m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-84br4                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-84br4 to frontier-forge-a10-j
+28m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+26m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+26m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+26m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-6vjlz                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-6vjlz to frontier-forge-a10-j
+39m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+23m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+23m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+30m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-74nzj                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-74nzj to frontier-forge-a10-j
+21m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+21m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+19m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+19m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+17m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+16m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+7m43s       Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-72l7s                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-72l7s to frontier-forge-a10-j
+39m         Normal    Scheduled                    pod/vllm-int4-6c55d9f669-x29w9                   Successfully assigned forge-system/vllm-int4-6c55d9f669-x29w9 to frontier-forge-a10-j
+14m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+14m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+34m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+12m         Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+37m         Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+7m53s       Normal    KEDAScaleTargetDeactivated   scaledobject/vllm-int4                           Deactivated apps/v1.Deployment forge-system/vllm-int4 from 1 to 0
+7m43s       Normal    KEDAScaleTargetActivated     scaledobject/vllm-int4                           Scaled apps/v1.Deployment forge-system/vllm-int4 from 0 to 1, triggered by s0-prometheus
+10m         Normal    Scheduled                    pod/vllm-int4-6fdd7c4c4f-48vvk                   Successfully assigned forge-system/vllm-int4-6fdd7c4c4f-48vvk to frontier-forge-a10-j
+34m         Normal    Scheduled                    pod/vllm-router-5b54cf7794-n685d                 Successfully assigned forge-system/vllm-router-5b54cf7794-n685d to frontier-forge-a10-j
+52m         Normal    ScalingReplicaSet            deployment/vllm-router                           Scaled up replica set vllm-router-7bb55667c9 from 0 to 1
+52m         Normal    SuccessfulCreate             replicaset/vllm-router-7bb55667c9                Created pod: vllm-router-7bb55667c9-kt7bj
+52m         Normal    Pulled                       pod/vllm-router-7bb55667c9-kt7bj                 Container image "nginx:1.29.1-alpine" already present on machine and can be accessed by the pod
+52m         Normal    SuccessfulDelete             replicaset/vllm-router-599b74f976                Deleted pod: vllm-router-599b74f976-8rmkm
+52m         Normal    Killing                      pod/vllm-router-599b74f976-8rmkm                 Stopping container router
+52m         Normal    ScalingReplicaSet            deployment/vllm-router                           Scaled down replica set vllm-router-599b74f976 from 1 to 0
+52m         Normal    Started                      pod/vllm-router-7bb55667c9-kt7bj                 Container started
+52m         Normal    Created                      pod/vllm-router-7bb55667c9-kt7bj                 Container created
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-6mfkr" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-5hxj2" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+52m         Normal    ScalingReplicaSet            deployment/vllm-int4                             Scaled up replica set vllm-int4-69b688cb98 from 0 to 1
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-8hrbz" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-cxq9r" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-t9cpz" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-8sbrk" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-grqz6" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-x4tm9" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+52m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  Error creating: pods "vllm-int4-69b688cb98-tcd7c" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+41m         Warning   FailedCreate                 replicaset/vllm-int4-69b688cb98                  (combined from similar events): Error creating: pods "vllm-int4-69b688cb98-bgwmx" is forbidden: violates PodSecurity "baseline:latest": hostPath volumes (volumes "checkpoints", "hf-archive")
+39m         Normal    ScalingReplicaSet            deployment/vllm-int4                             Scaled down replica set vllm-int4-69b688cb98 from 1 to 0
+39m         Normal    ScalingReplicaSet            deployment/vllm-int4                             Scaled up replica set vllm-int4-6c55d9f669 from 0 to 1
+39m         Normal    Pulled                       pod/vllm-int4-6c55d9f669-x29w9                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+39m         Normal    Created                      pod/vllm-int4-6c55d9f669-x29w9                   Container created
+39m         Normal    SuccessfulCreate             replicaset/vllm-int4-6c55d9f669                  Created pod: vllm-int4-6c55d9f669-x29w9
+39m         Normal    Started                      pod/vllm-int4-6c55d9f669-x29w9                   Container started
+39m         Warning   Unhealthy                    pod/vllm-int4-6c55d9f669-x29w9                   Startup probe failed: Get "http://10.42.0.75:8000/health": dial tcp 10.42.0.75:8000: connect: connection refused
+37m         Normal    ScalingReplicaSet            deployment/vllm-int4                             Scaled down replica set vllm-int4-6c55d9f669 from 1 to 0
+37m         Normal    Killing                      pod/vllm-int4-6c55d9f669-x29w9                   Stopping container vllm
+37m         Normal    SuccessfulDelete             replicaset/vllm-int4-6c55d9f669                  Deleted pod: vllm-int4-6c55d9f669-x29w9
+34m         Normal    SuccessfulCreate             replicaset/vllm-router-5b54cf7794                Created pod: vllm-router-5b54cf7794-n685d
+34m         Normal    ScalingReplicaSet            deployment/vllm-router                           Scaled up replica set vllm-router-5b54cf7794 from 0 to 1
+34m         Normal    Started                      pod/vllm-router-5b54cf7794-n685d                 Container started
+34m         Normal    ScalingReplicaSet            deployment/vllm-router                           Scaled down replica set vllm-router-7bb55667c9 from 1 to 0
+34m         Normal    SuccessfulDelete             replicaset/vllm-router-7bb55667c9                Deleted pod: vllm-router-7bb55667c9-kt7bj
+34m         Normal    Pulled                       pod/vllm-router-5b54cf7794-n685d                 Container image "nginx:1.29.1-alpine" already present on machine and can be accessed by the pod
+34m         Normal    Created                      pod/vllm-router-5b54cf7794-n685d                 Container created
+34m         Warning   Unhealthy                    pod/vllm-router-5b54cf7794-n685d                 Readiness probe failed: dial tcp 10.42.0.76:8080: connect: connection refused
+34m         Normal    Killing                      pod/vllm-router-7bb55667c9-kt7bj                 Stopping container router
+34m         Warning   Unhealthy                    pod/vllm-router-7bb55667c9-kt7bj                 Readiness probe failed: dial tcp 10.42.0.74:8080: connect: connection refused
+34m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-bh5sx
+34m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-bh5sx                   Container created
+34m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-bh5sx                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+34m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-bh5sx                   Container started
+33m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-bh5sx                   Startup probe failed: Get "http://10.42.0.77:8000/health": dial tcp 10.42.0.77:8000: connect: connection refused
+32m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-bh5sx                   Stopping container vllm
+32m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-bh5sx
+32m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-hbn97
+32m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-hbn97                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+32m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-hbn97                   Container created
+32m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-hbn97                   Container started
+31m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-hbn97                   Startup probe failed: Get "http://10.42.0.78:8000/health": dial tcp 10.42.0.78:8000: connect: connection refused
+31m         Normal    SuccessfulCreate             replicaset/vllm-router-6c659c7968                Created pod: vllm-router-6c659c7968-l69r6
+31m         Normal    ScalingReplicaSet            deployment/vllm-router                           Scaled up replica set vllm-router-6c659c7968 from 0 to 1
+30m         Warning   Unhealthy                    pod/vllm-router-6c659c7968-l69r6                 Readiness probe failed: dial tcp 10.42.0.79:8080: connect: connection refused
+30m         Normal    Started                      pod/vllm-router-6c659c7968-l69r6                 Container started
+30m         Normal    Created                      pod/vllm-router-6c659c7968-l69r6                 Container created
+30m         Normal    Pulled                       pod/vllm-router-6c659c7968-l69r6                 Container image "nginx:1.29.1-alpine" already present on machine and can be accessed by the pod
+30m         Normal    SuccessfulDelete             replicaset/vllm-router-5b54cf7794                Deleted pod: vllm-router-5b54cf7794-n685d
+30m         Normal    Killing                      pod/vllm-router-5b54cf7794-n685d                 Stopping container router
+30m         Normal    ScalingReplicaSet            deployment/vllm-router                           Scaled down replica set vllm-router-5b54cf7794 from 1 to 0
+30m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-hbn97                   Stopping container vllm
+30m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-hbn97
+30m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-hbn97                   Readiness probe failed: Get "http://10.42.0.78:8000/health": dial tcp 10.42.0.78:8000: connect: connection refused
+30m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-74nzj
+30m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-74nzj                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+30m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-74nzj                   Container created
+30m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-74nzj                   Container started
+29m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-74nzj                   Startup probe failed: Get "http://10.42.0.80:8000/health": dial tcp 10.42.0.80:8000: connect: connection refused
+28m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-74nzj
+28m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-74nzj                   Readiness probe failed: Get "http://10.42.0.80:8000/health": read tcp 10.42.0.1:58696->10.42.0.80:8000: read: connection reset by peer
+28m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-74nzj                   Stopping container vllm
+28m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-lkpkn
+28m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-lkpkn                   Container created
+28m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-lkpkn                   Container started
+28m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-lkpkn                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+27m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-lkpkn                   Startup probe failed: Get "http://10.42.0.81:8000/health": dial tcp 10.42.0.81:8000: connect: connection refused
+26m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-lkpkn
+26m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-lkpkn                   Stopping container vllm
+26m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-6vjlz
+26m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-6vjlz                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+26m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-6vjlz                   Container created
+26m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-6vjlz                   Container started
+25m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-6vjlz                   Startup probe failed: Get "http://10.42.0.82:8000/health": dial tcp 10.42.0.82:8000: connect: connection refused
+23m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-6vjlz                   Stopping container vllm
+23m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-6vjlz
+23m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-6vjlz                   Readiness probe failed: Get "http://10.42.0.82:8000/health": dial tcp 10.42.0.82:8000: connect: connection refused
+23m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-84br4
+23m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-84br4                   Container created
+23m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-84br4                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+23m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-84br4                   Container started
+23m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-84br4                   Startup probe failed: Get "http://10.42.0.83:8000/health": dial tcp 10.42.0.83:8000: connect: connection refused
+21m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-84br4
+21m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-84br4                   Stopping container vllm
+21m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-7fw5w
+21m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-7fw5w                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+21m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-7fw5w                   Container started
+21m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-7fw5w                   Container created
+20m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-7fw5w                   Startup probe failed: Get "http://10.42.0.84:8000/health": dial tcp 10.42.0.84:8000: connect: connection refused
+19m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-7fw5w                   Stopping container vllm
+19m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-7fw5w
+19m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-zr6c7
+19m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-zr6c7                   Container started
+19m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-zr6c7                   Container created
+19m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-zr6c7                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+18m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-zr6c7                   Startup probe failed: Get "http://10.42.0.85:8000/health": dial tcp 10.42.0.85:8000: connect: connection refused
+17m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-zr6c7
+17m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-zr6c7                   Stopping container vllm
+16m         Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  Created pod: vllm-int4-6fdd7c4c4f-kmtcr
+16m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-kmtcr                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+16m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-kmtcr                   Container started
+16m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-kmtcr                   Container created
+16m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-kmtcr                   Startup probe failed: Get "http://10.42.0.86:8000/health": dial tcp 10.42.0.86:8000: connect: connection refused
+14m         Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  Deleted pod: vllm-int4-6fdd7c4c4f-kmtcr
+14m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-kmtcr                   Stopping container vllm
+14m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-kmtcr                   Readiness probe failed: Get "http://10.42.0.86:8000/health": dial tcp 10.42.0.86:8000: connect: connection refused
+14m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-hfl66                   Container started
+14m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-hfl66                   Container created
+14m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-hfl66                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+13m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-hfl66                   Startup probe failed: Get "http://10.42.0.87:8000/health": dial tcp 10.42.0.87:8000: connect: connection refused
+12m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-hfl66                   Stopping container vllm
+12m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-7grkb                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+12m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-7grkb                   Container created
+12m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-7grkb                   Container started
+11m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-7grkb                   Startup probe failed: Get "http://10.42.0.88:8000/health": dial tcp 10.42.0.88:8000: connect: connection refused
+10m         Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-7grkb                   Stopping container vllm
+10m         Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-7grkb                   Readiness probe failed: Get "http://10.42.0.88:8000/health": dial tcp 10.42.0.88:8000: connect: connection refused
+10m         Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-48vvk                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+10m         Normal    Created                      pod/vllm-int4-6fdd7c4c4f-48vvk                   Container created
+10m         Normal    Started                      pod/vllm-int4-6fdd7c4c4f-48vvk                   Container started
+9m17s       Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-48vvk                   Startup probe failed: Get "http://10.42.0.89:8000/health": dial tcp 10.42.0.89:8000: connect: connection refused
+7m54s       Normal    SuccessfulDelete             replicaset/vllm-int4-6fdd7c4c4f                  (combined from similar events): Deleted pod: vllm-int4-6fdd7c4c4f-48vvk
+7m54s       Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-48vvk                   Stopping container vllm
+7m54s       Normal    ScalingReplicaSet            deployment/vllm-int4                             Scaled down replica set vllm-int4-6fdd7c4c4f from 1 to 0
+7m53s       Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-48vvk                   Readiness probe failed: Get "http://10.42.0.89:8000/health": dial tcp 10.42.0.89:8000: connect: connection refused
+7m44s       Normal    ScalingReplicaSet            deployment/vllm-int4                             Scaled up replica set vllm-int4-6fdd7c4c4f from 0 to 1
+7m43s       Normal    Created                      pod/vllm-int4-6fdd7c4c4f-72l7s                   Container created
+7m43s       Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-72l7s                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+7m43s       Normal    Started                      pod/vllm-int4-6fdd7c4c4f-72l7s                   Container started
+6m57s       Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-72l7s                   Startup probe failed: Get "http://10.42.0.90:8000/health": dial tcp 10.42.0.90:8000: connect: connection refused
+5m28s       Normal    Killing                      pod/vllm-int4-6fdd7c4c4f-72l7s                   Stopping container vllm
+5m28s       Normal    Pulled                       pod/vllm-int4-6fdd7c4c4f-9mnpx                   Container image "vllm/vllm-openai:v0.17.0" already present on machine and can be accessed by the pod
+5m28s       Normal    Created                      pod/vllm-int4-6fdd7c4c4f-9mnpx                   Container created
+5m28s       Normal    SuccessfulCreate             replicaset/vllm-int4-6fdd7c4c4f                  (combined from similar events): Created pod: vllm-int4-6fdd7c4c4f-9mnpx
+5m27s       Normal    Started                      pod/vllm-int4-6fdd7c4c4f-9mnpx                   Container started
+5m27s       Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-72l7s                   Readiness probe failed: Get "http://10.42.0.90:8000/health": dial tcp 10.42.0.90:8000: connect: connection refused
+4m42s       Warning   Unhealthy                    pod/vllm-int4-6fdd7c4c4f-9mnpx                   Startup probe failed: Get "http://10.42.0.91:8000/health": dial tcp 10.42.0.91:8000: connect: connection refused
+2m53s       Normal    SuccessfulCreate             job/forge-k6-saturation                          Created pod: forge-k6-saturation-tzcn2
+2m52s       Normal    Created                      pod/forge-k6-saturation-tzcn2                    Container created
+2m52s       Normal    Pulled                       pod/forge-k6-saturation-tzcn2                    Container image "grafana/k6:2.2.0" already present on machine and can be accessed by the pod
+2m52s       Normal    Started                      pod/forge-k6-saturation-tzcn2                    Container started
+2m47s       Warning   Unhealthy                    pod/forge-gateway-7bd85bb8cc-pxhqr               Readiness probe failed: HTTP probe failed with statuscode: 503
+2m32s       Normal    ScalingReplicaSet            deployment/forge-gateway                         Scaled up replica set forge-gateway-7bd85bb8cc from 1 to 3
+2m32s       Normal    Started                      pod/forge-gateway-7bd85bb8cc-jkwss               Container started
+2m32s       Normal    Pulled                       pod/forge-gateway-7bd85bb8cc-668nn               Container image "frontier-forge/gateway:phase7-2" already present on machine and can be accessed by the pod
+2m32s       Normal    SuccessfulRescale            horizontalpodautoscaler/keda-hpa-forge-gateway   New size: 3; reason: external metric s0-prometheus(&LabelSelector{MatchLabels:map[string]string{scaledobject.keda.sh/name: forge-gateway,},MatchExpressions:[]LabelSelectorRequirement{},}) above target
+2m32s       Normal    Created                      pod/forge-gateway-7bd85bb8cc-668nn               Container created
+2m32s       Normal    Started                      pod/forge-gateway-7bd85bb8cc-668nn               Container started
+2m32s       Normal    SuccessfulCreate             replicaset/forge-gateway-7bd85bb8cc              Created pod: forge-gateway-7bd85bb8cc-jkwss
+2m32s       Normal    SuccessfulCreate             replicaset/forge-gateway-7bd85bb8cc              Created pod: forge-gateway-7bd85bb8cc-668nn
+2m32s       Normal    Pulled                       pod/forge-gateway-7bd85bb8cc-jkwss               Container image "frontier-forge/gateway:phase7-2" already present on machine and can be accessed by the pod
+2m32s       Normal    Created                      pod/forge-gateway-7bd85bb8cc-jkwss               Container created
+2m24s       Warning   Unhealthy                    pod/forge-gateway-7bd85bb8cc-jkwss               Readiness probe failed: HTTP probe failed with statuscode: 503
+2m12s       Warning   Unhealthy                    pod/forge-gateway-7bd85bb8cc-668nn               Readiness probe failed: HTTP probe failed with statuscode: 503
+18s         Normal    Completed                    job/forge-k6-saturation                          Job completed
+2s          Normal    Killing                      pod/forge-gateway-7bd85bb8cc-jkwss               Stopping container gateway
+2s          Warning   Unhealthy                    pod/forge-gateway-7bd85bb8cc-jkwss               Readiness probe failed: Get "http://10.42.0.94:9000/readyz": dial tcp 10.42.0.94:9000: connect: connection refused
+2s          Normal    SuccessfulRescale            horizontalpodautoscaler/keda-hpa-forge-gateway   New size: 1; reason: All metrics below target
+2s          Warning   Unhealthy                    pod/forge-gateway-7bd85bb8cc-668nn               Readiness probe failed: Get "http://10.42.0.93:9000/readyz": dial tcp 10.42.0.93:9000: connect: connection refused
+2s          Normal    Killing                      pod/forge-gateway-7bd85bb8cc-668nn               Stopping container gateway
+2s          Normal    SuccessfulDelete             replicaset/forge-gateway-7bd85bb8cc              Deleted pod: forge-gateway-7bd85bb8cc-668nn
+2s          Normal    SuccessfulDelete             replicaset/forge-gateway-7bd85bb8cc              Deleted pod: forge-gateway-7bd85bb8cc-jkwss
+2s          Normal    ScalingReplicaSet            deployment/forge-gateway                         Scaled down replica set forge-gateway-7bd85bb8cc from 3 to 1

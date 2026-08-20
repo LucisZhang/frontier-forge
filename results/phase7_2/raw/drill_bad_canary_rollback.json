@@ -1,0 +1,1888 @@
+{
+  "checks": {
+    "all_promotion_guards_passed": true,
+    "availability_alert_fired": true,
+    "canary_100_bf16_only": true,
+    "canary_10_both_and_stable_majority": true,
+    "canary_50_both": true,
+    "coexisting_ready": true,
+    "promoted_bf16_verified": true,
+    "rollback_verified": true
+  },
+  "coexistence": {
+    "at": "2026-08-20T19:41:31.827653+00:00",
+    "bf16": {
+      "available_replicas": 1,
+      "desired_replicas": 1,
+      "generation": 7,
+      "image": "vllm/vllm-openai:v0.17.0",
+      "name": "vllm-bf16",
+      "ready_replicas": 1,
+      "replicas": 1
+    },
+    "int4": {
+      "available_replicas": 1,
+      "desired_replicas": 1,
+      "generation": 32,
+      "image": "vllm/vllm-openai:v0.17.0",
+      "name": "vllm-int4",
+      "ready_replicas": 1,
+      "replicas": 1
+    },
+    "nvidia_smi": "177068, 8122, VLLM::EngineCore\n190439, 12824, VLLM::EngineCore",
+    "pods": {
+      "apiVersion": "v1",
+      "items": [
+        {
+          "apiVersion": "v1",
+          "kind": "Pod",
+          "metadata": {
+            "creationTimestamp": "2026-08-20T19:40:40Z",
+            "generateName": "vllm-bf16-f765578c-",
+            "generation": 1,
+            "labels": {
+              "app.kubernetes.io/name": "vllm-bf16",
+              "forge.openai.com/precision": "bf16",
+              "pod-template-hash": "f765578c"
+            },
+            "name": "vllm-bf16-f765578c-tfm8m",
+            "namespace": "forge-system",
+            "ownerReferences": [
+              {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "vllm-bf16-f765578c",
+                "uid": "15438a3b-fe75-495c-9c3b-9cd0b2a25ab6"
+              }
+            ],
+            "resourceVersion": "12109",
+            "uid": "d2a8a39f-1093-48c2-8f09-bfa55ca3407b"
+          },
+          "spec": {
+            "automountServiceAccountToken": false,
+            "containers": [
+              {
+                "args": [
+                  "/mnt/frontier-forge/repo/checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved",
+                  "--served-model-name",
+                  "forge-r1b",
+                  "--host",
+                  "0.0.0.0",
+                  "--port",
+                  "8000",
+                  "--max-model-len",
+                  "4096",
+                  "--max-num-seqs",
+                  "8",
+                  "--dtype",
+                  "bfloat16",
+                  "--gpu-memory-utilization",
+                  "0.56",
+                  "--generation-config",
+                  "vllm",
+                  "--language-model-only",
+                  "--no-enable-log-requests",
+                  "--enable-request-id-headers",
+                  "--enable-auto-tool-choice",
+                  "--tool-call-parser",
+                  "hermes",
+                  "--structured-outputs-config",
+                  "{\"backend\":\"auto\",\"disable_fallback\":false}",
+                  "--enforce-eager"
+                ],
+                "env": [
+                  {
+                    "name": "HF_HUB_OFFLINE",
+                    "value": "1"
+                  },
+                  {
+                    "name": "HF_HOME",
+                    "value": "/cache/huggingface"
+                  },
+                  {
+                    "name": "VLLM_CACHE_ROOT",
+                    "value": "/cache/vllm"
+                  },
+                  {
+                    "name": "TMPDIR",
+                    "value": "/cache/tmp"
+                  }
+                ],
+                "image": "vllm/vllm-openai:v0.17.0",
+                "imagePullPolicy": "IfNotPresent",
+                "livenessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 20,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 2
+                },
+                "name": "vllm",
+                "ports": [
+                  {
+                    "containerPort": 8000,
+                    "name": "http",
+                    "protocol": "TCP"
+                  }
+                ],
+                "readinessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 2,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 1
+                },
+                "resources": {
+                  "limits": {
+                    "cpu": "8",
+                    "memory": "24Gi",
+                    "nvidia.com/gpu.shared": "1"
+                  },
+                  "requests": {
+                    "cpu": "2",
+                    "memory": "10Gi",
+                    "nvidia.com/gpu.shared": "1"
+                  }
+                },
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
+                  },
+                  "privileged": false
+                },
+                "startupProbe": {
+                  "failureThreshold": 360,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 2,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 1
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/dev/shm",
+                    "name": "dshm"
+                  },
+                  {
+                    "mountPath": "/mnt/frontier-forge/repo/checkpoints",
+                    "name": "checkpoints",
+                    "readOnly": true
+                  },
+                  {
+                    "mountPath": "/mnt/frontier-forge/cache/huggingface",
+                    "name": "hf-archive",
+                    "readOnly": true
+                  },
+                  {
+                    "mountPath": "/cache",
+                    "name": "cache"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "enableServiceLinks": false,
+            "nodeName": "frontier-forge-a10-j",
+            "preemptionPolicy": "PreemptLowerPriority",
+            "priority": 0,
+            "restartPolicy": "Always",
+            "runtimeClassName": "nvidia",
+            "schedulerName": "default-scheduler",
+            "securityContext": {
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
+            "serviceAccount": "default",
+            "serviceAccountName": "default",
+            "terminationGracePeriodSeconds": 30,
+            "tolerations": [
+              {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+              },
+              {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+              }
+            ],
+            "volumes": [
+              {
+                "emptyDir": {
+                  "medium": "Memory",
+                  "sizeLimit": "2Gi"
+                },
+                "name": "dshm"
+              },
+              {
+                "name": "checkpoints",
+                "persistentVolumeClaim": {
+                  "claimName": "forge-model-checkpoints",
+                  "readOnly": true
+                }
+              },
+              {
+                "name": "hf-archive",
+                "persistentVolumeClaim": {
+                  "claimName": "forge-huggingface-archive",
+                  "readOnly": true
+                }
+              },
+              {
+                "emptyDir": {},
+                "name": "cache"
+              }
+            ]
+          },
+          "status": {
+            "allocatedResources": {
+              "cpu": "2",
+              "memory": "10Gi",
+              "nvidia.com/gpu.shared": "1"
+            },
+            "conditions": [
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:40:41Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "PodReadyToStartContainers"
+              },
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:40:40Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "Initialized"
+              },
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:41:27Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "Ready"
+              },
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:41:27Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "ContainersReady"
+              },
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:40:40Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "PodScheduled"
+              }
+            ],
+            "containerStatuses": [
+              {
+                "allocatedResources": {
+                  "cpu": "2",
+                  "memory": "10Gi",
+                  "nvidia.com/gpu.shared": "1"
+                },
+                "allocatedResourcesStatus": [
+                  {
+                    "name": "nvidia.com/gpu.shared",
+                    "resources": [
+                      {
+                        "health": "Healthy",
+                        "resourceID": "GPU-6eb4e994-4829-46de-0eec-ce87b59d3122::0"
+                      }
+                    ]
+                  }
+                ],
+                "containerID": "containerd://03d538c66c688edb5367bb895d92e02a9d3d3c2c8802474d9cb8472e7f5c59b5",
+                "image": "docker.io/vllm/vllm-openai:i-was-a-digest",
+                "imageID": "sha256:700d8ac4f37a3f2975b79e67406d7f2689bdd8c87e3e7a62721bf03921940935",
+                "lastState": {},
+                "name": "vllm",
+                "ready": true,
+                "resources": {
+                  "limits": {
+                    "cpu": "8",
+                    "memory": "24Gi",
+                    "nvidia.com/gpu.shared": "1"
+                  },
+                  "requests": {
+                    "cpu": "2",
+                    "memory": "10Gi",
+                    "nvidia.com/gpu.shared": "1"
+                  }
+                },
+                "restartCount": 0,
+                "started": true,
+                "state": {
+                  "running": {
+                    "startedAt": "2026-08-20T19:40:41Z"
+                  }
+                },
+                "user": {
+                  "linux": {
+                    "gid": 0,
+                    "supplementalGroups": [
+                      0
+                    ],
+                    "uid": 0
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/dev/shm",
+                    "name": "dshm"
+                  },
+                  {
+                    "mountPath": "/mnt/frontier-forge/repo/checkpoints",
+                    "name": "checkpoints",
+                    "readOnly": true,
+                    "recursiveReadOnly": "Disabled"
+                  },
+                  {
+                    "mountPath": "/mnt/frontier-forge/cache/huggingface",
+                    "name": "hf-archive",
+                    "readOnly": true,
+                    "recursiveReadOnly": "Disabled"
+                  },
+                  {
+                    "mountPath": "/cache",
+                    "name": "cache"
+                  }
+                ]
+              }
+            ],
+            "hostIP": "172.21.67.191",
+            "hostIPs": [
+              {
+                "ip": "172.21.67.191"
+              }
+            ],
+            "observedGeneration": 1,
+            "phase": "Running",
+            "podIP": "10.42.0.100",
+            "podIPs": [
+              {
+                "ip": "10.42.0.100"
+              }
+            ],
+            "qosClass": "Burstable",
+            "resources": {
+              "limits": {
+                "cpu": "8",
+                "memory": "24Gi"
+              },
+              "requests": {
+                "cpu": "1999m",
+                "memory": "10Gi"
+              }
+            },
+            "startTime": "2026-08-20T19:40:40Z"
+          }
+        },
+        {
+          "apiVersion": "v1",
+          "kind": "Pod",
+          "metadata": {
+            "creationTimestamp": "2026-08-20T19:28:42Z",
+            "generateName": "vllm-int4-6fdd7c4c4f-",
+            "generation": 1,
+            "labels": {
+              "app.kubernetes.io/name": "vllm-int4",
+              "forge.openai.com/precision": "gptq-int4",
+              "pod-template-hash": "6fdd7c4c4f"
+            },
+            "name": "vllm-int4-6fdd7c4c4f-9mnpx",
+            "namespace": "forge-system",
+            "ownerReferences": [
+              {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "vllm-int4-6fdd7c4c4f",
+                "uid": "a5496616-c1db-418e-9c95-65d39bd1a7c1"
+              }
+            ],
+            "resourceVersion": "10889",
+            "uid": "60240ea3-99f0-49d5-88bf-d1da53849a24"
+          },
+          "spec": {
+            "automountServiceAccountToken": false,
+            "containers": [
+              {
+                "args": [
+                  "/mnt/frontier-forge/repo/checkpoints/full/r1b/trl/s0/export/gptq_int4",
+                  "--served-model-name",
+                  "forge-r1b",
+                  "--host",
+                  "0.0.0.0",
+                  "--port",
+                  "8000",
+                  "--max-model-len",
+                  "4096",
+                  "--max-num-seqs",
+                  "8",
+                  "--dtype",
+                  "float16",
+                  "--gpu-memory-utilization",
+                  "0.32",
+                  "--generation-config",
+                  "vllm",
+                  "--language-model-only",
+                  "--no-enable-log-requests",
+                  "--enable-request-id-headers",
+                  "--enable-auto-tool-choice",
+                  "--tool-call-parser",
+                  "hermes",
+                  "--structured-outputs-config",
+                  "{\"backend\":\"auto\",\"disable_fallback\":false}",
+                  "--quantization",
+                  "gptq",
+                  "--enforce-eager"
+                ],
+                "env": [
+                  {
+                    "name": "HF_HUB_OFFLINE",
+                    "value": "1"
+                  },
+                  {
+                    "name": "HF_HOME",
+                    "value": "/cache/huggingface"
+                  },
+                  {
+                    "name": "VLLM_CACHE_ROOT",
+                    "value": "/cache/vllm"
+                  },
+                  {
+                    "name": "TMPDIR",
+                    "value": "/cache/tmp"
+                  }
+                ],
+                "image": "vllm/vllm-openai:v0.17.0",
+                "imagePullPolicy": "IfNotPresent",
+                "livenessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 20,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 2
+                },
+                "name": "vllm",
+                "ports": [
+                  {
+                    "containerPort": 8000,
+                    "name": "http",
+                    "protocol": "TCP"
+                  }
+                ],
+                "readinessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 2,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 1
+                },
+                "resources": {
+                  "limits": {
+                    "cpu": "8",
+                    "memory": "16Gi",
+                    "nvidia.com/gpu.shared": "1"
+                  },
+                  "requests": {
+                    "cpu": "2",
+                    "memory": "6Gi",
+                    "nvidia.com/gpu.shared": "1"
+                  }
+                },
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
+                  },
+                  "privileged": false
+                },
+                "startupProbe": {
+                  "failureThreshold": 360,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 2,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 1
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/dev/shm",
+                    "name": "dshm"
+                  },
+                  {
+                    "mountPath": "/mnt/frontier-forge/repo/checkpoints",
+                    "name": "checkpoints",
+                    "readOnly": true
+                  },
+                  {
+                    "mountPath": "/mnt/frontier-forge/cache/huggingface",
+                    "name": "hf-archive",
+                    "readOnly": true
+                  },
+                  {
+                    "mountPath": "/cache",
+                    "name": "cache"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "enableServiceLinks": false,
+            "nodeName": "frontier-forge-a10-j",
+            "preemptionPolicy": "PreemptLowerPriority",
+            "priority": 0,
+            "restartPolicy": "Always",
+            "runtimeClassName": "nvidia",
+            "schedulerName": "default-scheduler",
+            "securityContext": {
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
+            "serviceAccount": "default",
+            "serviceAccountName": "default",
+            "terminationGracePeriodSeconds": 30,
+            "tolerations": [
+              {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+              },
+              {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+              }
+            ],
+            "volumes": [
+              {
+                "emptyDir": {
+                  "medium": "Memory",
+                  "sizeLimit": "2Gi"
+                },
+                "name": "dshm"
+              },
+              {
+                "name": "checkpoints",
+                "persistentVolumeClaim": {
+                  "claimName": "forge-model-checkpoints",
+                  "readOnly": true
+                }
+              },
+              {
+                "name": "hf-archive",
+                "persistentVolumeClaim": {
+                  "claimName": "forge-huggingface-archive",
+                  "readOnly": true
+                }
+              },
+              {
+                "emptyDir": {},
+                "name": "cache"
+              }
+            ]
+          },
+          "status": {
+            "allocatedResources": {
+              "cpu": "2",
+              "memory": "6Gi",
+              "nvidia.com/gpu.shared": "1"
+            },
+            "conditions": [
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:28:42Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "PodReadyToStartContainers"
+              },
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:28:42Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "Initialized"
+              },
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:29:30Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "Ready"
+              },
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:29:30Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "ContainersReady"
+              },
+              {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-08-20T19:28:42Z",
+                "observedGeneration": 1,
+                "status": "True",
+                "type": "PodScheduled"
+              }
+            ],
+            "containerStatuses": [
+              {
+                "allocatedResources": {
+                  "cpu": "2",
+                  "memory": "6Gi",
+                  "nvidia.com/gpu.shared": "1"
+                },
+                "allocatedResourcesStatus": [
+                  {
+                    "name": "nvidia.com/gpu.shared",
+                    "resources": [
+                      {
+                        "health": "Healthy",
+                        "resourceID": "GPU-6eb4e994-4829-46de-0eec-ce87b59d3122::1"
+                      }
+                    ]
+                  }
+                ],
+                "containerID": "containerd://7fc9c9dfc189c385f588057a1fedb15adb136f8990acedffb7a6a880540d6cfd",
+                "image": "docker.io/vllm/vllm-openai:i-was-a-digest",
+                "imageID": "sha256:700d8ac4f37a3f2975b79e67406d7f2689bdd8c87e3e7a62721bf03921940935",
+                "lastState": {},
+                "name": "vllm",
+                "ready": true,
+                "resources": {
+                  "limits": {
+                    "cpu": "8",
+                    "memory": "16Gi",
+                    "nvidia.com/gpu.shared": "1"
+                  },
+                  "requests": {
+                    "cpu": "2",
+                    "memory": "6Gi",
+                    "nvidia.com/gpu.shared": "1"
+                  }
+                },
+                "restartCount": 0,
+                "started": true,
+                "state": {
+                  "running": {
+                    "startedAt": "2026-08-20T19:28:43Z"
+                  }
+                },
+                "user": {
+                  "linux": {
+                    "gid": 0,
+                    "supplementalGroups": [
+                      0
+                    ],
+                    "uid": 0
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/dev/shm",
+                    "name": "dshm"
+                  },
+                  {
+                    "mountPath": "/mnt/frontier-forge/repo/checkpoints",
+                    "name": "checkpoints",
+                    "readOnly": true,
+                    "recursiveReadOnly": "Disabled"
+                  },
+                  {
+                    "mountPath": "/mnt/frontier-forge/cache/huggingface",
+                    "name": "hf-archive",
+                    "readOnly": true,
+                    "recursiveReadOnly": "Disabled"
+                  },
+                  {
+                    "mountPath": "/cache",
+                    "name": "cache"
+                  }
+                ]
+              }
+            ],
+            "hostIP": "172.21.67.191",
+            "hostIPs": [
+              {
+                "ip": "172.21.67.191"
+              }
+            ],
+            "observedGeneration": 1,
+            "phase": "Running",
+            "podIP": "10.42.0.91",
+            "podIPs": [
+              {
+                "ip": "10.42.0.91"
+              }
+            ],
+            "qosClass": "Burstable",
+            "resources": {
+              "limits": {
+                "cpu": "8",
+                "memory": "16Gi"
+              },
+              "requests": {
+                "cpu": "1999m",
+                "memory": "6Gi"
+              }
+            },
+            "startTime": "2026-08-20T19:28:42Z"
+          }
+        }
+      ],
+      "kind": "List",
+      "metadata": {
+        "resourceVersion": ""
+      }
+    }
+  },
+  "degraded_canary": {
+    "alert": "ForgeAvailabilityBurnRate",
+    "all_alerts_at_capture": [
+      {
+        "activeAt": "2026-08-20T19:43:27.016370452Z",
+        "annotations": {
+          "runbook_url": "docs/runbooks/phase7_2.md#availability-burn",
+          "summary": "Frontier Forge availability error budget is burning fast"
+        },
+        "labels": {
+          "alertname": "ForgeAvailabilityBurnRate",
+          "phase": "7.2",
+          "severity": "critical",
+          "slo": "availability"
+        },
+        "state": "firing",
+        "value": "1e+00"
+      }
+    ],
+    "captured_at": "2026-08-20T19:45:44.780005+00:00",
+    "firing_payload": {
+      "activeAt": "2026-08-20T19:43:27.016370452Z",
+      "annotations": {
+        "runbook_url": "docs/runbooks/phase7_2.md#availability-burn",
+        "summary": "Frontier Forge availability error budget is burning fast"
+      },
+      "labels": {
+        "alertname": "ForgeAvailabilityBurnRate",
+        "phase": "7.2",
+        "severity": "critical",
+        "slo": "availability"
+      },
+      "state": "firing",
+      "value": "1e+00"
+    },
+    "injected_fault": "fault-500",
+    "k6_counts": {
+      "forge_http_200": 0,
+      "forge_http_500": 64,
+      "forge_http_503": 371
+    },
+    "k6_receipt": "results/phase7_2/k6/forge-k6-fault-availability.json",
+    "phase": "7.2",
+    "router_config": {
+      "at": "2026-08-20T19:43:15.347764+00:00",
+      "sha256": "0b35342a42a8a70117e6da96993e405621f78a28ee2544ade91d2a89e63340e5",
+      "variant": "fault-500"
+    },
+    "status": "complete",
+    "version": 1
+  },
+  "drill": "bad_canary_rollback",
+  "finished_at": "2026-08-20T19:45:52.093997+00:00",
+  "phase": "7.2",
+  "promoted_verified_request": {
+    "attempts": [
+      {
+        "at": "2026-08-20T19:43:14.108915+00:00",
+        "elapsed_s": 26.017744289001712,
+        "forge_route": "primary",
+        "forge_upstream": "10.43.86.63:8000",
+        "http_status": 200,
+        "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}\n",
+        "request_id": "p4-0088-5946494",
+        "retry_after": null,
+        "verified": true,
+        "verifier": {
+          "decision_checks": {
+            "ambiguity_flag": true,
+            "tool_arguments_structural": true,
+            "tool_choice": true,
+            "urgency": true
+          },
+          "errors": [],
+          "json_valid": true,
+          "reward": 1.0,
+          "schema_valid": true,
+          "scorer_version": 2,
+          "secondary_metrics": {
+            "abstention_correct": true,
+            "company_normalized_match": true,
+            "issue_normalized_match": true,
+            "product_match": true,
+            "tool_arguments_semantic_valid": true
+          },
+          "task_success": true
+        },
+        "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}"
+      }
+    ],
+    "successful": {
+      "at": "2026-08-20T19:43:14.108915+00:00",
+      "elapsed_s": 26.017744289001712,
+      "forge_route": "primary",
+      "forge_upstream": "10.43.86.63:8000",
+      "http_status": 200,
+      "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}\n",
+      "request_id": "p4-0088-5946494",
+      "retry_after": null,
+      "verified": true,
+      "verifier": {
+        "decision_checks": {
+          "ambiguity_flag": true,
+          "tool_arguments_structural": true,
+          "tool_choice": true,
+          "urgency": true
+        },
+        "errors": [],
+        "json_valid": true,
+        "reward": 1.0,
+        "schema_valid": true,
+        "scorer_version": 2,
+        "secondary_metrics": {
+          "abstention_correct": true,
+          "company_normalized_match": true,
+          "issue_normalized_match": true,
+          "product_match": true,
+          "tool_arguments_semantic_valid": true
+        },
+        "task_success": true
+      },
+      "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}"
+    }
+  },
+  "promotion_stages": [
+    {
+      "backend_map": {
+        "10.42.0.100:8000": "vllm-bf16",
+        "10.42.0.91:8000": "vllm-int4",
+        "10.43.193.187:8000": "vllm-int4",
+        "10.43.86.63:8000": "vllm-bf16"
+      },
+      "counts": {
+        "unknown": 0,
+        "vllm-bf16": 5,
+        "vllm-int4": 45
+      },
+      "gateway_ready_after_rollout": {
+        "at": "2026-08-20T19:41:37.162355+00:00",
+        "consecutive_ready_probes": 3
+      },
+      "http_statuses": {
+        "200": 50
+      },
+      "observations": [
+        {
+          "elapsed_s": 0.0750007180031389,
+          "index": 0,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06746514800033765,
+          "index": 1,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06622742599938647,
+          "index": 2,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06830731200170703,
+          "index": 3,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.0680781669980206,
+          "index": 4,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 52.52712736600006,
+          "index": 5,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.07092959800138487,
+          "index": 6,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.070023570999183,
+          "index": 7,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06906028899902594,
+          "index": 8,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06819916399763315,
+          "index": 9,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06845815000269795,
+          "index": 10,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06874118099949555,
+          "index": 11,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.0682331450007041,
+          "index": 12,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06756119100100477,
+          "index": 13,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.0678681739991589,
+          "index": 14,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.07245898399924044,
+          "index": 15,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.0710363079997478,
+          "index": 16,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.07040986400170368,
+          "index": 17,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06989061000058427,
+          "index": 18,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06822676699812291,
+          "index": 19,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06745993699951214,
+          "index": 20,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06878497199795675,
+          "index": 21,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06734528499873704,
+          "index": 22,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06717886800106498,
+          "index": 23,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06662285399943357,
+          "index": 24,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06947467500140192,
+          "index": 25,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06777702000181307,
+          "index": 26,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06703025400202023,
+          "index": 27,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06657435200031614,
+          "index": 28,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06639151999843307,
+          "index": 29,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06695448599930387,
+          "index": 30,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06658679799875244,
+          "index": 31,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06692669599942747,
+          "index": 32,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06637348400181509,
+          "index": 33,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06647120200068457,
+          "index": 34,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06817563900040113,
+          "index": 35,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.0690922040012083,
+          "index": 36,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06763104899800965,
+          "index": 37,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06658278299801168,
+          "index": 38,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06653787500181352,
+          "index": 39,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06666824600324617,
+          "index": 40,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06652392799878726,
+          "index": 41,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.0668424400028016,
+          "index": 42,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06686837099914555,
+          "index": 43,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.0693157509995217,
+          "index": 44,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.07092662499781,
+          "index": 45,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.08452979800131288,
+          "index": 46,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.08420837499943445,
+          "index": 47,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06762137699843151,
+          "index": 48,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06675269600236788,
+          "index": 49,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        }
+      ],
+      "request_concurrency": 1,
+      "router_config": {
+        "at": "2026-08-20T19:41:34.133858+00:00",
+        "sha256": "a26bea6009ba2e19fea701758420593443dd54ea74eda895afbc5ca3c0c6c784",
+        "variant": "canary-10"
+      },
+      "slo_guard": {
+        "at": "2026-08-20T19:42:33.484575+00:00",
+        "availability_5xx_ratio_30s": 0.0,
+        "firing_alerts": [],
+        "p95_latency_seconds_1m": 0.09352941176470585,
+        "pass": true
+      },
+      "variant": "canary-10"
+    },
+    {
+      "backend_map": {
+        "10.42.0.100:8000": "vllm-bf16",
+        "10.42.0.91:8000": "vllm-int4",
+        "10.43.193.187:8000": "vllm-int4",
+        "10.43.86.63:8000": "vllm-bf16"
+      },
+      "counts": {
+        "unknown": 0,
+        "vllm-bf16": 20,
+        "vllm-int4": 20
+      },
+      "gateway_ready_after_rollout": {
+        "at": "2026-08-20T19:42:37.281034+00:00",
+        "consecutive_ready_probes": 3
+      },
+      "http_statuses": {
+        "200": 40
+      },
+      "observations": [
+        {
+          "elapsed_s": 0.07636350000029779,
+          "index": 0,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.07065471500027343,
+          "index": 1,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06863376199908089,
+          "index": 2,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.07046186500156182,
+          "index": 3,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06865267799730645,
+          "index": 4,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.07025401999999303,
+          "index": 5,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06986311599757755,
+          "index": 6,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06999582299977192,
+          "index": 7,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06962012300209608,
+          "index": 8,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06780697500289534,
+          "index": 9,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.0683370949991513,
+          "index": 10,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06853343599868822,
+          "index": 11,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06759017600052175,
+          "index": 12,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06748987199898693,
+          "index": 13,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06744566300039878,
+          "index": 14,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06721371399908094,
+          "index": 15,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06735635600125534,
+          "index": 16,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.067624256000272,
+          "index": 17,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06807425700026215,
+          "index": 18,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06779345899849432,
+          "index": 19,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.0671360710002773,
+          "index": 20,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06789860700155259,
+          "index": 21,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.08195496699772775,
+          "index": 22,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06931782600076986,
+          "index": 23,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06855480800004443,
+          "index": 24,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06879487100013648,
+          "index": 25,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06998810999721172,
+          "index": 26,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.0677077520012972,
+          "index": 27,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06813950599826057,
+          "index": 28,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06798043799790321,
+          "index": 29,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.0672246649992303,
+          "index": 30,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06840029799786862,
+          "index": 31,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06931845399958547,
+          "index": 32,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06740587199965375,
+          "index": 33,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06784463399890228,
+          "index": 34,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06778697199843009,
+          "index": 35,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06696665200070129,
+          "index": 36,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06708414199965773,
+          "index": 37,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06696881300013047,
+          "index": 38,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.193.187:8000"
+        },
+        {
+          "elapsed_s": 0.06721590400047717,
+          "index": 39,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        }
+      ],
+      "request_concurrency": 1,
+      "router_config": {
+        "at": "2026-08-20T19:42:35.260018+00:00",
+        "sha256": "475e602062d2fd0717a91f3e134894a575522770b6724892891eb41bb5ff724d",
+        "variant": "canary-50"
+      },
+      "slo_guard": {
+        "at": "2026-08-20T19:42:40.428256+00:00",
+        "availability_5xx_ratio_30s": 0.0,
+        "firing_alerts": [],
+        "p95_latency_seconds_1m": 0.09602272727272727,
+        "pass": true
+      },
+      "variant": "canary-50"
+    },
+    {
+      "backend_map": {
+        "10.42.0.100:8000": "vllm-bf16",
+        "10.42.0.91:8000": "vllm-int4",
+        "10.43.193.187:8000": "vllm-int4",
+        "10.43.86.63:8000": "vllm-bf16"
+      },
+      "counts": {
+        "unknown": 0,
+        "vllm-bf16": 20,
+        "vllm-int4": 0
+      },
+      "gateway_ready_after_rollout": {
+        "at": "2026-08-20T19:42:46.314582+00:00",
+        "consecutive_ready_probes": 3
+      },
+      "http_statuses": {
+        "200": 20
+      },
+      "observations": [
+        {
+          "elapsed_s": 0.07895561799887219,
+          "index": 0,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.0682794720014499,
+          "index": 1,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06828276200030814,
+          "index": 2,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06853649800177664,
+          "index": 3,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06714558700332418,
+          "index": 4,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.0669860760026495,
+          "index": 5,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06770216500081006,
+          "index": 6,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06661793500097701,
+          "index": 7,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06730317199981073,
+          "index": 8,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06630805000168039,
+          "index": 9,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06681320200004848,
+          "index": 10,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06855452300078468,
+          "index": 11,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06702614099776838,
+          "index": 12,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06674742600080208,
+          "index": 13,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06653101300253184,
+          "index": 14,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06683083299867576,
+          "index": 15,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06691750200116076,
+          "index": 16,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06664856000134023,
+          "index": 17,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06713081400084775,
+          "index": 18,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        },
+        {
+          "elapsed_s": 0.06994133999978658,
+          "index": 19,
+          "retry_after": null,
+          "status": 200,
+          "upstream": "10.43.86.63:8000"
+        }
+      ],
+      "request_concurrency": 1,
+      "router_config": {
+        "at": "2026-08-20T19:42:41.272640+00:00",
+        "sha256": "20518263ccc495f48c56c73480b88c490cd1c88a47b6f8e793355178e37e13d4",
+        "variant": "canary-100"
+      },
+      "slo_guard": {
+        "at": "2026-08-20T19:42:48.066321+00:00",
+        "availability_5xx_ratio_30s": 0.0,
+        "firing_alerts": [],
+        "p95_latency_seconds_1m": 0.09651785714285714,
+        "pass": true
+      },
+      "variant": "canary-100"
+    }
+  ],
+  "rollback": {
+    "at": "2026-08-20T19:45:52.093986+00:00",
+    "pass": true,
+    "router_config": {
+      "at": "2026-08-20T19:45:46.655666+00:00",
+      "sha256": "4a63148319da81b72f9e2bc095dc367fa0c7c022a18699a6f5aae1eed4054722",
+      "variant": "stable"
+    },
+    "verified_request": {
+      "attempts": [
+        {
+          "at": "2026-08-20T19:45:46.674596+00:00",
+          "body": {
+            "error": {
+              "code": "upstream_error",
+              "message": "Connection refused [system:111 at /usr/include/boost/asio/detail/reactive_socket_connect_op.hpp:98:5 in function 'static void boost::asio::detail::reactive_socket_connect_op<Handler, IoExecutor>::do_complete(void*, boost::asio::detail::operation*, const boost::system::error_code&, std::size_t)']",
+              "type": "gateway_error"
+            }
+          },
+          "elapsed_s": 0.007038406998617575,
+          "forge_route": null,
+          "forge_upstream": null,
+          "http_status": 502,
+          "request_id": "p4-0088-5946494",
+          "retry_after": "1",
+          "verified": false
+        },
+        {
+          "at": "2026-08-20T19:45:52.092842+00:00",
+          "elapsed_s": 2.8974923710011353,
+          "forge_route": "primary",
+          "forge_upstream": "10.43.193.187:8000",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TRANSUNION INTERMEDIATE HOLDINGS, INC.\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TRANSUNION INTERMEDIATE HOLDINGS, INC.\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}\n",
+          "request_id": "p4-0000-6014489",
+          "retry_after": null,
+          "verified": true,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TRANSUNION INTERMEDIATE HOLDINGS, INC.\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TRANSUNION INTERMEDIATE HOLDINGS, INC.\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        }
+      ],
+      "successful": {
+        "at": "2026-08-20T19:45:52.092842+00:00",
+        "elapsed_s": 2.8974923710011353,
+        "forge_route": "primary",
+        "forge_upstream": "10.43.193.187:8000",
+        "http_status": 200,
+        "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TRANSUNION INTERMEDIATE HOLDINGS, INC.\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TRANSUNION INTERMEDIATE HOLDINGS, INC.\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}\n",
+        "request_id": "p4-0000-6014489",
+        "retry_after": null,
+        "verified": true,
+        "verifier": {
+          "decision_checks": {
+            "ambiguity_flag": true,
+            "tool_arguments_structural": true,
+            "tool_choice": true,
+            "urgency": true
+          },
+          "errors": [],
+          "json_valid": true,
+          "reward": 1.0,
+          "schema_valid": true,
+          "scorer_version": 2,
+          "secondary_metrics": {
+            "abstention_correct": true,
+            "company_normalized_match": true,
+            "issue_normalized_match": true,
+            "product_match": true,
+            "tool_arguments_semantic_valid": true
+          },
+          "task_success": true
+        },
+        "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TRANSUNION INTERMEDIATE HOLDINGS, INC.\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TRANSUNION INTERMEDIATE HOLDINGS, INC.\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+      }
+    }
+  },
+  "runbook": "docs/runbooks/phase7_2.md#drill-3-bad-canary-and-rollback",
+  "status": "complete",
+  "version": 1
+}

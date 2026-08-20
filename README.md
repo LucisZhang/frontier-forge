@@ -122,6 +122,58 @@ The bare-vLLM 5× cell is retained as a negative result: vLLM 0.17.0 terminated 
 
 Every sustained gateway cell sampled the queue at its configured bound, and excess requests surfaced as fast HTTP 429/`overloaded` responses with `Retry-After`; admitted upstream 5xx remained within the predeclared ±5.0 pp band of paired bare vLLM. The Phase 5 production block is therefore lifted for this measured **single-node gateway overload contract only**. This is not evidence of cloud production, multi-GPU scaling, or Phase 7.2 Kubernetes readiness. See the [amended Gate 7.1 report](results/phase7_1_sustained_a10_report.md) and [raw sustained receipt](results/phase7_1/raw/phase7_1_sustained_gateway_bench.json).
 
+## Phase 7.2: single-node k3s runtime
+
+The serving stack was then rehearsed on one real systemd VM with one physical
+NVIDIA A10 (23,028 MiB), k3s v1.36.3+k3s1, the NVIDIA device plugin, Prometheus,
+Grafana, Prometheus Adapter, and KEDA. The device plugin exposed exactly two
+time-sliced `nvidia.com/gpu.shared` allocations; this is still **one GPU**, not
+multi-GPU or cloud-production evidence. Kafka remains out of scope.
+
+The `forge-system` namespace retained Pod Security `baseline`. Two
+administrator-owned Local PersistentVolumes, pinned to the labeled model-store
+node, exposed the independently hashed model trees through read-only PVC mounts.
+All 23 cluster Services were `ClusterIP`; the gateway, Prometheus, Pushgateway,
+and Grafana operator paths listened only on `127.0.0.1` and were reached through
+SSH. No security-group, `NodePort`, `LoadBalancer`, `hostPort`, or host-network
+exposure was added. The [inventory receipt](results/phase7_2/raw/inventory.json)
+records these checks, image identities, chart releases, targets, rules, model
+hashes, and dashboard discovery.
+
+| Gate 7.2 measurement | Result |
+|---|---:|
+| Gateway custom-metric scale | 1 → 3 → 1 Ready replicas |
+| Saturation queue / HTTP 429 | 24/24; 3,799 rejects |
+| 429 with `Retry-After` | 3,799 / 3,799 |
+| GPU scale-from-zero samples | n=10; 10 unique Pod UIDs; 10/10 task-verified |
+| Cold start min / p50 / p95 / max | 116.539 / 124.617 / 127.112 / 128.050 s |
+| int4 + BF16 coexistence | 8,122 + 12,824 MiB on the one A10 |
+| Measured route stages | 45/5, 20/20, 0/20 int4/BF16; 110/110 HTTP 200 |
+| Availability fault | `ForgeAvailabilityBurnRate` firing |
+| Latency fault | `ForgeLatencyBurnRate` firing; 573 slow HTTP 200 responses |
+| Kill-vLLM recovery | fail-closed 503; new Pod UID; 120.708 s to verified recovery |
+
+The canary attribution probes were deliberately sequential: they prove measured
+10%→50%→100% routing while both models coexist on one time-sliced physical GPU;
+the separate 120-second k6 scenario owns concurrent saturation evidence. After
+100% BF16 promotion, an injected HTTP-500 backend fired the availability alert;
+the router rolled back to GPTQ-int4 and recovered a task-verified response. A
+separate three-second backend fired the p95 latency alert while predominantly
+returning HTTP 200, then also recovered to a verified stable response.
+
+Negative bring-up results remain committed rather than hidden: direct Pod
+`hostPath` was rejected by Pod Security and replaced by Local PV/PVCs; a missing
+`--language-model-only` flag caused an unmeasured multimodal profiling peak; the
+first concurrent canary attribution run exposed one-GPU contention; and the first
+two latency-alert attempts found a noncanonical histogram label and an
+underpowered fault rate. Their five `preflight_*_failure.json` receipts sit beside
+the successful raw artifacts. The three scripted runbook drills, k6 receipts,
+dashboard JSON, and CPU-only kind CI smoke are reproducible from
+[`deploy/phase7_2/`](deploy/phase7_2/) and
+[`docs/runbooks/phase7_2.md`](docs/runbooks/phase7_2.md). See the final
+[Phase 7.2 report](results/phase7_2_k3s_report.md) and
+[acceptance receipt](results/phase7_2/raw/phase7_2_acceptance.json).
+
 ## Reproduce the headline
 
 The release claim chain makes no GPU or API call:
