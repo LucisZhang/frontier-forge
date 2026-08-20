@@ -1245,7 +1245,7 @@ def command_latency_alert(_: argparse.Namespace) -> None:
         router="fault-latency",
         alert_name="ForgeLatencyBurnRate",
         job_name="forge-k6-fault-latency",
-        rate=2,
+        rate=4,
     )
     receipt["restore"] = set_router("stable")
     receipt["restored_verified_request"] = wait_verified_request(timeout_s=300)

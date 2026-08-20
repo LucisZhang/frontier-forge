@@ -166,6 +166,7 @@ def test_canary_attribution_is_sequential_and_waits_for_gateway_recovery() -> No
     assert "asyncio.Semaphore(1)" in runner
     assert "wait_gateway_ready_stable()" in runner
     assert '"request_concurrency": 1' in runner
+    assert 'job_name="forge-k6-fault-latency",\n        rate=4,' in runner
 
 
 def test_kind_overlay_and_ci_use_the_mock_upstream() -> None:
