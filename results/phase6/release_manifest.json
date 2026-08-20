@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "README.md",
+      "sha256": "6018d0c8b7719db710ee6220615de293db981c54ff4bbd8bfbc53f03f2193c54"
+    },
+    {
+      "path": "MODEL_CARD.md",
+      "sha256": "27ba77f728795bd3aa909c617672957b1278cccae4c4f3ce9caf9868215ded5d"
+    },
+    {
+      "path": "gateway/README.md",
+      "sha256": "668f0ecb43b907b240b2228bc68cbe5a3d1638c7a1b9f20ff846d8a524307541"
+    },
+    {
+      "path": "results/phase5_gateway_report.md",
+      "sha256": "98fc7426da2302020f823f12afbe377ee65f8967f1a620054e22de512c94268d"
+    },
+    {
+      "path": "results/phase6/source_manifest.json",
+      "sha256": "fce45fdc4d537ca98370d58f4be3857a7e4380ad01ac93e0f211d4ec6bb2cb25"
+    },
+    {
+      "path": "results/phase6/headline.json",
+      "sha256": "f409ced2e9d1a08a52e0cb74d955f83c25b697c382a0253a5007bab6c7a909b6"
+    },
+    {
+      "path": "results/phase6/cascade_handoff.json",
+      "sha256": "a3b37bdb224063ab7a54de3f9f4f75c42cbd196a284a4719f05c4fd83817278a"
+    },
+    {
+      "path": "results/phase6/hf_archive_receipt.json",
+      "sha256": "a8f1e24900765bb3fe2082d3b09a99c4996cc1a4ccb5bc78ecd8c38572eee1a1"
+    },
+    {
+      "path": "results/phase6/remote_disk_audit.json",
+      "sha256": "c138eb84425ee6eb6e7723da6abe62cba597a53b04eb954fe4c427b5a11be159"
+    },
+    {
+      "path": "results/phase6/hf_archive_logs.tar.gz",
+      "sha256": "1cd26ef996bb3b250c3b428543219b8614d6441cc00c4f0b005a281849f13d60"
+    },
+    {
+      "path": "demo/index.html",
+      "sha256": "e0cbfbd1d5f3775243c51de273a84c1c70ae7e95a8a73cc3c9ef94dfebc12b2a"
+    },
+    {
+      "path": "demo/assets/styles.css",
+      "sha256": "c39ee6bdbf716157b92b07f1fe323ef5feb9300392d557d186afa6b5058fb018"
+    },
+    {
+      "path": "demo/assets/app.js",
+      "sha256": "63a469d9aeb8c761e0084c82495aec3f6e33a696e22ca0f0c1259a9883185f86"
+    },
+    {
+      "path": "demo/data/release.json",
+      "sha256": "f409ced2e9d1a08a52e0cb74d955f83c25b697c382a0253a5007bab6c7a909b6"
+    },
+    {
+      "path": "demo/data/release.js",
+      "sha256": "c606a64f4896fdeb0f187a7df337cdef5d82cc973dc8ac0c8eb3449aad39bb6c"
+    }
+  ],
+  "phase": 6,
+  "version": 1
+}

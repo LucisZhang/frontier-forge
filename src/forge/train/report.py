@@ -16,6 +16,7 @@ from forge.train.config import (
     evaluation_root,
     load_config,
     runs_path,
+    smoke_output_root,
 )
 from forge.train.evaluate import bootstrap_ci
 from forge.train.export import durable_export_manifest_path
@@ -300,7 +301,7 @@ def _export_manifest_path(record: dict[str, Any], *, smoke: bool) -> Path:
     backend = str(record.get("backend", "trl"))
     seed = int(record["seed"])
     if smoke:
-        root = REPO_ROOT / "data" / "smoke" / "phase3" / "export" / str(config["rung"])
+        root = smoke_output_root() / "export" / str(config["rung"])
         if config.get("run_revision"):
             root /= str(config["run_revision"])
         return root / backend / f"s{seed}" / "export_manifest.json"
@@ -779,7 +780,7 @@ def generate(*, smoke: bool) -> tuple[Path, Path]:
     by_rung = _rung_records(records)
     deltas = paired_deltas(by_rung, smoke=smoke)
     if smoke:
-        output_dir = REPO_ROOT / "data" / "smoke" / "phase3"
+        output_dir = smoke_output_root()
         report_path = output_dir / "phase3_report.md"
         delta_path = output_dir / "phase3_paired_deltas.json"
         selection_path = output_dir / "phase3_export_selection.json"

@@ -1,0 +1,126 @@
+{
+  "files": [
+    {
+      "path": "data/ingest/manifest.json",
+      "sha256": "5fa5eb82c9c47155933162d007221fbe4eb3665a0b4a07e01cfbd3327438c708"
+    },
+    {
+      "path": "results/phase1_2_label_audit.md",
+      "sha256": "bd18a04262bf409e07d398cd5d75fc1df027196a5578d839fd289690547c000f"
+    },
+    {
+      "path": "results/runs.jsonl",
+      "sha256": "f31f12d99fac2cb96816e674710733afb4e54e314946c8f4220830bd24f07847"
+    },
+    {
+      "path": "results/phase3_gpu_ledger.jsonl",
+      "sha256": "a0ce12835fc2e4726db05566fa84083165368915f5d1bc7333c382b6ddf69ffb"
+    },
+    {
+      "path": "results/phase3_paired_deltas.json",
+      "sha256": "17ef25a45ca6f9eecd40c9bd250171d604dc7bd26f65f34e4c0c61105b9d4c25"
+    },
+    {
+      "path": "results/phase3_backend_agreement.json",
+      "sha256": "214124a4402a3f11a12c945b15d09ed2c09797178828284517fa7f62e410afdd"
+    },
+    {
+      "path": "results/phase3_export_manifest_r1b_trl_s0.json",
+      "sha256": "2ef70012abe90c5489ca30d500fb994c147205cf1aa740266a603029fe9f5dba"
+    },
+    {
+      "path": "results/phase3_export_selection.json",
+      "sha256": "29631045a4f095f344a990d2e9ef964f2952ac448b4fbc962d0877ccc843d7a6"
+    },
+    {
+      "path": "results/phase4/raw/phase4_serve_r1b_bf16_v2.json",
+      "sha256": "07aed1f63e23b41f7ad7233eb54fa08fd422288a353a52f898a58e0001b2936e"
+    },
+    {
+      "path": "results/phase4/raw/phase4_serve_r1b_gptq_int4.json",
+      "sha256": "3204327877fc506f5d86dd06ded136f4fff9f1934dbfdedef72f122a70f3c61d"
+    },
+    {
+      "path": "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline_v2.json",
+      "sha256": "ea2ce23b56a1fc8cf1796e866650143c6a16bb94e22d9eb753a8236ce20c92f7"
+    },
+    {
+      "path": "results/phase4/raw/phase4_spec_decode_r1b_bf16_native_mtp.json",
+      "sha256": "aed1da988e40c57532c7ba4a9912369bff9f05803b3a56d76efcc8b8f65fb2f5"
+    },
+    {
+      "path": "results/phase4/raw/phase4_structured_r1b_bf16_xgrammar.json",
+      "sha256": "7c65ebe055fc2a756c357a64e708cf7d359b8b5aa595002a8ac91975ccaf00db"
+    },
+    {
+      "path": "results/phase4/raw/phase4_structured_r1b_bf16_outlines.json",
+      "sha256": "6d7e724b8936cba3026378ab410e84da67330441731f84ca62deb7c6981e5926"
+    },
+    {
+      "path": "results/phase4/r1b_mtp_reexport_manifest.json",
+      "sha256": "fd2085f6666bd399b9a22d3d51658d6c36407bc0c558f2e4848b56cf5d01b86e"
+    },
+    {
+      "path": "results/phase5/raw/phase5_gateway_bench.json",
+      "sha256": "6e71a2455db0c69d5a2fc10447e9243c801aca297e3bbca19c38fa5c70176f29"
+    },
+    {
+      "path": "results/phase5/gpu_ledger.jsonl",
+      "sha256": "9267543f3d4aa907933dfe30d7915cf263228de616df7691358a38fa713ac3cb"
+    },
+    {
+      "path": "results/phase5/verification.json",
+      "sha256": "c04c66ed146875363e45fd2c6659c068a4566b29ed76f355b7fb9e582d564697"
+    },
+    {
+      "path": "results/phase1_api_calibration_ledger.json",
+      "sha256": "ce4d3ada96bb092256b9347f584f4b223f25db7ebee8e1e66ed532ac05b0c2b8"
+    },
+    {
+      "path": "results/phase1_1_api_calibration_ledger.json",
+      "sha256": "26363e9f23eb39e6a52d6be64418468f1b50465c6d98bb618817a01a73c9ec68"
+    },
+    {
+      "path": "results/phase1_teacher_spot_label_ledger.json",
+      "sha256": "502d81c3b571a003ebdbd3186e9fa3af0fac2696ace9b8e9e980c3235c53c5ec"
+    },
+    {
+      "path": "results/phase1_teacher_spot_label_ledger_v2.json",
+      "sha256": "027f17221a81ad44de2817a5071c5c0651c78fa4537177d0fe87d90f37552333"
+    },
+    {
+      "path": "results/phase2_cost_ledger.json",
+      "sha256": "47a1dd7d2a3085afc2c822862c5868c983ebdde3d94b7d50f800447156915533"
+    },
+    {
+      "path": "results/phase4/raw/phase4_serve_r1b_bf16.json",
+      "sha256": "6edc85c8428219d2319b57c259d033e9a9e3db11b8436b0becbd367b0e514ff9"
+    },
+    {
+      "path": "results/phase4/raw/phase4_serve_r3eq_bf16.json",
+      "sha256": "2be69cd21c39f65c6866dc48e09f856e218298216d92b9c55d916c6b24defa6b"
+    },
+    {
+      "path": "results/phase4/raw/phase4_serve_r3eq_gptq_int4.json",
+      "sha256": "ed847f01b8cbacee566da07737c8e42e0a426360976d52eb8329b5732cc93f5e"
+    },
+    {
+      "path": "results/phase4/raw/phase4_spec_decode_r1b_bf16_baseline.json",
+      "sha256": "a4932a34676359a5d5a10757b4e90b80d73c9ab184ead8e88d654284ca739005"
+    },
+    {
+      "path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen05b_failure.json",
+      "sha256": "a2291575dc6a2cd77b1d2886304f4183af03a1691186052c0fa1758ee3564d78"
+    },
+    {
+      "path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_failure.json",
+      "sha256": "fb598018e1051c5b30bae26740b606086e10b834dd1e6d8acc2107a9bc65766d"
+    },
+    {
+      "path": "results/phase4/phase4_spec_decode_r1b_bf16_qwen08b_patched_failure.json",
+      "sha256": "4d54d090a31a642422dfcb1f22835d75d7b63f080c8c05c9b9aba3cb6aecb1b4"
+    }
+  ],
+  "phase": 6,
+  "version": 1
+}

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
@@ -15,6 +16,18 @@ from forge.train.config import REPO_ROOT, canonical_json, relative_path, sha256_
 PHASE4_CONFIG_ROOT = REPO_ROOT / "configs" / "phase4"
 EXPERIMENTS = frozenset({"serve", "spec_decode", "structured"})
 PRECISIONS = frozenset({"bfloat16", "gptq_int4"})
+
+
+def phase4_smoke_output_root() -> Path:
+    """Return the optional isolated root for mutable Phase 4 smoke artifacts."""
+
+    value = os.environ.get("FORGE_PHASE4_SMOKE_OUTPUT_ROOT")
+    if value is None:
+        return REPO_ROOT / "data" / "smoke" / "phase4"
+    root = Path(value)
+    if not root.is_absolute():
+        raise ValueError("FORGE_PHASE4_SMOKE_OUTPUT_ROOT must be an absolute path")
+    return root
 
 
 def phase4_config_paths() -> tuple[Path, ...]:
@@ -236,17 +249,17 @@ def workload_contract_hash(config: Mapping[str, Any]) -> str:
 
 
 def phase4_raw_path(config: Mapping[str, Any], *, smoke: bool) -> Path:
-    root = REPO_ROOT / ("data/smoke/phase4/raw" if smoke else "results/phase4/raw")
+    root = phase4_smoke_output_root() / "raw" if smoke else REPO_ROOT / "results/phase4/raw"
     return root / f"{config['run_id']}.json"
 
 
 def phase4_requests_path(config: Mapping[str, Any], *, smoke: bool) -> Path:
-    root = REPO_ROOT / ("data/smoke/phase4/raw" if smoke else "results/phase4/raw")
+    root = phase4_smoke_output_root() / "raw" if smoke else REPO_ROOT / "results/phase4/raw"
     return root / f"{config['run_id']}.requests.jsonl"
 
 
 def phase4_workload_path(config: Mapping[str, Any], *, smoke: bool) -> Path:
-    root = REPO_ROOT / ("data/smoke/phase4" if smoke else "data/full/phase4")
+    root = phase4_smoke_output_root() if smoke else REPO_ROOT / "data/full/phase4"
     return root / f"workload-{workload_contract_hash(config)[:16]}.jsonl"
 
 

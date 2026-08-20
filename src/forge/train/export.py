@@ -20,6 +20,7 @@ from forge.train.config import (
     relative_path,
     select_seed,
     sha256_file,
+    smoke_output_root,
 )
 from forge.train.data import narrative_char_limit, prompt_messages
 from forge.train.runtime import load_base_model, load_tokenizer, package_versions
@@ -38,7 +39,7 @@ def _smoke_export(config: dict[str, Any], *, seed: int, backend: str) -> dict[st
     source = adapter_path(config, seed=seed, smoke=True, backend=backend)
     if not (source / "adapter_config.json").is_file():
         raise FileNotFoundError(f"smoke adapter is missing: {source}")
-    root = REPO_ROOT / "data" / "smoke" / "phase3" / "export" / str(config["rung"])
+    root = smoke_output_root() / "export" / str(config["rung"])
     if config.get("run_revision"):
         root /= str(config["run_revision"])
     root = root / backend / f"s{seed}"

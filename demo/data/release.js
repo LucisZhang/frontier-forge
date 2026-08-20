@@ -1,0 +1,600 @@
+window.FORGE_RELEASE = {
+  "exports": {
+    "bf16": {
+      "dtype": "bfloat16",
+      "method": "peft_merge_and_unload",
+      "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16",
+      "sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435"
+    },
+    "bf16_mtp_preserved": {
+      "dtype": "bfloat16",
+      "method": "peft_merge_plus_base_mtp_weight_preservation",
+      "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved",
+      "sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce"
+    },
+    "gptq_int4": {
+      "calibration_rows": 128,
+      "group_size": 128,
+      "method": "gptq_int4",
+      "path": "checkpoints/full/r1b/trl/s0/export/gptq_int4",
+      "sha256": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2"
+    },
+    "preserved_mtp": {
+      "bundle_sha256": "47f6645d9a1d677c89450c45be7df2c7c4cea6b3dd6a60992dc48a82f92a7716",
+      "source": "exact byte ranges from fixed-revision base checkpoint shards",
+      "weight_key_count": 15,
+      "weight_keys": [
+        "mtp.fc.weight",
+        "mtp.layers.0.input_layernorm.weight",
+        "mtp.layers.0.mlp.down_proj.weight",
+        "mtp.layers.0.mlp.gate_proj.weight",
+        "mtp.layers.0.mlp.up_proj.weight",
+        "mtp.layers.0.post_attention_layernorm.weight",
+        "mtp.layers.0.self_attn.k_norm.weight",
+        "mtp.layers.0.self_attn.k_proj.weight",
+        "mtp.layers.0.self_attn.o_proj.weight",
+        "mtp.layers.0.self_attn.q_norm.weight",
+        "mtp.layers.0.self_attn.q_proj.weight",
+        "mtp.layers.0.self_attn.v_proj.weight",
+        "mtp.norm.weight",
+        "mtp.pre_fc_norm_embedding.weight",
+        "mtp.pre_fc_norm_hidden.weight"
+      ]
+    },
+    "source_adapter": {
+      "mtp_weight_keys": [],
+      "path": "checkpoints/full/r1b/trl/s0/adapter",
+      "weights_path": "checkpoints/full/r1b/trl/s0/adapter/adapter_model.safetensors",
+      "weights_sha256": "740b0f8384c77818a6cbd2e4c0d0c15d720d682d0419700ccd8ef188f7033105"
+    }
+  },
+  "gateway": {
+    "capacity_qps": 2.0,
+    "known_limitation": "Measured overload errors were admitted primary requests returning HTTP 502/upstream_error, not designed 429 admission fast rejects; every overload cell recorded reject_overload=0. The connection-handling defect remains uncorrected in this measured build. Lower p95 in error-bearing cells is conditional on failed work and is not an unconditional win.",
+    "max_stable_concurrency": 6,
+    "nonstable_cells": [
+      {
+        "concurrency": 32,
+        "direct_error_rate": 0.0,
+        "gateway_error_rate": 0.25,
+        "interpretation": "survivor-biased; not a latency win",
+        "length_profile": "short",
+        "success_only_p95_overhead_pct": -18.852322375985423
+      },
+      {
+        "concurrency": 8,
+        "direct_error_rate": 0.0,
+        "gateway_error_rate": 0.09999999999999998,
+        "interpretation": "survivor-biased; not a latency win",
+        "length_profile": "mixed",
+        "success_only_p95_overhead_pct": 8.379691416918126
+      },
+      {
+        "concurrency": 32,
+        "direct_error_rate": 0.0,
+        "gateway_error_rate": 0.55,
+        "interpretation": "survivor-biased; not a latency win",
+        "length_profile": "mixed",
+        "success_only_p95_overhead_pct": -47.2075499228218
+      },
+      {
+        "concurrency": 8,
+        "direct_error_rate": 0.0,
+        "gateway_error_rate": 0.85,
+        "interpretation": "survivor-biased; not a latency win",
+        "length_profile": "long",
+        "success_only_p95_overhead_pct": -54.76404013527977
+      }
+    ],
+    "nonstable_gateway_error_rate_range": [
+      0.09999999999999998,
+      0.85
+    ],
+    "overload": [
+      {
+        "direct_all_response_p95_s": 1.3902134030126034,
+        "direct_error_rate": 0.0,
+        "direct_recovery_s": 2.3355985023081303,
+        "error_codes": {
+          "upstream_error": 8
+        },
+        "gateway_all_response_p95_s": 1.0968515980057416,
+        "gateway_error_rate": 0.1333333333333333,
+        "gateway_recovery_s": 2.3585824482142925,
+        "gateway_success_p95_s": 1.1060663084499538,
+        "http_status_counts": {
+          "200": 52,
+          "502": 8
+        },
+        "multiplier": 2.0,
+        "offered_qps": 4.0,
+        "queue_depth_max": 0.0,
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 63,
+          "queued": 0,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 0,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        },
+        "subsecond_error_response_p50_s": 0.005314150359481573
+      },
+      {
+        "direct_all_response_p95_s": 2.112137153465301,
+        "direct_error_rate": 0.0,
+        "direct_recovery_s": 2.515816573984921,
+        "error_codes": {
+          "upstream_error": 7
+        },
+        "gateway_all_response_p95_s": 1.8583316036500035,
+        "gateway_error_rate": 0.1166666666666667,
+        "gateway_recovery_s": 2.4971915846690536,
+        "gateway_success_p95_s": 1.8938390990719198,
+        "http_status_counts": {
+          "200": 53,
+          "502": 7
+        },
+        "multiplier": 3.0,
+        "offered_qps": 6.0,
+        "queue_depth_max": 1.0,
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 63,
+          "queued": 1,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 0,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        },
+        "subsecond_error_response_p50_s": 0.006503731943666935
+      },
+      {
+        "direct_all_response_p95_s": 3.575738142058253,
+        "direct_error_rate": 0.0,
+        "direct_recovery_s": 4.64941796194762,
+        "error_codes": {
+          "upstream_error": 14
+        },
+        "gateway_all_response_p95_s": 2.5501176277175546,
+        "gateway_error_rate": 0.23333333333333328,
+        "gateway_recovery_s": 4.485038010403514,
+        "gateway_success_p95_s": 2.56986718531698,
+        "http_status_counts": {
+          "200": 46,
+          "502": 14
+        },
+        "multiplier": 5.0,
+        "offered_qps": 10.0,
+        "queue_depth_max": 10.0,
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 64,
+          "queued": 17,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 0,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        },
+        "subsecond_error_response_p50_s": 0.005032645072788
+      }
+    ],
+    "paired_bare_vllm_error_rate_range": [
+      0.0,
+      0.0
+    ],
+    "run_id": "phase5_gateway_r1b_bf16_native_mtp",
+    "stable_median_e2e_p50_overhead_pct": 0.3146117018266598,
+    "stable_median_e2e_p95_overhead_pct": 0.5370738367451205,
+    "stable_median_throughput_delta_pct": -0.9403315620813433,
+    "stable_pair_count": 5
+  },
+  "phase": 6,
+  "project_spend": {
+    "gpu_components": {
+      "phase3": {
+        "gpu_hours": 35.96666666666667,
+        "receipt_rows": 21,
+        "usd": 10.790000000000001
+      },
+      "phase4": {
+        "gpu_hours": 0.4645818263861454,
+        "receipt_rows": 13,
+        "usd": 0.1393745479158436
+      },
+      "phase5": {
+        "gpu_hours": 1.1501527080555556,
+        "receipt_rows": 1,
+        "usd": 0.34504581241666665
+      }
+    },
+    "gpu_hours": 37.58140120110837,
+    "gpu_usd": 11.274420360332511,
+    "scope": "Committed operation receipts, including failed and superseded attempts. Overlapping Phase 3 wrapper rows are de-duplicated by config/start time; the total is not an estimate of unmetered idle time or a cloud-provider invoice.",
+    "teacher_api_receipt_rows": 5,
+    "teacher_api_usd": 13.038138,
+    "total_usd": 24.31255836033251
+  },
+  "provenance": {
+    "bootstrap_resamples": 1000,
+    "dataset_hash": "d1092cd16f604c25ed6d5034bf0fed33afbe975af4048fbd2a0cd93d7b25e564",
+    "source_manifest": "results/phase6/source_manifest.json",
+    "source_manifest_sha256": "fce45fdc4d537ca98370d58f4be3857a7e4380ad01ac93e0f211d4ec6bb2cb25"
+  },
+  "schema_version": "frontier-forge-release-v1",
+  "serving": {
+    "serving_at_4_qps": [
+      {
+        "arrival_rate_qps": 4.0,
+        "artifact_sha256": "7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435",
+        "cost_per_1k_successful_tasks_usd": 0.021101575687919795,
+        "e2e_p50_s": 1.4244668371975422,
+        "e2e_p95_s": 1.689790488779545,
+        "label": "R1b BF16",
+        "output_tokens_per_s": 306.9946183756863,
+        "precision": "bfloat16",
+        "requests": 20,
+        "run_id": "phase4_serve_r1b_bf16_v2",
+        "stable": true,
+        "task_success": 0.95,
+        "task_success_wilson95": [
+          0.763868806553258,
+          0.9911185511992047
+        ],
+        "ttft_p50_s": 0.17455950565636158,
+        "verifier_successes": 19,
+        "vram_peak_mib": 22829.0
+      },
+      {
+        "arrival_rate_qps": 4.0,
+        "artifact_sha256": "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2",
+        "cost_per_1k_successful_tasks_usd": 0.01930241007357836,
+        "e2e_p50_s": 0.8090510554611683,
+        "e2e_p95_s": 0.9628039311617613,
+        "label": "R1b GPTQ-int4",
+        "output_tokens_per_s": 335.6093954456987,
+        "precision": "gptq_int4",
+        "requests": 20,
+        "run_id": "phase4_serve_r1b_gptq_int4",
+        "stable": true,
+        "task_success": 0.95,
+        "task_success_wilson95": [
+          0.763868806553258,
+          0.9911185511992047
+        ],
+        "ttft_p50_s": 0.1531981471925974,
+        "verifier_successes": 19,
+        "vram_peak_mib": 22591.0
+      },
+      {
+        "arrival_rate_qps": 4.0,
+        "artifact_sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce",
+        "cost_per_1k_successful_tasks_usd": 0.02020464579395035,
+        "e2e_p50_s": 1.0630011539906263,
+        "e2e_p95_s": 1.3112133152782917,
+        "label": "R1b BF16 + native MTP",
+        "output_tokens_per_s": 320.62280336427636,
+        "precision": "bfloat16",
+        "requests": 20,
+        "run_id": "phase4_spec_decode_r1b_bf16_native_mtp",
+        "stable": true,
+        "task_success": 0.95,
+        "task_success_wilson95": [
+          0.763868806553258,
+          0.9911185511992047
+        ],
+        "ttft_p50_s": 0.19990521483123302,
+        "verifier_successes": 19,
+        "vram_peak_mib": 21587.0
+      }
+    ],
+    "speculative_boundary": {
+      "method": "model-native MTP",
+      "points": [
+        {
+          "acceptance_rate": 0.9635135135135136,
+          "baseline_p95_s": 0.9694226788356901,
+          "baseline_successful_tasks_per_s": 0.29071334439094293,
+          "native_mtp_p95_s": 1.0208075791597366,
+          "native_mtp_successful_tasks_per_s": 0.2913727353830311,
+          "p95_delta_s": 0.05138490032404652,
+          "qps": 0.25,
+          "verdict": "lose"
+        },
+        {
+          "acceptance_rate": 0.9615894039735099,
+          "baseline_p95_s": 1.0153949916362763,
+          "baseline_successful_tasks_per_s": 0.61883474812039,
+          "native_mtp_p95_s": 0.7866239219903945,
+          "native_mtp_successful_tasks_per_s": 0.6232804810060696,
+          "p95_delta_s": -0.22877106964588179,
+          "qps": 0.5,
+          "verdict": "win"
+        },
+        {
+          "acceptance_rate": 0.959731543624161,
+          "baseline_p95_s": 0.9652194209396839,
+          "baseline_successful_tasks_per_s": 0.6905069126982077,
+          "native_mtp_p95_s": 0.7384669665247202,
+          "native_mtp_successful_tasks_per_s": 0.6940743192727516,
+          "p95_delta_s": -0.22675245441496372,
+          "qps": 1.0,
+          "verdict": "win"
+        },
+        {
+          "acceptance_rate": 0.9564660691421255,
+          "baseline_p95_s": 1.3764635218307377,
+          "baseline_successful_tasks_per_s": 1.3552455134015922,
+          "native_mtp_p95_s": 1.055627878755331,
+          "native_mtp_successful_tasks_per_s": 1.377737383424566,
+          "p95_delta_s": -0.3208356430754067,
+          "qps": 2.0,
+          "verdict": "win"
+        },
+        {
+          "acceptance_rate": 0.9561752988047809,
+          "baseline_p95_s": 1.681684802658856,
+          "baseline_successful_tasks_per_s": 3.947092900686978,
+          "native_mtp_p95_s": 1.3112133152782917,
+          "native_mtp_successful_tasks_per_s": 4.124463956615607,
+          "p95_delta_s": -0.37047148738056435,
+          "qps": 4.0,
+          "verdict": "win"
+        }
+      ],
+      "transition": "0.25 QPS lose; 0.50-4.00 QPS win"
+    },
+    "structured_output": [
+      {
+        "backend": "xgrammar",
+        "constraint_tax_tool_call_rate_delta": 0.0,
+        "latency_delta_p50_s": 0.811296408995986,
+        "mitigation_task_success_delta": 1.0,
+        "requests": 24,
+        "run_id": "phase4_structured_r1b_bf16_xgrammar",
+        "simultaneous_latency_p50_s": 0.514576768502593,
+        "simultaneous_latency_p95_s": 0.5534639427438378,
+        "simultaneous_schema_tool_call_rate": 1.0,
+        "simultaneous_task_success": 0.0,
+        "task_success_denominator": "all original requests; uncovered two-pass rows count as failure",
+        "two_pass_coverage": 1.0,
+        "two_pass_latency_p50_s": 1.325873177498579,
+        "two_pass_latency_p95_s": 1.4486379941925407,
+        "two_pass_task_success": 1.0,
+        "unconstrained_tool_call_rate": 1.0
+      },
+      {
+        "backend": "outlines",
+        "constraint_tax_tool_call_rate_delta": 0.0,
+        "latency_delta_p50_s": 0.8801090009510517,
+        "mitigation_task_success_delta": 1.0,
+        "requests": 24,
+        "run_id": "phase4_structured_r1b_bf16_outlines",
+        "simultaneous_latency_p50_s": 0.5446259845048189,
+        "simultaneous_latency_p95_s": 0.5863160029053688,
+        "simultaneous_schema_tool_call_rate": 1.0,
+        "simultaneous_task_success": 0.0,
+        "task_success_denominator": "all original requests; uncovered two-pass rows count as failure",
+        "two_pass_coverage": 1.0,
+        "two_pass_latency_p50_s": 1.4247349854558706,
+        "two_pass_latency_p95_s": 11.27537074368447,
+        "two_pass_task_success": 1.0,
+        "unconstrained_tool_call_rate": 1.0
+      }
+    ]
+  },
+  "training": {
+    "backend_agreement": {
+      "agreement_rule": "paired task-success delta 95% bootstrap CI includes zero",
+      "bootstrap_resamples": 1000,
+      "bootstrap_seed": 20260816,
+      "candidate_backend": "unsloth",
+      "config_hash": "06e3f0c235f69960ed199eb636b2a448f15633eca74ba402a9a97de11a314405",
+      "config_path": "configs/r1_sft_rule.yaml",
+      "default_backend_after_check": "trl",
+      "git_sha": "87358e57b2c008ca66daa3cc8162d3c8b944560c",
+      "mean_task_success_delta_unsloth_minus_trl": -0.0385,
+      "notes": "Negative agreement is retained and keeps TRL as the default.",
+      "paired_delta_ci95": [
+        -0.0485,
+        -0.0275
+      ],
+      "paired_rows": 2000,
+      "phase": 3,
+      "recorded_at": "2026-08-16T16:47:47.074780+00:00",
+      "reference_backend": "trl",
+      "rung": "r1",
+      "status": "agreement_failed"
+    },
+    "headline": {
+      "ci95": [
+        0.986,
+        0.9945
+      ],
+      "gpu_hours": 15.235833333333334,
+      "paired_delta_vs_r1": {
+        "bootstrap_resamples": 1000,
+        "ci95": [
+          0.306,
+          0.345
+        ],
+        "from": "r1",
+        "from_backend": "trl",
+        "from_seed": 0,
+        "mean_task_success_delta": 0.327,
+        "paired_rows": 2000,
+        "status": "complete",
+        "to": "r1b",
+        "to_backend": "trl",
+        "to_seed": 0
+      },
+      "run_id": "r1b_sft_rule_20k_s0",
+      "statement": "Scaling free rule labels from 1,450 to 20,000 raised frozen-eval task success from 66.35% to 99.05%: +32.70 percentage points, paired 95% CI [30.60, 34.50], in one training seed (seed 0), using 15.236 measured RTX 4090 GPU-hours ($4.571).",
+      "task_success": 0.9905,
+      "training_seeds": [
+        0
+      ],
+      "usd": 4.57075
+    },
+    "ladder": [
+      {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "gpu_hours": 0.9830555555555556,
+        "label": "R0 base",
+        "run_id": "r0_base_s0",
+        "schema_valid": 0.0,
+        "status": "complete",
+        "task_success": 0.0,
+        "tool_accuracy": 0.0,
+        "usd": 0.29491666666666666
+      },
+      {
+        "ci95": [
+          0.642,
+          0.6840125
+        ],
+        "gpu_hours": 3.4786111111111113,
+        "label": "R1 rule SFT (1,450)",
+        "run_id": "r1_sft_rule_s0",
+        "schema_valid": 1.0,
+        "status": "complete",
+        "task_success": 0.6635,
+        "tool_accuracy": 0.9405,
+        "usd": 1.0435833333333333
+      },
+      {
+        "ci95": [
+          0.986,
+          0.9945
+        ],
+        "gpu_hours": 15.235833333333334,
+        "label": "R1b rule SFT (20,000)",
+        "run_id": "r1b_sft_rule_20k_s0",
+        "schema_valid": 1.0,
+        "status": "release-selected",
+        "task_success": 0.9905,
+        "tool_accuracy": 0.9915,
+        "usd": 4.57075
+      },
+      {
+        "ci95": [
+          0.4999875,
+          0.5440125
+        ],
+        "gpu_hours": 3.6061111111111113,
+        "label": "R2 distilled SFT",
+        "run_id": "r2_sft_distilled_s0",
+        "schema_valid": 0.9995,
+        "status": "complete-negative",
+        "task_success": 0.5215,
+        "tool_accuracy": 0.843,
+        "usd": 1.0818333333333334
+      },
+      {
+        "ci95": [
+          0.5375,
+          0.5825
+        ],
+        "gpu_hours": 1.925,
+        "label": "R3 DPO",
+        "run_id": "r3_dpo_s0",
+        "schema_valid": 0.999,
+        "status": "complete",
+        "task_success": 0.5595,
+        "tool_accuracy": 0.8715,
+        "usd": 0.5775
+      },
+      {
+        "ci95": [
+          0.5399875000000001,
+          0.585
+        ],
+        "gpu_hours": 1.8586111111111112,
+        "label": "R4 v2 GRPO seed 0",
+        "run_id": "r4_grpo_phase3_2_fresh_pool_s0",
+        "schema_valid": 0.999,
+        "status": "partial-only",
+        "task_success": 0.562,
+        "tool_accuracy": 0.873,
+        "usd": 0.5575833333333333
+      },
+      {
+        "ci95": [
+          0.5395,
+          0.585
+        ],
+        "gpu_hours": 1.6608333333333334,
+        "label": "R4 v2 GRPO seed 1",
+        "run_id": "r4_grpo_phase3_2_fresh_pool_s1",
+        "schema_valid": 0.999,
+        "status": "partial-only",
+        "task_success": 0.562,
+        "tool_accuracy": 0.873,
+        "usd": 0.49824999999999997
+      }
+    ],
+    "r4_seed_deltas": [
+      {
+        "bootstrap_resamples": 1000,
+        "ci95": [
+          -0.001,
+          0.0065
+        ],
+        "from": "r3",
+        "from_backend": "trl",
+        "from_seed": 0,
+        "mean_task_success_delta": 0.0025,
+        "paired_rows": 2000,
+        "status": "complete",
+        "to": "r4",
+        "to_backend": "trl",
+        "to_seed": 0
+      },
+      {
+        "bootstrap_resamples": 1000,
+        "ci95": [
+          -0.0015,
+          0.0065
+        ],
+        "from": "r3",
+        "from_backend": "trl",
+        "from_seed": 0,
+        "mean_task_success_delta": 0.0025,
+        "paired_rows": 2000,
+        "status": "complete",
+        "to": "r4",
+        "to_backend": "trl",
+        "to_seed": 1
+      },
+      {
+        "from": "r3",
+        "guard_status": "aborted-zero-reward-variance",
+        "paired_rows": 0,
+        "reason": "GRPO reward-signal guard aborted: frac_reward_zero_std stayed 1.0 for the first 10 steps",
+        "status": "aborted-zero-reward-variance",
+        "to": "r4",
+        "to_seed": 2
+      }
+    ],
+    "r4_v2": {
+      "aborted_seeds": [
+        2
+      ],
+      "completed_seeds": [
+        0,
+        1
+      ],
+      "from": "r3",
+      "reason": "The unchanged ten-step reward-variance guard stopped R4 v2; no three-seed aggregate or missing paired delta is fabricated.",
+      "status": "aborted-zero-reward-variance",
+      "to": "r4",
+      "verdict": "aborted"
+    }
+  }
+};

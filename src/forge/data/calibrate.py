@@ -201,6 +201,15 @@ def _percent(value: float) -> str:
     return f"{value * 100:.1f}%"
 
 
+def _receipt_path(path: Path) -> str:
+    """Render repository artifacts without machine-specific absolute prefixes."""
+
+    try:
+        return str(path.resolve().relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path.resolve())
+
+
 def _load_api_ledger(path: Path, cal_path: Path, dataset_hash: str) -> dict[str, Any] | None:
     if not path.is_file():
         return None
@@ -389,7 +398,7 @@ def _render_report(
             "",
             "## Reproducibility and receipts",
             "",
-            f"- CAL artifact: `{cal_path}`",
+            f"- CAL artifact: `{_receipt_path(cal_path)}`",
             f"- CAL payload SHA-256: `{sha256_file(cal_path)}`",
             f"- Scorer version: `{SCORER_VERSION}`",
             f"- Input contract version: `{INPUT_CONTRACT_VERSION}`",

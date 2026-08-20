@@ -2,51 +2,213 @@
 
 > Know your frontier. Then forge past it.
 
-Post-train a 4B base LLM (SFT → distillation → DPO → GRPO) past the frontier-API
-cost-quality frontier on a machine-verifiable structured-triage task, then serve it
-through vLLM behind a custom C++20 LLM-aware gateway — with frozen eval sets,
-confidence intervals, real cost accounting, and honest failure analysis.
+`frontier-forge` post-trains a 4B base model for machine-verifiable CFPB complaint
+triage, serves it with vLLM, and puts a C++20 token-aware gateway in front of it.
+The release is built around frozen splits, paired confidence intervals, measured
+cost, and retained negative results—not a best-checkpoint victory lap.
 
-Sequel to [nlp-eval-lab](https://github.com/LucisZhang/nlp-eval-lab), which mapped
-the cost-quality frontier of classical / fine-tuned / frontier-API tiers. This
-project pushes a small model across that frontier and productionizes the result.
+## Headline
 
-**Status**: Phase 2 is complete, and labels are frozen under D3.1. The final
-stratified review recorded a 14% WRONG rate (four escalation and three refund
-false negatives), while the unchanged 21.0% calibration re-score had no
-discriminative power because none of its 100 labels changed. See the
-[reviewer audit](results/phase1_2_label_audit.md), [freeze receipt](results/phase1_2_label_freeze.md),
-and [re-score report](results/phase1_2_calibration_rescore.md).
+**The release model is R1b, the rule-label scaling ablation—not GRPO.** Scaling
+free rule labels from 1,450 to 20,000 raised frozen-eval task success from **66.35%
+to 99.05%** (**+32.70 percentage points**, paired 95% CI **[30.60, 34.50]**, n=2,000)
+in a **single training seed (seed 0)**, for **15.236 measured RTX 4090 GPU-hours
+($4.571)**. R1b's own 95% bootstrap CI is **[98.60%, 99.45%]**.
 
-The Phase 2 factory sent 6,000 deterministic frozen TRAIN records to
-`anthropic/claude-haiku-4.5`, retained 1,450 matched SFT/DPO examples, and
-quarantined 214 TEST-overlap hits. Exact account-reconciled API spend was
-$12.700690 against the $20 cap; see the [data card](results/phase2_data_card.md)
-and run `phase2_teacher_factory_v1_s20260816` in [results/runs.jsonl](results/runs.jsonl).
-Phase 3's local implementation is now prepared: pinned R0–R4 configs, the optional
-R1b 20k-rule-label ablation, TRL/Unsloth agreement gating, verifier-reward GRPO,
-frozen paired evaluation, honest GPU ledgers, and separate BF16/GPTQ exports. Full
-RTX 4090 runs and every resulting headline remain pending human launch; local smoke
-records are excluded from the production `results/runs.jsonl` ledger. See the
-[Phase 3 report](results/phase3_report.md) and [human launch plan](results/phase3_launch_plan.md).
+The task is strict JSON: normalized product/issue/company fields, urgency,
+ambiguity, and exactly one tool call. Headline success is a hard AND over the
+decision fields—urgency, ambiguity, tool choice, and structural tool arguments.
+Secondary copied metadata is reported separately and does not earn success or RL
+reward.
 
-## Local verification
+| Rung | Question answered | Task success [95% CI] | Measured GPU h / USD | Verdict |
+|---|---|---:|---:|---|
+| R0 base | Can the pretrained base follow the contract? | 0.00% [0.00, 0.00] | 0.983 / $0.295 | schema-invalid baseline |
+| R1 rule SFT, 1,450 rows | Are scarce free labels enough? | 66.35% [64.20, 68.40] | 3.479 / $1.044 | strong first jump |
+| **R1b rule SFT, 20,000 rows** | Does free-label scale win? | **99.05% [98.60, 99.45]** | **15.236 / $4.571** | **release selected** |
+| R2 distilled SFT | Does teacher phrasing help this rule-defined task? | 52.15% [50.00, 54.40] | 3.606 / $1.082 | **−14.20 pp vs R1** |
+| R3 DPO | Can preferences recover the loss? | 55.95% [53.75, 58.25] | 1.925 / $0.578 | +3.80 pp vs R2 |
+| R4 v2 GRPO | Does fresh-pool RL improve R3? | 56.20% on seeds 0/1 | 1.859 / $0.558 (s0) | no aggregate; seed 2 guard-aborted |
 
-```bash
-uv sync --locked --group train
-make test
-make gateway-test
-make phase1-2
-SMOKE=1 make teacher-data
-SMOKE=1 make teacher-audit
-make teacher-audit
-SMOKE=1 make phase3-smoke
-make phase3-context-audit
-SMOKE=1 make ingest
-SMOKE=1 make splits
-SMOKE=1 make calibrate-difficulty
-make ci-lint
+All task-success intervals use 1,000 fixed-seed bootstrap resamples. The exact
+records live in [`results/runs.jsonl`](results/runs.jsonl); paired deltas live in
+[`results/phase3_paired_deltas.json`](results/phase3_paired_deltas.json).
+
+The executable rule engine itself scores **100% at $0 model-inference cost** on its
+own policy benchmark. R1b's prospective value is generalization beyond exact
+literal-rule coverage; this rule-grounded evaluation does not establish that value.
+
+Across all committed, de-duplicated cost receipts—including failed and superseded
+attempts—the recorded project spend is **37.581 RTX 4090 GPU-hours ($11.274) +
+$13.038 teacher API = $24.313**. `make reproduce-headline` derives this total from
+the Phase 1/2 API ledgers, billable Phase 3 rows, Phase 4 operation receipts, and
+the Phase 5 ledger. It is a recorded-operation total, not an estimate of unmetered
+idle time or a cloud-provider invoice.
+
+## What shipped
+
+```mermaid
+flowchart LR
+  CFPB["Frozen CFPB splits"] --> RULES["Rule labels + API distillation"]
+  RULES --> LADDER["R0 → R1/R1b → R2 → R3 → R4"]
+  LADDER --> R1B["R1b · 99.05%"]
+  R1B --> EXPORTS["BF16 · GPTQ-int4 · BF16/MTP-preserved"]
+  EXPORTS --> VLLM["vLLM 0.17.0 · native MTP"]
+  VLLM --> GATEWAY["C++20 token-aware gateway"]
+  GATEWAY --> CLIENT["OpenAI-compatible JSON/SSE client"]
 ```
 
-Execution details live in [PLAN.md](PLAN.md); locked decisions in
-[DECISIONS.md](DECISIONS.md); agent rules in [AGENTS.md](AGENTS.md).
+- A QLoRA-trained R1b adapter merged to BF16; a separate GPTQ-int4 deployment
+  export; and a sibling BF16 export that restores the fixed base checkpoint's 15
+  native `mtp.*` tensors byte-for-byte.
+- A workload-controlled vLLM benchmark with client/server timing, verifier-based
+  cost per 1,000 successful tasks, native-MTP win/lose boundary, and structured
+  output experiments.
+- A C++20 Boost.Asio/Beast gateway with token-aware admission, bounded queue,
+  deadline/cancellation handling, SSE passthrough, rate limit, circuit breaker,
+  fallback policy, and Prometheus metrics.
+- An offline evidence explorer in [`demo/`](demo/) and a hash-gated claim replay.
+- A cascade handoff landed in [triage-router PR #1](https://github.com/LucisZhang/triage-router/pull/1).
+  Its committed CAL grid selects τ=0.8484 and models $254.68/1k only under
+  a cross-task 5% terminal-failure assumption. Because R1b's structured-action
+  input includes source metadata and no joint per-row CAL predictions exist, this
+  is explicitly a scenario—not a new certified classification claim—and the
+  sister lab's A→B2 headline remains unchanged.
+
+## Serving boundary
+
+Matched RTX 4090 points below use 4 QPS Poisson arrivals, 20 measured requests,
+vLLM 0.17.0, client wall-clock streaming latency, and a $0.30/GPU-hour rate.
+
+| R1b deployment | E2E p50 / p95 | Output tok/s | Verifier success | Peak VRAM | Cost / 1k successful tasks |
+|---|---:|---:|---:|---:|---:|
+| BF16 | 1.424 / 1.690 s | 307.0 | 95% | 22,829 MiB | $0.0211 |
+| GPTQ-int4 | 0.809 / 0.963 s | 335.6 | 95% | 22,591 MiB | $0.0193 |
+| BF16 + native MTP | **1.063 / 1.311 s** | **320.6** | 95% | 21,587 MiB | $0.0202 |
+
+Each 95% entry is only 19/20 requests; its 95% Wilson interval is **[76.4%,
+99.1%]**. The n=20 serving success rates are therefore fragile boundary
+measurements, not precise deployment-reliability estimates.
+
+Native MTP was not an unconditional checkbox win: it lost at 0.25 QPS and won at
+0.50, 1, 2, and 4 QPS, with 95.6–96.4% draft-token acceptance. The external 0.5B
+draft failed vocabulary compatibility; the compatible 0.8B draft then failed the
+Qwen3.5 M-RoPE path. Those attempts remain archived. The final route restored the
+base model's own MTP tensors instead of maintaining a private vLLM fork.
+
+The structured-output result was similarly mixed. xGrammar and Outlines both kept
+a 100% tool-call rate, so the hypothesized tool-call suppression did **not**
+reproduce. Yet simultaneous tool choice + response schema scored 0% task success.
+A two-pass design restored 100% for both backends, adding 0.811 s p50 (xGrammar)
+or 0.880 s (Outlines).
+
+Full disclosure and raw pointers: [Phase 4 report](results/phase4_serving_report.md).
+
+## Production story: the gateway result has a red flag
+
+On five stable direct/gateway cells, median E2E overhead was **p50 0.3% / p95
+0.5%**, with median throughput delta **−0.9%**. That is the valid low-load result.
+The overload result is not a win:
+
+| Offered load | Bare vLLM errors | Gateway errors | Gateway queue max | What actually returned |
+|---:|---:|---:|---:|---|
+| 2× capacity / 4 QPS | 0.0% | 13.3% | 0 | HTTP 502 / `upstream_error` |
+| 3× capacity / 6 QPS | 0.0% | 11.7% | 1 | HTTP 502 / `upstream_error` |
+| 5× capacity / 10 QPS | 0.0% | 23.3% | 10 | HTTP 502 / `upstream_error` |
+
+Every overload error **passed admission as `primary`**; every cell recorded
+`reject_overload=0`. These were not the designed 429 fast rejects. In the
+concurrency/length matrix, non-stable gateway cells had **10–85% errors** while
+their paired bare-vLLM cells had **0%**. Some gateway success-only p95 values are
+therefore lower because failed work disappeared from the survivor set. They are
+not unconditional tail-latency wins.
+
+The measured build retains a connection-handling defect under load. The bounded
+queue and local failure-injection tests are real; remote evidence for the designed
+overload rejection semantics is not. Production use is blocked until that defect
+is fixed and the same matched remote matrix is rerun. See the
+[Phase 5 report](results/phase5_gateway_report.md) and [gateway design](gateway/README.md).
+
+## Reproduce the headline
+
+The release claim chain makes no GPU or API call:
+
+```bash
+uv sync --locked
+make reproduce-headline
+make demo-build
+```
+
+`make reproduce-headline` re-derives the ladder, serving, structured-output,
+gateway, export, demo, and cascade-handoff payloads from pinned raw artifacts. It
+then verifies the source manifest and every published release file by SHA-256.
+`make demo-build` produces `demo/dist/` using only local HTML, CSS, JavaScript, and
+the generated receipt—opening the demo does not contact a CDN or model API.
+
+For a fresh-clone CPU smoke of the implementation chain:
+
+```bash
+SMOKE=1 make phase6-smoke
+```
+
+The target writes mutable Phase 3 and Phase 4 smoke artifacts only under the
+ignored `.tmp-phase6-smoke/` tree, so the advertised command leaves tracked smoke
+fixtures unchanged.
+
+## Model archives and card
+
+The Phase 6 archive publishes three independently hash-verified variants in one
+Hugging Face model repository:
+
+- `bf16/` — merged BF16 tree SHA-256
+  `7cf43a2905513f61797b78b7e3fd7ebdacd1cba4fc89abea9ce209401e6e6435`
+- `gptq-int4/` — GPTQ-int4 tree SHA-256
+  `c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2`
+- `bf16-mtp-preserved/` — merged BF16 + native-MTP tree SHA-256
+  `7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce`
+
+The public archive is [`Luciss007/frontier-forge-r1b`](https://huggingface.co/Luciss007/frontier-forge-r1b).
+Its manifest-bound artifacts are fixed at commit
+[`fd4ae1e`](https://huggingface.co/Luciss007/frontier-forge-r1b/tree/fd4ae1e1989dcb1641a496bf796031491518983e);
+the independently downloadable public receipt is fixed at commit
+[`a717e9c`](https://huggingface.co/Luciss007/frontier-forge-r1b/blob/a717e9c50435fc81b795d5683a22d0efe8191d16/provenance/archive_receipt.json).
+The local [archive receipt](results/phase6/hf_archive_receipt.json) records exact
+path sets and per-file LFS SHA-256 or Git-blob verification. The
+[remote-disk audit](results/phase6/remote_disk_audit.json) reports no remaining
+remote-only asset within the explicitly bounded project durable-asset scope;
+unrelated shared-pod files, caches, dependencies, and rebuildable temporary paths
+are not part of that claim. The complete usage, evaluation, risk, and provenance
+statement is in the [Model Card](MODEL_CARD.md).
+
+## Limitations and negative results
+
+- The 99.05% headline is against a deterministic rule policy, not human semantic
+  truth. A deliberately enriched 50-row strong-action stratified review found
+  7/50 wrong labels (14.0%), all escalation/refund false negatives. That sample
+  balanced changed action transitions, so 14.0% is neither a population error-rate
+  estimate nor comparable to the earlier v2 4% audit; the rules are also
+  negation-blind. See the [audit qualification](results/phase1_2_label_audit.md#final-stratified-review-result).
+- Input contract v2 exposes source product/issue/company metadata. That mirrors the
+  intended structured-triage setting, but it makes R1b unsuitable as evidence for a
+  narrative-only product classifier.
+- R2's teacher phrasing lost to free rules in this setting. This does not imply
+  distillation is generally useless; it is a boundary case where executable labels
+  are cheap and unlimited.
+- TRL and Unsloth failed the locked backend-agreement gate; TRL remained the
+  reference path.
+- R4's original runs were parser-invalid and superseded. R4 v2 seed 2 then hit the
+  locked reward-variance guard; no retry, tuning, or three-seed aggregate was made.
+- Training-time NF4 QLoRA and deployment-time GPTQ-int4 are different facts.
+  Neither is described as the other.
+- No safety, fairness, privacy, or human-impact validation supports autonomous
+  decisions. CFPB narratives may contain sensitive consumer information.
+
+Execution details: [PLAN.md](PLAN.md). Locked decisions: [DECISIONS.md](DECISIONS.md).
+Agent rules: [AGENTS.md](AGENTS.md).
+
+## License
+
+Source code is licensed under [Apache-2.0](LICENSE). Released model variants follow
+the Apache-2.0 license declared by the fixed Qwen3.5-4B-Base checkpoint; the code
+license does not relicense the CFPB source records. See the [Model Card](MODEL_CARD.md)
+for the base-model inheritance and public-data provenance statement.

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Frontier Forge — evidence explorer</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <script defer src="./data/release.js"></script>
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail">
+      <a class="wordmark" href="#top" aria-label="Frontier Forge home">
+        <span class="mark">FF</span>
+        <span>Frontier<br>Forge</span>
+      </a>
+      <p class="rail-copy">A 4B model, the systems around it, and the receipts behind every claim.</p>
+      <nav aria-label="Exhibits">
+        <a href="#ladder"><span>01</span> Training ladder</a>
+        <a href="#serving"><span>02</span> Serving frontier</a>
+        <a href="#constraints"><span>03</span> Constraint tax</a>
+        <a href="#gateway"><span>04</span> Gateway reality</a>
+        <a href="#receipts"><span>05</span> Claim chain</a>
+      </nav>
+      <div class="offline-stamp"><i></i> offline artifact</div>
+    </aside>
+
+    <main id="top">
+      <section class="hero">
+        <p class="kicker">POST-TRAINING / INFERENCE / PRODUCTION</p>
+        <h1>Know the frontier.<br><em>Then forge past it.</em></h1>
+        <p class="hero-copy" id="headline-copy">Loading the hash-gated release receipt…</p>
+        <div class="hero-metrics" id="hero-metrics" aria-label="Headline metrics"></div>
+        <p class="scope-note">The release model is the rule-label scaling ablation, not GRPO. R4's locked guard stopped the three-seed aggregate; the null and abort remain part of the result.</p>
+      </section>
+
+      <section id="ladder" class="exhibit">
+        <header class="section-head">
+          <div><span class="number">01</span><span class="eyebrow">WHAT ACTUALLY MOVED QUALITY</span></div>
+          <h2>Training ladder explorer</h2>
+          <p>Choose a rung. Bars show frozen-eval task success; the detail card keeps confidence intervals, cost, and status attached.</p>
+        </header>
+        <div class="ladder-layout">
+          <div class="ladder-chart" id="ladder-chart"></div>
+          <article class="detail-card" id="ladder-detail" aria-live="polite"></article>
+        </div>
+        <div class="finding negative"><b>Negative result:</b> distilled SFT lost 14.2 points to rule SFT. DPO recovered 3.8 points. GRPO's two completed seeds moved only +0.25 points and seed 2 hit the locked zero-variance guard, so no aggregate is claimed.</div>
+      </section>
+
+      <section id="serving" class="exhibit dark">
+        <header class="section-head">
+          <div><span class="number">02</span><span class="eyebrow">4 QPS / RTX 4090 / CLIENT SIDE</span></div>
+          <h2>Serving is a boundary, not a badge</h2>
+          <p>Compare deployment variants at the same offered load. Native MTP lost at 0.25 QPS, then won from 0.50 through 4.00 QPS.</p>
+        </header>
+        <div class="segmented" id="serving-tabs" role="tablist" aria-label="Serving variants"></div>
+        <div class="serving-layout">
+          <div class="metric-grid" id="serving-metrics"></div>
+          <div class="boundary-card">
+            <p class="mini-title">NATIVE MTP WIN / LOSE BOUNDARY</p>
+            <div class="boundary-chart" id="boundary-chart"></div>
+            <p class="caption">A win requires no worse p95 E2E and no lower verifier-successful throughput than the matched baseline.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="constraints" class="exhibit">
+        <header class="section-head">
+          <div><span class="number">03</span><span class="eyebrow">STRUCTURED OUTPUT DEEP DIVE</span></div>
+          <h2>The tool call survived. Correctness did not.</h2>
+          <p>Tool-call suppression did not reproduce: both backends kept a 100% tool-call rate. The simultaneous schema path still scored 0% task success; a two-pass design restored 100%.</p>
+        </header>
+        <div class="constraint-grid" id="constraint-grid"></div>
+        <p class="fineprint">Twenty-four requests per backend. Two-pass latency is the price of separating tool selection from final schema-constrained generation.</p>
+      </section>
+
+      <section id="gateway" class="exhibit warning-zone">
+        <header class="section-head">
+          <div><span class="number">04</span><span class="eyebrow">PRODUCTION STORY / NO VICTORY LAP</span></div>
+          <h2>Bounded queue, wrong failure path</h2>
+          <p>Stable cells measured small overhead. Overload did not exercise the designed admission reject path.</p>
+        </header>
+        <div class="gateway-summary" id="gateway-summary"></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Load</th><th>Gateway errors</th><th>Bare vLLM</th><th>Queue max</th><th>Observed semantics</th></tr></thead>
+            <tbody id="overload-table"></tbody>
+          </table>
+        </div>
+        <div class="finding danger" id="gateway-limitation"></div>
+      </section>
+
+      <section id="receipts" class="exhibit receipts">
+        <header class="section-head">
+          <div><span class="number">05</span><span class="eyebrow">HOW THIS WAS VERIFIED</span></div>
+          <h2>One offline claim chain</h2>
+          <p>The page reads a generated release object. The same object is rebuilt from pinned raw receipts by <code>make reproduce-headline</code>; source and publication files are SHA-256 gated.</p>
+        </header>
+        <dl class="receipt-list" id="receipt-list"></dl>
+        <p class="fineprint">No API or GPU call is made by the reproduction command. Raw benchmark receipts, negative results, and export manifests stay in the repository.</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

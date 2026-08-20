@@ -24,6 +24,7 @@ wheels/
 .uv-cache-phase4/
 .tmp-phase4/
 .tmp-phase5/
+.tmp-phase6-smoke/
 .cache-phase5/
 .cache/
 __pycache__/
@@ -38,6 +39,8 @@ gateway/build/
 gateway/out/
 gateway/compile_commands.json
 gateway/profile/
+demo/dist/
+demo/.dist-phase6.tmp/
 
 # os / editor
 .DS_Store

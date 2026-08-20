@@ -13,10 +13,9 @@ C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 	serve-bench spec-decode-bench structured-bench bench-report \
 	gateway-bench gateway-bench-report sync-up sync-down demo-build reproduce-headline
 
-STUB_TARGETS := demo-build reproduce-headline
-
 .PHONY: $(C3_TARGETS) gateway-llama-test ci-lint prepare-r1b prepare-r4-v2 phase3-context-audit phase3-report \
-	phase3-preflight phase3-smoke phase4-preflight phase4-smoke
+	phase3-preflight phase3-smoke phase4-preflight phase4-smoke phase6-smoke \
+	phase6-release-write
 
 test:
 	uv run pytest
@@ -212,6 +211,23 @@ sync-up:
 sync-down:
 	@./scripts/remote/sync.sh down
 
-$(STUB_TARGETS):
-	@test "$${SMOKE}" = "$(SMOKE)"
-	@printf '[stub] %s\n' "$@"
+demo-build:
+	@uv run python -m forge.release --demo-build
+
+reproduce-headline:
+	@uv run python -m forge.release
+
+phase6-release-write:
+	@uv run python -m forge.release --write
+
+phase6-smoke:
+	@test "$(SMOKE)" = "1" || { echo "phase6-smoke requires SMOKE=1" >&2; exit 2; }
+	@$(MAKE) test SMOKE=1
+	@$(MAKE) ingest splits calibrate-difficulty SMOKE=1
+	@$(MAKE) teacher-data teacher-audit SMOKE=1
+	@FORGE_SMOKE_OUTPUT_ROOT="$(CURDIR)/.tmp-phase6-smoke/$(shell git rev-parse --short=12 HEAD)/phase3" \
+		$(MAKE) phase3-smoke SMOKE=1
+	@FORGE_PHASE4_SMOKE_OUTPUT_ROOT="$(CURDIR)/.tmp-phase6-smoke/$(shell git rev-parse --short=12 HEAD)/phase4" \
+		$(MAKE) phase4-smoke SMOKE=1
+	@$(MAKE) gateway-test SMOKE=1
+	@$(MAKE) reproduce-headline demo-build SMOKE=1

@@ -8,13 +8,19 @@ import duckdb
 import pytest
 
 from forge.data.labels import derive_label
+from forge.teacher.audit import run_teacher_audit
 from forge.teacher.filters import (
     contamination_audit,
     minhash_deduplicate,
     perturb_near_miss,
 )
 from forge.teacher.freeze import DEFAULT_CONFIG_PATH, PayloadMissing, verify_frozen_source
-from forge.teacher.generate import _call_with_retry, _mock_record
+from forge.teacher.generate import (
+    RAW_LOG_NAME,
+    _call_with_retry,
+    _mock_record,
+    verify_completed_smoke_bundle,
+)
 from forge.verify.schema import is_schema_valid
 
 
@@ -96,6 +102,42 @@ def test_mock_teacher_record_retains_required_provenance() -> None:
     assert record["prompt_sha256"] == "a" * 64
     assert record["raw_response"]["choices"]
     assert record["score"]["task_success"] is True
+
+
+def test_committed_smoke_bundle_verifies_without_frozen_payloads() -> None:
+    manifest = verify_completed_smoke_bundle()
+
+    assert manifest["status"] == "complete"
+    assert manifest["mode"] == "smoke"
+    assert manifest["generation"]["selected_rows"] == 10
+
+
+def test_committed_smoke_bundle_rejects_artifact_hash_drift(monkeypatch) -> None:
+    from forge.teacher import generate
+
+    real_sha256_file = generate.sha256_file
+
+    def drift_raw_log(path: Path) -> str:
+        if path.name == RAW_LOG_NAME:
+            return "0" * 64
+        return real_sha256_file(path)
+
+    monkeypatch.setattr(generate, "sha256_file", drift_raw_log)
+    with pytest.raises(ValueError, match="raw_teacher_generations SHA-256 mismatch"):
+        verify_completed_smoke_bundle()
+
+
+def test_smoke_audit_labels_manifest_only_source_replay(monkeypatch) -> None:
+    def missing_payloads(*_args: object, **kwargs: object) -> dict[str, object]:
+        if kwargs.get("check_payloads") is False:
+            return verify_frozen_source(DEFAULT_CONFIG_PATH, check_payloads=False)
+        raise PayloadMissing("full frozen parquet payloads are not present")
+
+    monkeypatch.setattr("forge.teacher.audit.verify_frozen_source", missing_payloads)
+    result = run_teacher_audit(smoke=True)
+
+    assert result["status"] == "pass"
+    assert result["source_payload_replay"] is False
 
 
 def test_teacher_retry_handles_truncated_http_response(monkeypatch) -> None:

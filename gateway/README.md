@@ -184,11 +184,12 @@ they must never be edited around the raw run record.
 - R1b BF16 + native-MTP vLLM capacity: **2.000 QPS**.
 - Stable-cell gateway E2E overhead: median **p50 0.3%, p95 0.5%**.
 - Profiled optimization: E2E p50 **3.655 → 3.821 s**; throughput **7.752 → 8.029 req/s**.
+- Known limitation: overload errors were admitted HTTP 502/`upstream_error` responses, not designed 429 fast rejects (`reject_overload=0`). Non-stable cells had 10–85% gateway errors versus 0% for bare vLLM; their lower success-only p95 is not a latency win.
 - Full methodology, overload semantics, disclosure, raw-artifact pointers, and gate checklist: [`results/phase5_gateway_report.md`](../results/phase5_gateway_report.md).
 
 Resume claim draft:
 
-> 在单卡 RTX 4090 上为 R1b BF16 + 原生 MTP vLLM 实现 C++20 token-aware admission gateway：稳定单元格端到端 p50 中位开销 0.3%，5× 过载时队列峰值 10、HTTP 502/upstream_error 快速失败 p50 5.0 ms，恢复 4.485 s（裸 vLLM 4.649 s）。
+> 在单卡 RTX 4090 上为 R1b BF16 + 原生 MTP vLLM 实现 C++20 token-aware admission gateway：稳定单元格端到端 p50 中位开销 0.3%；5× 过载时队列峰值 10，但通过 admission 的请求产生 HTTP 502/upstream_error 错误响应 p50 5.0 ms，错误率 23.3%（裸 vLLM 0.0%）。
 <!-- PHASE5_BENCH_RESULTS_END -->
 
 ## D7 scope walls
