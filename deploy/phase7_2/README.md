@@ -26,3 +26,10 @@ no security-group port is opened.
 
 Run `make phase7-2-manifest-test` for static validation and
 `make phase7-2-kind-smoke` for the full CPU kind smoke.
+
+On a real VM, stage the exact official installer, k3s air-gap archive, and four
+pinned chart archives, then run `deploy/phase7_2/bootstrap_k3s.sh`. The script
+verifies the installer/archive hashes, fails closed on containerized PID 1 or
+swap, disables Traefik and ServiceLB, and installs the NVIDIA device plugin plus
+the monitoring/KEDA stack. It never changes host firewall or cloud
+security-group rules.

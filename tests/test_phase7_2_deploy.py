@@ -128,6 +128,22 @@ def test_kind_overlay_and_ci_use_the_mock_upstream() -> None:
     assert "make phase7-2-kind-smoke" in workflow
 
 
+def test_real_vm_bootstrap_is_pinned_and_keeps_network_private() -> None:
+    script = (DEPLOY / "bootstrap_k3s.sh").read_text()
+    for value in (
+        "v1.36.3+k3s1",
+        "nvidia-device-plugin-0.20.0.tgz",
+        "kube-prometheus-stack-88.5.2.tgz",
+        "prometheus-adapter-5.3.0.tgz",
+        "keda-2.20.2.tgz",
+        "--disable traefik --disable servicelb",
+        "nvidia\\.com/gpu\\.shared",
+    ):
+        assert value in script
+    for forbidden in ("NodePort", "LoadBalancer", "iptables ", "ufw ", "firewall-cmd"):
+        assert forbidden not in script
+
+
 def test_version_lock_matches_immutable_model_manifests() -> None:
     locked = yaml.safe_load((DEPLOY / "versions.lock.yaml").read_text())
     phase3 = json.loads((ROOT / "results/phase3_export_manifest_r1b_trl_s0.json").read_text())
@@ -142,3 +158,5 @@ def test_version_lock_matches_immutable_model_manifests() -> None:
     )
     assert locked["image_source_manifests_linux_amd64"]["vllm"].startswith("sha256:")
     assert locked["images"]["k6"] == "grafana/k6:2.2.0"
+    assert len(locked["chart_archives_sha256"]) == 4
+    assert all(len(value) == 64 for value in locked["chart_archives_sha256"].values())

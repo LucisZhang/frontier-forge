@@ -9,6 +9,11 @@ charts:
   kube_prometheus_stack: 88.5.2
   prometheus_adapter: 5.3.0
   keda: 2.20.2
+chart_archives_sha256:
+  nvidia_device_plugin: 9e5642bcdd3805c6e931f9d3ca542677d1f714d68c14c1364892011e67d9a606
+  kube_prometheus_stack: aac57bfb6fb53c3a9c6f4f0526b61145507dd81ff5312c67305ba5e31b7732d6
+  prometheus_adapter: aa6752b6207ed788522714c3ef7f67f27d423eb4d9512fecb52dc641b6434f31
+  keda: db60b1fa60f0565fefa4ce2f87e855b6a8854363ee82962fbe28a12a70d64c4c
 images:
   gateway: frontier-forge/gateway:phase7-2
   vllm: vllm/vllm-openai:v0.17.0
