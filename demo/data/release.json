@@ -222,7 +222,7 @@
     "bootstrap_resamples": 1000,
     "dataset_hash": "d1092cd16f604c25ed6d5034bf0fed33afbe975af4048fbd2a0cd93d7b25e564",
     "source_manifest": "results/phase6/source_manifest.json",
-    "source_manifest_sha256": "276026267a30abb94c681e20f73dc8ab20a529187e1dbbcf5b4480ee29b2462b"
+    "source_manifest_sha256": "60e8cdb407be5b783790ee81769fe359b878777f62415c9f7390d2a3925198a5"
   },
   "schema_version": "frontier-forge-release-v1",
   "serving": {
