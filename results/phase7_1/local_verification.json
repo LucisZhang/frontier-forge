@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "phase": "7.1",
+  "scope": "local_only",
+  "status": "local_complete_remote_pending",
+  "pre_fix_source_git_sha": "527e1bbed0abedc089d59ec96e197cf3d66809fa",
+  "code_and_test_diff_sha256": "eae1e6329933ef18c817e09cb835029beca90ad24e4499c5fee850fc5f75c199",
+  "phase5_source_receipt": {
+    "run_id": "phase5_gateway_r1b_bf16_native_mtp",
+    "git_sha": "9dff2a6758a1ed2facd5f132d0f22de182a592bb",
+    "path": "results/phase5/raw/phase5_gateway_bench.json",
+    "overload_502_count": 29,
+    "reject_overload_count_by_cell": [0, 0, 0]
+  },
+  "regression": {
+    "command": "gateway/build/sanitize/tests/gateway_tests '--gtest_filter=GatewayIntegrationTest.ReconnectsBeforeReusingPeerClosedKeepAliveSocket:GatewayIntegrationTest.BoundsQueueAndFastRejectsExcessLoad'",
+    "pre_fix": {
+      "exit_code": 1,
+      "passed": 0,
+      "failed": 2,
+      "observed": [
+        "peer-closed keep-alive socket returned 502 instead of reconnecting to 200",
+        "bounded admission overload returned 503 instead of 429"
+      ]
+    },
+    "post_change": {
+      "exit_code": 0,
+      "passed": 2,
+      "failed": 0,
+      "repeat_count": 20,
+      "repeated_test_passes": 40
+    }
+  },
+  "residual_risk": {
+    "probe_to_async_write_race": "narrowed_not_closed",
+    "possible_result": "HTTP 502/upstream_error if peer FIN arrives after probe and before write",
+    "hardening_not_implemented": [
+      "idle_age_eviction",
+      "max_lifetime_eviction"
+    ],
+    "failure_class_eliminated": false
+  },
+  "local_verification": {
+    "make_gateway_test": {
+      "asan_ubsan": "green",
+      "passed": 32,
+      "failed": 0
+    },
+    "make_test": {
+      "pytest_passed": 187,
+      "pytest_failed": 0,
+      "ruff_check": "green",
+      "ruff_format_check": "green"
+    },
+    "phase6_release_reseal": {
+      "make_phase6_release_write": "green",
+      "make_reproduce_headline": "green",
+      "gateway_readme_sha256": "b89787916de8dc267a19350093405df9019c312164fb7d56301358b6b47a7c40",
+      "source_files_verified": 30,
+      "release_files_verified": 16,
+      "derived_outputs_verified": 4,
+      "headline_sha256": "f409ced2e9d1a08a52e0cb74d955f83c25b697c382a0253a5007bab6c7a909b6"
+    }
+  },
+  "remote_matrix_rerun": "not_run_by_scope",
+  "production_blocked": true,
+  "production_blocked_reason": "local mitigation narrows but does not close the probe-to-write race; matched remote matrix and overload 429 receipts are pending"
+}

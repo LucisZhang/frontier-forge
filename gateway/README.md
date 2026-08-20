@@ -55,7 +55,7 @@ For every request, the controller applies this order:
 | primary below the configured token-utilization threshold | primary lease | proxy to primary |
 | primary loaded/unavailable and a healthy fallback fits | degrade route | rewrite `model`, proxy to fallback |
 | primary busy, queue has request/token room, and predicted wait fits deadline | enqueue | asynchronous FIFO wait |
-| queue bound reached | overload reject | `503` + `Retry-After` |
+| queue bound reached | overload reject | `429` + `Retry-After` |
 | predicted wait leaves no execution budget | deadline reject | `504` |
 | every route unhealthy or circuit-open | unavailable reject | `503` + `Retry-After` |
 

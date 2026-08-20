@@ -219,6 +219,23 @@ net::awaitable<void> MockUpstream::session(tcp::socket socket) {
         disconnected_writes_.fetch_add(1, std::memory_order_relaxed);
         co_return;
       }
+      const auto idle_close_ms =
+          header_integer(request, "X-Mock-Idle-Close-Ms", -1);
+      if (idle_close_ms >= 0) {
+        net::steady_timer timer(executor_);
+        timer.expires_after(std::chrono::milliseconds(idle_close_ms));
+        boost::system::error_code timer_error;
+        co_await timer.async_wait(
+            net::redirect_error(net::use_awaitable, timer_error));
+        if (timer_error) {
+          co_return;
+        }
+        boost::system::error_code ignored;
+        stream.socket().shutdown(tcp::socket::shutdown_both, ignored);
+        stream.socket().close(ignored);
+        idle_disconnects_.fetch_add(1, std::memory_order_relaxed);
+        co_return;
+      }
       if (!response.keep_alive()) {
         co_return;
       }

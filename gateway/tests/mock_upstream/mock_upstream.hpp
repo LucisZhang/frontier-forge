@@ -35,6 +35,9 @@ public:
   [[nodiscard]] std::size_t accepted_connections() const noexcept {
     return accepted_connections_.load(std::memory_order_relaxed);
   }
+  [[nodiscard]] std::size_t idle_disconnects() const noexcept {
+    return idle_disconnects_.load(std::memory_order_relaxed);
+  }
 
 private:
   boost::asio::awaitable<void> accept_loop();
@@ -48,6 +51,7 @@ private:
   std::atomic<std::size_t> maximum_active_requests_{};
   std::atomic<std::size_t> disconnected_writes_{};
   std::atomic<std::size_t> accepted_connections_{};
+  std::atomic<std::size_t> idle_disconnects_{};
 };
 
 } // namespace frontier_forge::test

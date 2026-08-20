@@ -372,7 +372,7 @@ net::awaitable<void> GatewayServer::handle_session(tcp::socket socket) {
   }
 
   if (!admission.lease.has_value()) {
-    http::status status = http::status::service_unavailable;
+    http::status status = http::status::too_many_requests;
     MetricDecision metric = MetricDecision::reject_overload;
     std::string code = "overloaded";
     if (admission.kind == AdmissionKind::rejected_deadline) {

@@ -252,6 +252,30 @@ TEST_F(GatewayIntegrationTest, ReusesKeepAliveConnectionsFromTheBoundedPool) {
   EXPECT_LE(primary->accepted_connections() - baseline, 1U);
 }
 
+TEST_F(GatewayIntegrationTest,
+       ReconnectsBeforeReusingPeerClosedKeepAliveSocket) {
+  auto config = default_config();
+  config.fallback_enabled = false;
+  config.primary.connection_pool_size = 1;
+  config.health_interval = 10s;
+  start_gateway(config);
+
+  const auto first = request(
+      gateway->port(), http::verb::post, "/v1/chat/completions", chat_body(),
+      {{"X-Client-ID", "idle-close-first"},
+       {"X-Mock-Idle-Close-Ms", "20"}});
+  ASSERT_EQ(first.status, 200U);
+  ASSERT_TRUE(
+      wait_until([this] { return primary->idle_disconnects() == 1; }));
+  const auto connections_before_retry = primary->accepted_connections();
+
+  const auto second =
+      request(gateway->port(), http::verb::post, "/v1/chat/completions",
+              chat_body(), {{"X-Client-ID", "idle-close-second"}});
+  EXPECT_EQ(second.status, 200U);
+  EXPECT_EQ(primary->accepted_connections(), connections_before_retry + 1);
+}
+
 TEST_F(GatewayIntegrationTest, CircuitBreakerDegradesToFallbackModel) {
   start_gateway(default_config());
   const auto failed = request(
@@ -344,9 +368,16 @@ TEST_F(GatewayIntegrationTest, BoundsQueueAndFastRejectsExcessLoad) {
       request(gateway->port(), http::verb::post, "/v1/chat/completions", body,
               {{"X-Client-ID", "load-3"}, {"X-Mock-Latency-Ms", "250"}});
   const auto reject_latency = std::chrono::steady_clock::now() - started_at;
-  EXPECT_EQ(rejected.status, 503U);
+  EXPECT_EQ(rejected.status, 429U);
   EXPECT_LT(reject_latency, 100ms);
   EXPECT_TRUE(rejected.headers.contains("Retry-After"));
+  EXPECT_NE(rejected.body.find("\"code\":\"overloaded\""),
+            std::string::npos);
+  const auto metrics = request(gateway->port(), http::verb::get, "/metrics");
+  EXPECT_NE(metrics.body.find("decision=\"reject_overload\"} 1"),
+            std::string::npos);
+  EXPECT_NE(metrics.body.find("class=\"4xx\"} 1"), std::string::npos);
+  EXPECT_NE(metrics.body.find("class=\"5xx\"} 0"), std::string::npos);
 
   first_client.join();
   second_client.join();

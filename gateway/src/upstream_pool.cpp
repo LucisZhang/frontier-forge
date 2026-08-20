@@ -1,8 +1,11 @@
 #include "frontier_forge/upstream_pool.hpp"
 
 #include <algorithm>
+#include <cerrno>
 #include <exception>
 #include <string>
+
+#include <sys/socket.h>
 
 #include <boost/asio/co_spawn.hpp>
 #include <boost/asio/connect.hpp>
@@ -20,6 +23,38 @@ namespace http = beast::http;
 using tcp = net::ip::tcp;
 
 namespace {
+
+void close_connection_noexcept(
+    const std::shared_ptr<UpstreamConnection> &connection) noexcept {
+  boost::system::error_code ignored;
+  connection->stream.socket().shutdown(tcp::socket::shutdown_both, ignored);
+  connection->stream.socket().close(ignored);
+  connection->buffer.consume(connection->buffer.size());
+}
+
+bool stale_idle_socket(tcp::socket &socket) noexcept {
+  if (!socket.is_open()) {
+    return false;
+  }
+
+  char byte{};
+  while (true) {
+    errno = 0;
+    const auto received =
+        ::recv(socket.native_handle(), &byte, sizeof(byte),
+               MSG_PEEK | MSG_DONTWAIT);
+    if (received >= 0) {
+      // An orderly FIN returns zero. Any byte on an otherwise idle HTTP/1.1
+      // connection is also unsafe to reuse because the previous response was
+      // already parsed to completion.
+      return true;
+    }
+    if (errno == EINTR) {
+      continue;
+    }
+    return errno != EAGAIN && errno != EWOULDBLOCK;
+  }
+}
 
 void cancel_timer_noexcept(
     const std::shared_ptr<net::steady_timer> &timer) noexcept {
@@ -94,6 +129,12 @@ UpstreamPool::acquire(SteadyClock::time_point deadline) {
           connections_.begin(), connections_.end(),
           [](const auto &connection) { return !connection->in_use; });
       if (found != connections_.end()) {
+        // Point-in-time only: a FIN can still arrive after this probe and before
+        // async_write. This narrows stale reuse; it does not eliminate the
+        // transport-failure class.
+        if (stale_idle_socket((*found)->stream.socket())) {
+          close_connection_noexcept(*found);
+        }
         (*found)->in_use = true;
         co_return *found;
       }
@@ -129,10 +170,7 @@ net::awaitable<void> UpstreamPool::ensure_connected(
 void UpstreamPool::release(
     const std::shared_ptr<UpstreamConnection> &connection, bool reusable) {
   if (!reusable) {
-    boost::system::error_code ignored;
-    connection->stream.socket().shutdown(tcp::socket::shutdown_both, ignored);
-    connection->stream.socket().close(ignored);
-    connection->buffer.consume(connection->buffer.size());
+    close_connection_noexcept(connection);
   }
   std::scoped_lock lock(mutex_);
   connection->in_use = false;
