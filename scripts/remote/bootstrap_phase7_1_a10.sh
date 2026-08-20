@@ -29,6 +29,23 @@ export UV_CACHE_DIR="${cache_root}/uv"
 export HF_HOME="${cache_root}/huggingface"
 export HUGGINGFACE_HUB_CACHE="${HF_HOME}/hub"
 export TMPDIR="${cache_root}/tmp"
+hf_endpoint="${FORGE_HF_ENDPOINT:-https://huggingface.co}"
+case "${hf_endpoint}" in
+  https://huggingface.co | https://hf-mirror.com) ;;
+  *)
+    echo "FORGE_HF_ENDPOINT must be https://huggingface.co or https://hf-mirror.com" >&2
+    exit 2
+    ;;
+esac
+hf_repo_id=Luciss007/frontier-forge-r1b
+hf_revision=fd4ae1e1989dcb1641a496bf796031491518983e
+hf_subdir=bf16-mtp-preserved
+expected_artifact_sha256=7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce
+export HF_ENDPOINT="${hf_endpoint}"
+export FORGE_HF_REPO_ID="${hf_repo_id}"
+export FORGE_HF_REVISION="${hf_revision}"
+export FORGE_HF_SUBDIR="${hf_subdir}"
+echo "Phase 7.1 model transport endpoint: ${HF_ENDPOINT}"
 
 if ! command -v uv >/dev/null 2>&1; then
   curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -50,13 +67,13 @@ from huggingface_hub import snapshot_download
 repo_root = Path.cwd()
 snapshot = Path(
     snapshot_download(
-        repo_id="Luciss007/frontier-forge-r1b",
-        revision="fd4ae1e1989dcb1641a496bf796031491518983e",
-        allow_patterns=["bf16-mtp-preserved/*"],
+        repo_id=os.environ["FORGE_HF_REPO_ID"],
+        revision=os.environ["FORGE_HF_REVISION"],
+        allow_patterns=[f'{os.environ["FORGE_HF_SUBDIR"]}/*'],
         cache_dir=os.environ["HUGGINGFACE_HUB_CACHE"],
     )
 )
-source = snapshot / "bf16-mtp-preserved"
+source = snapshot / os.environ["FORGE_HF_SUBDIR"]
 target = repo_root / "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved"
 if not source.is_dir():
     raise RuntimeError(f"archive subdirectory is missing: {source}")
@@ -88,5 +105,24 @@ fi
 .venv-phase4/bin/python -c 'import torch; assert torch.cuda.is_available(); print(torch.cuda.get_device_name(0), torch.version.cuda)'
 .venv-phase4/bin/vllm --version
 .venv-phase4/bin/python -m gateway.bench.phase7_1_bench --stage verify-artifact
+artifact_receipt=results/phase7_1/artifact_verification.json
+actual_artifact_sha256="$(jq -r .artifact.sha256 "${artifact_receipt}")"
+if [[ "${actual_artifact_sha256}" != "${expected_artifact_sha256}" ]]; then
+  echo "verified artifact receipt differs from the fixed archive identity" >&2
+  exit 2
+fi
+artifact_receipt_sha256="$(sha256sum "${artifact_receipt}" | cut -c1-64)"
+jq -n \
+  --arg git_sha "${FORGE_BENCH_GIT_SHA}" \
+  --arg endpoint "${HF_ENDPOINT}" \
+  --arg repo_id "${hf_repo_id}" \
+  --arg revision "${hf_revision}" \
+  --arg allow_pattern "${hf_subdir}/*" \
+  --arg artifact_sha256 "${actual_artifact_sha256}" \
+  --arg artifact_receipt "${artifact_receipt}" \
+  --arg artifact_receipt_sha256 "${artifact_receipt_sha256}" \
+  --arg finished_at "$(date --utc --iso-8601=seconds)" \
+  '{version:1,status:"complete",phase:"7.1",git_sha:$git_sha,transport:{endpoint:$endpoint,role:"transport_only"},identity:{repo_id:$repo_id,fixed_revision:$revision,allow_pattern:$allow_pattern,verified_tree_sha256:$artifact_sha256},artifact_verification:{path:$artifact_receipt,sha256:$artifact_receipt_sha256},finished_at:$finished_at}' \
+  > results/phase7_1/a10_model_transfer.json
 .venv-phase4/bin/python -m pip freeze > results/phase7_1/a10_python_packages.txt
 echo "Phase 7.1 A10 serving environment and model artifact are verified on /mnt/frontier-forge"

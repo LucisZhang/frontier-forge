@@ -168,6 +168,7 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     run = (REPO_ROOT / "scripts/remote/run_phase7_1_bench.sh").read_text()
     gateway = (REPO_ROOT / "scripts/remote/launch_phase7_1_gateway.sh").read_text()
     prefill = (REPO_ROOT / "scripts/remote/prefill_phase7_1_env.sh").read_text()
+    bootstrap = (REPO_ROOT / "scripts/remote/bootstrap_phase7_1_a10.sh").read_text()
     toolchain = (REPO_ROOT / "scripts/remote/bootstrap_phase7_1_toolchain.sh").read_text()
     build = (REPO_ROOT / "scripts/remote/build_phase7_1_gateway.sh").read_text()
 
@@ -187,6 +188,10 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     assert "a10_mirror_wheelhouse.sha256" in prefill
     assert "/mnt/frontier-forge/cache" in prefill
     assert "uv sync --active --locked" in prefill
+    assert "FORGE_HF_ENDPOINT:-https://huggingface.co" in bootstrap
+    assert "https://hf-mirror.com" in bootstrap
+    assert "a10_model_transfer.json" in bootstrap
+    assert 'role:"transport_only"' in bootstrap
     assert "cmake_version=4.2.3" in toolchain
     assert "8e91b381aaea3c47110583dccc52f4562333d1accdbb806939f953c16e74ec0a" in toolchain
     assert "boost_version=1.86.0" in toolchain
