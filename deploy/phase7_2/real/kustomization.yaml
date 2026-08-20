@@ -12,6 +12,8 @@ resources:
   - service-monitors.yaml
   - keda-scalers.yaml
   - monitoring/prometheus-rules.yaml
+patches:
+  - path: namespace-hostpath-patch.yaml
 configMapGenerator:
   - name: vllm-router-config
     namespace: forge-system

@@ -21,10 +21,19 @@ spec:
     spec:
       runtimeClassName: nvidia
       automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: vllm
           image: vllm/vllm-openai:v0.17.0
           imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
           args:
             - /mnt/frontier-forge/repo/checkpoints/full/r1b/trl/s0/export/gptq_int4
             - --served-model-name

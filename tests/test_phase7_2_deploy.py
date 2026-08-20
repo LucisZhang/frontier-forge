@@ -50,6 +50,24 @@ def test_no_public_host_bindings_in_pod_specs() -> None:
             assert all("hostPort" not in port for port in container.get("ports", []))
 
 
+def test_real_hostpath_admission_is_narrow_and_containers_are_not_privileged() -> None:
+    patch = yaml.safe_load((DEPLOY / "real/namespace-hostpath-patch.yaml").read_text())
+    labels = patch["metadata"]["labels"]
+    assert labels["pod-security.kubernetes.io/enforce"] == "privileged"
+    assert labels["pod-security.kubernetes.io/enforce-version"] == "v1.36"
+    base = yaml.safe_load((DEPLOY / "base/namespace.yaml").read_text())
+    assert base["metadata"]["labels"]["pod-security.kubernetes.io/enforce"] == "baseline"
+
+    for name in ("vllm-int4", "vllm-bf16"):
+        deployment = _named(_real_documents(), "Deployment", name)
+        pod_spec = deployment["spec"]["template"]["spec"]
+        assert pod_spec["securityContext"]["seccompProfile"]["type"] == "RuntimeDefault"
+        security = pod_spec["containers"][0]["securityContext"]
+        assert security["privileged"] is False
+        assert security["allowPrivilegeEscalation"] is False
+        assert security["capabilities"]["drop"] == ["ALL"]
+
+
 def test_single_gpu_is_time_sliced_for_exactly_two_workloads() -> None:
     values = yaml.safe_load((DEPLOY / "charts/nvidia-device-plugin-values.yaml").read_text())
     config = values["config"]["map"]["phase7-2"]

@@ -13,6 +13,15 @@ All application and dashboard Services are `ClusterIP`. The operational scripts
 use loopback-bound `kubectl port-forward` processes reached through SSH tunnels;
 no security-group port is opened.
 
+The real-VM overlay must admit `hostPath` because both vLLM deployments mount
+the VM's already-hashed model trees read-only. Kubernetes Pod Security baseline
+rejects all `hostPath` volumes, so that overlay sets the namespace's admission
+tier to `privileged`; this is an admission exemption, not a privileged container.
+Both model containers explicitly set `privileged: false`, drop every Linux
+capability, disable privilege escalation, use RuntimeDefault seccomp, and expose
+neither host networking nor host ports. The CPU-only kind overlay retains
+baseline enforcement.
+
 ## Layout
 
 - `base/`: gateway and namespace shared by real and CPU-only kind deployments.

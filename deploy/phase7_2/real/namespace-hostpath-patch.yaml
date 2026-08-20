@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: forge-system
+  labels:
+    # The two vLLM pods mount immutable model trees from this single VM. PSA's
+    # baseline tier rejects every hostPath, even read-only ones. This real-VM
+    # overlay therefore admits hostPath while the pods themselves remain
+    # unprivileged, capability-free, seccomp-confined, and without host network
+    # or host ports. The CPU-only kind overlay keeps baseline enforcement.
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: v1.36
