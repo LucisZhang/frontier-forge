@@ -168,6 +168,8 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     run = (REPO_ROOT / "scripts/remote/run_phase7_1_bench.sh").read_text()
     gateway = (REPO_ROOT / "scripts/remote/launch_phase7_1_gateway.sh").read_text()
     prefill = (REPO_ROOT / "scripts/remote/prefill_phase7_1_env.sh").read_text()
+    toolchain = (REPO_ROOT / "scripts/remote/bootstrap_phase7_1_toolchain.sh").read_text()
+    build = (REPO_ROOT / "scripts/remote/build_phase7_1_gateway.sh").read_text()
 
     assert "FORGE_CONFIRM_FORMAT_DEVICE=/dev/vdb" in provision
     assert "/mnt/frontier-forge" in provision
@@ -182,6 +184,12 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     assert "--require-hashes --no-deps" in prefill
     assert "/mnt/frontier-forge/cache" in prefill
     assert "uv sync --active --locked" in prefill
+    assert "cmake_version=4.2.3" in toolchain
+    assert "8e91b381aaea3c47110583dccc52f4562333d1accdbb806939f953c16e74ec0a" in toolchain
+    assert "boost_version=1.86.0" in toolchain
+    assert "1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b" in toolchain
+    assert "/mnt/frontier-forge/tooling" in toolchain
+    assert "Boost_USE_STATIC_LIBS=ON" in build
     assert (
         "security-group" not in provision.lower()
         or "no security-group operation" in provision.lower()
