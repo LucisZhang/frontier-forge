@@ -1,0 +1,12 @@
+GPU guard passed; only recorded Phase 7.1 vLLM processes use the A10
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 715, in <module>
+    main()
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 681, in main
+    result = _verify_artifact(config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 154, in _verify_artifact
+    raise RuntimeError("export manifest does not identify the sustained serving artifact")
+RuntimeError: export manifest does not identify the sustained serving artifact

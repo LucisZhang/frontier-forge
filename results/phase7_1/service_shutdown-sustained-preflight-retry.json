@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "status": "complete",
+  "stopped_at": "2026-08-20T16:16:40Z",
+  "reason": "linked_model_logical_path_preflight_retry",
+  "gpu_compute_processes": 0
+}

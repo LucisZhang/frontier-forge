@@ -1,0 +1,38 @@
+GPU guard passed; only recorded Phase 7.1 vLLM processes use the A10
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 717, in <module>
+    main()
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 694, in main
+    result = asyncio.run(
+             ^^^^^^^^^^^^
+  File "/home/ecs-user/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/ecs-user/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ecs-user/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 651, in _run_stage
+    return _write_final_receipt(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 500, in _write_final_receipt
+    gate = _evaluate_gate(config, paired, gateway_stage)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 392, in _evaluate_gate
+    direct_5xx_rate = _upstream_5xx_rate(direct, gateway=False)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 344, in _upstream_5xx_rate
+    return _http_5xx_count(cell) / upstream_attempts
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 330, in _http_5xx_count
+    return sum(
+           ^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained.py", line 333, in <genexpr>
+    if 500 <= int(status) < 600
+              ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'transport_error'
+Phase 7.1 sustained-overload-a10-gateway complete: results/phase7_1/raw/sustained-overload-a10-gateway.json

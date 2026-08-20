@@ -49,6 +49,13 @@ def test_http_5xx_count_ignores_transport_status_bucket() -> None:
     assert bench._http_5xx_count(cell) == 5
 
 
+def test_report_counts_5xx_and_transport_separately() -> None:
+    cell = {"http_status_counts": {"200": 10, "500": 2, "transport_error": 7}}
+
+    assert report._five_xx(cell) == 2
+    assert report._transport_errors(cell) == 7
+
+
 def _cell(
     *,
     cell_id: str,

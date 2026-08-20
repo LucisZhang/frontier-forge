@@ -6,7 +6,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "6018d0c8b7719db710ee6220615de293db981c54ff4bbd8bfbc53f03f2193c54"
+      "sha256": "f8f29fdf75b1bf6c1d74149dc96bc720847ad417c7202c33096f4aa7d46f75d3"
     },
     {
       "path": "MODEL_CARD.md",
@@ -22,15 +22,15 @@
     },
     {
       "path": "results/phase6/source_manifest.json",
-      "sha256": "17d79f1c3c01ffae4a82b404f355f8630741a395dd5c852ff3c8129a9ff10f97"
+      "sha256": "276026267a30abb94c681e20f73dc8ab20a529187e1dbbcf5b4480ee29b2462b"
     },
     {
       "path": "results/phase6/headline.json",
-      "sha256": "4bd45ef0d21cd60dfd684f6b95086eeefdd1e045947a6dac08222bfe38276ded"
+      "sha256": "14b2098789616262739d0bace9ef98980c546ef2241ae2a57518e665351e9b6f"
     },
     {
       "path": "results/phase6/cascade_handoff.json",
-      "sha256": "189b27836c1270eb1eac1fedb458ce388ee3ce81bf439375538d9a0b379c7333"
+      "sha256": "7bb184d6ad01d5184ec9d65d84b2a9eff76806b378440db7e4ad60cae599c9bf"
     },
     {
       "path": "results/phase6/hf_archive_receipt.json",
@@ -58,11 +58,11 @@
     },
     {
       "path": "demo/data/release.json",
-      "sha256": "4bd45ef0d21cd60dfd684f6b95086eeefdd1e045947a6dac08222bfe38276ded"
+      "sha256": "14b2098789616262739d0bace9ef98980c546ef2241ae2a57518e665351e9b6f"
     },
     {
       "path": "demo/data/release.js",
-      "sha256": "bc94f5ecb24de47b7c5801c8fb0d7bc3052dc638ba448911bc51a6bbd31638a6"
+      "sha256": "69dde6f88af57116cb8a1ea1ba3b8bc28c528a4f82c76e54a3df79dd638c3621"
     }
   ],
   "phase": 6,

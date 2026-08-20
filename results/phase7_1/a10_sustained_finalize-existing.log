@@ -1,0 +1,26 @@
+GPU guard passed; only recorded Phase 7.1 vLLM processes use the A10
+{"gate": "pass", "stage": "finalize-existing", "status": "complete"}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained_report.py", line 266, in <module>
+    main()
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained_report.py", line 262, in main
+    print(json.dumps(run(update_readme=args.update_readme), sort_keys=True))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained_report.py", line 208, in run
+    REPORT_PATH.write_text(_report(sustained, finite, phase5, local))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained_report.py", line 144, in _report
+    {_sustained_table(sustained)}
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained_report.py", line 67, in _sustained_table
+    direct_5xx=_five_xx(direct),
+               ^^^^^^^^^^^^^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained_report.py", line 42, in _five_xx
+    return sum(
+           ^^^^
+  File "/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/bench/phase7_1_sustained_report.py", line 45, in <genexpr>
+    if 500 <= int(status) < 600
+              ^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'transport_error'

@@ -104,30 +104,23 @@ or 0.880 s (Outlines).
 
 Full disclosure and raw pointers: [Phase 4 report](results/phase4_serving_report.md).
 
-## Production story: the gateway result has a red flag
+## Production story: sustained overload resolves the gateway red flag
 
-On five stable direct/gateway cells, median E2E overhead was **p50 0.3% / p95
-0.5%**, with median throughput delta **−0.9%**. That is the valid low-load result.
-The overload result is not a win:
+The original Phase 5 RTX 4090 result remains an important negative finding: admitted requests returned HTTP 502/`upstream_error`, `reject_overload=0`, and non-stable gateway cells reached 10–85% errors while paired bare vLLM had 0%. Lower success-only latency in those cells was survivor-biased. The original [Phase 5 receipt](results/phase5/raw/phase5_gateway_bench.json) and [report](results/phase5_gateway_report.md) remain unchanged.
 
-| Offered load | Bare vLLM errors | Gateway errors | Gateway queue max | What actually returned |
-|---:|---:|---:|---:|---|
-| 2× capacity / 4 QPS | 0.0% | 13.3% | 0 | HTTP 502 / `upstream_error` |
-| 3× capacity / 6 QPS | 0.0% | 11.7% | 1 | HTTP 502 / `upstream_error` |
-| 5× capacity / 10 QPS | 0.0% | 23.3% | 10 | HTTP 502 / `upstream_error` |
+The first same-box A10 rerun fixed the connection-reuse failure: all nine matched matrix cells and all finite overload cells had 0 upstream 5xx. Its 60-request bursts reached queue high-watermarks 8/20/24 at 2×/3×/5×; 2× and 3× fit inside the 24-request queue, while 5× shed 14 requests as HTTP 429. The earlier “one 429 in every finite cell” check was therefore a miscalibrated proxy, not evidence that bounded admission failed. That [finite A10 receipt](results/phase7_1/raw/phase7_1_gateway_bench.json) remains preserved.
 
-Every overload error **passed admission as `primary`**; every cell recorded
-`reject_overload=0`. These were not the designed 429 fast rejects. In the
-concurrency/length matrix, non-stable gateway cells had **10–85% errors** while
-their paired bare-vLLM cells had **0%**. Some gateway success-only p95 values are
-therefore lower because failed work disappeared from the survivor set. They are
-not unconditional tail-latency wins.
+The human-approved amendment replaced that proxy with fixed-seed Poisson arrivals lasting at least 120 seconds per 2×/3×/5× cell, gateway versus same-box bare vLLM:
 
-The measured build retains a connection-handling defect under load. The bounded
-queue and local failure-injection tests are real; remote evidence for the designed
-overload rejection semantics is not. Production use is blocked until that defect
-is fixed and the same matched remote matrix is rerun. See the
-[Phase 5 report](results/phase5_gateway_report.md) and [gateway design](gateway/README.md).
+| load | arrival windows bare/gateway | requests bare/gateway | bare 5xx / transport | gateway 5xx / 429 | queue sampled/process | 429 p95 |
+|---:|---:|---:|---:|---:|---:|---:|
+| 2× | 120.1s / 120.1s | 510 / 510 | 0 (0.0%) / 0 | 0 (0.0%) / 19 | 24/24 | 1.5 ms |
+| 3× | 120.4s / 120.4s | 707 / 707 | 0 (0.0%) / 0 | 0 (0.0%) / 215 | 24/24 | 2.1 ms |
+| 5× | 120.1s / 120.1s | 1177 / 1177 | 36 (3.1%) / 651 | 0 (0.0%) / 687 | 24/24 | 1.9 ms |
+
+The bare-vLLM 5× cell is retained as a negative result: vLLM 0.17.0 terminated its EngineCore on a GDN+MTP decode assertion after 490×200 and 36×500, leaving 651 transport errors. The matched gateway 5× cell kept the upstream alive and returned 490×200 plus 687 bounded 429 rejects. This transport failure is disclosed in addition to, not substituted for, the predeclared HTTP-5xx parity gate.
+
+Every sustained gateway cell sampled the queue at its configured bound, and excess requests surfaced as fast HTTP 429/`overloaded` responses with `Retry-After`; admitted upstream 5xx remained within the predeclared ±5.0 pp band of paired bare vLLM. The Phase 5 production block is therefore lifted for this measured **single-node gateway overload contract only**. This is not evidence of cloud production, multi-GPU scaling, or Phase 7.2 Kubernetes readiness. See the [amended Gate 7.1 report](results/phase7_1_sustained_a10_report.md) and [raw sustained receipt](results/phase7_1/raw/phase7_1_sustained_gateway_bench.json).
 
 ## Reproduce the headline
 

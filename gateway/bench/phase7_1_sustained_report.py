@@ -39,16 +39,24 @@ def _count_status(cell: Mapping[str, Any], status: int) -> int:
 
 
 def _five_xx(cell: Mapping[str, Any]) -> int:
-    return sum(
-        int(count)
-        for status, count in cell.get("http_status_counts", {}).items()
-        if 500 <= int(status) < 600
-    )
+    count = 0
+    for status, value in cell.get("http_status_counts", {}).items():
+        try:
+            code = int(status)
+        except (TypeError, ValueError):
+            continue
+        if 500 <= code < 600:
+            count += int(value)
+    return count
+
+
+def _transport_errors(cell: Mapping[str, Any]) -> int:
+    return int(cell.get("http_status_counts", {}).get("transport_error", 0))
 
 
 def _sustained_table(receipt: Mapping[str, Any]) -> str:
     lines = [
-        "| load | arrival windows bare/gateway | requests bare/gateway | bare/gateway upstream 5xx | gateway 429 | queue sampled/process | 429 p95 |",
+        "| load | arrival windows bare/gateway | requests bare/gateway | bare 5xx / transport | gateway 5xx / 429 | queue sampled/process | 429 p95 |",
         "|---:|---:|---:|---:|---:|---:|---:|",
     ]
     gates = {float(row["multiplier"]): row for row in receipt["gate"]["sustained_overload_cells"]}
@@ -58,15 +66,15 @@ def _sustained_table(receipt: Mapping[str, Any]) -> str:
         gateway = pair["gateway"]
         fast_p95 = gateway["client"]["fast_reject"]["p95_s"]
         lines.append(
-            "| {multiplier:g}× | {direct_duration:.1f}s / {gateway_duration:.1f}s | {direct_requests} / {gateway_requests} | {direct_5xx}/{direct_requests} ({direct_rate}) / {gateway_5xx}/{admitted} ({gateway_rate}) | {rejects}/{gateway_requests} | {sampled}/{process} | {latency} ms |".format(
+            "| {multiplier:g}× | {direct_duration:.1f}s / {gateway_duration:.1f}s | {direct_requests} / {gateway_requests} | {direct_5xx} ({direct_rate}) / {transport} | {gateway_5xx} ({gateway_rate}) / {rejects} | {sampled}/{process} | {latency} ms |".format(
                 multiplier=float(pair["multiplier"]),
                 direct_duration=float(direct["arrival_duration_s"]),
                 gateway_duration=float(gateway["arrival_duration_s"]),
                 direct_requests=direct["requests"],
                 gateway_requests=gateway["requests"],
                 direct_5xx=_five_xx(direct),
+                transport=_transport_errors(direct),
                 gateway_5xx=_five_xx(gateway),
-                admitted=int(gateway["requests"]) - _count_status(gateway, 429),
                 direct_rate=_pct(row["bare_vllm_upstream_5xx_rate"]),
                 gateway_rate=_pct(row["gateway_upstream_5xx_rate"]),
                 rejects=row["http_429_count"],
@@ -143,6 +151,8 @@ The finite 60-request A10 burst had queue high-watermarks 8, 20, and 24 at 2×, 
 
 {_sustained_table(sustained)}
 
+The sustained bare-vLLM 5× cell is also a retained negative result: after 490 HTTP 200 responses and 36 HTTP 500 responses, vLLM 0.17.0 terminated its EngineCore on `AssertionError: num_decodes: 1, num_spec_decodes: 26`; the remaining 651 requests recorded transport errors. There was no host OOM, NVIDIA Xid, or co-tenancy contamination. The matched gateway 5× cell kept vLLM alive and returned 490 HTTP 200 plus 687 bounded admission 429 responses. This failure is disclosed separately from the predeclared HTTP-5xx parity calculation; it is not hidden by the passing gate.
+
 The gate was declared before this rerun: every direct and gateway arrival window must be at least {sustained["gate"]["thresholds"]["minimum_arrival_duration_s"]:.0f} seconds; every gateway cell must visibly sample the queue at its {sustained["gate"]["thresholds"]["queue_bound_requests"]}-request bound; all excess admission rejects must be HTTP 429/`overloaded`, carry `Retry-After`, and complete within {sustained["gate"]["thresholds"]["max_fast_reject_s"]:.1f} second; admitted gateway 5xx rate must stay within ±{sustained["gate"]["thresholds"]["max_upstream_5xx_rate_delta"] * 100:.1f} percentage points of paired bare vLLM.
 
 ## Cost
@@ -181,6 +191,8 @@ The first same-box A10 rerun fixed the connection-reuse failure: all nine matche
 The human-approved amendment replaced that proxy with fixed-seed Poisson arrivals lasting at least 120 seconds per 2×/3×/5× cell, gateway versus same-box bare vLLM:
 
 {_sustained_table(sustained)}
+
+The bare-vLLM 5× cell is retained as a negative result: vLLM 0.17.0 terminated its EngineCore on a GDN+MTP decode assertion after 490×200 and 36×500, leaving 651 transport errors. The matched gateway 5× cell kept the upstream alive and returned 490×200 plus 687 bounded 429 rejects. This transport failure is disclosed in addition to, not substituted for, the predeclared HTTP-5xx parity gate.
 
 Every sustained gateway cell sampled the queue at its configured bound, and excess requests surfaced as fast HTTP 429/`overloaded` responses with `Retry-After`; admitted upstream 5xx remained within the predeclared ±{sustained["gate"]["thresholds"]["max_upstream_5xx_rate_delta"] * 100:.1f} pp band of paired bare vLLM. The Phase 5 production block is therefore lifted for this measured **single-node gateway overload contract only**. This is not evidence of cloud production, multi-GPU scaling, or Phase 7.2 Kubernetes readiness. See the [amended Gate 7.1 report](results/phase7_1_sustained_a10_report.md) and [raw sustained receipt]({sustained["raw_artifact"]}).
 
