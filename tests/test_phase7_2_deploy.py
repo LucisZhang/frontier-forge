@@ -50,17 +50,34 @@ def test_no_public_host_bindings_in_pod_specs() -> None:
             assert all("hostPort" not in port for port in container.get("ports", []))
 
 
-def test_real_hostpath_admission_is_narrow_and_containers_are_not_privileged() -> None:
-    patch = yaml.safe_load((DEPLOY / "real/namespace-hostpath-patch.yaml").read_text())
-    labels = patch["metadata"]["labels"]
-    assert labels["pod-security.kubernetes.io/enforce"] == "privileged"
-    assert labels["pod-security.kubernetes.io/enforce-version"] == "v1.36"
+def test_real_model_storage_keeps_baseline_and_containers_are_not_privileged() -> None:
     base = yaml.safe_load((DEPLOY / "base/namespace.yaml").read_text())
     assert base["metadata"]["labels"]["pod-security.kubernetes.io/enforce"] == "baseline"
+
+    storage = _documents(DEPLOY / "real/local-model-volumes.yaml")
+    pvs = [item for item in storage if item["kind"] == "PersistentVolume"]
+    pvcs = [item for item in storage if item["kind"] == "PersistentVolumeClaim"]
+    assert len(pvs) == len(pvcs) == 2
+    for volume in pvs:
+        assert "local" in volume["spec"]
+        assert "hostPath" not in volume["spec"]
+        assert volume["spec"]["persistentVolumeReclaimPolicy"] == "Retain"
+        affinity = volume["spec"]["nodeAffinity"]["required"]["nodeSelectorTerms"][0]
+        assert affinity["matchExpressions"][0] == {
+            "key": "forge.openai.com/model-store",
+            "operator": "In",
+            "values": ["true"],
+        }
 
     for name in ("vllm-int4", "vllm-bf16"):
         deployment = _named(_real_documents(), "Deployment", name)
         pod_spec = deployment["spec"]["template"]["spec"]
+        assert all("hostPath" not in volume for volume in pod_spec["volumes"])
+        assert all(
+            volume.get("persistentVolumeClaim", {}).get("readOnly") is True
+            for volume in pod_spec["volumes"]
+            if volume["name"] in {"checkpoints", "hf-archive"}
+        )
         assert pod_spec["securityContext"]["seccompProfile"]["type"] == "RuntimeDefault"
         security = pod_spec["containers"][0]["securityContext"]
         assert security["privileged"] is False
@@ -156,6 +173,7 @@ def test_real_vm_bootstrap_is_pinned_and_keeps_network_private() -> None:
         "keda-2.20.2.tgz",
         "--disable traefik --disable servicelb",
         "nvidia\\.com/gpu\\.shared",
+        "forge.openai.com/model-store=true",
     ):
         assert value in script
     for forbidden in ("NodePort", "LoadBalancer", "iptables ", "ufw ", "firewall-cmd"):

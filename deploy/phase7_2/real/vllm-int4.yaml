@@ -110,13 +110,13 @@ spec:
             medium: Memory
             sizeLimit: 2Gi
         - name: checkpoints
-          hostPath:
-            path: /mnt/frontier-forge/repo/checkpoints
-            type: Directory
+          persistentVolumeClaim:
+            claimName: forge-model-checkpoints
+            readOnly: true
         - name: hf-archive
-          hostPath:
-            path: /mnt/frontier-forge/cache/huggingface
-            type: Directory
+          persistentVolumeClaim:
+            claimName: forge-huggingface-archive
+            readOnly: true
         - name: cache
           emptyDir: {}
       terminationGracePeriodSeconds: 30

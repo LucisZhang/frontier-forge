@@ -92,7 +92,10 @@ for _ in $(seq 1 120); do
 done
 sudo k3s kubectl wait --for=condition=Ready node --all --timeout=180s
 node_name="$(sudo k3s kubectl get node -o jsonpath='{.items[0].metadata.name}')"
-sudo k3s kubectl label node "${node_name}" nvidia.com/gpu.present=true --overwrite
+sudo k3s kubectl label node "${node_name}" \
+  nvidia.com/gpu.present=true \
+  forge.openai.com/model-store=true \
+  --overwrite
 
 helm_args=(--kubeconfig /etc/rancher/k3s/k3s.yaml)
 sudo helm "${helm_args[@]}" upgrade --install nvidia-device-plugin "${nvidia_chart}" \

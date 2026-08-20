@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base
+  - local-model-volumes.yaml
   - vllm-int4.yaml
   - vllm-bf16.yaml
   - vllm-services.yaml
@@ -12,8 +13,6 @@ resources:
   - service-monitors.yaml
   - keda-scalers.yaml
   - monitoring/prometheus-rules.yaml
-patches:
-  - path: namespace-hostpath-patch.yaml
 configMapGenerator:
   - name: vllm-router-config
     namespace: forge-system

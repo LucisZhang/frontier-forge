@@ -19,7 +19,7 @@
   "scope": "manifest admission failure before model or GPU process start; no measurement retained as a cold-start sample",
   "remediation": {
     "kind_overlay": "retains PodSecurity baseline enforcement",
-    "real_vm_overlay": "admits required hostPath volumes at the namespace boundary",
+    "real_vm_overlay": "retains PodSecurity baseline and replaces pod hostPath fields with administrator-owned Local PersistentVolumes consumed through read-only PVCs",
     "container_controls": [
       "privileged=false",
       "allowPrivilegeEscalation=false",

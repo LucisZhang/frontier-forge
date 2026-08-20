@@ -528,6 +528,13 @@ def command_inventory(_: argparse.Namespace) -> None:
     services = kube_json("get", "services", "--all-namespaces")["items"]
     node = kube_json("get", "node")
     node_item = node["items"][0]
+    namespace = kube_json("get", "namespace", NAMESPACE)
+    persistent_volumes = [
+        item
+        for item in kube_json("get", "persistentvolumes")["items"]
+        if item["metadata"]["name"] in {"forge-model-checkpoints", "forge-huggingface-archive"}
+    ]
+    persistent_volume_claims = kube_json("-n", NAMESPACE, "get", "persistentvolumeclaims")["items"]
     grafana_secret = kube_json("-n", "monitoring", "get", "secret", "monitoring-grafana")
     username = base64.b64decode(grafana_secret["data"]["admin-user"]).decode()
     password = base64.b64decode(grafana_secret["data"]["admin-password"]).decode()
@@ -570,6 +577,7 @@ def command_inventory(_: argparse.Namespace) -> None:
         ).stdout,
         "node": {
             "name": node_item["metadata"]["name"],
+            "labels": node_item["metadata"].get("labels", {}),
             "capacity": node_item["status"]["capacity"],
             "allocatable": node_item["status"]["allocatable"],
         },
@@ -587,6 +595,33 @@ def command_inventory(_: argparse.Namespace) -> None:
             "swap_total_kib": swap_total_kib,
         },
         "operator_port_forward_listeners": listeners,
+        "model_storage": {
+            "namespace_pod_security_enforce": namespace["metadata"]
+            .get("labels", {})
+            .get("pod-security.kubernetes.io/enforce"),
+            "persistent_volumes": [
+                {
+                    "name": item["metadata"]["name"],
+                    "phase": item.get("status", {}).get("phase"),
+                    "local_path": item["spec"].get("local", {}).get("path"),
+                    "claim_ref": item["spec"].get("claimRef"),
+                    "access_modes": item["spec"].get("accessModes", []),
+                    "reclaim_policy": item["spec"].get("persistentVolumeReclaimPolicy"),
+                }
+                for item in persistent_volumes
+            ],
+            "persistent_volume_claims": [
+                {
+                    "name": item["metadata"]["name"],
+                    "phase": item.get("status", {}).get("phase"),
+                    "volume_name": item["spec"].get("volumeName"),
+                    "access_modes": item["spec"].get("accessModes", []),
+                }
+                for item in persistent_volume_claims
+                if item["metadata"]["name"]
+                in {"forge-model-checkpoints", "forge-huggingface-archive"}
+            ],
+        },
         "services": [
             {
                 "name": item["metadata"]["name"],
@@ -648,6 +683,27 @@ def command_inventory(_: argparse.Namespace) -> None:
         "one_physical_a10": runtime["nvidia_smi"].startswith("NVIDIA A10,"),
         "two_time_sliced_allocations": node_item["status"]["capacity"].get("nvidia.com/gpu.shared")
         == "2",
+        "pod_security_baseline": runtime["model_storage"]["namespace_pod_security_enforce"]
+        == "baseline",
+        "model_store_node_labeled": runtime["node"]["labels"].get("forge.openai.com/model-store")
+        == "true",
+        "local_model_pvs_bound": len(runtime["model_storage"]["persistent_volumes"]) == 2
+        and all(
+            item["phase"] == "Bound"
+            and item["local_path"]
+            in {
+                "/mnt/frontier-forge/repo/checkpoints",
+                "/mnt/frontier-forge/cache/huggingface",
+            }
+            and item["reclaim_policy"] == "Retain"
+            for item in runtime["model_storage"]["persistent_volumes"]
+        ),
+        "model_pvcs_bound": len(runtime["model_storage"]["persistent_volume_claims"]) == 2
+        and all(
+            item["phase"] == "Bound"
+            and item["volume_name"] in {"forge-model-checkpoints", "forge-huggingface-archive"}
+            for item in runtime["model_storage"]["persistent_volume_claims"]
+        ),
         "all_services_cluster_ip": all(item["type"] == "ClusterIP" for item in runtime["services"]),
         "operator_ports_loopback_only": len(listeners) == 4
         and all("127.0.0.1:" in line for line in listeners),
@@ -1206,6 +1262,11 @@ so GPTQ-int4 and BF16 can coexist. It is not cloud-production or multi-GPU
 evidence; Kafka remains out of scope. Every application and dashboard Service is
 `ClusterIP`, and operator access used loopback-only kubectl port-forwards through
 an SSH tunnel. No security-group port was opened.
+
+The namespace retained Pod Security `baseline`. Administrator-owned Local
+PersistentVolumes, pinned to the labeled model-store node, exposed the two
+already-hashed model trees to vLLM through read-only PVC mounts; the Pods did not
+request direct `hostPath` access.
 
 Both serving trees were verified before launch: GPTQ-int4
 `c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2`

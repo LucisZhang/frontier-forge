@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: forge-model-checkpoints
+  labels:
+    app.kubernetes.io/part-of: frontier-forge
+    forge.openai.com/phase: "7-2"
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: forge-local-models
+  local:
+    path: /mnt/frontier-forge/repo/checkpoints
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: forge.openai.com/model-store
+              operator: In
+              values:
+                - "true"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: forge-huggingface-archive
+  labels:
+    app.kubernetes.io/part-of: frontier-forge
+    forge.openai.com/phase: "7-2"
+spec:
+  capacity:
+    storage: 12Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: forge-local-models
+  local:
+    path: /mnt/frontier-forge/cache/huggingface
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: forge.openai.com/model-store
+              operator: In
+              values:
+                - "true"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: forge-model-checkpoints
+  namespace: forge-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: forge-local-models
+  volumeName: forge-model-checkpoints
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: forge-huggingface-archive
+  namespace: forge-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 12Gi
+  storageClassName: forge-local-models
+  volumeName: forge-huggingface-archive
