@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "phase": "7.2",
+  "status": "failed",
+  "finding_id": "phase7_2_first_cold_start_psa_hostpath",
+  "captured_from_git_sha": "383456f5c6e7a9973cfd614d2bff1d89d6ee4010",
+  "first_event_at": "2026-08-20T18:42:06Z",
+  "last_event_at": "2026-08-20T18:44:50Z",
+  "component": "replicaset/vllm-int4-69b688cb98",
+  "attempt": "cold-start --iterations 1",
+  "observed": {
+    "keda_active": true,
+    "hpa_desired_replicas": 1,
+    "pods_created": 0,
+    "reason": "FailedCreate",
+    "message": "PodSecurity baseline rejected the read-only checkpoints and hf-archive hostPath volumes",
+    "combined_event_count": 7
+  },
+  "scope": "manifest admission failure before model or GPU process start; no measurement retained as a cold-start sample",
+  "remediation": {
+    "kind_overlay": "retains PodSecurity baseline enforcement",
+    "real_vm_overlay": "retains PodSecurity baseline and replaces pod hostPath fields with administrator-owned Local PersistentVolumes consumed through read-only PVCs",
+    "container_controls": [
+      "privileged=false",
+      "allowPrivilegeEscalation=false",
+      "drop all Linux capabilities",
+      "RuntimeDefault seccomp",
+      "no hostNetwork",
+      "no hostPort",
+      "model mounts read-only"
+    ]
+  }
+}

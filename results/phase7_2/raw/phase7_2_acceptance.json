@@ -1,0 +1,110 @@
+{
+  "alerts": [
+    "ForgeAvailabilityBurnRate",
+    "ForgeLatencyBurnRate"
+  ],
+  "artifacts": {
+    "availability_alert": {
+      "path": "results/phase7_2/raw/alert_ForgeAvailabilityBurnRate.json",
+      "sha256": "0375825c83a20b5d556bd0abdfa2b9483948840ec9e52d9ba5b908f6bd600754"
+    },
+    "canary": {
+      "path": "results/phase7_2/raw/canary_release.json",
+      "sha256": "307a61decd449a0d85b34569e025b3b398b3d8792cfdb7bdbc96b0b8ab0fedc1"
+    },
+    "cold_start": {
+      "path": "results/phase7_2/raw/gpu_cold_start.json",
+      "sha256": "d15fe0ea42329a550a74e03c4e0c05c7bab35258e8a0c4fff5ed41293be12ed9"
+    },
+    "drill_canary": {
+      "path": "results/phase7_2/raw/drill_bad_canary_rollback.json",
+      "sha256": "3266fcbfc72f587e8f88a5ca7d8373d53ce0af65818aa3c840fc3ceb25df433d"
+    },
+    "drill_kill": {
+      "path": "results/phase7_2/raw/drill_kill_vllm.json",
+      "sha256": "03e23aefa2a7dd66aefc4e02ec2f30951a1edf9d50b056dda3d39567cd46941e"
+    },
+    "drill_saturate": {
+      "path": "results/phase7_2/raw/drill_saturate_arrival.json",
+      "sha256": "2b23db63c26e1f293f75926ae986ee754095cd0567248894be201d6032d455e8"
+    },
+    "gateway_scale": {
+      "path": "results/phase7_2/raw/gateway_keda_scale.json",
+      "sha256": "9ded18b8ae242617e68252cf7107818e72adb180a987a18ec6de5bc299a4b1b4"
+    },
+    "inventory": {
+      "path": "results/phase7_2/raw/inventory.json",
+      "sha256": "9d1525b3aa373baf53e6fead7933693274ac014d869b047280e6fce424e98a30"
+    },
+    "latency_alert": {
+      "path": "results/phase7_2/raw/alert_ForgeLatencyBurnRate.json",
+      "sha256": "ac860388ca76666393dcb6a258827141dd51f54bc5827d90d6c02a37c30fbb8b"
+    },
+    "report": {
+      "path": "results/phase7_2_k3s_report.md",
+      "sha256": "8cb1b4b23cee9f24d1cac22f0d1c653474199cd71ecd2b80ebb17571d96bb052"
+    }
+  },
+  "canary_checks": {
+    "all_promotion_guards_passed": true,
+    "availability_alert_fired": true,
+    "canary_100_bf16_only": true,
+    "canary_10_both_and_stable_majority": true,
+    "canary_50_both": true,
+    "coexisting_ready": true,
+    "promoted_bf16_verified": true,
+    "rollback_verified": true
+  },
+  "ci": {
+    "conclusion": "success",
+    "run_url": "https://github.com/LucisZhang/frontier-forge/actions/runs/32412121467",
+    "tested_git_sha": "167edca1d9184fb3f97c7039b62d24d10405dba7"
+  },
+  "cold_start_distribution_s": {
+    "max": 128.04996124499667,
+    "mean": 123.97077294439987,
+    "min": 116.53874896900015,
+    "p50": 124.61739338000007,
+    "p95": 127.11158833379866
+  },
+  "cost": {
+    "gpu_hours": 3.4672138597222224,
+    "hourly_usd": 1.53,
+    "rate_source": "FORGE_GPU_HOURLY_USD=1.53; CNY 11/h at 7.2 CNY/USD",
+    "scope": "entire Phase 7.2 delegated VM session after Gate 7.1 finalization",
+    "usd": 5.304837205375001
+  },
+  "disclosure": {
+    "dashboard_access": "ClusterIP plus loopback kubectl port-forward plus SSH tunnel only",
+    "gpu_sharing": "two time-sliced nvidia.com/gpu.shared allocations",
+    "kafka_out_of_scope": true,
+    "not_cloud_production": true,
+    "not_multi_gpu": true,
+    "scope": "single-node k3s on one real VM and one physical NVIDIA A10"
+  },
+  "finished_at": "2026-08-20T20:08:23.118120+00:00",
+  "gate": {
+    "checks": {
+      "availability_alert_fault_fired": true,
+      "canary_promote_and_rollback": true,
+      "cold_start_n_at_least_10": true,
+      "inventory_complete": true,
+      "keda_scale_event_receipt": true,
+      "kind_ci_green": true,
+      "latency_alert_fault_fired": true,
+      "single_node_disclosure": true,
+      "three_runbook_drills_complete": true
+    },
+    "status": "pass"
+  },
+  "gateway_scale": {
+    "http_429": 3799,
+    "max_ready_replicas": 3
+  },
+  "git_sha": "167edca1d9184fb3f97c7039b62d24d10405dba7",
+  "phase": "7.2",
+  "run_id": "phase7_2_single_node_k3s_a10",
+  "started_at": "2026-08-20T16:40:21.148225+00:00",
+  "status": "complete",
+  "version": 1
+}

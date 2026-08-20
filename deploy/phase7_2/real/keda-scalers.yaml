@@ -1,0 +1,60 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: forge-gateway
+  namespace: forge-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: forge-gateway
+  pollingInterval: 5
+  cooldownPeriod: 20
+  minReplicaCount: 1
+  maxReplicaCount: 3
+  fallback:
+    failureThreshold: 3
+    replicas: 1
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+            - type: Pods
+              value: 2
+              periodSeconds: 10
+        scaleDown:
+          stabilizationWindowSeconds: 30
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://monitoring-kube-prometheus-prometheus.monitoring.svc:9090
+        metricName: forge_gateway_queue_depth_keda
+        query: max(forge_gateway_queue_depth)
+        threshold: "3"
+        activationThreshold: "0.5"
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: vllm-int4
+  namespace: forge-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: vllm-int4
+  pollingInterval: 5
+  cooldownPeriod: 10
+  idleReplicaCount: 0
+  minReplicaCount: 0
+  maxReplicaCount: 1
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://monitoring-kube-prometheus-prometheus.monitoring.svc:9090
+        metricName: forge_gpu_scale_demand_keda
+        query: max(forge_gpu_scale_demand)
+        threshold: "1"
+        activationThreshold: "0.5"

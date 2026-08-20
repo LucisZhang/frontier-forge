@@ -1,0 +1,57 @@
+{
+  "after": {
+    "reject_overload": 3447.0,
+    "replicas": {
+      "available_replicas": 3,
+      "desired_replicas": 3,
+      "generation": 2,
+      "image": "frontier-forge/gateway:phase7-2",
+      "name": "forge-gateway",
+      "ready_replicas": 3,
+      "replicas": 3
+    }
+  },
+  "before": {
+    "reject_overload": 0.0,
+    "replicas": {
+      "available_replicas": 1,
+      "desired_replicas": 1,
+      "generation": 1,
+      "image": "frontier-forge/gateway:phase7-2",
+      "name": "forge-gateway",
+      "ready_replicas": 1,
+      "replicas": 1
+    }
+  },
+  "checks": {
+    "custom_metric_scale_up": true,
+    "every_k6_429_had_retry_after": true,
+    "k6_observed_429": true,
+    "overload_decision_increased": true,
+    "queue_saturated": true,
+    "scaled_back_to_one": true
+  },
+  "events_log": "results/phase7_2/logs/keda_gateway_events.log",
+  "finished_at": "2026-08-20T19:34:10.372281+00:00",
+  "k6_counts": {
+    "http_429": 3799,
+    "retry_after_429": 3799
+  },
+  "k6_receipt": "results/phase7_2/k6/forge-k6-saturation.json",
+  "max_queue_depth": 24.0,
+  "max_queue_high_watermark": 24.0,
+  "max_ready_replicas": 3,
+  "phase": "7.2",
+  "scaled_down": {
+    "available_replicas": 1,
+    "desired_replicas": 1,
+    "generation": 3,
+    "image": "frontier-forge/gateway:phase7-2",
+    "name": "forge-gateway",
+    "ready_replicas": 1,
+    "replicas": 1
+  },
+  "started_at": "2026-08-20T19:31:17.167003+00:00",
+  "status": "complete",
+  "version": 1
+}

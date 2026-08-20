@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forge-gateway
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: forge-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: forge-gateway
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: forge-gateway
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: gateway
+          image: frontier-forge/gateway:phase7-2
+          imagePullPolicy: IfNotPresent
+          args:
+            - --listen-host
+            - 0.0.0.0
+            - --listen-port
+            - "9000"
+            - --io-threads
+            - "4"
+            - --primary-host
+            - vllm-router
+            - --primary-port
+            - "8080"
+            - --primary-model
+            - forge-r1b
+            - --pool-size
+            - "64"
+            - --primary-token-capacity
+            - "24000"
+            - --max-queue-requests
+            - "24"
+            - --max-queue-tokens
+            - "48000"
+            - --request-timeout-ms
+            - "60000"
+            - --health-interval-ms
+            - "1000"
+            - --disable-fallback
+          ports:
+            - name: http
+              containerPort: 9000
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 1
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: "2"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+      terminationGracePeriodSeconds: 10

@@ -1,0 +1,205 @@
+{
+  "after_verified_request": {
+    "attempts": [
+      {
+        "at": "2026-08-20T19:30:42.764049+00:00",
+        "elapsed_s": 64.58422447699922,
+        "forge_route": "primary",
+        "forge_upstream": "10.43.193.187:8000",
+        "http_status": 200,
+        "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}\n",
+        "request_id": "p4-0088-5946494",
+        "retry_after": null,
+        "verified": true,
+        "verifier": {
+          "decision_checks": {
+            "ambiguity_flag": true,
+            "tool_arguments_structural": true,
+            "tool_choice": true,
+            "urgency": true
+          },
+          "errors": [],
+          "json_valid": true,
+          "reward": 1.0,
+          "schema_valid": true,
+          "scorer_version": 2,
+          "secondary_metrics": {
+            "abstention_correct": true,
+            "company_normalized_match": true,
+            "issue_normalized_match": true,
+            "product_match": true,
+            "tool_arguments_semantic_valid": true
+          },
+          "task_success": true
+        },
+        "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}"
+      }
+    ],
+    "successful": {
+      "at": "2026-08-20T19:30:42.764049+00:00",
+      "elapsed_s": 64.58422447699922,
+      "forge_route": "primary",
+      "forge_upstream": "10.43.193.187:8000",
+      "http_status": 200,
+      "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}\n",
+      "request_id": "p4-0088-5946494",
+      "retry_after": null,
+      "verified": true,
+      "verifier": {
+        "decision_checks": {
+          "ambiguity_flag": true,
+          "tool_arguments_structural": true,
+          "tool_choice": true,
+          "urgency": true
+        },
+        "errors": [],
+        "json_valid": true,
+        "reward": 1.0,
+        "schema_valid": true,
+        "scorer_version": 2,
+        "secondary_metrics": {
+          "abstention_correct": true,
+          "company_normalized_match": true,
+          "issue_normalized_match": true,
+          "product_match": true,
+          "tool_arguments_semantic_valid": true
+        },
+        "task_success": true
+      },
+      "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}"
+    }
+  },
+  "all_unavailable_probes": [
+    {
+      "at": "2026-08-20T19:28:42.575354+00:00",
+      "body": "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx/1.29.1</center>\r\n</body>\r\n</html>\r\n",
+      "elapsed_s": 0.4266305810015183,
+      "forge_route": "primary",
+      "forge_upstream": "10.43.193.187:8000",
+      "http_status": 502,
+      "request_id": "p4-0088-5946494",
+      "retry_after": null,
+      "verified": false
+    },
+    {
+      "at": "2026-08-20T19:28:43.585723+00:00",
+      "body": {
+        "error": {
+          "code": "upstream_unavailable",
+          "message": "no healthy upstream route is available",
+          "type": "gateway_error"
+        }
+      },
+      "elapsed_s": 0.007432716000039363,
+      "forge_route": null,
+      "forge_upstream": null,
+      "http_status": 503,
+      "request_id": "p4-0088-5946494",
+      "retry_after": "49",
+      "verified": false
+    }
+  ],
+  "before_verified_request": {
+    "attempts": [
+      {
+        "at": "2026-08-20T19:28:41.880699+00:00",
+        "elapsed_s": 64.60979714699715,
+        "forge_route": "primary",
+        "forge_upstream": "10.43.193.187:8000",
+        "http_status": 200,
+        "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}\n",
+        "request_id": "p4-0088-5946494",
+        "retry_after": null,
+        "verified": true,
+        "verifier": {
+          "decision_checks": {
+            "ambiguity_flag": true,
+            "tool_arguments_structural": true,
+            "tool_choice": true,
+            "urgency": true
+          },
+          "errors": [],
+          "json_valid": true,
+          "reward": 1.0,
+          "schema_valid": true,
+          "scorer_version": 2,
+          "secondary_metrics": {
+            "abstention_correct": true,
+            "company_normalized_match": true,
+            "issue_normalized_match": true,
+            "product_match": true,
+            "tool_arguments_semantic_valid": true
+          },
+          "task_success": true
+        },
+        "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}"
+      }
+    ],
+    "successful": {
+      "at": "2026-08-20T19:28:41.880699+00:00",
+      "elapsed_s": 64.60979714699715,
+      "forge_route": "primary",
+      "forge_upstream": "10.43.193.187:8000",
+      "http_status": 200,
+      "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}\n",
+      "request_id": "p4-0088-5946494",
+      "retry_after": null,
+      "verified": true,
+      "verifier": {
+        "decision_checks": {
+          "ambiguity_flag": true,
+          "tool_arguments_structural": true,
+          "tool_choice": true,
+          "urgency": true
+        },
+        "errors": [],
+        "json_valid": true,
+        "reward": 1.0,
+        "schema_valid": true,
+        "scorer_version": 2,
+        "secondary_metrics": {
+          "abstention_correct": true,
+          "company_normalized_match": true,
+          "issue_normalized_match": true,
+          "product_match": true,
+          "tool_arguments_semantic_valid": true
+        },
+        "task_success": true
+      },
+      "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"RUSHMORE LOAN MANAGEMENT SERVICES LLC\",\"issue\":\"Struggling to pay mortgage\",\"product\":\"mortgage\",\"tool_call\":{\"arguments\":{\"complaint_id\":5946494,\"reason\":\"Struggling to pay mortgage\"},\"name\":\"escalate_to_regulator\"},\"urgency\":\"high\"}"
+    }
+  },
+  "deleted_at": "2026-08-20T19:28:42.057402+00:00",
+  "drill": "kill_active_vllm_pod",
+  "failed_closed_observation": {
+    "at": "2026-08-20T19:28:43.585723+00:00",
+    "body": {
+      "error": {
+        "code": "upstream_unavailable",
+        "message": "no healthy upstream route is available",
+        "type": "gateway_error"
+      }
+    },
+    "elapsed_s": 0.007432716000039363,
+    "forge_route": null,
+    "forge_upstream": null,
+    "http_status": 503,
+    "request_id": "p4-0088-5946494",
+    "retry_after": "49",
+    "verified": false
+  },
+  "new_pod": {
+    "name": "vllm-int4-6fdd7c4c4f-9mnpx",
+    "uid": "60240ea3-99f0-49d5-88bf-d1da53849a24"
+  },
+  "old_pod": {
+    "name": "vllm-int4-6fdd7c4c4f-72l7s",
+    "uid": "e4876457-773d-48db-a84e-f8f0721987b0"
+  },
+  "phase": "7.2",
+  "recovered_at": "2026-08-20T19:30:42.765075+00:00",
+  "recovery_seconds": 120.70766858100251,
+  "runbook": "docs/runbooks/phase7_2.md#drill-1-kill-the-active-vllm-pod",
+  "status": "complete",
+  "version": 1
+}

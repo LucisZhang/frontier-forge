@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "status": "complete_negative_result",
+  "phase": "7.1",
+  "scope": "sustained_bare_vllm_5x",
+  "measurement_git_sha": "aacacdd89de5a74deb005ea86ba16dff8f74c1cb",
+  "observed_at": "2026-08-20T16:24:49Z",
+  "cell": {
+    "multiplier": 5,
+    "offered_qps": 10,
+    "arrival_duration_s": 120.14902997427112,
+    "requests": 1177,
+    "http_200": 490,
+    "http_500": 36,
+    "transport_errors": 651,
+    "recovery_time_s": null,
+    "co_tenancy_contaminated": false
+  },
+  "failure": {
+    "component": "vLLM 0.17.0 EngineCore GDN attention metadata with native MTP",
+    "exception": "AssertionError: num_decodes: 1, num_spec_decodes: 26",
+    "log_line": 1958,
+    "host_oom_detected": false,
+    "nvidia_xid_detected": false
+  },
+  "raw_stage": "results/phase7_1/raw/sustained-overload-a10-bare.json",
+  "full_log": {
+    "path": "results/phase7_1/logs/vllm-2026-08-20T161744Z.log",
+    "sha256": "8b8338f7a19b53a8847d7b505cae2897a7bfc9ecccf39c02d7e0d0554fcee24a",
+    "bytes": 49552446
+  },
+  "compressed_full_log": {
+    "path": "results/phase7_1/logs/vllm-2026-08-20T161744Z.log.gz",
+    "sha256": "8ed49ff561842d6140b281125a35667ca69f503df1c7079e749069cd1f1f15c3",
+    "bytes": 320357,
+    "compression": "gzip -9"
+  },
+  "disposition": "retained negative result; full log compressed losslessly for Git; gateway matched cell did not crash upstream"
+}

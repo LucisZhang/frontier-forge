@@ -1,0 +1,133 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-int4
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: vllm-int4
+    forge.openai.com/precision: gptq-int4
+spec:
+  replicas: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vllm-int4
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vllm-int4
+        forge.openai.com/precision: gptq-int4
+    spec:
+      runtimeClassName: nvidia
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:v0.17.0
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+          args:
+            - /mnt/frontier-forge/repo/checkpoints/full/r1b/trl/s0/export/gptq_int4
+            - --served-model-name
+            - forge-r1b
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8000"
+            - --max-model-len
+            - "4096"
+            - --max-num-seqs
+            - "8"
+            - --dtype
+            - float16
+            - --gpu-memory-utilization
+            - "0.32"
+            - --generation-config
+            - vllm
+            - --language-model-only
+            - --no-enable-log-requests
+            - --enable-request-id-headers
+            - --enable-auto-tool-choice
+            - --tool-call-parser
+            - hermes
+            - --structured-outputs-config
+            - '{"backend":"auto","disable_fallback":false}'
+            - --quantization
+            - gptq
+            - --enforce-eager
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: HF_HOME
+              value: /cache/huggingface
+            - name: VLLM_CACHE_ROOT
+              value: /cache/vllm
+            - name: TMPDIR
+              value: /cache/tmp
+          ports:
+            - name: http
+              containerPort: 8000
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 1
+            failureThreshold: 360
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 2
+          resources:
+            requests:
+              cpu: "2"
+              memory: 6Gi
+              nvidia.com/gpu.shared: "1"
+            limits:
+              cpu: "8"
+              memory: 16Gi
+              nvidia.com/gpu.shared: "1"
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+            - name: checkpoints
+              mountPath: /mnt/frontier-forge/repo/checkpoints
+              readOnly: true
+            - name: hf-archive
+              mountPath: /mnt/frontier-forge/cache/huggingface
+              readOnly: true
+            - name: cache
+              mountPath: /cache
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 2Gi
+        - name: checkpoints
+          persistentVolumeClaim:
+            claimName: forge-model-checkpoints
+            readOnly: true
+        - name: hf-archive
+          persistentVolumeClaim:
+            claimName: forge-huggingface-archive
+            readOnly: true
+        - name: cache
+          emptyDir: {}
+      terminationGracePeriodSeconds: 30

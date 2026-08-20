@@ -1,0 +1,2 @@
+GPU guard passed; only recorded Phase 7.1 vLLM processes use the A10
+{"gate": null, "stage": "verify-artifact", "status": "complete"}

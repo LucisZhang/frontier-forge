@@ -1,0 +1,34 @@
+version: 1
+resolved_at: "2026-08-20T17:08:00Z"
+cluster:
+  k3s: v1.36.3+k3s1
+  kubernetes: v1.36.3
+  helm: v4.2.4
+charts:
+  nvidia_device_plugin: 0.20.0
+  kube_prometheus_stack: 88.5.2
+  prometheus_adapter: 5.3.0
+  keda: 2.20.2
+chart_archives_sha256:
+  nvidia_device_plugin: 9e5642bcdd3805c6e931f9d3ca542677d1f714d68c14c1364892011e67d9a606
+  kube_prometheus_stack: aac57bfb6fb53c3a9c6f4f0526b61145507dd81ff5312c67305ba5e31b7732d6
+  prometheus_adapter: aa6752b6207ed788522714c3ef7f67f27d423eb4d9512fecb52dc641b6434f31
+  keda: db60b1fa60f0565fefa4ce2f87e855b6a8854363ee82962fbe28a12a70d64c4c
+images:
+  gateway: frontier-forge/gateway:phase7-2
+  vllm: vllm/vllm-openai:v0.17.0
+  nginx: nginx:1.29.1-alpine
+  pushgateway: prom/pushgateway:v1.11.2
+  python: python:3.12-alpine
+  k6: grafana/k6:2.2.0
+image_source_manifests_linux_amd64:
+  vllm: sha256:14ea8b431aaaf75eb873c46c8ebfbad2b4b0790d30c66126d789d8cb9bd0aab9
+  nginx: sha256:60e48a050b6408d0c5dd59b98b6e36bf0937a0bbe99304e3e9c0e63b7563443a
+  pushgateway: sha256:943dc0b6d261a55a40a9c919b83a37ba1fb18efa29e239f1774eee4ebc23188c
+  python: sha256:285a71327884a4d50efbea30104473b0fa43ecefa499458899670ca30dae76e5
+  k6: sha256:a070982921f37e1b891f8ed9fb2b507520c83228614c14640f7e28f635f4281b
+model_archive:
+  repository: Luciss007/frontier-forge-r1b
+  revision: d6e2f9e154da14ed74228691c8f9eb55b7d5adb8
+  gptq_int4_tree_sha256: c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2
+  bf16_mtp_preserved_tree_sha256: 7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce

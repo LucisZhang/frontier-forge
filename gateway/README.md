@@ -192,6 +192,11 @@ Resume claim draft:
 > 在单卡 RTX 4090 上为 R1b BF16 + 原生 MTP vLLM 实现 C++20 token-aware admission gateway：稳定单元格端到端 p50 中位开销 0.3%；5× 过载时队列峰值 10，但通过 admission 的请求产生 HTTP 502/upstream_error 错误响应 p50 5.0 ms，错误率 23.3%（裸 vLLM 0.0%）。
 <!-- PHASE5_BENCH_RESULTS_END -->
 
+Current fixed-build result: the same-box A10 sustained rerun in
+[`results/phase7_1_sustained_a10_report.md`](../results/phase7_1_sustained_a10_report.md)
+supersedes this Phase 5 defect as the current A10 overload headline; the RTX 4090
+result above remains preserved as historical negative evidence.
+
 ## D7 scope walls
 
 This gateway deliberately does not implement a tokenizer, GPU scheduler, custom

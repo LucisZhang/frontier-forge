@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "phase": "7.2",
+  "status": "failed",
+  "finding_id": "phase7_2_second_latency_alert_fault_rate",
+  "captured_from_git_sha": "529e1f58ba072fd57ecf358bf32318ca16881212",
+  "started_at": "2026-08-20T19:53:32.972667+00:00",
+  "finished_at": "2026-08-20T19:56:05.738009+00:00",
+  "observed": {
+    "k6_rate_qps": 2,
+    "k6_http_200": 290,
+    "k6_http_429": 0,
+    "k6_http_500": 0,
+    "k6_http_503": 0,
+    "latency_milliseconds": {
+      "min": 3000.885518,
+      "p50": 3001.1888755,
+      "p95": 3001.4372343,
+      "max": 3001.624006
+    },
+    "slow_ratio_30s_peak_observed": 0.7142857142857142,
+    "slow_ratio_2m_observed": 0.6714285714285715,
+    "burn_threshold": 0.72,
+    "alert_state": "inactive"
+  },
+  "scope": "the corrected bucket matched and all fault requests stayed HTTP 200, but routine readiness and scrape traffic diluted the slow-request ratio just below the locked burn threshold; the router was restored and no successful alert receipt was written",
+  "root_cause": "the 2 QPS fault stream was not dominant enough relative to fast operational traffic counted by the same gateway histogram",
+  "remediation": "retain the SLO threshold and raise only the controlled latency fault arrival rate from 2 QPS to 4 QPS"
+}

@@ -1,0 +1,14 @@
+logging:
+  operator:
+    level: info
+  metricServer:
+    level: "0"
+resources:
+  operator:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+  metricServer:
+    requests:
+      cpu: 50m
+      memory: 100Mi

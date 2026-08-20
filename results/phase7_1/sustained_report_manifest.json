@@ -1,0 +1,38 @@
+{
+  "gate_status": "pass",
+  "generated_at": "2026-08-20T16:40:21.148225+00:00",
+  "git_sha": "aacacdd89de5a74deb005ea86ba16dff8f74c1cb",
+  "inputs": {
+    "finite_a10_receipt": {
+      "path": "results/phase7_1/raw/phase7_1_gateway_bench.json",
+      "sha256": "3e1427a03dbe15f7efbb93f670c93f5832a48bd47a6cafb19ba498072ad0872e"
+    },
+    "local_verification": {
+      "path": "results/phase7_1/local_verification.json",
+      "sha256": "a6cb5f89647ac95c5d057bd8b738df5cbf5fd2ab45f5d61afa05828ba717a1ed"
+    },
+    "phase5_history": {
+      "path": "results/phase5/raw/phase5_gateway_bench.json",
+      "sha256": "6e71a2455db0c69d5a2fc10447e9243c801aca297e3bbca19c38fa5c70176f29"
+    },
+    "sustained_receipt": {
+      "path": "results/phase7_1/raw/phase7_1_sustained_gateway_bench.json",
+      "sha256": "d132ebece698c98ab996b154067679ea1d74b52e9528834ed19a21a132137929"
+    }
+  },
+  "outputs": {
+    "readme": {
+      "path": "README.md",
+      "sha256": "f8f29fdf75b1bf6c1d74149dc96bc720847ad417c7202c33096f4aa7d46f75d3"
+    },
+    "report": {
+      "path": "results/phase7_1_sustained_a10_report.md",
+      "sha256": "3e172ac54de9ab10a9b08f5e041e1c27065288343cf37df9593e927de399fda8"
+    }
+  },
+  "phase": "7.1",
+  "readme_updated": true,
+  "run_id": "phase7_1_sustained_overload_r1b_bf16_native_mtp_a10",
+  "status": "complete",
+  "version": 1
+}

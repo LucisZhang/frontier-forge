@@ -1,0 +1,96 @@
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /mnt/frontier-forge/worktrees/phase7-2-a10/gateway/build/phase7-1-release
+[1/11] Building CXX object CMakeFiles/forge_gateway_core.dir/src/metrics.cpp.o
+[2/11] Building CXX object CMakeFiles/forge_gateway_core.dir/src/rate_limiter.cpp.o
+[3/11] Building CXX object CMakeFiles/forge_gateway_core.dir/src/config.cpp.o
+In file included from /mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/config.cpp:1:
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/include/frontier_forge/config.hpp:29:60: warning: missing initializer for member ‘frontier_forge::UpstreamConfig::model’ [-Wmissing-field-initializers]
+   29 |   UpstreamConfig fallback{.host = "127.0.0.1", .port = 8081};
+      |                                                            ^
+[4/11] Building CXX object CMakeFiles/forge_gateway_core.dir/src/circuit_breaker.cpp.o
+[5/11] Building CXX object CMakeFiles/forge_gateway_core.dir/src/admission.cpp.o
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp: In member function ‘frontier_forge::AdmissionResult frontier_forge::AdmissionController::admit(frontier_forge::RequestCost, std::chrono::_V2::steady_clock::time_point, bool, frontier_forge::RouteAvailability, std::chrono::_V2::steady_clock::time_point)’:
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:87:76: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+   87 |             .reason = "request token estimate exceeds every eligible route"};
+      |                                                                            ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:87:76: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:91:68: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+   91 |             .reason = "request deadline leaves no execution budget"};
+      |                                                                    ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:91:68: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:107:65: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+  107 |             .reason = "degraded to fallback due to primary load"};
+      |                                                                 ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:112:44: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+  112 |             .reason = "admitted to primary"};
+      |                                            ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:118:63: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+  118 |             .reason = "no healthy upstream route is available"};
+      |                                                               ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:118:63: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:126:56: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+  126 |             .reason = "bounded admission queue is full"};
+      |                                                        ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:126:56: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:133:70: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+  133 |             .reason = "predicted queue wait exceeds request deadline"};
+      |                                                                      ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:133:70: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:149:56: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+  149 |           .reason = "queued behind active token budget"};
+      |                                                        ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp: In member function ‘frontier_forge::AdmissionResult frontier_forge::AdmissionController::poll(uint64_t, frontier_forge::RouteAvailability, std::chrono::_V2::steady_clock::time_point)’:
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:164:48: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+  164 |             .reason = "queued request admitted"};
+      |                                                ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:177:47: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+  177 |             .reason = "request remains queued"};
+      |                                               ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:180:49: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+  180 |           .reason = "ticket is no longer active"};
+      |                                                 ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:180:49: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp: In member function ‘void frontier_forge::AdmissionController::expire_locked(std::chrono::_V2::steady_clock::time_point)’:
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:287:78: warning: missing initializer for member ‘frontier_forge::AdmissionResult::lease’ [-Wmissing-field-initializers]
+  287 |                                 .reason = "request deadline expired in queue"});
+      |                                                                              ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/admission.cpp:287:78: warning: missing initializer for member ‘frontier_forge::AdmissionResult::ticket’ [-Wmissing-field-initializers]
+[6/11] Building CXX object CMakeFiles/forge_gateway_core.dir/src/token_estimator.cpp.o
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/token_estimator.cpp: In member function ‘frontier_forge::OpenAIRequestEstimate frontier_forge::TokenEstimator::estimate(std::string_view) const’:
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/token_estimator.cpp:67:75: warning: missing initializer for member ‘frontier_forge::OpenAIRequestEstimate::cost’ [-Wmissing-field-initializers]
+   67 |                 error ? error.message() : "request body must be an object"};
+      |                                                                           ^
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/token_estimator.cpp:67:75: warning: missing initializer for member ‘frontier_forge::OpenAIRequestEstimate::model’ [-Wmissing-field-initializers]
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/token_estimator.cpp:118:32: warning: missing initializer for member ‘frontier_forge::OpenAIRequestEstimate::error’ [-Wmissing-field-initializers]
+  118 |       .model = std::move(model)};
+      |                                ^
+[7/11] Building CXX object CMakeFiles/forge_gateway.dir/src/main.cpp.o
+In file included from /mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/main.cpp:11:
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/include/frontier_forge/config.hpp:29:60: warning: missing initializer for member ‘frontier_forge::UpstreamConfig::model’ [-Wmissing-field-initializers]
+   29 |   UpstreamConfig fallback{.host = "127.0.0.1", .port = 8081};
+      |                                                            ^
+[8/11] Building CXX object CMakeFiles/forge_gateway_core.dir/src/upstream_pool.cpp.o
+In file included from /mnt/frontier-forge/worktrees/phase7-2-a10/gateway/include/frontier_forge/upstream_pool.hpp:17,
+                 from /mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/upstream_pool.cpp:1:
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/include/frontier_forge/config.hpp:29:60: warning: missing initializer for member ‘frontier_forge::UpstreamConfig::model’ [-Wmissing-field-initializers]
+   29 |   UpstreamConfig fallback{.host = "127.0.0.1", .port = 8081};
+      |                                                            ^
+[9/11] Building CXX object CMakeFiles/forge_gateway_core.dir/src/gateway_server.cpp.o
+In file included from /mnt/frontier-forge/worktrees/phase7-2-a10/gateway/include/frontier_forge/gateway_server.hpp:14,
+                 from /mnt/frontier-forge/worktrees/phase7-2-a10/gateway/src/gateway_server.cpp:1:
+/mnt/frontier-forge/worktrees/phase7-2-a10/gateway/include/frontier_forge/config.hpp:29:60: warning: missing initializer for member ‘frontier_forge::UpstreamConfig::model’ [-Wmissing-field-initializers]
+   29 |   UpstreamConfig fallback{.host = "127.0.0.1", .port = 8081};
+      |                                                            ^
+[10/11] Linking CXX static library libforge_gateway_core.a
+[11/11] Linking CXX executable forge_gateway
+Phase 7.1 gateway build complete

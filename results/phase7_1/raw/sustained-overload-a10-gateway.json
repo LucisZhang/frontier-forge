@@ -1,0 +1,2157 @@
+{
+  "arrival_process": "duration_based_poisson_fixed_seed",
+  "capacity_receipt": "results/phase7_1/raw/capacity-a10-bare.json",
+  "cells": [
+    {
+      "achieved_qps_ratio": 0.964991949616479,
+      "arrival_contract": "fixed-seed Poisson arrivals through the first offset >= minimum duration",
+      "arrival_duration_s": 120.06692818654031,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 4.0,
+      "cell_id": "phase7-1-sustained-2x-gateway",
+      "client": {
+        "dispatch_delay": {
+          "count": 510,
+          "mean_s": 0.000721118414894947,
+          "p50_s": 0.0006293277265285724,
+          "p95_s": 0.0015096348048246
+        },
+        "e2e_all_responses": {
+          "count": 510,
+          "mean_s": 7.383680612733331,
+          "p50_s": 8.395679304500845,
+          "p95_s": 10.518297919050383
+        },
+        "e2e_success": {
+          "count": 491,
+          "mean_s": 7.669352421890018,
+          "p50_s": 8.641528860998733,
+          "p95_s": 10.528516885500721
+        },
+        "fast_reject": {
+          "count": 19,
+          "mean_s": 0.0013196497894616761,
+          "p50_s": 0.0012974340006621787,
+          "p95_s": 0.0015354246999777386
+        },
+        "itl": {
+          "count": 491,
+          "mean_s": 0.04683185079326893,
+          "p50_s": 0.04719459102532802,
+          "p95_s": 0.05192390322397562
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 491,
+          "mean_s": 4.250006834582536,
+          "p50_s": 5.399703697001314,
+          "p95_s": 6.905964258499807
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.17757009345794394,
+        "cpu_utilization_mean": 0.11709191619591963,
+        "load15_max": 0.71728515625,
+        "load15_mean": 0.626373618156585,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 1.82275390625,
+        "load1_mean": 1.279042639739663,
+        "load5_max": 1.00927734375,
+        "load5_mean": 0.7816410736504594,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 653
+      },
+      "concurrency": 768,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.11123730828899311,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 127.20313371400152,
+      "endpoint": "gateway",
+      "error_rate": 0.03725490196078429,
+      "error_semantics": {
+        "error_codes": {
+          "overloaded": 19
+        },
+        "fast_rejects_under_1s": 19,
+        "retry_after_present": 19
+      },
+      "errors": 19,
+      "gateway": {
+        "fallback_share": 0.0,
+        "measurement_side": "gateway_prometheus_delta",
+        "queue_high_watermark_process": 24.0,
+        "response_classes": {
+          "2xx": 495,
+          "4xx": 19,
+          "5xx": 0
+        },
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 495,
+          "queued": 438,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 19,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        }
+      },
+      "gateway_samples": {
+        "active_requests_max": 16.0,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": 24.0,
+        "queue_depth_mean": 14.263239875389408,
+        "samples": 1284
+      },
+      "http_status_counts": {
+        "200": 491,
+        "429": 19
+      },
+      "max_observed_in_flight": 41,
+      "minimum_arrival_duration_s": 120.0,
+      "output_tokens_per_s": 285.810568800462,
+      "recovery_probe_count": 4,
+      "recovery_probes": [
+        {
+          "cell_id": "phase7-1-sustained-2x-gateway-recovery",
+          "client_e2e_s": 6.9242910249995475,
+          "client_mean_itl_s": 0.019705751597016454,
+          "client_ttft_s": 5.604005667999445,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004994006001652451,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "06963cb977fa08a96197bdb3",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-2x-gateway-recovery",
+          "client_e2e_s": 1.0325595750000502,
+          "client_mean_itl_s": 0.013427717194020654,
+          "client_ttft_s": 0.1329025230006664,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004951531998813152,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "06963cb977fa08a96197bdb3",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-2x-gateway-recovery",
+          "client_e2e_s": 1.0286914199987223,
+          "client_mean_itl_s": 0.013436423671634263,
+          "client_ttft_s": 0.12845103399922664,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004950088001351105,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "06963cb977fa08a96197bdb3",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-2x-gateway-recovery",
+          "client_e2e_s": 1.028477063999162,
+          "client_mean_itl_s": 0.01343247532835747,
+          "client_ttft_s": 0.12850121699921147,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.0050317650002398295,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "06963cb977fa08a96197bdb3",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        }
+      ],
+      "recovery_threshold_s": 2.831715271298708,
+      "recovery_time_s": 10.790140286459064,
+      "request_schedule_sha256": "300d3c5ba37e1707d288009fd007f9f9f1358fbc2cb77772e24f9053098fef4e",
+      "requests": 510,
+      "response_throughput_per_s": 4.009335187815921,
+      "scheduled_arrivals": 510,
+      "successful_request_throughput_per_s": 3.859967798465916,
+      "successful_task_throughput_per_s": 3.8206605907422304,
+      "verifier_successes": 486,
+      "verifier_task_success_rate": 0.9898167006109979,
+      "vllm": {
+        "e2e": {
+          "count": 495,
+          "mean_s": 3.838563592987831,
+          "p50_s": 3.729381443298969,
+          "p95_s": 4.877577319587629
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9603366028836362,
+          "accepted_tokens": 17917,
+          "draft_tokens": 18657,
+          "drafts": 18657,
+          "mean_acceptance_length": 1.9603366028836362
+        },
+        "ttft": {
+          "count": 495,
+          "mean_s": 0.4387738560185288,
+          "p50_s": 0.4227941176470588,
+          "p95_s": 0.7428977272727273
+        }
+      },
+      "vram": {
+        "mean_mib": 21200.79034941764,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21201.0,
+        "samples": 601
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.1428571428571429,
+        "cpu_utilization_mean": 0.10917762643983356,
+        "load15_max": 0.53466796875,
+        "load15_mean": 0.5325372869318182,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 0.4169921875,
+        "load1_mean": 0.3797052556818182,
+        "load5_max": 0.52587890625,
+        "load5_mean": 0.5198419744318182,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 11
+      },
+      "warmup_schedule_sha256": "8a7eec4d0a733019a9301bdf2e0d91ea6850d2434674335deb2e6b581fec71ca"
+    },
+    {
+      "achieved_qps_ratio": 0.64110289295697,
+      "arrival_contract": "fixed-seed Poisson arrivals through the first offset >= minimum duration",
+      "arrival_duration_s": 120.39553984113248,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 6.0,
+      "cell_id": "phase7-1-sustained-3x-gateway",
+      "client": {
+        "dispatch_delay": {
+          "count": 707,
+          "mean_s": 0.0007114462900078227,
+          "p50_s": 0.0006825035725341877,
+          "p95_s": 0.0016051302627602124
+        },
+        "e2e_all_responses": {
+          "count": 707,
+          "mean_s": 6.409116002050898,
+          "p50_s": 9.453749472000709,
+          "p95_s": 11.48495601570121
+        },
+        "e2e_success": {
+          "count": 492,
+          "mean_s": 9.209220535280455,
+          "p50_s": 10.412433162499838,
+          "p95_s": 11.609436119049679
+        },
+        "fast_reject": {
+          "count": 215,
+          "mean_s": 0.0014349306604725465,
+          "p50_s": 0.001313988999754656,
+          "p95_s": 0.0021234218002064154
+        },
+        "itl": {
+          "count": 492,
+          "mean_s": 0.047386853781548714,
+          "p50_s": 0.047746960354656656,
+          "p95_s": 0.052253133599016593
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 492,
+          "mean_s": 5.740552786833355,
+          "p50_s": 6.922543044999657,
+          "p95_s": 7.92487759245032
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.13931888544891646,
+        "cpu_utilization_mean": 0.11725956269748643,
+        "load15_max": 0.91162109375,
+        "load15_mean": 0.8112933961816109,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 2.240234375,
+        "load1_mean": 1.9126228865881458,
+        "load5_max": 1.42578125,
+        "load5_mean": 1.211888090093085,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 658
+      },
+      "concurrency": 768,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.11139231348160945,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 127.90458583300097,
+      "endpoint": "gateway",
+      "error_rate": 0.30410183875530405,
+      "error_semantics": {
+        "error_codes": {
+          "overloaded": 215
+        },
+        "fast_rejects_under_1s": 215,
+        "retry_after_present": 215
+      },
+      "errors": 215,
+      "gateway": {
+        "fallback_share": 0.0,
+        "measurement_side": "gateway_prometheus_delta",
+        "queue_high_watermark_process": 24.0,
+        "response_classes": {
+          "2xx": 496,
+          "4xx": 215,
+          "5xx": 0
+        },
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 496,
+          "queued": 421,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 215,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        }
+      },
+      "gateway_samples": {
+        "active_requests_max": 17.0,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": 24.0,
+        "queue_depth_mean": 19.722910216718265,
+        "samples": 1292
+      },
+      "http_status_counts": {
+        "200": 492,
+        "429": 215
+      },
+      "max_observed_in_flight": 42,
+      "minimum_arrival_duration_s": 120.0,
+      "output_tokens_per_s": 285.29078736585166,
+      "recovery_probe_count": 4,
+      "recovery_probes": [
+        {
+          "cell_id": "phase7-1-sustained-3x-gateway-recovery",
+          "client_e2e_s": 7.45564453499901,
+          "client_mean_itl_s": 0.016327043671643972,
+          "client_ttft_s": 6.361732608998864,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.0052004900007887045,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "c02032c589f19d9580c2fd33",
+          "request_input_sha256": "f28ea16330e7dab34a78bfebaee8af72a27ed4039e37774edd06f1e94d9001eb",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-3x-gateway-recovery",
+          "client_e2e_s": 1.0347690709986637,
+          "client_mean_itl_s": 0.01348459888059049,
+          "client_ttft_s": 0.1313009459991008,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.005026074000852532,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "c02032c589f19d9580c2fd33",
+          "request_input_sha256": "f28ea16330e7dab34a78bfebaee8af72a27ed4039e37774edd06f1e94d9001eb",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-3x-gateway-recovery",
+          "client_e2e_s": 1.0334515040012775,
+          "client_mean_itl_s": 0.013486199313448915,
+          "client_ttft_s": 0.12987615000020014,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004890509999313508,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "c02032c589f19d9580c2fd33",
+          "request_input_sha256": "f28ea16330e7dab34a78bfebaee8af72a27ed4039e37774edd06f1e94d9001eb",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-3x-gateway-recovery",
+          "client_e2e_s": 1.0367705620010383,
+          "client_mean_itl_s": 0.01348376850747532,
+          "client_ttft_s": 0.1333580720001919,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004854510998484329,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "c02032c589f19d9580c2fd33",
+          "request_input_sha256": "f28ea16330e7dab34a78bfebaee8af72a27ed4039e37774edd06f1e94d9001eb",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        }
+      ],
+      "recovery_threshold_s": 2.831715271298708,
+      "recovery_time_s": 11.337372892867279,
+      "request_schedule_sha256": "b52e6e23acdf904ab82a0b9827e46971182a949c9410c0de8ed92aac1733d936",
+      "requests": 707,
+      "response_throughput_per_s": 5.527557869763144,
+      "scheduled_arrivals": 707,
+      "successful_request_throughput_per_s": 3.84661735774182,
+      "successful_task_throughput_per_s": 3.8153440458902605,
+      "verifier_successes": 488,
+      "verifier_task_success_rate": 0.991869918699187,
+      "vllm": {
+        "e2e": {
+          "count": 496,
+          "mean_s": 3.9068558490084064,
+          "p50_s": 3.7268041237113403,
+          "p95_s": 4.877319587628866
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9596434100250895,
+          "accepted_tokens": 17977,
+          "draft_tokens": 18733,
+          "drafts": 18733,
+          "mean_acceptance_length": 1.9596434100250895
+        },
+        "ttft": {
+          "count": 496,
+          "mean_s": 0.4586485960791188,
+          "p50_s": 0.43109540636042404,
+          "p95_s": 0.8348484848484847
+        }
+      },
+      "vram": {
+        "mean_mib": 21201.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21201.0,
+        "samples": 605
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.12461059190031154,
+        "cpu_utilization_mean": 0.11535123430567357,
+        "load15_max": 0.71728515625,
+        "load15_mean": 0.71728515625,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 1.69580078125,
+        "load1_mean": 1.69580078125,
+        "load5_max": 1.00830078125,
+        "load5_mean": 1.00830078125,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 10
+      },
+      "warmup_schedule_sha256": "4d2f3c5d53734dee28db882852ef64f9c4ce8b3a035911857597bc78549db65d"
+    },
+    {
+      "achieved_qps_ratio": 0.3827909821495906,
+      "arrival_contract": "fixed-seed Poisson arrivals through the first offset >= minimum duration",
+      "arrival_duration_s": 120.14902997427112,
+      "arrival_process": "poisson_fixed_seed",
+      "arrival_rate_qps": 10.0,
+      "cell_id": "phase7-1-sustained-5x-gateway",
+      "client": {
+        "dispatch_delay": {
+          "count": 1177,
+          "mean_s": 0.0006808650711085795,
+          "p50_s": 0.0006112397968536243,
+          "p95_s": 0.001597259005211527
+        },
+        "e2e_all_responses": {
+          "count": 1177,
+          "mean_s": 4.04693308793629,
+          "p50_s": 0.0016112510002130875,
+          "p95_s": 11.459172366799976
+        },
+        "e2e_success": {
+          "count": 490,
+          "mean_s": 9.718940111226551,
+          "p50_s": 10.625142080000842,
+          "p95_s": 11.76964972470032
+        },
+        "fast_reject": {
+          "count": 687,
+          "mean_s": 0.0013967831149985842,
+          "p50_s": 0.0012767859989253338,
+          "p95_s": 0.0019172258009348287
+        },
+        "itl": {
+          "count": 490,
+          "mean_s": 0.046843909364162196,
+          "p50_s": 0.04749884992846723,
+          "p95_s": 0.052671313268752795
+        },
+        "measurement_side": "client_wall_clock_streaming",
+        "ttft": {
+          "count": 490,
+          "mean_s": 6.283526162030644,
+          "p50_s": 7.189991115999874,
+          "p95_s": 8.142251285099974
+        }
+      },
+      "co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.17391304347826086,
+        "cpu_utilization_mean": 0.11798886928152602,
+        "load15_max": 1.05712890625,
+        "load15_mean": 0.9984973107427811,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 2.3466796875,
+        "load1_mean": 2.119110200180471,
+        "load5_max": 1.6220703125,
+        "load5_mean": 1.5591636588145896,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 658
+      },
+      "concurrency": 768,
+      "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+      "cost_per_1k_successful_tasks_usd": 0.11171059135559429,
+      "deadline_miss_rate": 0.0,
+      "deadline_misses": 0,
+      "elapsed_s": 128.00719527099864,
+      "endpoint": "gateway",
+      "error_rate": 0.5836873406966865,
+      "error_semantics": {
+        "error_codes": {
+          "overloaded": 687
+        },
+        "fast_rejects_under_1s": 687,
+        "retry_after_present": 687
+      },
+      "errors": 687,
+      "gateway": {
+        "fallback_share": 0.0,
+        "measurement_side": "gateway_prometheus_delta",
+        "queue_high_watermark_process": 24.0,
+        "response_classes": {
+          "2xx": 494,
+          "4xx": 688,
+          "5xx": 0
+        },
+        "routing_decisions": {
+          "fallback": 0,
+          "primary": 494,
+          "queued": 425,
+          "reject_bad_request": 0,
+          "reject_deadline": 0,
+          "reject_overload": 688,
+          "reject_rate_limit": 0,
+          "reject_unavailable": 0
+        }
+      },
+      "gateway_samples": {
+        "active_requests_max": 16.0,
+        "measurement_side": "gateway_prometheus_poll",
+        "queue_depth_max": 24.0,
+        "queue_depth_mean": 21.421500386697602,
+        "samples": 1293
+      },
+      "http_status_counts": {
+        "200": 490,
+        "429": 687
+      },
+      "max_observed_in_flight": 42,
+      "minimum_arrival_duration_s": 120.0,
+      "output_tokens_per_s": 284.4449479805866,
+      "recovery_probe_count": 5,
+      "recovery_probes": [
+        {
+          "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+          "client_e2e_s": 0.0022018959989509312,
+          "client_mean_itl_s": null,
+          "client_ttft_s": null,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.0053227719999995315,
+          "endpoint": "gateway",
+          "error_code": "overloaded",
+          "error_type": "http_429",
+          "forge_route": null,
+          "http_status": 429,
+          "output": "",
+          "output_tokens": 0,
+          "request_id": "e6efe517f9bb81bfc33bef53",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": "4",
+          "scheduled_offset_s": 0.0,
+          "stream_events": 0,
+          "verifier": null,
+          "verifier_input": ""
+        },
+        {
+          "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+          "client_e2e_s": 7.5714169750008296,
+          "client_mean_itl_s": 0.016495551910447288,
+          "client_ttft_s": 6.466214997000861,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.005034787998738466,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "e6efe517f9bb81bfc33bef53",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+          "client_e2e_s": 1.033704786999806,
+          "client_mean_itl_s": 0.013469331746276098,
+          "client_ttft_s": 0.13125955999930738,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.005321505999745568,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "e6efe517f9bb81bfc33bef53",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+          "client_e2e_s": 1.0336730500002886,
+          "client_mean_itl_s": 0.013472743910471709,
+          "client_ttft_s": 0.13099920799868414,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.00505724400136387,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "e6efe517f9bb81bfc33bef53",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        },
+        {
+          "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+          "client_e2e_s": 1.0330625930000679,
+          "client_mean_itl_s": 0.01348269362686334,
+          "client_ttft_s": 0.1297221200002241,
+          "deadline_missed": false,
+          "dispatch_delay_s": 0.004894978999800514,
+          "endpoint": "gateway",
+          "error_code": null,
+          "error_type": null,
+          "forge_route": "primary",
+          "http_status": 200,
+          "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+          "output_tokens": 68,
+          "request_id": "e6efe517f9bb81bfc33bef53",
+          "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+          "retry_after": null,
+          "scheduled_offset_s": 0.0,
+          "stream_events": 35,
+          "verifier": {
+            "decision_checks": {
+              "ambiguity_flag": true,
+              "tool_arguments_structural": true,
+              "tool_choice": true,
+              "urgency": true
+            },
+            "errors": [],
+            "json_valid": true,
+            "reward": 1.0,
+            "schema_valid": true,
+            "scorer_version": 2,
+            "secondary_metrics": {
+              "abstention_correct": true,
+              "company_normalized_match": true,
+              "issue_normalized_match": true,
+              "product_match": true,
+              "tool_arguments_semantic_valid": true
+            },
+            "task_success": true
+          },
+          "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+        }
+      ],
+      "recovery_threshold_s": 2.831715271298708,
+      "recovery_time_s": 11.709020125728784,
+      "request_schedule_sha256": "65054b00a345d5ee4e5e8b7c06c4fd22bbf6524d5fa25820b322d91c4827cd00",
+      "requests": 1177,
+      "response_throughput_per_s": 9.19479563245037,
+      "scheduled_arrivals": 1177,
+      "successful_request_throughput_per_s": 3.8279098214959064,
+      "successful_task_throughput_per_s": 3.804473638915319,
+      "verifier_successes": 487,
+      "verifier_task_success_rate": 0.9938775510204082,
+      "vllm": {
+        "e2e": {
+          "count": 494,
+          "mean_s": 3.9282251326178734,
+          "p50_s": 3.75,
+          "p95_s": 4.91265690376569
+        },
+        "itl": {
+          "count": 0,
+          "mean_s": null,
+          "p50_s": null,
+          "p95_s": null
+        },
+        "measurement_side": "server_prometheus",
+        "speculative": {
+          "acceptance_rate": 0.9599764567392584,
+          "accepted_tokens": 17941,
+          "draft_tokens": 18689,
+          "drafts": 18689,
+          "mean_acceptance_length": 1.9599764567392584
+        },
+        "ttft": {
+          "count": 494,
+          "mean_s": 0.5131195518169326,
+          "p50_s": 0.4616858237547893,
+          "p95_s": 1.1767857142857119
+        }
+      },
+      "vram": {
+        "mean_mib": 21201.0,
+        "measurement_side": "host_nvidia_smi_device_total",
+        "peak_mib": 21201.0,
+        "samples": 605
+      },
+      "warmup_co_tenancy": {
+        "contaminated": false,
+        "cpu_utilization_max": 0.12422360248447206,
+        "cpu_utilization_mean": 0.11463193532063468,
+        "load15_max": 0.912109375,
+        "load15_mean": 0.91201171875,
+        "load1_contamination_threshold": 8.0,
+        "load1_max": 2.240234375,
+        "load1_mean": 2.160546875,
+        "load5_max": 1.42578125,
+        "load5_mean": 1.419921875,
+        "logical_cpu_count": 16,
+        "measurement_side": "server_host_getloadavg_and_proc_stat",
+        "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+        "samples": 10
+      },
+      "warmup_schedule_sha256": "a0f21793abaef4b0db1e5a3b2a2d7731310d1f77c5181d8ddddfa2615936a0cc"
+    }
+  ],
+  "config_hash": "0d24f57ec33396770c2fe7d4ce9b414c20db91a47f2293aa57da0111d748938c",
+  "config_path": "configs/phase7_1/sustained_overload_a10.yaml",
+  "contaminated_attempts": [],
+  "endpoint": "gateway",
+  "entries": [
+    {
+      "cell": {
+        "achieved_qps_ratio": 0.964991949616479,
+        "arrival_contract": "fixed-seed Poisson arrivals through the first offset >= minimum duration",
+        "arrival_duration_s": 120.06692818654031,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 4.0,
+        "cell_id": "phase7-1-sustained-2x-gateway",
+        "client": {
+          "dispatch_delay": {
+            "count": 510,
+            "mean_s": 0.000721118414894947,
+            "p50_s": 0.0006293277265285724,
+            "p95_s": 0.0015096348048246
+          },
+          "e2e_all_responses": {
+            "count": 510,
+            "mean_s": 7.383680612733331,
+            "p50_s": 8.395679304500845,
+            "p95_s": 10.518297919050383
+          },
+          "e2e_success": {
+            "count": 491,
+            "mean_s": 7.669352421890018,
+            "p50_s": 8.641528860998733,
+            "p95_s": 10.528516885500721
+          },
+          "fast_reject": {
+            "count": 19,
+            "mean_s": 0.0013196497894616761,
+            "p50_s": 0.0012974340006621787,
+            "p95_s": 0.0015354246999777386
+          },
+          "itl": {
+            "count": 491,
+            "mean_s": 0.04683185079326893,
+            "p50_s": 0.04719459102532802,
+            "p95_s": 0.05192390322397562
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "ttft": {
+            "count": 491,
+            "mean_s": 4.250006834582536,
+            "p50_s": 5.399703697001314,
+            "p95_s": 6.905964258499807
+          }
+        },
+        "co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.17757009345794394,
+          "cpu_utilization_mean": 0.11709191619591963,
+          "load15_max": 0.71728515625,
+          "load15_mean": 0.626373618156585,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 1.82275390625,
+          "load1_mean": 1.279042639739663,
+          "load5_max": 1.00927734375,
+          "load5_mean": 0.7816410736504594,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 653
+        },
+        "concurrency": 768,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.11123730828899311,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "elapsed_s": 127.20313371400152,
+        "endpoint": "gateway",
+        "error_rate": 0.03725490196078429,
+        "error_semantics": {
+          "error_codes": {
+            "overloaded": 19
+          },
+          "fast_rejects_under_1s": 19,
+          "retry_after_present": 19
+        },
+        "errors": 19,
+        "gateway": {
+          "fallback_share": 0.0,
+          "measurement_side": "gateway_prometheus_delta",
+          "queue_high_watermark_process": 24.0,
+          "response_classes": {
+            "2xx": 495,
+            "4xx": 19,
+            "5xx": 0
+          },
+          "routing_decisions": {
+            "fallback": 0,
+            "primary": 495,
+            "queued": 438,
+            "reject_bad_request": 0,
+            "reject_deadline": 0,
+            "reject_overload": 19,
+            "reject_rate_limit": 0,
+            "reject_unavailable": 0
+          }
+        },
+        "gateway_samples": {
+          "active_requests_max": 16.0,
+          "measurement_side": "gateway_prometheus_poll",
+          "queue_depth_max": 24.0,
+          "queue_depth_mean": 14.263239875389408,
+          "samples": 1284
+        },
+        "http_status_counts": {
+          "200": 491,
+          "429": 19
+        },
+        "max_observed_in_flight": 41,
+        "minimum_arrival_duration_s": 120.0,
+        "output_tokens_per_s": 285.810568800462,
+        "recovery_probe_count": 4,
+        "recovery_probes": [
+          {
+            "cell_id": "phase7-1-sustained-2x-gateway-recovery",
+            "client_e2e_s": 6.9242910249995475,
+            "client_mean_itl_s": 0.019705751597016454,
+            "client_ttft_s": 5.604005667999445,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004994006001652451,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "06963cb977fa08a96197bdb3",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-2x-gateway-recovery",
+            "client_e2e_s": 1.0325595750000502,
+            "client_mean_itl_s": 0.013427717194020654,
+            "client_ttft_s": 0.1329025230006664,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004951531998813152,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "06963cb977fa08a96197bdb3",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-2x-gateway-recovery",
+            "client_e2e_s": 1.0286914199987223,
+            "client_mean_itl_s": 0.013436423671634263,
+            "client_ttft_s": 0.12845103399922664,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004950088001351105,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "06963cb977fa08a96197bdb3",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-2x-gateway-recovery",
+            "client_e2e_s": 1.028477063999162,
+            "client_mean_itl_s": 0.01343247532835747,
+            "client_ttft_s": 0.12850121699921147,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.0050317650002398295,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "06963cb977fa08a96197bdb3",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          }
+        ],
+        "recovery_threshold_s": 2.831715271298708,
+        "recovery_time_s": 10.790140286459064,
+        "request_schedule_sha256": "300d3c5ba37e1707d288009fd007f9f9f1358fbc2cb77772e24f9053098fef4e",
+        "requests": 510,
+        "response_throughput_per_s": 4.009335187815921,
+        "scheduled_arrivals": 510,
+        "successful_request_throughput_per_s": 3.859967798465916,
+        "successful_task_throughput_per_s": 3.8206605907422304,
+        "verifier_successes": 486,
+        "verifier_task_success_rate": 0.9898167006109979,
+        "vllm": {
+          "e2e": {
+            "count": 495,
+            "mean_s": 3.838563592987831,
+            "p50_s": 3.729381443298969,
+            "p95_s": 4.877577319587629
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": 0.9603366028836362,
+            "accepted_tokens": 17917,
+            "draft_tokens": 18657,
+            "drafts": 18657,
+            "mean_acceptance_length": 1.9603366028836362
+          },
+          "ttft": {
+            "count": 495,
+            "mean_s": 0.4387738560185288,
+            "p50_s": 0.4227941176470588,
+            "p95_s": 0.7428977272727273
+          }
+        },
+        "vram": {
+          "mean_mib": 21200.79034941764,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 21201.0,
+          "samples": 601
+        },
+        "warmup_co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.1428571428571429,
+          "cpu_utilization_mean": 0.10917762643983356,
+          "load15_max": 0.53466796875,
+          "load15_mean": 0.5325372869318182,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 0.4169921875,
+          "load1_mean": 0.3797052556818182,
+          "load5_max": 0.52587890625,
+          "load5_mean": 0.5198419744318182,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 11
+        },
+        "warmup_schedule_sha256": "8a7eec4d0a733019a9301bdf2e0d91ea6850d2434674335deb2e6b581fec71ca"
+      },
+      "endpoint": "gateway",
+      "multiplier": 2.0,
+      "offered_qps": 4.0
+    },
+    {
+      "cell": {
+        "achieved_qps_ratio": 0.64110289295697,
+        "arrival_contract": "fixed-seed Poisson arrivals through the first offset >= minimum duration",
+        "arrival_duration_s": 120.39553984113248,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 6.0,
+        "cell_id": "phase7-1-sustained-3x-gateway",
+        "client": {
+          "dispatch_delay": {
+            "count": 707,
+            "mean_s": 0.0007114462900078227,
+            "p50_s": 0.0006825035725341877,
+            "p95_s": 0.0016051302627602124
+          },
+          "e2e_all_responses": {
+            "count": 707,
+            "mean_s": 6.409116002050898,
+            "p50_s": 9.453749472000709,
+            "p95_s": 11.48495601570121
+          },
+          "e2e_success": {
+            "count": 492,
+            "mean_s": 9.209220535280455,
+            "p50_s": 10.412433162499838,
+            "p95_s": 11.609436119049679
+          },
+          "fast_reject": {
+            "count": 215,
+            "mean_s": 0.0014349306604725465,
+            "p50_s": 0.001313988999754656,
+            "p95_s": 0.0021234218002064154
+          },
+          "itl": {
+            "count": 492,
+            "mean_s": 0.047386853781548714,
+            "p50_s": 0.047746960354656656,
+            "p95_s": 0.052253133599016593
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "ttft": {
+            "count": 492,
+            "mean_s": 5.740552786833355,
+            "p50_s": 6.922543044999657,
+            "p95_s": 7.92487759245032
+          }
+        },
+        "co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.13931888544891646,
+          "cpu_utilization_mean": 0.11725956269748643,
+          "load15_max": 0.91162109375,
+          "load15_mean": 0.8112933961816109,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 2.240234375,
+          "load1_mean": 1.9126228865881458,
+          "load5_max": 1.42578125,
+          "load5_mean": 1.211888090093085,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 658
+        },
+        "concurrency": 768,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.11139231348160945,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "elapsed_s": 127.90458583300097,
+        "endpoint": "gateway",
+        "error_rate": 0.30410183875530405,
+        "error_semantics": {
+          "error_codes": {
+            "overloaded": 215
+          },
+          "fast_rejects_under_1s": 215,
+          "retry_after_present": 215
+        },
+        "errors": 215,
+        "gateway": {
+          "fallback_share": 0.0,
+          "measurement_side": "gateway_prometheus_delta",
+          "queue_high_watermark_process": 24.0,
+          "response_classes": {
+            "2xx": 496,
+            "4xx": 215,
+            "5xx": 0
+          },
+          "routing_decisions": {
+            "fallback": 0,
+            "primary": 496,
+            "queued": 421,
+            "reject_bad_request": 0,
+            "reject_deadline": 0,
+            "reject_overload": 215,
+            "reject_rate_limit": 0,
+            "reject_unavailable": 0
+          }
+        },
+        "gateway_samples": {
+          "active_requests_max": 17.0,
+          "measurement_side": "gateway_prometheus_poll",
+          "queue_depth_max": 24.0,
+          "queue_depth_mean": 19.722910216718265,
+          "samples": 1292
+        },
+        "http_status_counts": {
+          "200": 492,
+          "429": 215
+        },
+        "max_observed_in_flight": 42,
+        "minimum_arrival_duration_s": 120.0,
+        "output_tokens_per_s": 285.29078736585166,
+        "recovery_probe_count": 4,
+        "recovery_probes": [
+          {
+            "cell_id": "phase7-1-sustained-3x-gateway-recovery",
+            "client_e2e_s": 7.45564453499901,
+            "client_mean_itl_s": 0.016327043671643972,
+            "client_ttft_s": 6.361732608998864,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.0052004900007887045,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "c02032c589f19d9580c2fd33",
+            "request_input_sha256": "f28ea16330e7dab34a78bfebaee8af72a27ed4039e37774edd06f1e94d9001eb",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-3x-gateway-recovery",
+            "client_e2e_s": 1.0347690709986637,
+            "client_mean_itl_s": 0.01348459888059049,
+            "client_ttft_s": 0.1313009459991008,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.005026074000852532,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "c02032c589f19d9580c2fd33",
+            "request_input_sha256": "f28ea16330e7dab34a78bfebaee8af72a27ed4039e37774edd06f1e94d9001eb",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-3x-gateway-recovery",
+            "client_e2e_s": 1.0334515040012775,
+            "client_mean_itl_s": 0.013486199313448915,
+            "client_ttft_s": 0.12987615000020014,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004890509999313508,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "c02032c589f19d9580c2fd33",
+            "request_input_sha256": "f28ea16330e7dab34a78bfebaee8af72a27ed4039e37774edd06f1e94d9001eb",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-3x-gateway-recovery",
+            "client_e2e_s": 1.0367705620010383,
+            "client_mean_itl_s": 0.01348376850747532,
+            "client_ttft_s": 0.1333580720001919,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004854510998484329,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "c02032c589f19d9580c2fd33",
+            "request_input_sha256": "f28ea16330e7dab34a78bfebaee8af72a27ed4039e37774edd06f1e94d9001eb",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"TD BANK US HOLDING COMPANY\",\"issue\":\"Incorrect information on your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          }
+        ],
+        "recovery_threshold_s": 2.831715271298708,
+        "recovery_time_s": 11.337372892867279,
+        "request_schedule_sha256": "b52e6e23acdf904ab82a0b9827e46971182a949c9410c0de8ed92aac1733d936",
+        "requests": 707,
+        "response_throughput_per_s": 5.527557869763144,
+        "scheduled_arrivals": 707,
+        "successful_request_throughput_per_s": 3.84661735774182,
+        "successful_task_throughput_per_s": 3.8153440458902605,
+        "verifier_successes": 488,
+        "verifier_task_success_rate": 0.991869918699187,
+        "vllm": {
+          "e2e": {
+            "count": 496,
+            "mean_s": 3.9068558490084064,
+            "p50_s": 3.7268041237113403,
+            "p95_s": 4.877319587628866
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": 0.9596434100250895,
+            "accepted_tokens": 17977,
+            "draft_tokens": 18733,
+            "drafts": 18733,
+            "mean_acceptance_length": 1.9596434100250895
+          },
+          "ttft": {
+            "count": 496,
+            "mean_s": 0.4586485960791188,
+            "p50_s": 0.43109540636042404,
+            "p95_s": 0.8348484848484847
+          }
+        },
+        "vram": {
+          "mean_mib": 21201.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 21201.0,
+          "samples": 605
+        },
+        "warmup_co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.12461059190031154,
+          "cpu_utilization_mean": 0.11535123430567357,
+          "load15_max": 0.71728515625,
+          "load15_mean": 0.71728515625,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 1.69580078125,
+          "load1_mean": 1.69580078125,
+          "load5_max": 1.00830078125,
+          "load5_mean": 1.00830078125,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 10
+        },
+        "warmup_schedule_sha256": "4d2f3c5d53734dee28db882852ef64f9c4ce8b3a035911857597bc78549db65d"
+      },
+      "endpoint": "gateway",
+      "multiplier": 3.0,
+      "offered_qps": 6.0
+    },
+    {
+      "cell": {
+        "achieved_qps_ratio": 0.3827909821495906,
+        "arrival_contract": "fixed-seed Poisson arrivals through the first offset >= minimum duration",
+        "arrival_duration_s": 120.14902997427112,
+        "arrival_process": "poisson_fixed_seed",
+        "arrival_rate_qps": 10.0,
+        "cell_id": "phase7-1-sustained-5x-gateway",
+        "client": {
+          "dispatch_delay": {
+            "count": 1177,
+            "mean_s": 0.0006808650711085795,
+            "p50_s": 0.0006112397968536243,
+            "p95_s": 0.001597259005211527
+          },
+          "e2e_all_responses": {
+            "count": 1177,
+            "mean_s": 4.04693308793629,
+            "p50_s": 0.0016112510002130875,
+            "p95_s": 11.459172366799976
+          },
+          "e2e_success": {
+            "count": 490,
+            "mean_s": 9.718940111226551,
+            "p50_s": 10.625142080000842,
+            "p95_s": 11.76964972470032
+          },
+          "fast_reject": {
+            "count": 687,
+            "mean_s": 0.0013967831149985842,
+            "p50_s": 0.0012767859989253338,
+            "p95_s": 0.0019172258009348287
+          },
+          "itl": {
+            "count": 490,
+            "mean_s": 0.046843909364162196,
+            "p50_s": 0.04749884992846723,
+            "p95_s": 0.052671313268752795
+          },
+          "measurement_side": "client_wall_clock_streaming",
+          "ttft": {
+            "count": 490,
+            "mean_s": 6.283526162030644,
+            "p50_s": 7.189991115999874,
+            "p95_s": 8.142251285099974
+          }
+        },
+        "co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.17391304347826086,
+          "cpu_utilization_mean": 0.11798886928152602,
+          "load15_max": 1.05712890625,
+          "load15_mean": 0.9984973107427811,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 2.3466796875,
+          "load1_mean": 2.119110200180471,
+          "load5_max": 1.6220703125,
+          "load5_mean": 1.5591636588145896,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 658
+        },
+        "concurrency": 768,
+        "cost_formula": "hourly_usd*1000/(verifier_successes_per_second*3600)",
+        "cost_per_1k_successful_tasks_usd": 0.11171059135559429,
+        "deadline_miss_rate": 0.0,
+        "deadline_misses": 0,
+        "elapsed_s": 128.00719527099864,
+        "endpoint": "gateway",
+        "error_rate": 0.5836873406966865,
+        "error_semantics": {
+          "error_codes": {
+            "overloaded": 687
+          },
+          "fast_rejects_under_1s": 687,
+          "retry_after_present": 687
+        },
+        "errors": 687,
+        "gateway": {
+          "fallback_share": 0.0,
+          "measurement_side": "gateway_prometheus_delta",
+          "queue_high_watermark_process": 24.0,
+          "response_classes": {
+            "2xx": 494,
+            "4xx": 688,
+            "5xx": 0
+          },
+          "routing_decisions": {
+            "fallback": 0,
+            "primary": 494,
+            "queued": 425,
+            "reject_bad_request": 0,
+            "reject_deadline": 0,
+            "reject_overload": 688,
+            "reject_rate_limit": 0,
+            "reject_unavailable": 0
+          }
+        },
+        "gateway_samples": {
+          "active_requests_max": 16.0,
+          "measurement_side": "gateway_prometheus_poll",
+          "queue_depth_max": 24.0,
+          "queue_depth_mean": 21.421500386697602,
+          "samples": 1293
+        },
+        "http_status_counts": {
+          "200": 490,
+          "429": 687
+        },
+        "max_observed_in_flight": 42,
+        "minimum_arrival_duration_s": 120.0,
+        "output_tokens_per_s": 284.4449479805866,
+        "recovery_probe_count": 5,
+        "recovery_probes": [
+          {
+            "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+            "client_e2e_s": 0.0022018959989509312,
+            "client_mean_itl_s": null,
+            "client_ttft_s": null,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.0053227719999995315,
+            "endpoint": "gateway",
+            "error_code": "overloaded",
+            "error_type": "http_429",
+            "forge_route": null,
+            "http_status": 429,
+            "output": "",
+            "output_tokens": 0,
+            "request_id": "e6efe517f9bb81bfc33bef53",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": "4",
+            "scheduled_offset_s": 0.0,
+            "stream_events": 0,
+            "verifier": null,
+            "verifier_input": ""
+          },
+          {
+            "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+            "client_e2e_s": 7.5714169750008296,
+            "client_mean_itl_s": 0.016495551910447288,
+            "client_ttft_s": 6.466214997000861,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.005034787998738466,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "e6efe517f9bb81bfc33bef53",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+            "client_e2e_s": 1.033704786999806,
+            "client_mean_itl_s": 0.013469331746276098,
+            "client_ttft_s": 0.13125955999930738,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.005321505999745568,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "e6efe517f9bb81bfc33bef53",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+            "client_e2e_s": 1.0336730500002886,
+            "client_mean_itl_s": 0.013472743910471709,
+            "client_ttft_s": 0.13099920799868414,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.00505724400136387,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "e6efe517f9bb81bfc33bef53",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          },
+          {
+            "cell_id": "phase7-1-sustained-5x-gateway-recovery",
+            "client_e2e_s": 1.0330625930000679,
+            "client_mean_itl_s": 0.01348269362686334,
+            "client_ttft_s": 0.1297221200002241,
+            "deadline_missed": false,
+            "dispatch_delay_s": 0.004894978999800514,
+            "endpoint": "gateway",
+            "error_code": null,
+            "error_type": null,
+            "forge_route": "primary",
+            "http_status": 200,
+            "output": "</think>\n\n{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}",
+            "output_tokens": 68,
+            "request_id": "e6efe517f9bb81bfc33bef53",
+            "request_input_sha256": "70da54d7314ca9a93ac639bca7e61abb125849a1ed18208a475fd49bfec86707",
+            "retry_after": null,
+            "scheduled_offset_s": 0.0,
+            "stream_events": 35,
+            "verifier": {
+              "decision_checks": {
+                "ambiguity_flag": true,
+                "tool_arguments_structural": true,
+                "tool_choice": true,
+                "urgency": true
+              },
+              "errors": [],
+              "json_valid": true,
+              "reward": 1.0,
+              "schema_valid": true,
+              "scorer_version": 2,
+              "secondary_metrics": {
+                "abstention_correct": true,
+                "company_normalized_match": true,
+                "issue_normalized_match": true,
+                "product_match": true,
+                "tool_arguments_semantic_valid": true
+              },
+              "task_success": true
+            },
+            "verifier_input": "{\"ambiguity_flag\":false,\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\",\"product\":\"credit_reporting\",\"tool_call\":{\"arguments\":{\"company\":\"Experian Information Solutions Inc.\",\"issue\":\"Improper use of your report\"},\"name\":\"route_to_company\"},\"urgency\":\"medium\"}"
+          }
+        ],
+        "recovery_threshold_s": 2.831715271298708,
+        "recovery_time_s": 11.709020125728784,
+        "request_schedule_sha256": "65054b00a345d5ee4e5e8b7c06c4fd22bbf6524d5fa25820b322d91c4827cd00",
+        "requests": 1177,
+        "response_throughput_per_s": 9.19479563245037,
+        "scheduled_arrivals": 1177,
+        "successful_request_throughput_per_s": 3.8279098214959064,
+        "successful_task_throughput_per_s": 3.804473638915319,
+        "verifier_successes": 487,
+        "verifier_task_success_rate": 0.9938775510204082,
+        "vllm": {
+          "e2e": {
+            "count": 494,
+            "mean_s": 3.9282251326178734,
+            "p50_s": 3.75,
+            "p95_s": 4.91265690376569
+          },
+          "itl": {
+            "count": 0,
+            "mean_s": null,
+            "p50_s": null,
+            "p95_s": null
+          },
+          "measurement_side": "server_prometheus",
+          "speculative": {
+            "acceptance_rate": 0.9599764567392584,
+            "accepted_tokens": 17941,
+            "draft_tokens": 18689,
+            "drafts": 18689,
+            "mean_acceptance_length": 1.9599764567392584
+          },
+          "ttft": {
+            "count": 494,
+            "mean_s": 0.5131195518169326,
+            "p50_s": 0.4616858237547893,
+            "p95_s": 1.1767857142857119
+          }
+        },
+        "vram": {
+          "mean_mib": 21201.0,
+          "measurement_side": "host_nvidia_smi_device_total",
+          "peak_mib": 21201.0,
+          "samples": 605
+        },
+        "warmup_co_tenancy": {
+          "contaminated": false,
+          "cpu_utilization_max": 0.12422360248447206,
+          "cpu_utilization_mean": 0.11463193532063468,
+          "load15_max": 0.912109375,
+          "load15_mean": 0.91201171875,
+          "load1_contamination_threshold": 8.0,
+          "load1_max": 2.240234375,
+          "load1_mean": 2.160546875,
+          "load5_max": 1.42578125,
+          "load5_mean": 1.419921875,
+          "logical_cpu_count": 16,
+          "measurement_side": "server_host_getloadavg_and_proc_stat",
+          "policy": "rerun sweep when any sampled 1-minute load exceeds half core count",
+          "samples": 10
+        },
+        "warmup_schedule_sha256": "a0f21793abaef4b0db1e5a3b2a2d7731310d1f77c5181d8ddddfa2615936a0cc"
+      },
+      "endpoint": "gateway",
+      "multiplier": 5.0,
+      "offered_qps": 10.0
+    }
+  ],
+  "execution_contract": "all sustained bare-vLLM cells finish before gateway cells",
+  "finished_at": "2026-08-20T16:38:03.596729+00:00",
+  "git_sha": "aacacdd89de5a74deb005ea86ba16dff8f74c1cb",
+  "measured_capacity_qps": 2.0,
+  "minimum_arrival_duration_s": 120.0,
+  "phase": "7.1",
+  "raw_artifact": "results/phase7_1/raw/sustained-overload-a10-gateway.json",
+  "request_artifact": {
+    "path": "results/phase7_1/requests/sustained-overload-a10-gateway.requests.jsonl",
+    "rows": 2407,
+    "sha256": "e57ecc7edac86017ef9609155f28bf5c04deb6a9c217548befcdfb2eec85bf52"
+  },
+  "stage": "sustained-overload-a10-gateway",
+  "started_at": "2026-08-20T16:31:23.299706+00:00",
+  "status": "complete",
+  "version": 1
+}

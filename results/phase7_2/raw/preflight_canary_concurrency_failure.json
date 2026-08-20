@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "phase": "7.2",
+  "status": "failed",
+  "finding_id": "phase7_2_first_canary_gpu_contention_and_router_recovery",
+  "captured_from_git_sha": "45e6d1c2da95bb330b8d509783eeb157ae3af690",
+  "started_at": "2026-08-20T19:34:45Z",
+  "failed_at": "2026-08-20T19:37:11.971956+00:00",
+  "coexistence": {
+    "int4_ready": true,
+    "bf16_ready": true,
+    "int4_gpu_memory_mib": 8112,
+    "bf16_gpu_memory_mib": 12824
+  },
+  "stages": [
+    {
+      "variant": "canary-10",
+      "http_200": 45,
+      "http_504": 5,
+      "int4_attributed": 45,
+      "bf16_attributed": 0,
+      "failed_request_seconds": 60.0
+    },
+    {
+      "variant": "canary-50",
+      "http_200": 1,
+      "http_503": 39,
+      "retry_after_seconds": 41,
+      "int4_attributed": 1,
+      "bf16_attributed": 0
+    },
+    {
+      "variant": "canary-100",
+      "http_200": 20,
+      "int4_attributed": 0,
+      "bf16_attributed": 20,
+      "bf16_task_verified": true,
+      "availability_alert_firing_from_prior_stage_failures": true
+    }
+  ],
+  "scope": "promotion aborted before the deliberate fault; stable int4 routing was restored and BF16 was scaled to zero",
+  "root_cause": "ten concurrent attribution probes exercised both time-sliced vLLM processes on one physical GPU; five BF16 probes hit the 60 second gateway deadline, opening the gateway recovery window that caused the following stage's fast 503 responses",
+  "remediation": "make weighted attribution probes sequential, keep concurrency in the separate k6 drill, and require three consecutive gateway ready probes plus clear SLO alerts after every router rollout"
+}

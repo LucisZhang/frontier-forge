@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "phase": "7.2",
+  "status": "failed",
+  "finding_id": "phase7_2_first_latency_alert_bucket_label",
+  "captured_from_git_sha": "1f3d16309648eaa56b09019f1e771e8f4913098d",
+  "started_at": "2026-08-20T19:46:33.158841+00:00",
+  "finished_at": "2026-08-20T19:49:05.891213+00:00",
+  "observed": {
+    "k6_http_200": 291,
+    "k6_http_500": 0,
+    "k6_http_503": 0,
+    "latency_milliseconds": {
+      "min": 3000.936187,
+      "p50": 3001.243722,
+      "p95": 3001.5226355,
+      "max": 3001.74958
+    },
+    "prometheus_p95_seconds_after_run": 4.808734939759036,
+    "alert_state": "inactive",
+    "configured_bucket_label": "2.500",
+    "stored_bucket_label": "2.5"
+  },
+  "scope": "the controlled latency fault worked and remained availability-clean, but the alert did not fire; the router was restored to stable and no successful alert receipt was written",
+  "root_cause": "Prometheus canonicalized the exposed 2.500 histogram boundary to the stored label value 2.5, while the rule selected le=2.500 and therefore matched no bucket series",
+  "remediation": "select the canonical Prometheus label le=2.5 in both 30 second and 2 minute burn-rate windows"
+}

@@ -1,0 +1,32 @@
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS        IMAGES                                  SELECTOR
+deployment.apps/forge-fault-upstream   1/1     1            1           1s    http500,latency   python:3.12-alpine,python:3.12-alpine   app.kubernetes.io/name=forge-fault-upstream
+deployment.apps/forge-gateway          1/1     1            1           1s    gateway           frontier-forge/gateway:phase7-2         app.kubernetes.io/name=forge-gateway
+deployment.apps/forge-pushgateway      1/1     1            1           1s    pushgateway       prom/pushgateway:v1.11.2                app.kubernetes.io/name=forge-pushgateway
+deployment.apps/vllm-bf16              0/0     0            0           1s    vllm              vllm/vllm-openai:v0.17.0                app.kubernetes.io/name=vllm-bf16
+deployment.apps/vllm-int4              0/0     0            0           1s    vllm              vllm/vllm-openai:v0.17.0                app.kubernetes.io/name=vllm-int4
+deployment.apps/vllm-router            0/1     1            0           1s    router            nginx:1.29.1-alpine                     app.kubernetes.io/name=vllm-router
+
+NAME                                        READY   STATUS    RESTARTS     AGE   IP           NODE                   NOMINATED NODE   READINESS GATES
+pod/forge-fault-upstream-56ddc48d99-zrrg2   2/2     Running   0            1s    10.42.0.67   frontier-forge-a10-j   <none>           <none>
+pod/forge-gateway-7bd85bb8cc-pxhqr          1/1     Running   0            1s    10.42.0.65   frontier-forge-a10-j   <none>           <none>
+pod/forge-pushgateway-6f47b598c4-d4rfp      1/1     Running   0            1s    10.42.0.66   frontier-forge-a10-j   <none>           <none>
+pod/vllm-router-565b65fdfb-tq6mw            0/1     Running   1 (0s ago)   1s    10.42.0.68   frontier-forge-a10-j   <none>           <none>
+
+NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)               AGE   SELECTOR
+service/forge-fault-upstream   ClusterIP   10.43.247.175   <none>        18080/TCP,18081/TCP   1s    app.kubernetes.io/name=forge-fault-upstream
+service/forge-gateway          ClusterIP   10.43.2.36      <none>        9000/TCP              1s    app.kubernetes.io/name=forge-gateway
+service/forge-pushgateway      ClusterIP   10.43.41.32     <none>        9091/TCP              1s    app.kubernetes.io/name=forge-pushgateway
+service/vllm-bf16              ClusterIP   10.43.86.63     <none>        8000/TCP              1s    app.kubernetes.io/name=vllm-bf16
+service/vllm-int4              ClusterIP   10.43.193.187   <none>        8000/TCP              1s    app.kubernetes.io/name=vllm-int4
+service/vllm-router            ClusterIP   10.43.127.18    <none>        8080/TCP              1s    app.kubernetes.io/name=vllm-router
+
+NAME                                 SCALETARGETKIND      SCALETARGETNAME   MIN   MAX   READY   ACTIVE    FALLBACK   PAUSED   TRIGGERS     AUTHENTICATIONS   AGE
+scaledobject.keda.sh/forge-gateway   apps/v1.Deployment   forge-gateway     1     3     True    Unknown   Unknown    False    prometheus                     1s
+scaledobject.keda.sh/vllm-int4       apps/v1.Deployment   vllm-int4         0     1     True    False     False      False    prometheus                     1s
+
+NAME                                                     AGE
+servicemonitor.monitoring.coreos.com/forge-gateway       1s
+servicemonitor.monitoring.coreos.com/forge-pushgateway   1s
+
+NAME                                                      AGE
+prometheusrule.monitoring.coreos.com/frontier-forge-slo   1s

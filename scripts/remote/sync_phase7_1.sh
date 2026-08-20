@@ -28,6 +28,7 @@ else
     --include=/results/ \
     --include=/results/phase7_1/*** \
     --include=/results/phase7_1_gateway_a10_report.md \
+    --include=/results/phase7_1_sustained_a10_report.md \
     --exclude='*' \
     "${remote_alias}:${remote_root}/" "${repo_root}/"
 fi
