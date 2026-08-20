@@ -7,6 +7,7 @@ if [[ $# -ne 1 || ( "$1" != "verify-artifact" && "$1" != "bare" && "$1" != "gate
 fi
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "${repo_root}"
+export PYTHONPATH="${repo_root}/src:${repo_root}${PYTHONPATH:+:${PYTHONPATH}}"
 ./scripts/remote/phase7_1_gpu_guard.sh
 curl -fsS http://127.0.0.1:8000/health >/dev/null
 

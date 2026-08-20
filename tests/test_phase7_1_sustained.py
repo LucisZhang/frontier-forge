@@ -166,6 +166,7 @@ def test_sustained_remote_script_preserves_order_and_loopback_only() -> None:
     assert "all sustained bare-vLLM cells must finish before the gateway starts" in script
     assert "FORGE_PHASE7_SESSION_STARTED_AT" in script
     assert "FORGE_GPU_HOURLY_USD=1.53" in script
+    assert 'PYTHONPATH="${repo_root}/src:${repo_root}' in script
     assert "http://127.0.0.1:8000" in script
     assert "http://127.0.0.1:9000" in script
     assert "security-group" not in script.lower()
