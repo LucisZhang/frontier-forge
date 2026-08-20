@@ -172,6 +172,8 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     assert "/mnt/frontier-forge" in provision
     assert "br_netfilter" in provision
     assert "disable --now nvidia-fabricmanager.service" in provision
+    assert "formatted_during_current_boot" in provision
+    assert "filesystem_created_at" in provision
     assert "FORGE_GPU_HOURLY_USD=1.53" in launch
     assert "baseline must finish before the gateway starts" in run
     assert "--listen-host 127.0.0.1" in gateway

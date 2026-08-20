@@ -103,6 +103,16 @@ fi
 mkdir -p "${repo_path}/results/phase7_1"
 gpu_json="$(nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader,nounits | head -n 1)"
 listen_json="$(ss -lntH | awk '{print $4}' | jq -Rsc 'split("\n") | map(select(length > 0))')"
+filesystem_created_text="$(sudo tune2fs -l "${device}" | sed -n 's/^Filesystem created:[[:space:]]*//p')"
+filesystem_created_epoch="$(date --date="${filesystem_created_text}" +%s)"
+booted_at_text="$(uptime -s)"
+booted_at_epoch="$(date --date="${booted_at_text}" +%s)"
+filesystem_created_at="$(date --utc --date="@${filesystem_created_epoch}" --iso-8601=seconds)"
+booted_at="$(date --utc --date="@${booted_at_epoch}" --iso-8601=seconds)"
+formatted_during_current_boot=false
+if (( filesystem_created_epoch >= booted_at_epoch )); then
+  formatted_during_current_boot=true
+fi
 jq -n \
   --arg device "${device}" \
   --arg filesystem ext4 \
@@ -112,8 +122,11 @@ jq -n \
   --arg git_sha "${FORGE_GIT_SHA}" \
   --arg gpu "${gpu_json}" \
   --argjson formatted_now "${formatted_now}" \
+  --arg filesystem_created_at "${filesystem_created_at}" \
+  --arg booted_at "${booted_at}" \
+  --argjson formatted_during_current_boot "${formatted_during_current_boot}" \
   --argjson listening_addresses "${listen_json}" \
-  '{version:1,status:"complete",phase:"7.1",device:$device,filesystem:$filesystem,uuid:$uuid,mount:$mount,formatted_now:$formatted_now,repo:$repo,git_sha:$git_sha,gpu:$gpu,br_netfilter_loaded:true,br_netfilter_persisted:true,nvidia_fabricmanager_disabled:true,security_group_changes:"none; this script has no cloud-control-plane operations",listening_addresses:$listening_addresses}' \
+  '{version:1,status:"complete",phase:"7.1",device:$device,filesystem:$filesystem,uuid:$uuid,mount:$mount,formatted_now:$formatted_now,filesystem_created_at:$filesystem_created_at,booted_at:$booted_at,formatted_during_current_boot:$formatted_during_current_boot,repo:$repo,git_sha:$git_sha,gpu:$gpu,br_netfilter_loaded:true,br_netfilter_persisted:true,nvidia_fabricmanager_disabled:true,security_group_changes:"none; this script has no cloud-control-plane operations",listening_addresses:$listening_addresses}' \
   > "${repo_path}/results/phase7_1/host_provisioning.json"
 
 echo "Phase 7.1 host provisioned at ${repo_path}; no security-group operation was performed"
