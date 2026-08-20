@@ -525,7 +525,7 @@ def percentile(values: list[float], quantile: float) -> float:
 
 def command_inventory(_: argparse.Namespace) -> None:
     RAW.mkdir(parents=True, exist_ok=True)
-    services = kube_json("-n", NAMESPACE, "get", "services")["items"]
+    services = kube_json("get", "services", "--all-namespaces")["items"]
     node = kube_json("get", "node")
     node_item = node["items"][0]
     grafana_secret = kube_json("-n", "monitoring", "get", "secret", "monitoring-grafana")
@@ -540,6 +540,11 @@ def command_inventory(_: argparse.Namespace) -> None:
     )
     dashboard_response.raise_for_status()
     images = run(["sudo", "k3s", "ctr", "images", "list"]).stdout
+    listeners = [
+        line
+        for line in run(["ss", "-H", "-ltn"]).stdout.splitlines()
+        if any(f":{port}" in line for port in (13000, 19000, 19090, 19091))
+    ]
     systemd = run(["systemctl", "is-system-running"], check=False)
     cgroup = Path("/proc/1/cgroup").read_text().strip()
     swap_total_kib = next(
@@ -581,9 +586,11 @@ def command_inventory(_: argparse.Namespace) -> None:
             "pid1_cgroup": cgroup,
             "swap_total_kib": swap_total_kib,
         },
+        "operator_port_forward_listeners": listeners,
         "services": [
             {
                 "name": item["metadata"]["name"],
+                "namespace": item["metadata"]["namespace"],
                 "type": item["spec"].get("type", "ClusterIP"),
                 "ports": item["spec"].get("ports", []),
             }
@@ -642,6 +649,8 @@ def command_inventory(_: argparse.Namespace) -> None:
         "two_time_sliced_allocations": node_item["status"]["capacity"].get("nvidia.com/gpu.shared")
         == "2",
         "all_services_cluster_ip": all(item["type"] == "ClusterIP" for item in runtime["services"]),
+        "operator_ports_loopback_only": len(listeners) == 4
+        and all("127.0.0.1:" in line for line in listeners),
         "gptq_hash": runtime["model_artifacts"]["gptq_int4"]["sha256"]
         == "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2",
         "bf16_hash": runtime["model_artifacts"]["bf16_mtp_preserved"]["sha256"]
