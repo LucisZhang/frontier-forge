@@ -87,6 +87,9 @@ def test_both_slo_alerts_use_two_windows() -> None:
         assert "[30s]" in item["expr"]
         assert "[2m]" in item["expr"]
         assert item["for"] == "0m"
+    latency = next(item for item in alerts if item["alert"] == "ForgeLatencyBurnRate")
+    assert 'le="2.500"' in latency["expr"]
+    assert 'le="2.000"' not in latency["expr"]
 
 
 def test_dashboard_and_router_variants_are_versioned() -> None:
@@ -95,6 +98,21 @@ def test_dashboard_and_router_variants_are_versioned() -> None:
     assert len(dashboard["panels"]) >= 5
     expected = {"stable", "canary-10", "canary-50", "canary-100", "fault-500", "fault-latency"}
     assert expected == {path.stem for path in (DEPLOY / "real/router").glob("*.conf")}
+    for path in (DEPLOY / "real/router").glob("*.conf"):
+        assert "X-Forge-Upstream" in path.read_text()
+
+
+def test_k6_exports_status_and_retry_after_evidence() -> None:
+    script = (DEPLOY / "k6/scenarios.js").read_text()
+    for metric in (
+        "forge_http_200",
+        "forge_http_429",
+        "forge_http_500",
+        "forge_http_503",
+        "forge_retry_after_429",
+    ):
+        assert metric in script
+    assert "FORGE_K6_SUMMARY_JSON" in script
 
 
 def test_kind_overlay_and_ci_use_the_mock_upstream() -> None:
@@ -119,3 +137,5 @@ def test_version_lock_matches_immutable_model_manifests() -> None:
         locked["model_archive"]["bf16_mtp_preserved_tree_sha256"]
         == phase4["full_precision_export"]["sha256"]
     )
+    assert locked["image_source_manifests_linux_amd64"]["vllm"].startswith("sha256:")
+    assert locked["images"]["k6"] == "grafana/k6:2.2.0"

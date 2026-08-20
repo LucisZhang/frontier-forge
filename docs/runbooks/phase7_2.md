@@ -74,7 +74,8 @@ healthy so the request reaches the upstream and is counted as a real gateway 5xx
 ## Latency burn
 
 `ForgeLatencyBurnRate` combines 30-second and 2-minute ratios of requests above
-two seconds against a 95% latency objective. The controlled latency upstream
+2.5 seconds against a 95% latency objective. The 2.5-second boundary is an
+actually exported gateway histogram bucket; the controlled latency upstream
 sleeps for three seconds and still returns HTTP 200, isolating latency from
 availability.
 

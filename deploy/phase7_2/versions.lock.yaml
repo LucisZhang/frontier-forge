@@ -15,6 +15,13 @@ images:
   nginx: nginx:1.29.1-alpine
   pushgateway: prom/pushgateway:v1.11.2
   python: python:3.12-alpine
+  k6: grafana/k6:2.2.0
+image_source_manifests_linux_amd64:
+  vllm: sha256:14ea8b431aaaf75eb873c46c8ebfbad2b4b0790d30c66126d789d8cb9bd0aab9
+  nginx: sha256:60e48a050b6408d0c5dd59b98b6e36bf0937a0bbe99304e3e9c0e63b7563443a
+  pushgateway: sha256:943dc0b6d261a55a40a9c919b83a37ba1fb18efa29e239f1774eee4ebc23188c
+  python: sha256:285a71327884a4d50efbea30104473b0fa43ecefa499458899670ca30dae76e5
+  k6: sha256:a070982921f37e1b891f8ed9fb2b507520c83228614c14640f7e28f635f4281b
 model_archive:
   repository: Luciss007/frontier-forge-r1b
   revision: d6e2f9e154da14ed74228691c8f9eb55b7d5adb8

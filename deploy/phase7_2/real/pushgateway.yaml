@@ -16,6 +16,10 @@ spec:
         app.kubernetes.io/name: forge-pushgateway
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: pushgateway
           image: prom/pushgateway:v1.11.2
@@ -36,6 +40,11 @@ spec:
             limits:
               cpu: 200m
               memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
 ---
 apiVersion: v1
 kind: Service

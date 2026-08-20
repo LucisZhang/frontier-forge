@@ -1,5 +1,13 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
+import { Counter, Trend } from "k6/metrics";
+
+const status200 = new Counter("forge_http_200");
+const status429 = new Counter("forge_http_429");
+const status500 = new Counter("forge_http_500");
+const status503 = new Counter("forge_http_503");
+const retryAfter429 = new Counter("forge_retry_after_429");
+const requestLatency = new Trend("forge_request_latency", true);
 
 const scenario = __ENV.SCENARIO || "steady";
 const duration = __ENV.DURATION || "3m";
@@ -78,5 +86,19 @@ export default function () {
       item.status === 200 || item.status === 429 || item.status === 500 || item.status === 503,
     "429 includes Retry-After": (item) => item.status !== 429 || Boolean(item.headers["Retry-After"]),
   });
+  requestLatency.add(response.timings.duration);
+  if (response.status === 200) status200.add(1);
+  if (response.status === 429) {
+    status429.add(1);
+    if (response.headers["Retry-After"]) retryAfter429.add(1);
+  }
+  if (response.status === 500) status500.add(1);
+  if (response.status === 503) status503.add(1);
   sleep(0.01);
+}
+
+export function handleSummary(data) {
+  return {
+    stdout: `FORGE_K6_SUMMARY_JSON ${JSON.stringify(data)}\n`,
+  };
 }

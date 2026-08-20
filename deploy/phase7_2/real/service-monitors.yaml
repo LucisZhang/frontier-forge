@@ -21,6 +21,46 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
+  name: vllm-int4
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: vllm-int4
+spec:
+  namespaceSelector:
+    matchNames:
+      - forge-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vllm-int4
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 5s
+      scrapeTimeout: 2s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vllm-bf16
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: vllm-bf16
+spec:
+  namespaceSelector:
+    matchNames:
+      - forge-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vllm-bf16
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 5s
+      scrapeTimeout: 2s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
   name: forge-pushgateway
   namespace: forge-system
   labels:
