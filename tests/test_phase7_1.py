@@ -182,6 +182,9 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     assert "--listen-host 127.0.0.1" in gateway
     assert "pip install" in prefill
     assert "--require-hashes --no-deps" in prefill
+    assert "pip download --require-hashes --no-deps" in prefill
+    assert "FORGE_PREFILL_DOWNLOAD_JOBS:-8" in prefill
+    assert "a10_mirror_wheelhouse.sha256" in prefill
     assert "/mnt/frontier-forge/cache" in prefill
     assert "uv sync --active --locked" in prefill
     assert "cmake_version=4.2.3" in toolchain
