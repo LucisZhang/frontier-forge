@@ -465,6 +465,28 @@ def k6_count(receipt: dict[str, Any], metric: str) -> int:
     return int(values.get("count", 0))
 
 
+def command_k6_smoke(_: argparse.Namespace) -> None:
+    receipt = run_k6(
+        "forge-k6-smoke",
+        scenario="fault",
+        duration="5s",
+        rate=1,
+        timeout_s=90,
+    )
+    if receipt.get("summary") is None:
+        raise RuntimeError("k6 smoke completed without the machine-readable summary marker")
+    write_json_atomic(
+        RAW / "k6_smoke.json",
+        {
+            "version": 1,
+            "phase": "7.2",
+            "status": "complete",
+            "captured_at": now(),
+            "k6_receipt": relative_path(K6_RESULTS / "forge-k6-smoke.json"),
+        },
+    )
+
+
 def percentile(values: list[float], quantile: float) -> float:
     ordered = sorted(values)
     if not ordered:
@@ -1196,6 +1218,7 @@ def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser()
     subparsers = value.add_subparsers(dest="command", required=True)
     subparsers.add_parser("inventory").set_defaults(function=command_inventory)
+    subparsers.add_parser("k6-smoke").set_defaults(function=command_k6_smoke)
     cold = subparsers.add_parser("cold-start")
     cold.add_argument("--iterations", type=int, default=10)
     cold.set_defaults(function=command_cold_start)
