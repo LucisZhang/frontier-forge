@@ -17,6 +17,7 @@ import subprocess
 import time
 from collections.abc import Callable
 from datetime import UTC, datetime
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -37,7 +38,13 @@ PROMETHEUS_URL = "http://127.0.0.1:19090"
 PUSHGATEWAY_URL = "http://127.0.0.1:19091"
 GRAFANA_URL = "http://127.0.0.1:13000"
 PREFERRED_REQUEST_ID = "p4-0088-5946494"
-WORKLOAD = REPO_ROOT / "data/full/phase4/workload-9ed3d99a9d75c357.jsonl"
+WORKLOAD_RELATIVE = "data/full/phase4/workload-9ed3d99a9d75c357.jsonl"
+WORKLOAD = REPO_ROOT / WORKLOAD_RELATIVE
+if not WORKLOAD.is_file():
+    WORKLOAD = (
+        Path(os.environ.get("FORGE_PHASE7_2_SOURCE_REPO", "/mnt/frontier-forge/repo"))
+        / WORKLOAD_RELATIVE
+    )
 HOURLY_USD = 1.53
 
 
@@ -122,9 +129,7 @@ def wait_deployment(name: str, replicas: int, *, timeout_s: float = 900) -> dict
             return item
         return None
 
-    return wait_until(
-        f"deployment/{name} ready replicas={replicas}", ready, timeout_s=timeout_s
-    )
+    return wait_until(f"deployment/{name} ready replicas={replicas}", ready, timeout_s=timeout_s)
 
 
 def apply_object(value: dict[str, Any]) -> None:
@@ -247,9 +252,9 @@ def wait_verified_request(*, timeout_s: float = 300) -> dict[str, Any]:
     index = 0
     while time.monotonic() < deadline:
         try:
-            ready = httpx.get(
-                f"{GATEWAY_URL}/readyz", timeout=3, trust_env=False
-            ).status_code == 200
+            ready = (
+                httpx.get(f"{GATEWAY_URL}/readyz", timeout=3, trust_env=False).status_code == 200
+            )
         except httpx.HTTPError:
             ready = False
         if not ready:
@@ -290,9 +295,7 @@ def set_router(variant: str) -> dict[str, Any]:
 
 
 def alerts() -> list[dict[str, Any]]:
-    response = httpx.get(
-        f"{PROMETHEUS_URL}/api/v1/alerts", timeout=10, trust_env=False
-    )
+    response = httpx.get(f"{PROMETHEUS_URL}/api/v1/alerts", timeout=10, trust_env=False)
     response.raise_for_status()
     return response.json()["data"]["alerts"]
 
@@ -317,14 +320,11 @@ def wait_slo_clear(*, timeout_s: float = 300) -> list[dict[str, Any]]:
         active = [
             item
             for item in alerts()
-            if item.get("labels", {}).get("alertname") in names
-            and item.get("state") == "firing"
+            if item.get("labels", {}).get("alertname") in names and item.get("state") == "firing"
         ]
         return {"active": []} if not active else None
 
-    result = wait_until(
-        "both Forge SLO alerts clear", clear, timeout_s=timeout_s, interval_s=5
-    )
+    result = wait_until("both Forge SLO alerts clear", clear, timeout_s=timeout_s, interval_s=5)
     return result["active"]
 
 
@@ -429,9 +429,9 @@ def run_k6(
         time.sleep(2)
     if not condition:
         raise TimeoutError(f"k6 job/{name} did not finish")
-    pod = kube_json(
-        "-n", NAMESPACE, "get", "pods", "-l", f"job-name={name}"
-    )["items"][0]["metadata"]["name"]
+    pod = kube_json("-n", NAMESPACE, "get", "pods", "-l", f"job-name={name}")["items"][0][
+        "metadata"
+    ]["name"]
     log = kube("-n", NAMESPACE, "logs", pod, timeout=60)
     LOGS.mkdir(parents=True, exist_ok=True)
     (LOGS / f"{name}.log").write_text(log)
@@ -497,7 +497,18 @@ def command_inventory(_: argparse.Namespace) -> None:
         "git_sha": git_sha(),
         "k3s": run(["k3s", "--version"]).stdout.strip(),
         "kubernetes": kube("version", "-o", "json"),
-        "helm_releases": run(["sudo", "helm", "list", "-A", "-o", "json"]).stdout,
+        "helm_releases": run(
+            [
+                "sudo",
+                "helm",
+                "--kubeconfig",
+                "/etc/rancher/k3s/k3s.yaml",
+                "list",
+                "-A",
+                "-o",
+                "json",
+            ]
+        ).stdout,
         "node": {
             "name": node_item["metadata"]["name"],
             "capacity": node_item["status"]["capacity"],
@@ -519,7 +530,9 @@ def command_inventory(_: argparse.Namespace) -> None:
             for item in services
         ],
         "phase_images": [
-            line for line in images.splitlines() if any(
+            line
+            for line in images.splitlines()
+            if any(
                 key in line
                 for key in ("frontier-forge", "vllm", "nginx", "pushgateway", "grafana/k6")
             )
@@ -534,20 +547,18 @@ def command_inventory(_: argparse.Namespace) -> None:
         "model_artifacts": {
             "gptq_int4": {
                 "path": "checkpoints/full/r1b/trl/s0/export/gptq_int4",
-                "sha256": sha256_tree(
-                    REPO_ROOT / "checkpoints/full/r1b/trl/s0/export/gptq_int4"
-                ),
+                "sha256": sha256_tree(REPO_ROOT / "checkpoints/full/r1b/trl/s0/export/gptq_int4"),
             },
             "bf16_mtp_preserved": {
                 "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved",
                 "sha256": sha256_tree(
-                    REPO_ROOT
-                    / "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved"
+                    REPO_ROOT / "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved"
                 ),
             },
         },
         "workload": {
-            "path": relative_path(WORKLOAD),
+            "path": WORKLOAD_RELATIVE,
+            "resolved_path": str(WORKLOAD.resolve()),
             "sha256": sha256_file(WORKLOAD),
         },
         "disclosure": {
@@ -561,20 +572,15 @@ def command_inventory(_: argparse.Namespace) -> None:
     }
     checks = {
         "one_physical_a10": runtime["nvidia_smi"].startswith("NVIDIA A10,"),
-        "two_time_sliced_allocations": node_item["status"]["capacity"].get(
-            "nvidia.com/gpu.shared"
-        )
+        "two_time_sliced_allocations": node_item["status"]["capacity"].get("nvidia.com/gpu.shared")
         == "2",
-        "all_services_cluster_ip": all(
-            item["type"] == "ClusterIP" for item in runtime["services"]
-        ),
+        "all_services_cluster_ip": all(item["type"] == "ClusterIP" for item in runtime["services"]),
         "gptq_hash": runtime["model_artifacts"]["gptq_int4"]["sha256"]
         == "c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2",
         "bf16_hash": runtime["model_artifacts"]["bf16_mtp_preserved"]["sha256"]
         == "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce",
         "dashboard_loaded": any(
-            item.get("uid") == "frontier-forge-phase7-2"
-            for item in runtime["grafana_dashboards"]
+            item.get("uid") == "frontier-forge-phase7-2" for item in runtime["grafana_dashboards"]
         ),
     }
     receipt = {
@@ -606,9 +612,9 @@ def command_cold_start(args: argparse.Namespace) -> None:
         wait_deployment("vllm-int4", 1, timeout_s=900)
         verified = wait_verified_request(timeout_s=300)
         elapsed = time.monotonic() - trigger
-        pods = kube_json(
-            "-n", NAMESPACE, "get", "pods", "-l", "app.kubernetes.io/name=vllm-int4"
-        )["items"]
+        pods = kube_json("-n", NAMESPACE, "get", "pods", "-l", "app.kubernetes.io/name=vllm-int4")[
+            "items"
+        ]
         run_receipt = {
             "iteration": index,
             "trigger_at": trigger_wall,
@@ -684,9 +690,7 @@ def command_gateway_scale(_: argparse.Namespace) -> None:
         return {
             "replicas": deployment_snapshot("forge-gateway"),
             "queue_depth": prom_scalar("max(forge_gateway_queue_depth)"),
-            "queue_high_watermark": prom_scalar(
-                "max(forge_gateway_queue_high_watermark)"
-            ),
+            "queue_high_watermark": prom_scalar("max(forge_gateway_queue_high_watermark)"),
         }
 
     k6 = run_k6(
@@ -709,11 +713,7 @@ def command_gateway_scale(_: argparse.Namespace) -> None:
         for item in k6["samples"]
         if isinstance(item.get("replicas"), dict)
     ]
-    queue_values = [
-        float(item["queue_depth"])
-        for item in k6["samples"]
-        if "queue_depth" in item
-    ]
+    queue_values = [float(item["queue_depth"]) for item in k6["samples"] if "queue_depth" in item]
     high_watermarks = [
         float(item["queue_high_watermark"])
         for item in k6["samples"]
@@ -765,9 +765,9 @@ def command_kill_drill(_: argparse.Namespace) -> None:
     push_gpu_demand(1)
     wait_deployment("vllm-int4", 1)
     before_request = wait_verified_request()
-    pods = kube_json(
-        "-n", NAMESPACE, "get", "pods", "-l", "app.kubernetes.io/name=vllm-int4"
-    )["items"]
+    pods = kube_json("-n", NAMESPACE, "get", "pods", "-l", "app.kubernetes.io/name=vllm-int4")[
+        "items"
+    ]
     old = {"name": pods[0]["metadata"]["name"], "uid": pods[0]["metadata"]["uid"]}
     deleted_at = now()
     started = time.monotonic()
@@ -788,9 +788,9 @@ def command_kill_drill(_: argparse.Namespace) -> None:
     )
 
     def replacement_ready() -> dict[str, Any] | None:
-        items = kube_json(
-            "-n", NAMESPACE, "get", "pods", "-l", "app.kubernetes.io/name=vllm-int4"
-        )["items"]
+        items = kube_json("-n", NAMESPACE, "get", "pods", "-l", "app.kubernetes.io/name=vllm-int4")[
+            "items"
+        ]
         for item in items:
             ready = any(
                 condition.get("type") == "Ready" and condition.get("status") == "True"
@@ -979,9 +979,7 @@ def command_canary(_: argparse.Namespace) -> None:
         "at": now(),
         "int4": deployment_snapshot("vllm-int4"),
         "bf16": deployment_snapshot("vllm-bf16"),
-        "pods": kube_json(
-            "-n", NAMESPACE, "get", "pods", "-l", "forge.openai.com/precision"
-        ),
+        "pods": kube_json("-n", NAMESPACE, "get", "pods", "-l", "forge.openai.com/precision"),
         "nvidia_smi": run(
             [
                 "nvidia-smi",
@@ -1104,8 +1102,7 @@ def command_finalize(args: argparse.Namespace) -> None:
         "cold_start_n_at_least_10": payloads["cold_start"]["status"] == "complete"
         and payloads["cold_start"]["iterations_completed"] >= 10,
         "canary_promote_and_rollback": payloads["canary"]["status"] == "complete",
-        "availability_alert_fault_fired": payloads["availability_alert"]["status"]
-        == "complete",
+        "availability_alert_fault_fired": payloads["availability_alert"]["status"] == "complete",
         "latency_alert_fault_fired": payloads["latency_alert"]["status"] == "complete",
         "three_runbook_drills_complete": all(
             payloads[name]["status"] == "complete"
