@@ -960,7 +960,11 @@ def command_kill_drill(_: argparse.Namespace) -> None:
 
 
 async def routing_requests(count: int) -> list[dict[str, Any]]:
-    semaphore = asyncio.Semaphore(10)
+    # This gate proves weighted routing while two models coexist on one
+    # time-sliced physical GPU; the separate k6 drill owns concurrent load.
+    # Sequential probes avoid turning this canary attribution check into an
+    # undocumented multi-process GPU contention benchmark.
+    semaphore = asyncio.Semaphore(1)
     payload = {
         "model": "forge-r1b",
         "messages": [{"role": "user", "content": "Reply with the single token OK."}],
@@ -1033,9 +1037,35 @@ def backend_map() -> dict[str, str]:
     return mapping
 
 
+def wait_gateway_ready_stable(*, timeout_s: float = 120) -> dict[str, Any]:
+    consecutive = 0
+
+    def stable() -> dict[str, Any] | None:
+        nonlocal consecutive
+        try:
+            response = httpx.get(f"{GATEWAY_URL}/readyz", timeout=3, trust_env=False)
+            if response.status_code == 200:
+                consecutive += 1
+            else:
+                consecutive = 0
+        except httpx.HTTPError:
+            consecutive = 0
+        if consecutive >= 3:
+            return {"at": now(), "consecutive_ready_probes": consecutive}
+        return None
+
+    return wait_until(
+        "gateway ready for three consecutive probes after router rollout",
+        stable,
+        timeout_s=timeout_s,
+        interval_s=1,
+    )
+
+
 def route_stage(variant: str, count: int) -> dict[str, Any]:
     config = set_router(variant)
-    time.sleep(3)
+    gateway_ready = wait_gateway_ready_stable()
+    wait_slo_clear()
     observations = asyncio.run(routing_requests(count))
     mapping = backend_map()
     counts: dict[str, int] = {"vllm-int4": 0, "vllm-bf16": 0, "unknown": 0}
@@ -1047,6 +1077,8 @@ def route_stage(variant: str, count: int) -> dict[str, Any]:
     return {
         "variant": variant,
         "router_config": config,
+        "gateway_ready_after_rollout": gateway_ready,
+        "request_concurrency": 1,
         "backend_map": mapping,
         "counts": counts,
         "http_statuses": {
@@ -1293,6 +1325,8 @@ and BF16/MTP-preserved
 Both deployments were Ready concurrently under the two time-sliced allocations.
 The router exposed the selected upstream address in a response header so the
 weighted stages were measured rather than inferred from configuration alone.
+These attribution probes were sequential because both servers time-share one
+physical GPU; concurrent saturation is covered separately by the k6/KEDA drill.
 
 | router stage | int4 responses | BF16 responses | unknown | SLO guard |
 |---|---:|---:|---:|---:|

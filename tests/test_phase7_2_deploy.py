@@ -160,6 +160,13 @@ def test_k6_exports_status_and_retry_after_evidence() -> None:
     assert "FORGE_K6_SUMMARY_JSON" in script
 
 
+def test_canary_attribution_is_sequential_and_waits_for_gateway_recovery() -> None:
+    runner = (ROOT / "scripts/remote/phase7_2_acceptance.py").read_text()
+    assert "asyncio.Semaphore(1)" in runner
+    assert "wait_gateway_ready_stable()" in runner
+    assert '"request_concurrency": 1' in runner
+
+
 def test_kind_overlay_and_ci_use_the_mock_upstream() -> None:
     kustomization = yaml.safe_load((DEPLOY / "kind/kustomization.yaml").read_text())
     assert "mock-upstream-deployment.yaml" in kustomization["resources"]
