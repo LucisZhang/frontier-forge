@@ -129,3 +129,21 @@ decoupling mitigation with before/after numbers.
 Frozen datasets/splits after first materialization; append-only results/runs.jsonl
 keyed by git SHA + config hash + dataset hash; every claim traceable; no fabricated
 scale; SFT-time 4-bit vs deployment quantization reported separately.
+
+## D11. Phase 7 scope: cloud-native runtime attaches HERE, not to the streaming lab
+(2026-08-19, human-approved.) The roadmap's cloud-native gap (K8s, observability,
+SLO, autoscaling — JD corpus: K8s 56 roles/17 companies, mostly cloud/platform/SRE
+family) is filled by deploying THIS project's serving stack on Kubernetes, instead
+of bolting K8s onto the Flink streaming lab. Rationale: one K8s evidence set covers
+both AI-infra and platform roles when attached to LLM inference; Flink-on-K8s is
+operational toil that adds little to that lab's exactly-once story; and it keeps
+each portfolio project owning one capability surface. Kafka remains deliberately
+NOT covered by Phase 7 (it stays with the future streaming upgrade, if ever).
+Honesty red lines for Phase 7 on a single rented RTX 4090:
+- single-node k3s ≠ cloud production and is never described as such;
+- no multi-GPU replica autoscaling claims — what can honestly scale: gateway
+  (CPU) replicas via KEDA custom metrics, and GPU workload scale-to-zero with
+  measured cold-start; canary = int4 + bf16 coexisting on one GPU;
+- the Phase 5 gateway connection-handling defect must be fixed and the matched
+  overload matrix rerun BEFORE the K8s work builds on the gateway — Phase 7 is
+  the designated home of that fix and of lifting the "production blocked" flag.

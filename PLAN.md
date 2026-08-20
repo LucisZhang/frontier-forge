@@ -459,6 +459,66 @@ from the session prompt apply (no shutdown, GPU-idle check, own tmux prefix).
 
 ---
 
+## Phase 7 — Cloud-native serving runtime (gateway fix + K8s; see D11)
+
+**Why**: fills the roadmap's cloud-native gap (K8s/observability/SLO/autoscaling)
+by deploying this project's own serving stack on Kubernetes [D11]. Also the
+designated home of the Phase 5 gateway defect fix — the K8s story must not be
+built on a component whose overload semantics are known-broken.
+
+### Phase 7.1 — Gateway overload-semantics fix (local dev; short remote rerun)
+
+1. Root-cause the connection-handling defect: under load, errors returned as
+   HTTP 502/`upstream_error` AFTER passing admission (`reject_overload=0`), and
+   non-stable cells hit 10–85% errors where bare vLLM had 0%. Suspects to rule
+   in/out: connection-pool sizing/reuse, per-connection concurrency limits,
+   upstream keep-alive handling, deadline propagation racing slow streams.
+2. Fix + new failure-injection tests that reproduce the defect class locally
+   (mock upstream with slow-accept / connection-limit behavior) — the old build
+   must FAIL these tests, the fixed build must pass.
+3. Remote rerun of the exact Phase 5 matched matrix + overload scenario.
+   Success = overload now surfaces as designed 429 fast-rejects with bounded
+   queue, upstream 5xx rate ≈ bare vLLM's; README red-flag section rewritten to
+   the fix story with before/after receipts (the original finding stays as
+   history, not deleted).
+
+**Gate 7.1**
+- [ ] root cause documented with evidence  - [ ] regression tests old-fail/new-pass
+- [ ] matched matrix + overload rerun receipts  - [ ] 429 semantics verified
+- [ ] "production blocked" flag lifted or honestly retained with reasons
+
+### Phase 7.2 — Single-node K8s runtime (manifests local; k3s on pod)
+
+1. `deploy/`: k3s + NVIDIA device-plugin setup script; Kustomize/Helm manifests
+   for vLLM (R1b GPTQ-int4 and BF16 variants) and the gateway; kube-prometheus-
+   stack + Prometheus adapter; KEDA.
+2. Autoscaling, honestly scoped [D11]: gateway (CPU) replicas scale on custom
+   metrics (gateway queue depth / TTFT via Prometheus adapter) with recorded
+   KEDA scale events; GPU workload scale-to-zero + scale-from-zero with measured
+   cold-start (trigger → first successful verified request, n≥10).
+3. Canary release: int4 and bf16 coexist on the one GPU; gateway traffic-weight
+   canary with SLO-guarded promotion AND a demonstrated rollback (one canary
+   deliberately degraded to force it).
+4. SLOs + alerting: availability and p95 latency SLOs, multi-window burn-rate
+   alerts; each alert proven by an injected fault, not just configured.
+5. k6 load scenarios driving all of the above; Grafana dashboards exported as
+   JSON into the repo; runbook with ≥3 scripted drills (kill vLLM pod, saturate
+   arrival rate, bad canary → rollback), each with a receipt.
+6. Local validation: manifests smoke on CPU-only kind with the mock upstream
+   standing in for vLLM; wired into CI (no GPU steps in CI).
+
+**Gate 7.2**
+- [ ] kind-based manifest smoke in CI  - [ ] KEDA scale-event receipts
+- [ ] cold-start distribution reported (n≥10)  - [ ] canary promote + rollback receipts
+- [ ] every alert fired by an injected fault  - [ ] runbook drills scripted + repeatable
+- [ ] disclosure: single-node k3s, one GPU, not cloud production [D11]
+- [ ] tests + CI green; GPU ledger updated (est. 12–18 GPU-h this phase)
+
+**Constraints**: no multi-GPU claims; Kafka out of scope [D11]; shared-pod rules
+apply to every remote session; human launches remote runs unless delegated.
+
+---
+
 ## Milestones
 
 | Week | Content |
