@@ -1,0 +1,5 @@
+GPU guard passed; only recorded Phase 7.1 vLLM processes use the A10
+Phase 7.1 capacity-a10-bare complete: results/phase7_1/raw/capacity-a10-bare.json
+Phase 7.1 matrix-a10-bare complete: results/phase7_1/raw/matrix-a10-bare.json
+Phase 7.1 overload-a10-bare complete: results/phase7_1/raw/overload-a10-bare.json
+{"gate": null, "stage": "baseline", "status": "complete"}

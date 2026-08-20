@@ -57,6 +57,15 @@ gateway-bench-report:
 	@.venv-phase4/bin/python gateway/bench/phase5_report.py \
 		--config configs/phase5/gateway_r1b_mtp.yaml
 
+phase7-1-bench:
+	@test "$(shell uname -s)" = "Linux" || { echo "phase7-1-bench is remote Linux only" >&2; exit 2; }
+	@test -n "$(STAGE)" || { echo "phase7-1-bench requires STAGE" >&2; exit 2; }
+	@.venv-phase4/bin/python -m gateway.bench.phase7_1_bench --stage "$(STAGE)"
+
+phase7-1-report:
+	@$(if $(wildcard .venv-phase4/bin/python),.venv-phase4/bin/python,uv run python) \
+		-m gateway.bench.phase7_1_report $(if $(filter 1,$(UPDATE_README)),--update-readme,)
+
 ingest:
 	@uv run python -m forge.data.ingest $(if $(filter 1,$(SMOKE)),--smoke,)
 

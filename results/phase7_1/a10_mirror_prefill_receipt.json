@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "status": "complete",
+  "phase": "7.1",
+  "git_sha": "a9d06ad164fe50002457eefd19c69b7e3ef66a9b",
+  "lock_sha256": "29ab23adb923298d5d17fa05a1ccc46873c0e4264026cff5424d3f35ef9d2d9f",
+  "requirements": "results/phase7_1/a10_remote_serve_requirements.txt",
+  "requirements_sha256": "cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf",
+  "index_url": "https://mirrors.aliyun.com/pypi/simple",
+  "download_jobs": 8,
+  "hash_enforcement": "parallel pip download and final pip install both use --require-hashes --no-deps",
+  "dependency_resolution": "disabled; complete uv lock export installed with --no-deps",
+  "wheelhouse": {
+    "path": "/mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve",
+    "artifacts": 184,
+    "manifest": "results/phase7_1/a10_mirror_wheelhouse.sha256",
+    "manifest_sha256": "12dfa217e291c7e0ce45d774b811915f0369c45d2e10820f312d5bafd0101803"
+  },
+  "pip_report": "results/phase7_1/a10_mirror_prefill_pip_report.json",
+  "pip_report_sha256": "6bbfabdebb9f8a3c1c483a3c6f3c7d44555b96c098086c1bb5e2ef345c9a0b31",
+  "installed_artifacts": 184,
+  "pip_check": "pass",
+  "canonical_finalizer": "uv sync --active --locked against the lockfile canonical index",
+  "finished_at": "2026-08-20T14:32:11+00:00"
+}

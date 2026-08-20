@@ -1,0 +1,3 @@
+GPU guard passed; only recorded Phase 7.1 vLLM processes use the A10
+Phase 7.1 matrix-a10-gateway complete: results/phase7_1/raw/matrix-a10-gateway.json
+{"gate": null, "stage": "gateway-matrix", "status": "complete"}

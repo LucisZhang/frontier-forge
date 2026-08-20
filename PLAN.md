@@ -487,6 +487,20 @@ built on a component whose overload semantics are known-broken.
 - [ ] matched matrix + overload rerun receipts  - [ ] 429 semantics verified
 - [ ] "production blocked" flag lifted or honestly retained with reasons
 
+**Gate 7.1 amendment (2026-08-21, human-approved after the A10 rerun)**: the
+"≥1 429 in every overload cell" proxy assumed sustained overload, but the bench
+sends finite 60-request bursts — at 2×/3× the bounded queue (cap 24; high-water
+8 and 20) legitimately absorbed the burst with zero shed, and at 5× the cap was
+hit and 14 correct 429s fired. Absorbing what fits and shedding at the bound is
+the DESIGNED behavior, so the criterion, not the gateway, was miscalibrated.
+Replacement criterion: under **sustained** overload (duration-based arrival,
+≥120s at 2×/3×/5×), the queue must saturate and excess must surface as 429
+fast-rejects with Retry-After while upstream 5xx stays ≈ bare vLLM. This
+sustained-load rerun is folded into the START of the Phase 7.2 remote session
+(no separate boot cycle). The red flag stays until it passes. The A10 finite-
+burst receipts (branch codex/phase7-1-a10) remain valid evidence for 5xx parity,
+bounded queue, and 5× shed semantics.
+
 ### Phase 7.2 — Single-node K8s runtime (manifests local; k3s on a REAL VM)
 
 **Hardware requirement (hard)**: container-based GPU rentals (AutoDL and similar)

@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "status": "complete",
+  "phase": "7.1",
+  "stopped_at": "2026-08-20T15:20:14Z",
+  "gpu_compute_processes": 0,
+  "gateway_listening": false,
+  "vllm_listening": false
+}

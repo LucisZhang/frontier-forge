@@ -1,0 +1,14 @@
+{
+  "artifact": {
+    "export_manifest": "results/phase4/r1b_mtp_reexport_manifest.json",
+    "export_manifest_sha256": "fd2085f6666bd399b9a22d3d51658d6c36407bc0c558f2e4848b56cf5d01b86e",
+    "files": 11,
+    "path": "checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved",
+    "sha256": "7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce"
+  },
+  "git_sha": "14f03be64000efc539944fce91d9cb77153b1fa4",
+  "phase": "7.1",
+  "status": "complete",
+  "verified_at": "2026-08-20T15:22:42.531974+00:00",
+  "version": 1
+}

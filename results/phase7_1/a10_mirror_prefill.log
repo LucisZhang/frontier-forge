@@ -1,0 +1,1112 @@
+Using CPython 3.12.14
+Resolved 280 packages in 0.71ms
+split 184 hash-pinned requirements
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting annotated-types==0.8.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0004.txt (line 1))
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+  Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/annotated_types-0.8.0-py3-none-any.whl
+Successfully downloaded annotated-types
+Collecting anyio==4.14.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0006.txt (line 1))
+  Using cached anyio-4.14.2-py3-none-any.whl (125 kB)
+Collecting aiosignal==1.4.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0002.txt (line 1))
+  Using cached aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/anyio-4.14.2-py3-none-any.whl
+Successfully downloaded anyio
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/aiosignal-1.4.0-py3-none-any.whl
+Successfully downloaded aiosignal
+Collecting anthropic==0.122.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0005.txt (line 1))
+Collecting apache-tvm-ffi==0.1.13.post3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0007.txt (line 1))
+  Using cached apache_tvm_ffi-0.1.13.post3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (3.0 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/apache_tvm_ffi-0.1.13.post3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded apache-tvm-ffi
+Collecting annotated-doc==0.0.5 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0003.txt (line 1))
+  Using cached annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/annotated_doc-0.0.5-py3-none-any.whl
+Successfully downloaded annotated-doc
+Collecting aiohappyeyeballs==2.7.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0000.txt (line 1))
+  Using cached aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/aiohappyeyeballs-2.7.1-py3-none-any.whl
+Successfully downloaded aiohappyeyeballs
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+  Downloading anthropic-0.122.0-py3-none-any.whl (1.0 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting attrs==26.1.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0009.txt (line 1))
+  Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/attrs-26.1.0-py3-none-any.whl
+Successfully downloaded attrs
+Collecting blake3==1.0.9 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0010.txt (line 1))
+  Using cached blake3-1.0.9-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (383 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/blake3-1.0.9-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded blake3
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting certifi==2026.7.22 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0013.txt (line 1))
+  Using cached certifi-2026.7.22-py3-none-any.whl (136 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/certifi-2026.7.22-py3-none-any.whl
+Successfully downloaded certifi
+Collecting astor==0.8.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0008.txt (line 1))
+Collecting aiohttp==3.14.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0001.txt (line 1))
+  Downloading astor-0.8.1-py2.py3-none-any.whl (27 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/astor-0.8.1-py2.py3-none-any.whl
+Successfully downloaded astor
+  Downloading aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting cbor2==6.1.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0012.txt (line 1))
+  Using cached cbor2-6.1.4-cp312-cp312-manylinux_2_28_x86_64.whl (461 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cbor2-6.1.4-cp312-cp312-manylinux_2_28_x86_64.whl
+Successfully downloaded cbor2
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting cffi==2.1.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0014.txt (line 1))
+  Using cached cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded cffi
+Collecting cachetools==7.1.7 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0011.txt (line 1))
+  Downloading cachetools-7.1.7-py3-none-any.whl (16 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cachetools-7.1.7-py3-none-any.whl
+Successfully downloaded cachetools
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting click==8.4.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0016.txt (line 1))
+Collecting charset-normalizer==3.5.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0015.txt (line 1))
+  Using cached charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (248 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded charset-normalizer
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+  Downloading click-8.4.2-py3-none-any.whl (119 kB)
+Collecting cloudpickle==3.1.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0017.txt (line 1))
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/click-8.4.2-py3-none-any.whl
+Successfully downloaded click
+  Downloading cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cloudpickle-3.1.2-py3-none-any.whl
+Successfully downloaded cloudpickle
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting compressed-tensors==0.13.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0018.txt (line 1))
+  Downloading compressed_tensors-0.13.0-py3-none-any.whl (192 kB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/compressed_tensors-0.13.0-py3-none-any.whl
+Successfully downloaded compressed-tensors
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting cuda-bindings==12.9.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0020.txt (line 1))
+  Using cached cuda_bindings-12.9.4-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.2 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting cuda-pathfinder==1.6.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0021.txt (line 1))
+  Using cached cuda_pathfinder-1.6.0-py3-none-any.whl (54 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cuda_pathfinder-1.6.0-py3-none-any.whl
+Successfully downloaded cuda-pathfinder
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cuda_bindings-12.9.4-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded cuda-bindings
+Collecting cuda-python==12.9.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0022.txt (line 1))
+  Using cached cuda_python-12.9.4-py3-none-any.whl (7.6 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/anthropic-0.122.0-py3-none-any.whl
+Successfully downloaded anthropic
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cuda_python-12.9.4-py3-none-any.whl
+Successfully downloaded cuda-python
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting cryptography==50.0.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0019.txt (line 1))
+Collecting cupy-cuda12x==14.1.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0023.txt (line 1))
+  Using cached cupy_cuda12x-14.1.1-cp312-cp312-manylinux2014_x86_64.whl (133.5 MB)
+  Downloading cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl (4.7 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting depyf==0.20.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0024.txt (line 1))
+  Downloading depyf-0.20.0-py3-none-any.whl (39 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/depyf-0.20.0-py3-none-any.whl
+Successfully downloaded depyf
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting detect-installer==0.1.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0025.txt (line 1))
+Collecting dill==0.4.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0026.txt (line 1))
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting distro==1.9.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0028.txt (line 1))
+  Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/distro-1.9.0-py3-none-any.whl
+Successfully downloaded distro
+  Downloading dill-0.4.1-py3-none-any.whl (120 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/dill-0.4.1-py3-none-any.whl
+Successfully downloaded dill
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cupy_cuda12x-14.1.1-cp312-cp312-manylinux2014_x86_64.whl
+Successfully downloaded cupy-cuda12x
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting dnspython==2.8.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0029.txt (line 1))
+  Using cached dnspython-2.8.0-py3-none-any.whl (331 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/dnspython-2.8.0-py3-none-any.whl
+Successfully downloaded dnspython
+  Downloading detect_installer-0.1.0-py3-none-any.whl (4.5 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/detect_installer-0.1.0-py3-none-any.whl
+Successfully downloaded detect-installer
+Collecting diskcache==5.6.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0027.txt (line 1))
+  Downloading diskcache-5.6.3-py3-none-any.whl (45 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/diskcache-5.6.3-py3-none-any.whl
+Successfully downloaded diskcache
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting docstring-parser==0.18.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0030.txt (line 1))
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+  Downloading docstring_parser-0.18.0-py3-none-any.whl (22 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/docstring_parser-0.18.0-py3-none-any.whl
+Successfully downloaded docstring-parser
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting fastapi==0.141.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0034.txt (line 1))
+  Using cached fastapi-0.141.1-py3-none-any.whl (131 kB)
+Collecting einops==0.8.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0032.txt (line 1))
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fastapi-0.141.1-py3-none-any.whl
+Successfully downloaded fastapi
+  Downloading einops-0.8.2-py3-none-any.whl (65 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/einops-0.8.2-py3-none-any.whl
+Successfully downloaded einops
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded aiohttp
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting fastapi-cloud-cli==0.23.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0036.txt (line 1))
+  Downloading fastapi_cloud_cli-0.23.0-py3-none-any.whl (78 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fastapi_cloud_cli-0.23.0-py3-none-any.whl
+Successfully downloaded fastapi-cloud-cli
+Collecting email-validator==2.3.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0033.txt (line 1))
+  Downloading email_validator-2.3.0-py3-none-any.whl (35 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/email_validator-2.3.0-py3-none-any.whl
+Successfully downloaded email-validator
+Collecting duckdb==1.5.5 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0031.txt (line 1))
+  Downloading duckdb-1.5.5-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (21.5 MB)
+Collecting fastapi-cli==0.0.32 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0035.txt (line 1))
+  Using cached fastapi_cli-0.0.32-py3-none-any.whl (14 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fastapi_cli-0.0.32-py3-none-any.whl
+Successfully downloaded fastapi-cli
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting filelock==3.32.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0038.txt (line 1))
+  Using cached filelock-3.32.3-py3-none-any.whl (98 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/filelock-3.32.3-py3-none-any.whl
+Successfully downloaded filelock
+Collecting fastar==0.11.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0037.txt (line 1))
+  Using cached fastar-0.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (819 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fastar-0.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded fastar
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting frozenlist==1.8.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0040.txt (line 1))
+  Using cached frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+Successfully downloaded frozenlist
+Collecting fsspec==2026.2.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0041.txt (line 1))
+  Downloading fsspec-2026.2.0-py3-none-any.whl (202 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fsspec-2026.2.0-py3-none-any.whl
+Successfully downloaded fsspec
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting gguf==0.19.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0042.txt (line 1))
+  Using cached gguf-0.19.0-py3-none-any.whl (118 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/gguf-0.19.0-py3-none-any.whl
+Successfully downloaded gguf
+Collecting flashinfer-python==0.6.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0039.txt (line 1))
+  Using cached flashinfer_python-0.6.4-py3-none-any.whl (7.8 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/flashinfer_python-0.6.4-py3-none-any.whl
+Successfully downloaded flashinfer-python
+Collecting googleapis-common-protos==1.75.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0043.txt (line 1))
+  Using cached googleapis_common_protos-1.75.1-py3-none-any.whl (300 kB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/googleapis_common_protos-1.75.1-py3-none-any.whl
+Successfully downloaded googleapis-common-protos
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting grpcio-reflection==1.81.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0045.txt (line 1))
+  Using cached grpcio_reflection-1.81.1-py3-none-any.whl (22 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/grpcio_reflection-1.81.1-py3-none-any.whl
+Successfully downloaded grpcio-reflection
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting h11==0.16.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0046.txt (line 1))
+  Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/h11-0.16.0-py3-none-any.whl
+Successfully downloaded h11
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting hf-xet==1.6.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0047.txt (line 1))
+  Using cached hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded hf-xet
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting httpcore==1.0.9 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0048.txt (line 1))
+  Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httpcore-1.0.9-py3-none-any.whl
+Successfully downloaded httpcore
+Collecting httpcore2==2.11.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0049.txt (line 1))
+  Using cached httpcore2-2.11.0-py3-none-any.whl (83 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httpcore2-2.11.0-py3-none-any.whl
+Successfully downloaded httpcore2
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting httpx==0.28.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0051.txt (line 1))
+  Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httpx-0.28.1-py3-none-any.whl
+Successfully downloaded httpx
+Collecting httptools==0.8.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0050.txt (line 1))
+  Downloading httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (523 kB)
+Collecting grpcio==1.83.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0044.txt (line 1))
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting httpx2==2.11.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0052.txt (line 1))
+  Using cached httpx2-2.11.0-py3-none-any.whl (95 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httpx2-2.11.0-py3-none-any.whl
+Successfully downloaded httpx2
+  Downloading grpcio-1.83.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (7.0 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting idna==3.18 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0054.txt (line 1))
+  Using cached idna-3.18-py3-none-any.whl (65 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/idna-3.18-py3-none-any.whl
+Successfully downloaded idna
+Collecting huggingface-hub==0.36.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0053.txt (line 1))
+  Using cached huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/huggingface_hub-0.36.2-py3-none-any.whl
+Successfully downloaded huggingface-hub
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting interegular==0.3.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0056.txt (line 1))
+Collecting ijson==3.5.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0055.txt (line 1))
+  Downloading ijson-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (149 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/ijson-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded ijson
+  Downloading interegular-0.3.3-py37-none-any.whl (23 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/interegular-0.3.3-py37-none-any.whl
+Successfully downloaded interegular
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting jinja2==3.1.6 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0057.txt (line 1))
+  Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jinja2-3.1.6-py3-none-any.whl
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+Successfully downloaded jinja2
+Successfully downloaded httptools
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting jiter==0.16.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0058.txt (line 1))
+  Downloading jiter-0.16.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (343 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jiter-0.16.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded jiter
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting jmespath==1.1.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0059.txt (line 1))
+  Using cached jmespath-1.1.0-py3-none-any.whl (20 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jmespath-1.1.0-py3-none-any.whl
+Successfully downloaded jmespath
+Collecting jsonschema==4.26.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0060.txt (line 1))
+  Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jsonschema-4.26.0-py3-none-any.whl
+Successfully downloaded jsonschema
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting jsonschema-specifications==2025.9.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0061.txt (line 1))
+  Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jsonschema_specifications-2025.9.1-py3-none-any.whl
+Successfully downloaded jsonschema-specifications
+Collecting kaldi-native-fbank==1.22.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0062.txt (line 1))
+  Using cached kaldi_native_fbank-1.22.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (322 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/kaldi_native_fbank-1.22.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded kaldi-native-fbank
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting lark==1.2.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0063.txt (line 1))
+  Downloading lark-1.2.2-py3-none-any.whl (111 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/lark-1.2.2-py3-none-any.whl
+Successfully downloaded lark
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting llguidance==1.3.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0064.txt (line 1))
+  Using cached llguidance-1.3.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/llguidance-1.3.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded llguidance
+Collecting lm-format-enforcer==0.11.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0066.txt (line 1))
+Collecting llvmlite==0.44.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0065.txt (line 1))
+  Downloading lm_format_enforcer-0.11.3-py3-none-any.whl (45 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/lm_format_enforcer-0.11.3-py3-none-any.whl
+Successfully downloaded lm-format-enforcer
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting loguru==0.7.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0067.txt (line 1))
+  Using cached loguru-0.7.3-py3-none-any.whl (61 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/loguru-0.7.3-py3-none-any.whl
+Successfully downloaded loguru
+  Downloading llvmlite-0.44.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (42.4 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting markdown-it-py==4.2.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0068.txt (line 1))
+  Using cached markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/markdown_it_py-4.2.0-py3-none-any.whl
+Successfully downloaded markdown-it-py
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting mcp-types==2.0.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0071.txt (line 1))
+  Using cached mcp_types-2.0.0-py3-none-any.whl (69 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mcp_types-2.0.0-py3-none-any.whl
+Successfully downloaded mcp-types
+Collecting markupsafe==3.0.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0069.txt (line 1))
+  Using cached markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded markupsafe
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting mdurl==0.1.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0072.txt (line 1))
+  Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mdurl-0.1.2-py3-none-any.whl
+Successfully downloaded mdurl
+Collecting mcp==2.0.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0070.txt (line 1))
+  Using cached mcp-2.0.0-py3-none-any.whl (349 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mcp-2.0.0-py3-none-any.whl
+Successfully downloaded mcp
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting mistral-common==1.11.7 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0073.txt (line 1))
+  Using cached mistral_common-1.11.7-py3-none-any.whl (6.6 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mistral_common-1.11.7-py3-none-any.whl
+Successfully downloaded mistral-common
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting model-hosting-container-standards==0.1.16 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0074.txt (line 1))
+  Using cached model_hosting_container_standards-0.1.16-py3-none-any.whl (125 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/model_hosting_container_standards-0.1.16-py3-none-any.whl
+Successfully downloaded model-hosting-container-standards
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting msgpack==1.2.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0076.txt (line 1))
+  Using cached msgpack-1.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (419 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/msgpack-1.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded msgpack
+Collecting mpmath==1.3.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0075.txt (line 1))
+  Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mpmath-1.3.0-py3-none-any.whl
+Successfully downloaded mpmath
+Collecting msgspec==0.21.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0077.txt (line 1))
+  Using cached msgspec-0.21.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (225 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/msgspec-0.21.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded msgspec
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl
+Successfully downloaded cryptography
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting networkx==3.6.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0079.txt (line 1))
+  Using cached networkx-3.6.1-py3-none-any.whl (2.1 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/networkx-3.6.1-py3-none-any.whl
+Successfully downloaded networkx
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting ninja==1.13.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0080.txt (line 1))
+  Using cached ninja-1.13.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (180 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/ninja-1.13.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded ninja
+Collecting multidict==6.7.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0078.txt (line 1))
+  Using cached multidict-6.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (256 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/multidict-6.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded multidict
+Collecting numba==0.61.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0081.txt (line 1))
+  Downloading numba-0.61.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.9 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting numpy==2.2.6 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0082.txt (line 1))
+Collecting nvidia-cublas-cu12==12.8.4.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0083.txt (line 1))
+  Using cached nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl (594.3 MB)
+  Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.5 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cuda-cupti-cu12==12.8.90 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0084.txt (line 1))
+  Using cached nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (10.2 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-cuda-cupti-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cuda-nvdisasm==13.3.73 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0085.txt (line 1))
+  Using cached nvidia_cuda_nvdisasm-13.3.73-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.8 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cuda_nvdisasm-13.3.73-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-cuda-nvdisasm
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cuda-runtime-cu12==12.8.90 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0087.txt (line 1))
+  Using cached nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (954 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-cuda-runtime-cu12
+Collecting nvidia-cuda-nvrtc-cu12==12.8.93 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0086.txt (line 1))
+  Using cached nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (88.0 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cudnn-cu12==9.10.2.21 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0088.txt (line 1))
+  Using cached nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl (706.8 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl
+Successfully downloaded nvidia-cuda-nvrtc-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cudnn-frontend==1.27.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0089.txt (line 1))
+  Downloading nvidia_cudnn_frontend-1.27.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl
+Successfully downloaded nvidia-cublas-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cufft-cu12==11.3.3.83 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0090.txt (line 1))
+  Using cached nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (193.1 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-cufft-cu12
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl
+Successfully downloaded nvidia-cudnn-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cufile-cu12==1.13.1.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0091.txt (line 1))
+  Using cached nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-cufile-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-curand-cu12==10.3.9.90 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0092.txt (line 1))
+  Using cached nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl (63.6 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cusolver-cu12==11.7.3.90 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0093.txt (line 1))
+  Downloading nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl (267.5 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl
+Successfully downloaded nvidia-curand-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cusparse-cu12==12.5.8.93 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0094.txt (line 1))
+  Downloading nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (288.2 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/numba-0.61.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded numba
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/grpcio-1.83.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded grpcio
+Collecting nvidia-cusparselt-cu12==0.7.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0095.txt (line 1))
+  Downloading nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl (287.2 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cutlass-dsl==4.7.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0096.txt (line 1))
+  Downloading nvidia_cutlass_dsl-4.7.0-py3-none-any.whl (10 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cutlass_dsl-4.7.0-py3-none-any.whl
+Successfully downloaded nvidia-cutlass-dsl
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cutlass-dsl-libs-base==4.7.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0097.txt (line 1))
+  Downloading nvidia_cutlass_dsl_libs_base-4.7.0-cp312-cp312-manylinux_2_28_x86_64.whl (2.8 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cudnn_frontend-1.27.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded nvidia-cudnn-frontend
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cutlass-dsl-libs-core==4.7.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0098.txt (line 1))
+  Downloading nvidia_cutlass_dsl_libs_core-4.7.0-py3-none-any.whl (1.2 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cutlass_dsl_libs_core-4.7.0-py3-none-any.whl
+Successfully downloaded nvidia-cutlass-dsl-libs-core
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-cutlass-dsl-libs-cu12==4.7.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0099.txt (line 1))
+  Downloading nvidia_cutlass_dsl_libs_cu12-4.7.0-cp312-cp312-manylinux_2_28_x86_64.whl (88.7 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cutlass_dsl_libs_base-4.7.0-cp312-cp312-manylinux_2_28_x86_64.whl
+Successfully downloaded nvidia-cutlass-dsl-libs-base
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-ml-py==13.610.43 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0100.txt (line 1))
+  Downloading nvidia_ml_py-13.610.43-py3-none-any.whl (53 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_ml_py-13.610.43-py3-none-any.whl
+Successfully downloaded nvidia-ml-py
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-nccl-cu12==2.27.5 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0101.txt (line 1))
+  Downloading nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (322.3 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded numpy
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-nvjitlink-cu12==12.8.93 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0102.txt (line 1))
+  Downloading nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (39.3 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/duckdb-1.5.5-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded duckdb
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-nvshmem-cu12==3.4.5 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0103.txt (line 1))
+  Downloading nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (139.1 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/llvmlite-0.44.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded llvmlite
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting nvidia-nvtx-cu12==12.8.90 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0104.txt (line 1))
+  Downloading nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (89 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-nvtx-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting openai==2.24.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0105.txt (line 1))
+  Downloading openai-2.24.0-py3-none-any.whl (1.1 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/openai-2.24.0-py3-none-any.whl
+Successfully downloaded openai
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting openai-harmony==0.0.8 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0106.txt (line 1))
+  Downloading openai_harmony-0.0.8-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/openai_harmony-0.0.8-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded openai-harmony
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opencv-python-headless==5.0.0.93 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0107.txt (line 1))
+  Downloading opencv_python_headless-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl (61.2 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl
+Successfully downloaded nvidia-nvjitlink-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-api==1.44.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0108.txt (line 1))
+  Downloading opentelemetry_api-1.44.0-py3-none-any.whl (60 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_api-1.44.0-py3-none-any.whl
+Successfully downloaded opentelemetry-api
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-exporter-otlp==1.44.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0109.txt (line 1))
+  Downloading opentelemetry_exporter_otlp-1.44.0-py3-none-any.whl (6.7 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_exporter_otlp-1.44.0-py3-none-any.whl
+Successfully downloaded opentelemetry-exporter-otlp
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-exporter-otlp-proto-common==1.44.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0110.txt (line 1))
+  Downloading opentelemetry_exporter_otlp_proto_common-1.44.0-py3-none-any.whl (17 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_exporter_otlp_proto_common-1.44.0-py3-none-any.whl
+Successfully downloaded opentelemetry-exporter-otlp-proto-common
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-exporter-otlp-proto-grpc==1.44.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0111.txt (line 1))
+  Downloading opentelemetry_exporter_otlp_proto_grpc-1.44.0-py3-none-any.whl (19 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_exporter_otlp_proto_grpc-1.44.0-py3-none-any.whl
+Successfully downloaded opentelemetry-exporter-otlp-proto-grpc
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-exporter-otlp-proto-http==1.44.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0112.txt (line 1))
+  Downloading opentelemetry_exporter_otlp_proto_http-1.44.0-py3-none-any.whl (21 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_exporter_otlp_proto_http-1.44.0-py3-none-any.whl
+Successfully downloaded opentelemetry-exporter-otlp-proto-http
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-proto==1.44.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0113.txt (line 1))
+  Downloading opentelemetry_proto-1.44.0-py3-none-any.whl (72 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_proto-1.44.0-py3-none-any.whl
+Successfully downloaded opentelemetry-proto
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-sdk==1.44.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0114.txt (line 1))
+  Downloading opentelemetry_sdk-1.44.0-py3-none-any.whl (137 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_sdk-1.44.0-py3-none-any.whl
+Successfully downloaded opentelemetry-sdk
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-semantic-conventions==0.65b0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0115.txt (line 1))
+  Downloading opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl (204 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl
+Successfully downloaded opentelemetry-semantic-conventions
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting opentelemetry-semantic-conventions-ai==0.5.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0116.txt (line 1))
+  Downloading opentelemetry_semantic_conventions_ai-0.5.1-py3-none-any.whl (11 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_semantic_conventions_ai-0.5.1-py3-none-any.whl
+Successfully downloaded opentelemetry-semantic-conventions-ai
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting outlines-core==0.2.11 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0117.txt (line 1))
+  Downloading outlines_core-0.2.11-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.3 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/outlines_core-0.2.11-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded outlines-core
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting packaging==26.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0118.txt (line 1))
+  Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/packaging-26.3-py3-none-any.whl
+Successfully downloaded packaging
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting partial-json-parser==0.2.1.1.post7 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0119.txt (line 1))
+  Downloading partial_json_parser-0.2.1.1.post7-py3-none-any.whl (10 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/partial_json_parser-0.2.1.1.post7-py3-none-any.whl
+Successfully downloaded partial-json-parser
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pillow==12.3.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0120.txt (line 1))
+  Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded pillow
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting prometheus-client==0.26.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0121.txt (line 1))
+  Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/prometheus_client-0.26.0-py3-none-any.whl
+Successfully downloaded prometheus-client
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting prometheus-fastapi-instrumentator==8.1.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0122.txt (line 1))
+  Downloading prometheus_fastapi_instrumentator-8.1.0-py3-none-any.whl (19 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/prometheus_fastapi_instrumentator-8.1.0-py3-none-any.whl
+Successfully downloaded prometheus-fastapi-instrumentator
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting propcache==0.5.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0123.txt (line 1))
+  Downloading propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (61 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded propcache
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting protobuf==6.33.6 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0124.txt (line 1))
+  Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl
+Successfully downloaded protobuf
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting psutil==7.2.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0125.txt (line 1))
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded psutil
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting py-cpuinfo==9.0.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0126.txt (line 1))
+  Downloading py_cpuinfo-9.0.0-py3-none-any.whl (22 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/py_cpuinfo-9.0.0-py3-none-any.whl
+Successfully downloaded py-cpuinfo
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pybase64==1.5.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0127.txt (line 1))
+  Downloading pybase64-1.5.0-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl (94 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pybase64-1.5.0-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl
+Successfully downloaded pybase64
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pycountry==26.2.16 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0128.txt (line 1))
+  Downloading pycountry-26.2.16-py3-none-any.whl (8.0 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pycountry-26.2.16-py3-none-any.whl
+Successfully downloaded pycountry
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pycparser==3.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0129.txt (line 1))
+  Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pycparser-3.0-py3-none-any.whl
+Successfully downloaded pycparser
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pydantic==2.13.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0130.txt (line 1))
+  Downloading pydantic-2.13.4-py3-none-any.whl (472 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pydantic-2.13.4-py3-none-any.whl
+Successfully downloaded pydantic
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pydantic-core==2.46.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0131.txt (line 1))
+  Downloading pydantic_core-2.46.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pydantic_core-2.46.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded pydantic-core
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pydantic-extra-types==2.11.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0132.txt (line 1))
+  Downloading pydantic_extra_types-2.11.1-py3-none-any.whl (79 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pydantic_extra_types-2.11.1-py3-none-any.whl
+Successfully downloaded pydantic-extra-types
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pydantic-settings==2.15.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0133.txt (line 1))
+  Downloading pydantic_settings-2.15.0-py3-none-any.whl (69 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pydantic_settings-2.15.0-py3-none-any.whl
+Successfully downloaded pydantic-settings
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pygments==2.20.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0134.txt (line 1))
+  Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pygments-2.20.0-py3-none-any.whl
+Successfully downloaded pygments
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pyjwt==2.13.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0135.txt (line 1))
+  Downloading pyjwt-2.13.0-py3-none-any.whl (31 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pyjwt-2.13.0-py3-none-any.whl
+Successfully downloaded pyjwt
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting python-dotenv==1.2.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0136.txt (line 1))
+  Downloading python_dotenv-1.2.3-py3-none-any.whl (22 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/python_dotenv-1.2.3-py3-none-any.whl
+Successfully downloaded python-dotenv
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting python-json-logger==4.2.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0137.txt (line 1))
+  Downloading python_json_logger-4.2.0-py3-none-any.whl (14 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/python_json_logger-4.2.0-py3-none-any.whl
+Successfully downloaded python-json-logger
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting python-multipart==0.0.32 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0138.txt (line 1))
+  Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/python_multipart-0.0.32-py3-none-any.whl
+Successfully downloaded python-multipart
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pyyaml==6.0.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0139.txt (line 1))
+  Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded pyyaml
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting pyzmq==27.1.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0140.txt (line 1))
+  Downloading pyzmq-27.1.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (840 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pyzmq-27.1.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded pyzmq
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting quack-kernels==0.5.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0141.txt (line 1))
+  Downloading quack_kernels-0.5.0-py3-none-any.whl (327 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/quack_kernels-0.5.0-py3-none-any.whl
+Successfully downloaded quack-kernels
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cutlass_dsl_libs_cu12-4.7.0-cp312-cp312-manylinux_2_28_x86_64.whl
+Successfully downloaded nvidia-cutlass-dsl-libs-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting ray==2.57.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0142.txt (line 1))
+  Downloading ray-2.57.0-cp312-cp312-manylinux2014_x86_64.whl (77.9 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting referencing==0.37.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0143.txt (line 1))
+  Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/referencing-0.37.0-py3-none-any.whl
+Successfully downloaded referencing
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting regex==2026.7.19 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0144.txt (line 1))
+  Downloading regex-2026.7.19-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (801 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/regex-2026.7.19-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded regex
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting requests==2.34.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0145.txt (line 1))
+  Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/requests-2.34.2-py3-none-any.whl
+Successfully downloaded requests
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting rich==15.0.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0146.txt (line 1))
+  Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/rich-15.0.0-py3-none-any.whl
+Successfully downloaded rich
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting rich-toolkit==0.20.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0147.txt (line 1))
+  Downloading rich_toolkit-0.20.3-py3-none-any.whl (36 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/rich_toolkit-0.20.3-py3-none-any.whl
+Successfully downloaded rich-toolkit
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting rignore==0.8.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0148.txt (line 1))
+  Downloading rignore-0.8.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (927 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/rignore-0.8.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded rignore
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting rpds-py==2026.6.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0149.txt (line 1))
+  Downloading rpds_py-2026.6.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (366 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/rpds_py-2026.6.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded rpds-py
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting safetensors==0.8.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0150.txt (line 1))
+  Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded safetensors
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting sentencepiece==0.2.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0151.txt (line 1))
+  Downloading sentencepiece-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sentencepiece-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded sentencepiece
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting sentry-sdk==2.68.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0152.txt (line 1))
+  Downloading sentry_sdk-2.68.0-py3-none-any.whl (518 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sentry_sdk-2.68.0-py3-none-any.whl
+Successfully downloaded sentry-sdk
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting setproctitle==1.3.7 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0153.txt (line 1))
+  Downloading setproctitle-1.3.7-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (32 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/setproctitle-1.3.7-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+Successfully downloaded setproctitle
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting setuptools==80.10.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0154.txt (line 1))
+  Downloading setuptools-80.10.2-py3-none-any.whl (1.1 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/setuptools-80.10.2-py3-none-any.whl
+Successfully downloaded setuptools
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting shellingham==1.5.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0155.txt (line 1))
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/shellingham-1.5.4-py2.py3-none-any.whl
+Successfully downloaded shellingham
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting six==1.17.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0156.txt (line 1))
+  Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/six-1.17.0-py2.py3-none-any.whl
+Successfully downloaded six
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting sniffio==1.3.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0157.txt (line 1))
+  Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sniffio-1.3.1-py3-none-any.whl
+Successfully downloaded sniffio
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting sse-starlette==3.4.8 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0158.txt (line 1))
+  Downloading sse_starlette-3.4.8-py3-none-any.whl (16 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sse_starlette-3.4.8-py3-none-any.whl
+Successfully downloaded sse-starlette
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting starlette==1.6.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0159.txt (line 1))
+  Downloading starlette-1.6.0-py3-none-any.whl (75 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/starlette-1.6.0-py3-none-any.whl
+Successfully downloaded starlette
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting supervisor==4.3.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0160.txt (line 1))
+  Downloading supervisor-4.3.0-py2.py3-none-any.whl (320 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/supervisor-4.3.0-py2.py3-none-any.whl
+Successfully downloaded supervisor
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting sympy==1.14.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0161.txt (line 1))
+  Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opencv_python_headless-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl
+Successfully downloaded opencv-python-headless
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting tabulate==0.10.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0162.txt (line 1))
+  Downloading tabulate-0.10.0-py3-none-any.whl (39 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/tabulate-0.10.0-py3-none-any.whl
+Successfully downloaded tabulate
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting tiktoken==0.14.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0163.txt (line 1))
+  Downloading tiktoken-0.14.0-cp312-cp312-manylinux_2_28_x86_64.whl (1.2 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/tiktoken-0.14.0-cp312-cp312-manylinux_2_28_x86_64.whl
+Successfully downloaded tiktoken
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting tokenizers==0.22.2 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0164.txt (line 1))
+  Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sympy-1.14.0-py3-none-any.whl
+Successfully downloaded sympy
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded tokenizers
+Collecting torch==2.10.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0165.txt (line 1))
+  Downloading torch-2.10.0-3-cp312-cp312-manylinux_2_28_x86_64.whl (915.6 MB)
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting torch-c-dlpack-ext==0.1.5 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0166.txt (line 1))
+  Downloading torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (897 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded torch-c-dlpack-ext
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting torchaudio==2.10.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0167.txt (line 1))
+  Downloading torchaudio-2.10.0-cp312-cp312-manylinux_2_28_x86_64.whl (1.9 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/torchaudio-2.10.0-cp312-cp312-manylinux_2_28_x86_64.whl
+Successfully downloaded torchaudio
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting torchvision==0.25.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0168.txt (line 1))
+  Downloading torchvision-0.25.0-cp312-cp312-manylinux_2_28_x86_64.whl (8.1 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/torchvision-0.25.0-cp312-cp312-manylinux_2_28_x86_64.whl
+Successfully downloaded torchvision
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting tqdm==4.70.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0169.txt (line 1))
+  Downloading tqdm-4.70.0-py3-none-any.whl (80 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/tqdm-4.70.0-py3-none-any.whl
+Successfully downloaded tqdm
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting transformers==4.57.6 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0170.txt (line 1))
+  Downloading transformers-4.57.6-py3-none-any.whl (12.0 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/transformers-4.57.6-py3-none-any.whl
+Successfully downloaded transformers
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting triton==3.6.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0171.txt (line 1))
+  Downloading triton-3.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (188.3 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-nvshmem-cu12
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting truststore==0.10.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0172.txt (line 1))
+  Downloading truststore-0.10.4-py3-none-any.whl (18 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/truststore-0.10.4-py3-none-any.whl
+Successfully downloaded truststore
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting typer==0.27.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0173.txt (line 1))
+  Downloading typer-0.27.1-py3-none-any.whl (122 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/typer-0.27.1-py3-none-any.whl
+Successfully downloaded typer
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting typing-extensions==4.16.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0174.txt (line 1))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/typing_extensions-4.16.0-py3-none-any.whl
+Successfully downloaded typing-extensions
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting typing-inspection==0.4.4 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0175.txt (line 1))
+  Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/typing_inspection-0.4.4-py3-none-any.whl
+Successfully downloaded typing-inspection
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting urllib3==2.7.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0176.txt (line 1))
+  Downloading urllib3-2.7.0-py3-none-any.whl (131 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/urllib3-2.7.0-py3-none-any.whl
+Successfully downloaded urllib3
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting uvicorn==0.52.3 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0177.txt (line 1))
+  Downloading uvicorn-0.52.3-py3-none-any.whl (79 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/uvicorn-0.52.3-py3-none-any.whl
+Successfully downloaded uvicorn
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting uvloop==0.22.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0178.txt (line 1))
+  Downloading uvloop-0.22.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.4 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/uvloop-0.22.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded uvloop
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting vllm==0.17.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0179.txt (line 1))
+  Downloading vllm-0.17.0-cp38-abi3-manylinux_2_31_x86_64.whl (432.9 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/ray-2.57.0-cp312-cp312-manylinux2014_x86_64.whl
+Successfully downloaded ray
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting watchfiles==1.2.0 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0180.txt (line 1))
+  Downloading watchfiles-1.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (456 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/watchfiles-1.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded watchfiles
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting websockets==17.0.1 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0181.txt (line 1))
+  Downloading websockets-17.0.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (220 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/websockets-17.0.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+Successfully downloaded websockets
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting xgrammar==0.1.29 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0182.txt (line 1))
+  Downloading xgrammar-0.1.29-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (34.9 MB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/xgrammar-0.1.29-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Successfully downloaded xgrammar
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple
+Collecting yarl==1.24.5 (from -r /mnt/frontier-forge/cache/prefill-requirements/cdc7a057df0a6d14511a16f3a7f0ffd6da2f09662042be8081d73229898c7cbf/0183.txt (line 1))
+  Downloading yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (109 kB)
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded yarl
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl
+Successfully downloaded nvidia-cusolver-cu12
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl
+Successfully downloaded nvidia-cusparselt-cu12
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-cusparse-cu12
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/triton-3.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Successfully downloaded triton
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Successfully downloaded nvidia-nccl-cu12
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/vllm-0.17.0-cp38-abi3-manylinux_2_31_x86_64.whl
+Successfully downloaded vllm
+Saved /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/torch-2.10.0-3-cp312-cp312-manylinux_2_28_x86_64.whl
+Successfully downloaded torch
+Looking in links: /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/aiohappyeyeballs-2.7.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 3))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/aiohttp-3.14.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 7))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/aiosignal-1.4.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 28))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/annotated_doc-0.0.5-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 32))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/annotated_types-0.8.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 38))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/anthropic-0.122.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 42))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/anyio-4.14.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 46))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/apache_tvm_ffi-0.1.13.post3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 58))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/astor-0.8.1-py2.py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 67))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/attrs-26.1.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 71))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/blake3-1.0.9-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 78))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cachetools-7.1.7-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 94))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cbor2-6.1.4-cp312-cp312-manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 98))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/certifi-2026.7.22-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 109))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 117))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/charset_normalizer-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 134))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/click-8.4.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 170))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cloudpickle-3.1.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 179))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/compressed_tensors-0.13.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 183))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cryptography-50.0.0-cp311-abi3-manylinux_2_34_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 187))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cuda_bindings-12.9.4-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 216))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cuda_pathfinder-1.6.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 223))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cuda_python-12.9.4-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 228))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/cupy_cuda12x-14.1.1-cp312-cp312-manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 234))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/depyf-0.20.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 239))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/detect_installer-0.1.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 243))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/dill-0.4.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 247))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/diskcache-5.6.3-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 251))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/distro-1.9.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 255))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/dnspython-2.8.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 261))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/docstring_parser-0.18.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 265))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/duckdb-1.5.5-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 269))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/einops-0.8.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 279))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/email_validator-2.3.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 286))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fastapi-0.141.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 292))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fastapi_cli-0.0.32-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 298))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fastapi_cloud_cli-0.23.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 302))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fastar-0.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 306))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/filelock-3.32.3-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 327))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/flashinfer_python-0.6.4-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 336))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 340))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/fsspec-2026.2.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 362))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/gguf-0.19.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 368))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/googleapis_common_protos-1.75.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 372))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/grpcio-1.83.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 378))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/grpcio_reflection-1.81.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 394))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/h11-0.16.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 398))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 405))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httpcore-1.0.9-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 416))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httpcore2-2.11.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 420))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httptools-0.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 424))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httpx-0.28.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 434))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/httpx2-2.11.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 445))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/huggingface_hub-0.36.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 449))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/idna-3.18-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 455))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/ijson-3.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 465))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/interegular-0.3.3-py37-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 480))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jinja2-3.1.6-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 484))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jiter-0.16.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 491))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jmespath-1.1.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 514))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jsonschema-4.26.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 518))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/jsonschema_specifications-2025.9.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 526))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/kaldi_native_fbank-1.22.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 530))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/lark-1.2.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 539))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/llguidance-1.3.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 543))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/llvmlite-0.44.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 553))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/lm_format_enforcer-0.11.3-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 561))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/loguru-0.7.3-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 565))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/markdown_it_py-4.2.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 569))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/markupsafe-3.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 573))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mcp-2.0.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 587))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mcp_types-2.0.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 591))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mdurl-0.1.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 595))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mistral_common-1.11.7-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 599))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/model_hosting_container_standards-0.1.16-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 603))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/mpmath-1.3.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 607))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/msgpack-1.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 611))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/msgspec-0.21.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 625))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/multidict-6.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 636))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/networkx-3.6.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 660))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/ninja-1.13.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 664))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/numba-0.61.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 687))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 695))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 723))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 731))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cuda_nvdisasm-13.3.73-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 736))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 744))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 749))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 754))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cudnn_frontend-1.27.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 759))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 764))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 769))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 773))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 778))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 783))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 790))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cutlass_dsl-4.7.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 795))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cutlass_dsl_libs_base-4.7.0-cp312-cp312-manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 801))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cutlass_dsl_libs_core-4.7.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 807))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_cutlass_dsl_libs_cu12-4.7.0-cp312-cp312-manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 810))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_ml_py-13.610.43-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 814))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 818))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 822))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 831))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 835))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/openai-2.24.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 840))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/openai_harmony-0.0.8-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 844))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opencv_python_headless-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 859))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_api-1.44.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 872))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_exporter_otlp-1.44.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 882))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_exporter_otlp_proto_common-1.44.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 886))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_exporter_otlp_proto_grpc-1.44.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 892))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_exporter_otlp_proto_http-1.44.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 896))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_proto-1.44.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 900))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_sdk-1.44.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 907))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 915))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/opentelemetry_semantic_conventions_ai-0.5.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 921))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/outlines_core-0.2.11-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 925))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/packaging-26.3-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 936))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/partial_json_parser-0.2.1.1.post7-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 945))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 949))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/prometheus_client-0.26.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 964))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/prometheus_fastapi_instrumentator-8.1.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 970))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/propcache-0.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 974))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 997))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1016))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/py_cpuinfo-9.0.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1027))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pybase64-1.5.0-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1031))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pycountry-26.2.16-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1058))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pycparser-3.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1062))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pydantic-2.13.4-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1066))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pydantic_core-2.46.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1085))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pydantic_extra_types-2.11.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1107))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pydantic_settings-2.15.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1113))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pygments-2.20.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1117))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pyjwt-2.13.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1121))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/python_dotenv-1.2.3-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1125))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/python_json_logger-4.2.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1131))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/python_multipart-0.0.32-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1135))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1141))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/pyzmq-27.1.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1163))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/quack_kernels-0.5.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1176))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/ray-2.57.0-cp312-cp312-manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1180))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/referencing-0.37.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1186))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/regex-2026.7.19-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1192))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/requests-2.34.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1214))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/rich-15.0.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1227))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/rich_toolkit-0.20.3-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1233))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/rignore-0.8.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1239))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/rpds_py-2026.6.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1258))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1278))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sentencepiece-0.2.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1297))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sentry_sdk-2.68.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1309))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/setproctitle-1.3.7-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1313))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/setuptools-80.10.2-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1326))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/shellingham-1.5.4-py2.py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1333))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/six-1.17.0-py2.py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1337))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sniffio-1.3.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1341))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sse_starlette-3.4.8-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1347))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/starlette-1.6.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1351))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/supervisor-4.3.0-py2.py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1360))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/sympy-1.14.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1364))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/tabulate-0.10.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1368))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/tiktoken-0.14.0-cp312-cp312-manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1372))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1384))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/torch-2.10.0-3-cp312-cp312-manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1404))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/torch_c_dlpack_ext-0.1.5-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1420))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/torchaudio-2.10.0-cp312-cp312-manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1427))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/torchvision-0.25.0-cp312-cp312-manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1433))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/tqdm-4.70.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1439))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/transformers-4.57.6-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1449))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/triton-3.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1457))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/truststore-0.10.4-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1463))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/typer-0.27.1-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1469))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/typing_extensions-4.16.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1475))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/typing_inspection-0.4.4-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1510))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/urllib3-2.7.0-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1518))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/uvicorn-0.52.3-py3-none-any.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1524))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/uvloop-0.22.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1532))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/vllm-0.17.0-cp38-abi3-manylinux_2_31_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1541))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/watchfiles-1.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1545))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/websockets-17.0.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1564))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/xgrammar-0.1.29-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1588))
+Processing /mnt/frontier-forge/cache/wheelhouse/phase7-1-remote-serve/yarl-1.24.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r results/phase7_1/a10_remote_serve_requirements.txt (line 1596))
+Installing collected packages: torchaudio, supervisor, py-cpuinfo, nvidia-ml-py, nvidia-cusparselt-cu12, mpmath, cuda-python, cuda-bindings, compressed-tensors, yarl, xgrammar, websockets, watchfiles, vllm, uvloop, uvicorn, urllib3, typing-inspection, typing-extensions, typer, truststore, triton, transformers, tqdm, torchvision, torch-c-dlpack-ext, torch, tokenizers, tiktoken, tabulate, sympy, starlette, sse-starlette, sniffio, six, shellingham, setuptools, setproctitle, sentry-sdk, sentencepiece, safetensors, rpds-py, rignore, rich-toolkit, rich, requests, regex, referencing, ray, quack-kernels, pyzmq, pyyaml, python-multipart, python-json-logger, python-dotenv, pyjwt, pygments, pydantic-settings, pydantic-extra-types, pydantic-core, pydantic, pycparser, pycountry, pybase64, psutil, protobuf, propcache, prometheus-fastapi-instrumentator, prometheus-client, pillow, partial-json-parser, packaging, outlines-core, opentelemetry-semantic-conventions-ai, opentelemetry-semantic-conventions, opentelemetry-sdk, opentelemetry-proto, opentelemetry-exporter-otlp-proto-http, opentelemetry-exporter-otlp-proto-grpc, opentelemetry-exporter-otlp-proto-common, opentelemetry-exporter-otlp, opentelemetry-api, opencv-python-headless, openai-harmony, openai, nvidia-nvtx-cu12, nvidia-nvshmem-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-cutlass-dsl-libs-cu12, nvidia-cutlass-dsl-libs-core, nvidia-cutlass-dsl-libs-base, nvidia-cutlass-dsl, nvidia-cusparse-cu12, nvidia-cusolver-cu12, nvidia-curand-cu12, nvidia-cufile-cu12, nvidia-cufft-cu12, nvidia-cudnn-frontend, nvidia-cudnn-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-nvdisasm, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, numpy, numba, ninja, networkx, multidict, msgspec, msgpack, model-hosting-container-standards, mistral-common, mdurl, mcp-types, mcp, markupsafe, markdown-it-py, loguru, lm-format-enforcer, llvmlite, llguidance, lark, kaldi-native-fbank, jsonschema-specifications, jsonschema, jmespath, jiter, jinja2, interegular, ijson, idna, huggingface-hub, httpx2, httpx, httptools, httpcore2, httpcore, hf-xet, h11, grpcio-reflection, grpcio, googleapis-common-protos, gguf, fsspec, frozenlist, flashinfer-python, filelock, fastar, fastapi-cloud-cli, fastapi-cli, fastapi, email-validator, einops, duckdb, docstring-parser, dnspython, distro, diskcache, dill, detect-installer, depyf, cupy-cuda12x, cuda-pathfinder, cryptography, cloudpickle, click, charset-normalizer, cffi, certifi, cbor2, cachetools, blake3, attrs, astor, apache-tvm-ffi, anyio, anthropic, annotated-types, annotated-doc, aiosignal, aiohttp, aiohappyeyeballs
+Successfully installed aiohappyeyeballs-2.7.1 aiohttp-3.14.3 aiosignal-1.4.0 annotated-doc-0.0.5 annotated-types-0.8.0 anthropic-0.122.0 anyio-4.14.2 apache-tvm-ffi-0.1.13.post3 astor-0.8.1 attrs-26.1.0 blake3-1.0.9 cachetools-7.1.7 cbor2-6.1.4 certifi-2026.7.22 cffi-2.1.1 charset-normalizer-3.5.1 click-8.4.2 cloudpickle-3.1.2 compressed-tensors-0.13.0 cryptography-50.0.0 cuda-bindings-12.9.4 cuda-pathfinder-1.6.0 cuda-python-12.9.4 cupy-cuda12x-14.1.1 depyf-0.20.0 detect-installer-0.1.0 dill-0.4.1 diskcache-5.6.3 distro-1.9.0 dnspython-2.8.0 docstring-parser-0.18.0 duckdb-1.5.5 einops-0.8.2 email-validator-2.3.0 fastapi-0.141.1 fastapi-cli-0.0.32 fastapi-cloud-cli-0.23.0 fastar-0.11.0 filelock-3.32.3 flashinfer-python-0.6.4 frozenlist-1.8.0 fsspec-2026.2.0 gguf-0.19.0 googleapis-common-protos-1.75.1 grpcio-1.83.0 grpcio-reflection-1.81.1 h11-0.16.0 hf-xet-1.6.0 httpcore-1.0.9 httpcore2-2.11.0 httptools-0.8.0 httpx-0.28.1 httpx2-2.11.0 huggingface-hub-0.36.2 idna-3.18 ijson-3.5.1 interegular-0.3.3 jinja2-3.1.6 jiter-0.16.0 jmespath-1.1.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 kaldi-native-fbank-1.22.3 lark-1.2.2 llguidance-1.3.0 llvmlite-0.44.0 lm-format-enforcer-0.11.3 loguru-0.7.3 markdown-it-py-4.2.0 markupsafe-3.0.3 mcp-2.0.0 mcp-types-2.0.0 mdurl-0.1.2 mistral-common-1.11.7 model-hosting-container-standards-0.1.16 mpmath-1.3.0 msgpack-1.2.1 msgspec-0.21.1 multidict-6.7.1 networkx-3.6.1 ninja-1.13.0 numba-0.61.2 numpy-2.2.6 nvidia-cublas-cu12-12.8.4.1 nvidia-cuda-cupti-cu12-12.8.90 nvidia-cuda-nvdisasm-13.3.73 nvidia-cuda-nvrtc-cu12-12.8.93 nvidia-cuda-runtime-cu12-12.8.90 nvidia-cudnn-cu12-9.10.2.21 nvidia-cudnn-frontend-1.27.0 nvidia-cufft-cu12-11.3.3.83 nvidia-cufile-cu12-1.13.1.3 nvidia-curand-cu12-10.3.9.90 nvidia-cusolver-cu12-11.7.3.90 nvidia-cusparse-cu12-12.5.8.93 nvidia-cusparselt-cu12-0.7.1 nvidia-cutlass-dsl-4.7.0 nvidia-cutlass-dsl-libs-base-4.7.0 nvidia-cutlass-dsl-libs-core-4.7.0 nvidia-cutlass-dsl-libs-cu12-4.7.0 nvidia-ml-py-13.610.43 nvidia-nccl-cu12-2.27.5 nvidia-nvjitlink-cu12-12.8.93 nvidia-nvshmem-cu12-3.4.5 nvidia-nvtx-cu12-12.8.90 openai-2.24.0 openai-harmony-0.0.8 opencv-python-headless-5.0.0.93 opentelemetry-api-1.44.0 opentelemetry-exporter-otlp-1.44.0 opentelemetry-exporter-otlp-proto-common-1.44.0 opentelemetry-exporter-otlp-proto-grpc-1.44.0 opentelemetry-exporter-otlp-proto-http-1.44.0 opentelemetry-proto-1.44.0 opentelemetry-sdk-1.44.0 opentelemetry-semantic-conventions-0.65b0 opentelemetry-semantic-conventions-ai-0.5.1 outlines-core-0.2.11 packaging-26.3 partial-json-parser-0.2.1.1.post7 pillow-12.3.0 prometheus-client-0.26.0 prometheus-fastapi-instrumentator-8.1.0 propcache-0.5.2 protobuf-6.33.6 psutil-7.2.2 py-cpuinfo-9.0.0 pybase64-1.5.0 pycountry-26.2.16 pycparser-3.0 pydantic-2.13.4 pydantic-core-2.46.4 pydantic-extra-types-2.11.1 pydantic-settings-2.15.0 pygments-2.20.0 pyjwt-2.13.0 python-dotenv-1.2.3 python-json-logger-4.2.0 python-multipart-0.0.32 pyyaml-6.0.3 pyzmq-27.1.0 quack-kernels-0.5.0 ray-2.57.0 referencing-0.37.0 regex-2026.7.19 requests-2.34.2 rich-15.0.0 rich-toolkit-0.20.3 rignore-0.8.1 rpds-py-2026.6.3 safetensors-0.8.0 sentencepiece-0.2.2 sentry-sdk-2.68.0 setproctitle-1.3.7 setuptools-80.10.2 shellingham-1.5.4 six-1.17.0 sniffio-1.3.1 sse-starlette-3.4.8 starlette-1.6.0 supervisor-4.3.0 sympy-1.14.0 tabulate-0.10.0 tiktoken-0.14.0 tokenizers-0.22.2 torch-2.10.0 torch-c-dlpack-ext-0.1.5 torchaudio-2.10.0 torchvision-0.25.0 tqdm-4.70.0 transformers-4.57.6 triton-3.6.0 truststore-0.10.4 typer-0.27.1 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.7.0 uvicorn-0.52.3 uvloop-0.22.1 vllm-0.17.0 watchfiles-1.2.0 websockets-17.0.1 xgrammar-0.1.29 yarl-1.24.5
+No broken requirements found.
+Phase 7.1 hash-verified mirror prefill complete; canonical uv --locked finalization is still required
