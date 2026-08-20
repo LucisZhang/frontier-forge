@@ -61,16 +61,22 @@ export const options = {
   },
 };
 
+const saturationPad =
+  scenario === "saturation" || scenario === "autoscale"
+    ? `\nEvidence context: ${"bounded admission queue evidence ".repeat(120)}`
+    : "";
+
 const body = JSON.stringify({
   model: "forge-r1b",
   messages: [
     {
       role: "user",
       content:
-        "Return one compact JSON object with company, issue, product, urgency, ambiguity_flag, and tool_call.",
+        "Return one compact JSON object with company, issue, product, urgency, ambiguity_flag, and tool_call." +
+        saturationPad,
     },
   ],
-  max_tokens: 96,
+  max_tokens: scenario === "saturation" || scenario === "autoscale" ? 512 : 96,
   temperature: 0,
   stream: false,
 });

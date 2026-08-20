@@ -132,6 +132,31 @@ def wait_deployment(name: str, replicas: int, *, timeout_s: float = 900) -> dict
     return wait_until(f"deployment/{name} ready replicas={replicas}", ready, timeout_s=timeout_s)
 
 
+def wait_gpu_zero(*, timeout_s: float = 300) -> dict[str, Any]:
+    def zero() -> dict[str, Any] | None:
+        pods = kube_json("-n", NAMESPACE, "get", "pods", "-l", "forge.openai.com/precision")[
+            "items"
+        ]
+        processes = run(
+            [
+                "nvidia-smi",
+                "--query-compute-apps=pid",
+                "--format=csv,noheader,nounits",
+            ],
+            check=False,
+        ).stdout.strip()
+        if not pods and not processes:
+            return {"at": now(), "pods": 0, "compute_processes": ""}
+        return None
+
+    return wait_until(
+        "zero vLLM pods and zero GPU compute processes",
+        zero,
+        timeout_s=timeout_s,
+        interval_s=2,
+    )
+
+
 def apply_object(value: dict[str, Any]) -> None:
     kube("apply", "-f", "-", input_text=json.dumps(value, separators=(",", ":")))
 
@@ -515,6 +540,13 @@ def command_inventory(_: argparse.Namespace) -> None:
     )
     dashboard_response.raise_for_status()
     images = run(["sudo", "k3s", "ctr", "images", "list"]).stdout
+    systemd = run(["systemctl", "is-system-running"], check=False)
+    cgroup = Path("/proc/1/cgroup").read_text().strip()
+    swap_total_kib = next(
+        int(line.split()[1])
+        for line in Path("/proc/meminfo").read_text().splitlines()
+        if line.startswith("SwapTotal:")
+    )
     runtime = {
         "git_sha": git_sha(),
         "k3s": run(["k3s", "--version"]).stdout.strip(),
@@ -543,6 +575,12 @@ def command_inventory(_: argparse.Namespace) -> None:
                 "--format=csv,noheader,nounits",
             ]
         ).stdout.strip(),
+        "host_preflight": {
+            "systemd_state": systemd.stdout.strip(),
+            "systemd_returncode": systemd.returncode,
+            "pid1_cgroup": cgroup,
+            "swap_total_kib": swap_total_kib,
+        },
         "services": [
             {
                 "name": item["metadata"]["name"],
@@ -593,6 +631,13 @@ def command_inventory(_: argparse.Namespace) -> None:
         },
     }
     checks = {
+        "real_systemd_vm": runtime["host_preflight"]["systemd_returncode"] == 0,
+        "root_cgroup_not_container": runtime["host_preflight"]["pid1_cgroup"].startswith("0::/")
+        and not any(
+            marker in runtime["host_preflight"]["pid1_cgroup"]
+            for marker in ("docker", "containerd", "kubepods")
+        ),
+        "swap_disabled": runtime["host_preflight"]["swap_total_kib"] == 0,
         "one_physical_a10": runtime["nvidia_smi"].startswith("NVIDIA A10,"),
         "two_time_sliced_allocations": node_item["status"]["capacity"].get("nvidia.com/gpu.shared")
         == "2",
@@ -628,6 +673,7 @@ def command_cold_start(args: argparse.Namespace) -> None:
     for index in range(1, args.iterations + 1):
         push_gpu_demand(0)
         wait_deployment("vllm-int4", 0, timeout_s=300)
+        zero_state = wait_gpu_zero(timeout_s=300)
         trigger_wall = now()
         trigger = time.monotonic()
         pushed = push_gpu_demand(1)
@@ -640,6 +686,7 @@ def command_cold_start(args: argparse.Namespace) -> None:
         run_receipt = {
             "iteration": index,
             "trigger_at": trigger_wall,
+            "pre_trigger_zero_state": zero_state,
             "metric_push": pushed,
             "first_verified_at": now(),
             "trigger_to_first_verified_s": elapsed,
@@ -671,6 +718,7 @@ def command_cold_start(args: argparse.Namespace) -> None:
         )
         push_gpu_demand(0)
         wait_deployment("vllm-int4", 0, timeout_s=300)
+        wait_gpu_zero(timeout_s=300)
     durations = [float(item["trigger_to_first_verified_s"]) for item in runs]
     receipt = {
         "version": 1,
@@ -910,6 +958,8 @@ def slo_guard() -> dict[str, Any]:
 def backend_map() -> dict[str, str]:
     mapping: dict[str, str] = {}
     for variant in ("vllm-int4", "vllm-bf16"):
+        service = kube_json("-n", NAMESPACE, "get", "service", variant)
+        mapping[f"{service['spec']['clusterIP']}:8000"] = variant
         items = kube_json(
             "-n", NAMESPACE, "get", "pods", "-l", f"app.kubernetes.io/name={variant}"
         )["items"]
