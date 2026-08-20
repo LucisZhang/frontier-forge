@@ -1,0 +1,94 @@
+version: 1
+phase: "7.1"
+run_id: phase7_1_gateway_r1b_bf16_native_mtp_a10
+benchmark_contract: phase5_exact_matrix_a10_rerun
+source_phase5_config: configs/phase5/gateway_r1b_mtp.yaml
+model:
+  variant: r1b
+  precision: bfloat16
+  served_name: forge-r1b-bf16-native-mtp
+  artifact_path: checkpoints/full/r1b/trl/s0/export/merged_bf16_mtp_preserved
+  artifact_sha256: 7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce
+  export_manifest: results/phase4/r1b_mtp_reexport_manifest.json
+  training_time_quantization: qlora_nf4
+  deployment_quantization: none
+server:
+  vllm_version: 0.17.0
+  host: 127.0.0.1
+  port: 8000
+  max_model_len: 4096
+  max_num_seqs: 32
+  gpu_memory_utilization: 0.90
+  language_model_only: true
+  generation_config: vllm
+  speculative_method: mtp
+  num_speculative_tokens: 1
+gateway:
+  host: 127.0.0.1
+  port: 9000
+  io_threads: 4
+  connection_pool_size: 64
+  primary_token_capacity: 24000
+  max_queue_requests: 24
+  max_queue_tokens: 48000
+  queue_poll_interval_ms: 5
+  request_timeout_ms: 60000
+  fallback_enabled: false
+workload:
+  source_config: configs/phase4/spec_r1b_bf16_mtp.yaml
+  request_seed: 20260819
+  warmup_requests: 4
+  measurement_requests: 20
+  length_profiles:
+    short:
+      input_token_targets: [800]
+      output_token_caps: [192]
+    mixed:
+      input_token_targets: [800, 1400, 2000]
+      output_token_caps: [192, 256]
+    long:
+      input_token_targets: [2000]
+      output_token_caps: [256]
+direct_gateway:
+  concurrency: [1, 8, 32]
+  deadline_s: 60
+capacity:
+  arrival_rates_qps: [0.25, 0.5, 0.75, 1.0, 1.5, 2.0]
+  measurement_requests: 30
+  length_profile: mixed
+  deadline_s: 60
+  max_error_rate: 0.05
+  max_deadline_miss_rate: 0.05
+  min_achieved_qps_ratio: 0.85
+  max_p95_inflation: 4.0
+overload:
+  multipliers: [2, 3, 5]
+  measurement_requests: 60
+  length_profile: mixed
+  deadline_s: 60
+  recovery_probe_interval_s: 0.25
+  recovery_consecutive_successes: 3
+  recovery_p95_multiplier: 2.0
+profile:
+  length_profile: mixed
+  concurrency: 32
+  measurement_requests: 80
+  deadline_s: 60
+hardware:
+  gpu_type: NVIDIA A10
+  hourly_usd: 1.53
+  co_tenancy_policy: rerun_sweep_if_load1_exceeds_half_logical_core_count
+pricing:
+  assumed_cny_per_hour: 11.0
+  assumed_cny_per_usd: 7.2
+  rounded_usd_per_hour: 1.53
+gate:
+  max_upstream_5xx_rate_delta: 0.05
+  max_fast_reject_s: 1.0
+  min_429_rejects_per_overload_cell: 1
+  require_retry_after: true
+  require_overloaded_error_code: true
+comparison_scope:
+  paired_hardware: NVIDIA A10 on one Aliyun ECS VM
+  archived_hardware: RTX 4090
+  cross_hardware_latency_or_throughput_comparison_allowed: false

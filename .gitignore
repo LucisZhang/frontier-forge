@@ -25,8 +25,10 @@ wheels/
 .venv/
 .venv-phase4/
 .uv-cache-phase4/
+.uv-cache-phase7/
 .tmp-phase4/
 .tmp-phase5/
+.tmp-phase7_1/
 .tmp-phase6-smoke/
 .cache-phase5/
 .cache/
@@ -44,6 +46,7 @@ gateway/compile_commands.json
 gateway/profile/
 demo/dist/
 demo/.dist-phase6.tmp/
+/results/phase7_1/runtime/
 
 # os / editor
 .DS_Store
