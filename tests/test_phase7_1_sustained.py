@@ -27,6 +27,7 @@ def test_sustained_config_extends_but_does_not_change_finite_contract(
         "seed_offset": 7000,
     }
     assert config["overload"]["measurement_requests"] == 60
+    assert config["model"]["artifact_path"].startswith("checkpoints/")
     assert config["hardware"]["gpu_type"] == "NVIDIA A10"
     assert config["hardware"]["hourly_usd"] == 1.53
 

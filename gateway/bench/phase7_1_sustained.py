@@ -150,7 +150,8 @@ def _verify_artifact(config: Mapping[str, Any]) -> dict[str, Any]:
     manifest_path = REPO_ROOT / str(config["model"]["export_manifest"])
     manifest = json.loads(manifest_path.read_text())
     export = manifest.get("full_precision_export", {})
-    if export.get("path") != relative_path(artifact_path) or export.get("sha256") != expected:
+    logical_artifact_path = str(config["model"]["artifact_path"])
+    if export.get("path") != logical_artifact_path or export.get("sha256") != expected:
         raise RuntimeError("export manifest does not identify the sustained serving artifact")
     receipt = {
         "version": 1,
@@ -160,7 +161,8 @@ def _verify_artifact(config: Mapping[str, Any]) -> dict[str, Any]:
         "git_sha": benchmark_git_sha(),
         "verified_at": _now(),
         "artifact": {
-            "path": relative_path(artifact_path),
+            "path": logical_artifact_path,
+            "resolved_path": str(artifact_path.resolve()),
             "sha256": actual,
             "files": sum(1 for item in artifact_path.rglob("*") if item.is_file()),
             "export_manifest": relative_path(manifest_path),
