@@ -188,6 +188,8 @@ def test_remote_scripts_pin_mount_rate_order_and_no_public_dashboard_ports() -> 
     assert "8e91b381aaea3c47110583dccc52f4562333d1accdbb806939f953c16e74ec0a" in toolchain
     assert "boost_version=1.86.0" in toolchain
     assert "1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b" in toolchain
+    assert "archives.boost.io/release" in toolchain
+    assert "sources.cdn.immortalwrt.org" in toolchain
     assert "/mnt/frontier-forge/tooling" in toolchain
     assert "Boost_USE_STATIC_LIBS=ON" in build
     assert (

@@ -31,7 +31,8 @@ cmake_venv="${tooling_root}/cmake-${cmake_version}"
 boost_version=1.86.0
 boost_slug=boost_1_86_0
 boost_sha256=1bed88e40401b2cb7a1f76d4bab499e352fa4d0c5f31c0dbae64e24d34d7513b
-boost_url="https://archives.boost.io/release/${boost_version}/source/${boost_slug}.tar.bz2"
+boost_source_url="https://archives.boost.io/release/${boost_version}/source/${boost_slug}.tar.bz2"
+boost_download_url="${FORGE_BOOST_DOWNLOAD_URL:-https://sources.cdn.immortalwrt.org/${boost_slug}.tar.bz2}"
 boost_archive="${cache_root}/downloads/${boost_slug}.tar.bz2"
 boost_source="${tooling_root}/src/${boost_slug}"
 boost_prefix="${tooling_root}/boost-${boost_version}"
@@ -57,8 +58,8 @@ if [[ "$("${cmake_venv}/bin/cmake" --version | awk 'NR == 1 {print $3}')" != "${
 fi
 
 if [[ ! -f "${boost_archive}" ]]; then
-  curl --fail --location --retry 5 --retry-delay 2 \
-    --output "${boost_archive}.part" "${boost_url}"
+  curl --fail --location --retry 5 --retry-delay 2 --silent --show-error \
+    --output "${boost_archive}.part" "${boost_download_url}"
   if [[ "$(sha256sum "${boost_archive}.part" | awk '{print $1}')" != "${boost_sha256}" ]]; then
     echo "downloaded Boost archive hash mismatch" >&2
     exit 1
@@ -92,12 +93,13 @@ jq -n \
   --arg cmake_sha256 "${cmake_sha256}" \
   --arg cmake_path "${cmake_venv}/bin/cmake" \
   --arg boost_version "${boost_version}" \
-  --arg boost_url "${boost_url}" \
+  --arg boost_source_url "${boost_source_url}" \
+  --arg boost_download_url "${boost_download_url}" \
   --arg boost_sha256 "${boost_sha256}" \
   --arg boost_prefix "${boost_prefix}" \
   --arg compiler "$(g++ --version | head -n 1)" \
   --arg finished_at "$(date --utc --iso-8601=seconds)" \
-  '{version:1,status:"complete",phase:"7.1",git_sha:$git_sha,cmake:{version:$cmake_version,wheel_sha256:$cmake_sha256,path:$cmake_path},boost:{version:$boost_version,source_url:$boost_url,source_sha256:$boost_sha256,prefix:$boost_prefix,libraries:["json","system"],linkage:"static"},compiler:$compiler,root:"/mnt/frontier-forge/tooling",finished_at:$finished_at}' \
+  '{version:1,status:"complete",phase:"7.1",git_sha:$git_sha,cmake:{version:$cmake_version,wheel_sha256:$cmake_sha256,path:$cmake_path},boost:{version:$boost_version,authoritative_source_url:$boost_source_url,download_mirror_url:$boost_download_url,source_sha256:$boost_sha256,prefix:$boost_prefix,libraries:["json","system"],linkage:"static"},compiler:$compiler,root:"/mnt/frontier-forge/tooling",finished_at:$finished_at}' \
   > results/phase7_1/a10_gateway_toolchain.json
 
 echo "Phase 7.1 pinned CMake ${cmake_version} + Boost ${boost_version} toolchain is ready"
