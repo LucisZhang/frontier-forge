@@ -4,7 +4,7 @@
   "scope": "local_only",
   "status": "local_complete_remote_pending",
   "pre_fix_source_git_sha": "527e1bbed0abedc089d59ec96e197cf3d66809fa",
-  "code_and_test_diff_sha256": "eae1e6329933ef18c817e09cb835029beca90ad24e4499c5fee850fc5f75c199",
+  "code_and_test_diff_sha256": "622fbeedceebe154958f635528e11400e2ac7307b782ebfac41647c2a622d6db",
   "phase5_source_receipt": {
     "run_id": "phase5_gateway_r1b_bf16_native_mtp",
     "git_sha": "9dff2a6758a1ed2facd5f132d0f22de182a592bb",
@@ -31,6 +31,13 @@
       "repeated_test_passes": 40
     }
   },
+  "semantic_preservation": {
+    "test": "GatewayIntegrationTest.PreservesUnavailableAsServiceUnavailable",
+    "audit_finding": "a broad default 429 would also map rejected_unavailable to 429",
+    "final_expected": "HTTP 503 + Retry-After + upstream_unavailable",
+    "repeat_count": 20,
+    "repeated_test_passes": 20
+  },
   "residual_risk": {
     "probe_to_async_write_race": "narrowed_not_closed",
     "possible_result": "HTTP 502/upstream_error if peer FIN arrives after probe and before write",
@@ -43,7 +50,7 @@
   "local_verification": {
     "make_gateway_test": {
       "asan_ubsan": "green",
-      "passed": 32,
+      "passed": 33,
       "failed": 0
     },
     "make_test": {

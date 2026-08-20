@@ -372,10 +372,12 @@ net::awaitable<void> GatewayServer::handle_session(tcp::socket socket) {
   }
 
   if (!admission.lease.has_value()) {
-    http::status status = http::status::too_many_requests;
+    http::status status = http::status::service_unavailable;
     MetricDecision metric = MetricDecision::reject_overload;
     std::string code = "overloaded";
-    if (admission.kind == AdmissionKind::rejected_deadline) {
+    if (admission.kind == AdmissionKind::rejected_overload) {
+      status = http::status::too_many_requests;
+    } else if (admission.kind == AdmissionKind::rejected_deadline) {
       status = http::status::gateway_timeout;
       metric = MetricDecision::reject_deadline;
       code = "deadline_exceeded";
@@ -383,6 +385,7 @@ net::awaitable<void> GatewayServer::handle_session(tcp::socket socket) {
       status = http::status::payload_too_large;
       code = "token_budget_too_large";
     } else if (admission.kind == AdmissionKind::rejected_unavailable) {
+      status = http::status::service_unavailable;
       metric = MetricDecision::reject_unavailable;
       code = "upstream_unavailable";
     }

@@ -65,6 +65,9 @@ bench 又在 direct/gateway 单元格之间交替执行，连接会跨 bare-vLLM
 2. 不在写出 POST 后自动重试，以免上游其实已执行请求时造成重复推理。
 3. admission queue 满时从 503 校正为 Phase 7.1 规定的 429，并保留
    `Retry-After`、`overloaded` 错误码、`reject_overload` 决策和 4xx 计数。
+4. 拒绝状态按 `AdmissionKind` 显式分流；queue-full 才返回 429，
+   `rejected_unavailable` 继续返回 503/`upstream_unavailable`。新增保护测试防止
+   429 默认值误覆盖 unavailable 语义。
 
 ## 残余竞态与未实现加固
 
@@ -97,7 +100,7 @@ gateway/build/sanitize/tests/gateway_tests \
   queue-full 测试同时确认 429、`Retry-After`、`overloaded`、
   `reject_overload=1`、4xx=1、5xx=0。
 - 本次源码与测试补丁 SHA-256：
-  `eae1e6329933ef18c817e09cb835029beca90ad24e4499c5fee850fc5f75c199`。
+  `622fbeedceebe154958f635528e11400e2ac7307b782ebfac41647c2a622d6db`。
 
 ## 本地验证
 
@@ -108,9 +111,10 @@ make phase6-release-write
 make reproduce-headline
 ```
 
-- `make gateway-test`：ASan/UBSan，32/32 通过。
-- 两项关键回归用 `--gtest_repeat=20 --gtest_break_on_failure` 重复 20 轮，
-  在该确定性注入时序下 40/40 次通过；它不覆盖 FIN 落入 probe→write 窗口的情形。
+- `make gateway-test`：ASan/UBSan，33/33 通过。
+- peer-idle-close、queue-full 429、unavailable 503 三项关键回归用
+  `--gtest_repeat=20 --gtest_break_on_failure` 重复 20 轮，共 60/60 次通过；
+  该确定性注入仍不覆盖 FIN 落入 probe→write 窗口的情形。
 - `make test`：pytest 187/187，Ruff check 与 format check 通过。
 - `make phase6-release-write`：通过；`gateway/README.md` 的 release-manifest
   SHA-256 重封为 `b89787916de8dc267a19350093405df9019c312164fb7d56301358b6b47a7c40`。

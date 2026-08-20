@@ -429,6 +429,25 @@ TEST_F(GatewayIntegrationTest, HealthChecksChangeReadiness) {
   }));
 }
 
+TEST_F(GatewayIntegrationTest, PreservesUnavailableAsServiceUnavailable) {
+  auto config = default_config();
+  config.fallback_enabled = false;
+  config.health_interval = 20ms;
+  start_gateway(config);
+  primary->set_healthy(false);
+  ASSERT_TRUE(wait_until([this] {
+    return request(gateway->port(), http::verb::get, "/healthz").status == 503;
+  }));
+
+  const auto response =
+      request(gateway->port(), http::verb::post, "/v1/chat/completions",
+              chat_body(), {{"X-Client-ID", "unavailable-client"}});
+  EXPECT_EQ(response.status, 503U);
+  EXPECT_TRUE(response.headers.contains("Retry-After"));
+  EXPECT_NE(response.body.find("\"code\":\"upstream_unavailable\""),
+            std::string::npos);
+}
+
 TEST_F(GatewayIntegrationTest, DownstreamCancellationReleasesAdmissionLease) {
   start_gateway(default_config());
   net::io_context client_context;
