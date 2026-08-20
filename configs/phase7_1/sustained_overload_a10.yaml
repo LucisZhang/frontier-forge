@@ -1,0 +1,30 @@
+version: 1
+phase: "7.1"
+run_id: phase7_1_sustained_overload_r1b_bf16_native_mtp_a10
+benchmark_contract: gate_7_1_sustained_amendment_2026_08_21
+source_phase7_1_config: configs/phase7_1/gateway_r1b_mtp_a10.yaml
+source_finite_receipt: results/phase7_1/raw/phase7_1_gateway_bench.json
+sustained_overload:
+  multipliers: [2, 3, 5]
+  minimum_arrival_duration_s: 120
+  max_client_concurrency: 768
+  seed_offset: 7000
+gate:
+  max_upstream_5xx_rate_delta: 0.05
+  max_fast_reject_s: 1.0
+  min_429_rejects_per_overload_cell: 1
+  require_retry_after: true
+  require_overloaded_error_code: true
+  require_sampled_queue_saturation: true
+hardware:
+  gpu_type: NVIDIA A10
+  hourly_usd: 1.53
+  co_tenancy_policy: rerun_sweep_if_load1_exceeds_half_logical_core_count
+pricing:
+  assumed_cny_per_hour: 11.0
+  assumed_cny_per_usd: 7.2
+  rounded_usd_per_hour: 1.53
+comparison_scope:
+  paired_hardware: NVIDIA A10 on one Aliyun ECS VM
+  archived_hardware: RTX 4090
+  cross_hardware_latency_or_throughput_comparison_allowed: false

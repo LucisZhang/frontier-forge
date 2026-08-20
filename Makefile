@@ -15,7 +15,7 @@ C3_TARGETS := test lint gateway-test gateway-tsan phase1-2 \
 
 .PHONY: $(C3_TARGETS) gateway-llama-test ci-lint prepare-r1b prepare-r4-v2 phase3-context-audit phase3-report \
 	phase3-preflight phase3-smoke phase4-preflight phase4-smoke phase6-smoke \
-	phase6-release-write
+	phase6-release-write phase7-1-sustained phase7-1-sustained-report
 
 test:
 	uv run pytest
@@ -65,6 +65,15 @@ phase7-1-bench:
 phase7-1-report:
 	@$(if $(wildcard .venv-phase4/bin/python),.venv-phase4/bin/python,uv run python) \
 		-m gateway.bench.phase7_1_report $(if $(filter 1,$(UPDATE_README)),--update-readme,)
+
+phase7-1-sustained:
+	@test "$(shell uname -s)" = "Linux" || { echo "phase7-1-sustained is remote Linux only" >&2; exit 2; }
+	@test -n "$(STAGE)" || { echo "phase7-1-sustained requires STAGE" >&2; exit 2; }
+	@.venv-phase4/bin/python -m gateway.bench.phase7_1_sustained --stage "$(STAGE)"
+
+phase7-1-sustained-report:
+	@$(if $(wildcard .venv-phase4/bin/python),.venv-phase4/bin/python,uv run python) \
+		-m gateway.bench.phase7_1_sustained_report $(if $(filter 1,$(UPDATE_README)),--update-readme,)
 
 ingest:
 	@uv run python -m forge.data.ingest $(if $(filter 1,$(SMOKE)),--smoke,)

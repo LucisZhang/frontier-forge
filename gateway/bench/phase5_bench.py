@@ -1105,6 +1105,7 @@ async def _overload_cell(
     recovery_interval_s: float,
     recovery_required: int,
     hourly_usd: float,
+    concurrency: int = 256,
 ) -> tuple[dict[str, Any], list[Observation]]:
     warmup_load = await _warmup(
         endpoint=endpoint,
@@ -1142,7 +1143,7 @@ async def _overload_cell(
                 rows=rows,
                 cell_id=cell_id,
                 offsets=offsets,
-                concurrency=256,
+                concurrency=concurrency,
                 deadline_s=deadline_s,
             )
         )
@@ -1179,7 +1180,7 @@ async def _overload_cell(
         observations,
         elapsed_s=elapsed,
         offered_qps=offered_qps,
-        concurrency=256,
+        concurrency=concurrency,
         peak_concurrency=peak,
         hourly_usd=hourly_usd,
         vllm_metrics=summarize_vllm_metrics(prometheus_delta(vllm_before, vllm_after)),
