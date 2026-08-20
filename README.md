@@ -38,12 +38,18 @@ The executable rule engine itself scores **100% at $0 model-inference cost** on 
 own policy benchmark. R1b's prospective value is generalization beyond exact
 literal-rule coverage; this rule-grounded evaluation does not establish that value.
 
-Across all committed, de-duplicated cost receipts—including failed and superseded
-attempts—the recorded project spend is **37.581 RTX 4090 GPU-hours ($11.274) +
-$13.038 teacher API = $24.313**. `make reproduce-headline` derives this total from
-the Phase 1/2 API ledgers, billable Phase 3 rows, Phase 4 operation receipts, and
-the Phase 5 ledger. It is a recorded-operation total, not an estimate of unmetered
-idle time or a cloud-provider invoice.
+Through Phase 5, `make reproduce-headline` derives a de-duplicated subtotal of
+**37.581 RTX 4090 GPU-hours ($11.274) + $13.038 teacher API = $24.313** from the
+Phase 1/2 API ledgers, billable Phase 3 rows, Phase 4 operation receipts, and the
+Phase 5 ledger. Separately, the three committed Phase 7 A10 receipts in the
+[Gate 7.1 ledger](results/phase7_1/gpu_ledger.jsonl) and
+[Gate 7.2 ledger](results/phase7_2/gpu_ledger.jsonl)—including the failed Gate 7.1
+attempt—record **7.430 A10 GPU-hours ($11.369 at $1.53/hour)**: 3.349 hours for
+the failed gate, 0.614 hours for the sustained amendment, and 3.467 hours for
+Phase 7.2. RTX 4090 and A10 hours remain separate; adding the Phase 1–5 subtotal
+and Phase 7 A10 receipt dollars, without combining hardware hours, gives
+**$35.681 recorded project spend through Phase 7.2**. This is a recorded-operation
+total, not an estimate of unmetered idle time or a cloud-provider invoice.
 
 ## What shipped
 
@@ -118,7 +124,7 @@ The human-approved amendment replaced that proxy with fixed-seed Poisson arrival
 | 3× | 120.4s / 120.4s | 707 / 707 | 0 (0.0%) / 0 | 0 (0.0%) / 215 | 24/24 | 2.1 ms |
 | 5× | 120.1s / 120.1s | 1177 / 1177 | 36 (3.1%) / 651 | 0 (0.0%) / 687 | 24/24 | 1.9 ms |
 
-The bare-vLLM 5× cell is retained as a negative result: vLLM 0.17.0 terminated its EngineCore on a GDN+MTP decode assertion after 490×200 and 36×500, leaving 651 transport errors. The matched gateway 5× cell kept the upstream alive and returned 490×200 plus 687 bounded 429 rejects. This transport failure is disclosed in addition to, not substituted for, the predeclared HTTP-5xx parity gate.
+The bare-vLLM 5× cell is retained as a negative result: vLLM 0.17.0 terminated its EngineCore on a GDN+MTP decode assertion after 490×200 and 36×500, leaving 651 transport errors. The matched gateway 5× cell kept the upstream alive and returned 490×200 plus 687 bounded 429 rejects. This transport failure is disclosed in addition to, not substituted for, the predeclared HTTP-5xx parity gate. That ±5.0 pp parity calculation uses every scheduled non-429 request as its denominator, so the 651 bare transport errors remain in the denominator but are not counted as bare HTTP-5xx failures; the gateway surviving this one observed EngineCore crash is not a demonstrated protection guarantee.
 
 Every sustained gateway cell sampled the queue at its configured bound, and excess requests surfaced as fast HTTP 429/`overloaded` responses with `Retry-After`; admitted upstream 5xx remained within the predeclared ±5.0 pp band of paired bare vLLM. The Phase 5 production block is therefore lifted for this measured **single-node gateway overload contract only**. This is not evidence of cloud production, multi-GPU scaling, or Phase 7.2 Kubernetes readiness. See the [amended Gate 7.1 report](results/phase7_1_sustained_a10_report.md) and [raw sustained receipt](results/phase7_1/raw/phase7_1_sustained_gateway_bench.json).
 
@@ -152,6 +158,11 @@ hashes, and dashboard discovery.
 | Availability fault | `ForgeAvailabilityBurnRate` firing |
 | Latency fault | `ForgeLatencyBurnRate` firing; 573 slow HTTP 200 responses |
 | Kill-vLLM recovery | fail-closed 503; new Pod UID; 120.708 s to verified recovery |
+
+Only the CPU gateway replicas demonstrated multi-replica KEDA scaling
+(1→3→1). Each GPU deployment scaled only between 0 and 1 replica; no GPU replica
+count above 1 was exercised. The approximately 125-second cold-start p50 targets
+batch and development workloads, not an interactive serving SLO.
 
 The canary attribution probes were deliberately sequential: they prove measured
 10%→50%→100% routing while both models coexist on one time-sliced physical GPU;

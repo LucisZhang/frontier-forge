@@ -55,6 +55,8 @@ physical GPU; concurrent saturation is covered separately by the k6/KEDA drill.
 After 100% BF16 promotion, a controlled HTTP-500 upstream deliberately degraded
 the promoted path. `ForgeAvailabilityBurnRate` entered `firing`; the router was
 then rolled back to stable GPTQ-int4 and a task-success-verified request recovered.
+`drill_bad_canary_rollback.json` adds drill metadata to this same execution in
+`canary_release.json`; the two files are not receipts for independent canary runs.
 
 ## Alerts and runbook drills
 

@@ -6,7 +6,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "5216f03918ee9847e4cdf7a1de7b5ecafb7e0196a622fcda4570f7a3f94bcfea"
+      "sha256": "a63601b1468b630604c945c02b3d3b77a450794735000363c2fa715067c2e903"
     },
     {
       "path": "MODEL_CARD.md",
@@ -14,7 +14,7 @@
     },
     {
       "path": "gateway/README.md",
-      "sha256": "b89787916de8dc267a19350093405df9019c312164fb7d56301358b6b47a7c40"
+      "sha256": "ca85b58bc1cfc6d2c6c573a9d0dbbd7ced1da1ba8022f1da2607708a795a06a3"
     },
     {
       "path": "results/phase5_gateway_report.md",
