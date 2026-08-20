@@ -133,7 +133,8 @@ def test_both_slo_alerts_use_two_windows() -> None:
         assert "[2m]" in item["expr"]
         assert item["for"] == "0m"
     latency = next(item for item in alerts if item["alert"] == "ForgeLatencyBurnRate")
-    assert 'le="2.500"' in latency["expr"]
+    assert 'le="2.5"' in latency["expr"]
+    assert 'le="2.500"' not in latency["expr"]
     assert 'le="2.000"' not in latency["expr"]
 
 

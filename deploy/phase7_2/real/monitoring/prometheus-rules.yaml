@@ -35,7 +35,7 @@ spec:
           expr: |
             (
               sum(rate(forge_gateway_request_duration_seconds_count[30s]))
-              - sum(rate(forge_gateway_request_duration_seconds_bucket{le="2.500"}[30s]))
+              - sum(rate(forge_gateway_request_duration_seconds_bucket{le="2.5"}[30s]))
             )
             /
             clamp_min(sum(rate(forge_gateway_request_duration_seconds_count[30s])), 0.001)
@@ -43,7 +43,7 @@ spec:
             and
             (
               sum(rate(forge_gateway_request_duration_seconds_count[2m]))
-              - sum(rate(forge_gateway_request_duration_seconds_bucket{le="2.500"}[2m]))
+              - sum(rate(forge_gateway_request_duration_seconds_bucket{le="2.5"}[2m]))
             )
             /
             clamp_min(sum(rate(forge_gateway_request_duration_seconds_count[2m])), 0.001)
