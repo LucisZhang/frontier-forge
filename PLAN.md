@@ -487,7 +487,17 @@ built on a component whose overload semantics are known-broken.
 - [ ] matched matrix + overload rerun receipts  - [ ] 429 semantics verified
 - [ ] "production blocked" flag lifted or honestly retained with reasons
 
-### Phase 7.2 — Single-node K8s runtime (manifests local; k3s on pod)
+### Phase 7.2 — Single-node K8s runtime (manifests local; k3s on a REAL VM)
+
+**Hardware requirement (hard)**: container-based GPU rentals (AutoDL and similar)
+cannot run kubelet — no systemd, no cgroup ownership. Phase 7.2 needs a real VM
+or bare metal with root and ≥24GB GPU (canary = int4 + bf16 coexist + KV cache;
+16GB is too tight). Candidates: Lambda Cloud A10 VM, or Aliyun/Tencent spot GPU
+VM (A10 24GB). Probe before building: `systemctl is-system-running` works and
+`/proc/1/cgroup` shows a root cgroup, not a docker path. The old forge-pod is
+unavailable; a fresh instance will be provisioned by the human, who supplies the
+new SSH alias and the actual hourly rate. Phase 7.1's rerun may use any dedicated
+4090 container instance — it has no k3s dependency.
 
 1. `deploy/`: k3s + NVIDIA device-plugin setup script; Kustomize/Helm manifests
    for vLLM (R1b GPTQ-int4 and BF16 variants) and the gateway; kube-prometheus-

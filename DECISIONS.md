@@ -138,7 +138,8 @@ of bolting K8s onto the Flink streaming lab. Rationale: one K8s evidence set cov
 both AI-infra and platform roles when attached to LLM inference; Flink-on-K8s is
 operational toil that adds little to that lab's exactly-once story; and it keeps
 each portfolio project owning one capability surface. Kafka remains deliberately
-NOT covered by Phase 7 (it stays with the future streaming upgrade, if ever).
+NOT covered by Phase 7 — the human will cover it in the exactly-once-drills
+(streaming lab) upgrade instead.
 Honesty red lines for Phase 7 on a single rented RTX 4090:
 - single-node k3s ≠ cloud production and is never described as such;
 - no multi-GPU replica autoscaling claims — what can honestly scale: gateway
