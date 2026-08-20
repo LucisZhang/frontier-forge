@@ -1,0 +1,15 @@
+runtimeClassName: nvidia
+config:
+  default: phase7-2
+  map:
+    phase7-2: |-
+      version: v1
+      flags:
+        migStrategy: none
+      sharing:
+        timeSlicing:
+          renameByDefault: true
+          failRequestsGreaterThanOne: true
+          resources:
+            - name: nvidia.com/gpu
+              replicas: 2

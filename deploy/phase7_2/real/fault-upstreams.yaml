@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forge-fault-upstream
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: forge-fault-upstream
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: forge-fault-upstream
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: forge-fault-upstream
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: http500
+          image: python:3.12-alpine
+          command: [python, /opt/forge/server.py, --port, "18080", --mode, http500]
+          ports:
+            - name: http500
+              containerPort: 18080
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi
+          volumeMounts:
+            - name: server
+              mountPath: /opt/forge
+              readOnly: true
+        - name: latency
+          image: python:3.12-alpine
+          command: [python, /opt/forge/server.py, --port, "18081", --mode, latency]
+          ports:
+            - name: latency
+              containerPort: 18081
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi
+          volumeMounts:
+            - name: server
+              mountPath: /opt/forge
+              readOnly: true
+      volumes:
+        - name: server
+          configMap:
+            name: forge-fault-upstream
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forge-fault-upstream
+  namespace: forge-system
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: forge-fault-upstream
+  ports:
+    - name: http500
+      port: 18080
+      targetPort: http500
+    - name: latency
+      port: 18081
+      targetPort: latency

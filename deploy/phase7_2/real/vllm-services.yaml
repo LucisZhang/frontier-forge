@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm-int4
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: vllm-int4
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: vllm-int4
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm-bf16
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: vllm-bf16
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: vllm-bf16
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http

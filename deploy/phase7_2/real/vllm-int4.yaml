@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-int4
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: vllm-int4
+    forge.openai.com/precision: gptq-int4
+spec:
+  replicas: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vllm-int4
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vllm-int4
+        forge.openai.com/precision: gptq-int4
+    spec:
+      runtimeClassName: nvidia
+      automountServiceAccountToken: false
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:v0.17.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - /mnt/frontier-forge/repo/checkpoints/full/r1b/trl/s0/export/gptq_int4
+            - --served-model-name
+            - forge-r1b
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8000"
+            - --max-model-len
+            - "4096"
+            - --max-num-seqs
+            - "8"
+            - --gpu-memory-utilization
+            - "0.32"
+            - --generation-config
+            - vllm
+            - --tool-call-parser
+            - hermes
+            - --enforce-eager
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+            - name: HF_HOME
+              value: /cache/huggingface
+            - name: VLLM_CACHE_ROOT
+              value: /cache/vllm
+            - name: TMPDIR
+              value: /cache/tmp
+          ports:
+            - name: http
+              containerPort: 8000
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 1
+            failureThreshold: 360
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 2
+          resources:
+            requests:
+              cpu: "2"
+              memory: 6Gi
+              nvidia.com/gpu.shared: "1"
+            limits:
+              cpu: "8"
+              memory: 16Gi
+              nvidia.com/gpu.shared: "1"
+          volumeMounts:
+            - name: checkpoints
+              mountPath: /mnt/frontier-forge/repo/checkpoints
+              readOnly: true
+            - name: hf-archive
+              mountPath: /mnt/frontier-forge/cache/huggingface
+              readOnly: true
+            - name: cache
+              mountPath: /cache
+      volumes:
+        - name: checkpoints
+          hostPath:
+            path: /mnt/frontier-forge/repo/checkpoints
+            type: Directory
+        - name: hf-archive
+          hostPath:
+            path: /mnt/frontier-forge/cache/huggingface
+            type: Directory
+        - name: cache
+          emptyDir: {}
+      terminationGracePeriodSeconds: 30

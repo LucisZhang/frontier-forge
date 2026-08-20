@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forge-gateway
+  namespace: forge-system
+spec:
+  template:
+    spec:
+      containers:
+        - name: gateway
+          args:
+            - --listen-host
+            - 0.0.0.0
+            - --listen-port
+            - "9000"
+            - --io-threads
+            - "2"
+            - --primary-host
+            - forge-mock-upstream
+            - --primary-port
+            - "8000"
+            - --primary-model
+            - forge-r1b
+            - --pool-size
+            - "16"
+            - --primary-token-capacity
+            - "4096"
+            - --max-queue-requests
+            - "24"
+            - --max-queue-tokens
+            - "8192"
+            - --request-timeout-ms
+            - "10000"
+            - --health-interval-ms
+            - "250"
+            - --disable-fallback

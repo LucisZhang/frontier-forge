@@ -1,0 +1,58 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: frontier-forge-slo
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: frontier-forge-slo
+spec:
+  groups:
+    - name: frontier-forge.slo
+      interval: 5s
+      rules:
+        - alert: ForgeAvailabilityBurnRate
+          expr: |
+            (
+              sum(rate(forge_gateway_responses_total{class="5xx"}[30s]))
+              /
+              clamp_min(sum(rate(forge_gateway_responses_total[30s])), 0.001)
+            ) > (14.4 * 0.01)
+            and
+            (
+              sum(rate(forge_gateway_responses_total{class="5xx"}[2m]))
+              /
+              clamp_min(sum(rate(forge_gateway_responses_total[2m])), 0.001)
+            ) > (14.4 * 0.01)
+          for: 0m
+          labels:
+            severity: critical
+            slo: availability
+            phase: "7.2"
+          annotations:
+            summary: Frontier Forge availability error budget is burning fast
+            runbook_url: docs/runbooks/phase7_2.md#availability-burn
+        - alert: ForgeLatencyBurnRate
+          expr: |
+            (
+              sum(rate(forge_gateway_request_duration_seconds_count[30s]))
+              - sum(rate(forge_gateway_request_duration_seconds_bucket{le="2.000"}[30s]))
+            )
+            /
+            clamp_min(sum(rate(forge_gateway_request_duration_seconds_count[30s])), 0.001)
+            > (14.4 * 0.05)
+            and
+            (
+              sum(rate(forge_gateway_request_duration_seconds_count[2m]))
+              - sum(rate(forge_gateway_request_duration_seconds_bucket{le="2.000"}[2m]))
+            )
+            /
+            clamp_min(sum(rate(forge_gateway_request_duration_seconds_count[2m])), 0.001)
+            > (14.4 * 0.05)
+          for: 0m
+          labels:
+            severity: critical
+            slo: p95_latency
+            phase: "7.2"
+          annotations:
+            summary: Frontier Forge p95 latency error budget is burning fast
+            runbook_url: docs/runbooks/phase7_2.md#latency-burn

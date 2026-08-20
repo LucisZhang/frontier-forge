@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: forge-gateway
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: forge-gateway
+spec:
+  namespaceSelector:
+    matchNames:
+      - forge-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: forge-gateway
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 5s
+      scrapeTimeout: 2s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: forge-pushgateway
+  namespace: forge-system
+  labels:
+    app.kubernetes.io/name: forge-pushgateway
+spec:
+  namespaceSelector:
+    matchNames:
+      - forge-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: forge-pushgateway
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 5s
+      scrapeTimeout: 2s

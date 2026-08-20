@@ -1,0 +1,22 @@
+version: 1
+resolved_at: "2026-08-20T17:08:00Z"
+cluster:
+  k3s: v1.36.3+k3s1
+  kubernetes: v1.36.3
+  helm: v4.2.4
+charts:
+  nvidia_device_plugin: 0.20.0
+  kube_prometheus_stack: 88.5.2
+  prometheus_adapter: 5.3.0
+  keda: 2.20.2
+images:
+  gateway: frontier-forge/gateway:phase7-2
+  vllm: vllm/vllm-openai:v0.17.0
+  nginx: nginx:1.29.1-alpine
+  pushgateway: prom/pushgateway:v1.11.2
+  python: python:3.12-alpine
+model_archive:
+  repository: Luciss007/frontier-forge-r1b
+  revision: d6e2f9e154da14ed74228691c8f9eb55b7d5adb8
+  gptq_int4_tree_sha256: c99b42cf0e062cc75f2df8588725d0c29383666f3db0c1ae837ce15bfe6d39d2
+  bf16_mtp_preserved_tree_sha256: 7878b55f6fe6a9ecb12b9504b1a88d7bc6fef7ba72d91289b6e8d694f6bc75ce

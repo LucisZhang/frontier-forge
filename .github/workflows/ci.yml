@@ -35,3 +35,30 @@ jobs:
         run: make test
       - name: Build and test the gateway with Clang sanitizers
         run: make gateway-test
+
+  phase-7-2-kind:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.31"
+          enable-cache: true
+      - name: Install locked dependencies
+        run: uv sync --locked
+      - name: Install kind
+        uses: helm/kind-action@v1.12.0
+        with:
+          install_only: true
+          version: v0.30.0
+      - name: Validate Phase 7.2 deployment contracts
+        run: make phase7-2-manifest-test
+      - name: Run CPU-only kind smoke with mock upstream
+        run: make phase7-2-kind-smoke

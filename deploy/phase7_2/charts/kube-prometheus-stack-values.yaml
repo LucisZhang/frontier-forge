@@ -1,0 +1,38 @@
+defaultRules:
+  create: false
+alertmanager:
+  service:
+    type: ClusterIP
+grafana:
+  service:
+    type: ClusterIP
+  sidecar:
+    dashboards:
+      enabled: true
+      searchNamespace: ALL
+kubeControllerManager:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeProxy:
+  enabled: false
+kubeScheduler:
+  enabled: false
+prometheus:
+  service:
+    type: ClusterIP
+  prometheusSpec:
+    evaluationInterval: 5s
+    scrapeInterval: 5s
+    retention: 6h
+    serviceMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+      limits:
+        cpu: "2"
+        memory: 3Gi
+prometheus-node-exporter:
+  hostNetwork: false
