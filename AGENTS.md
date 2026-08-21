@@ -6,9 +6,9 @@ frontier-API cost-quality frontier on a machine-verifiable structured-triage tas
 serve it via vLLM behind a custom C++20 LLM-aware gateway. Sister repos:
 `~/nlp-eval-lab` (upstream cascade, style reference), `~/batch-recsys-lab`.
 
-Execution phases live in PLAN.md. Locked decisions live in DECISIONS.md — never
-re-litigate or silently deviate from them; if a decision proves infeasible, stop
-and report, do not improvise a substitute.
+Execution phases live in `docs/engineering-log/PLAN.md`. Locked decisions live in
+`docs/engineering-log/DECISIONS.md` — never re-litigate or silently deviate from
+them; if a decision proves infeasible, stop and report, do not improvise a substitute.
 
 ## Project Structure
 - `src/forge/data` — ingest, labeling, splits (splits are FROZEN after first materialization)
@@ -56,4 +56,5 @@ in Linux container. DuckDB for data plumbing (match nlp-eval-lab conventions).
 ## PR / Commit Conventions
 Conventional commits. One experiment = one config file = one runs.jsonl append.
 Every phase ends with: change summary, verification command output, and the
-phase's gate checklist from PLAN.md with each item checked or explicitly failed.
+phase's gate checklist from `docs/engineering-log/PLAN.md` with each item checked
+or explicitly failed.

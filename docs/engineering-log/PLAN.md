@@ -1,16 +1,16 @@
 # PLAN.md — frontier-forge phased execution spec
 
-Audience: coding agents (Codex). Read `AGENTS.md` first; locked decisions are in
-`DECISIONS.md` (D1–D10) and are referenced below as e.g. [D3].
+Audience: coding agents (Codex). Read `../../AGENTS.md` first; locked decisions are
+in `DECISIONS.md` (D1–D10) and are referenced below as e.g. [D3].
 
 ## How this plan is executed
 
 - One phase per agent thread. Kickoff prompt pattern:
-  `Read AGENTS.md, DECISIONS.md, and PLAN.md §Phase N. Execute Phase N only. Report the gate checklist when done.`
+  `Read AGENTS.md, docs/engineering-log/DECISIONS.md, and docs/engineering-log/PLAN.md §Phase N. Execute Phase N only. Report the gate checklist when done.`
 - A phase is DONE only when every gate item is checked with evidence (command
   output or file path). Failed items are reported as failed, not reworded.
 - Phases 0–2 are local-only. Phases 3–4 produce remote-ready scripts locally
-  (SMOKE=1 green first); full runs are launched by the human [AGENTS.md Hardware Rules].
+  (SMOKE=1 green first); full runs are launched by the human [../../AGENTS.md Hardware Rules].
 - Phase 5 may run in parallel with Phases 3–4 (separate thread, no shared files).
 
 ## Shared contracts (all phases)
@@ -73,7 +73,7 @@ demo-build reproduce-headline
 **Goal**: empty-but-green repository skeleton; no business logic.
 
 **Deliverables**
-- `uv` project (Python 3.12, locked), directory tree exactly as in AGENTS.md
+- `uv` project (Python 3.12, locked), directory tree exactly as in ../../AGENTS.md
   §Project Structure, with `__init__.py` stubs.
 - Makefile with every C3 target present; unimplemented ones exit 0 with
   `"[stub] <target>"`; `SMOKE=1` plumbing works end-to-end on a no-op pipeline.
@@ -285,7 +285,7 @@ choice); `SMOKE=1 make train-sft && SMOKE=1 make eval` green on Mac.
 - [ ] Unsloth/TRL agreement check recorded - [ ] reward-hacking probes reported
 - [ ] exported weights hashed (fp + int4)  - [ ] negative results (if any) in report
 
-**Constraints**: the human launches full runs [AGENTS.md]. GPU-hour ledger updated
+**Constraints**: the human launches full runs [../../AGENTS.md]. GPU-hour ledger updated
 per run; if projected total exceeds the 60–90h envelope [D6], stop and report
 before launching the next run.
 

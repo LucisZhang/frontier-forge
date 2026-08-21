@@ -1,7 +1,8 @@
 """Canonical model input contract for CFPB structured triage.
 
-Input contract v2 is locked by DECISIONS.md D3.1.  Every model-facing producer
-must call :func:`build_model_input` rather than selecting fields ad hoc.
+Input contract v2 is locked by docs/engineering-log/DECISIONS.md D3.1.  Every
+model-facing producer must call :func:`build_model_input` rather than selecting
+fields ad hoc.
 """
 
 from __future__ import annotations

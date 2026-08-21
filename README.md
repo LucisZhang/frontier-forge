@@ -259,7 +259,10 @@ statement is in the [Model Card](MODEL_CARD.md).
 - No safety, fairness, privacy, or human-impact validation supports autonomous
   decisions. CFPB narratives may contain sensitive consumer information.
 
-Execution details: [PLAN.md](PLAN.md). Locked decisions: [DECISIONS.md](DECISIONS.md).
+Engineering decisions and phase logs live in [docs/engineering-log/](docs/engineering-log/).
+> 工程决策与阶段日志在 docs/engineering-log/。
+
+Execution details: [PLAN.md](docs/engineering-log/PLAN.md). Locked decisions: [DECISIONS.md](docs/engineering-log/DECISIONS.md).
 Agent rules: [AGENTS.md](AGENTS.md).
 
 ## License
