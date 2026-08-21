@@ -79,17 +79,18 @@
 
       <section id="gateway" class="exhibit warning-zone">
         <header class="section-head">
-          <div><span class="number">04</span><span class="eyebrow">PRODUCTION STORY / NO VICTORY LAP</span></div>
-          <h2>Bounded queue, wrong failure path</h2>
-          <p>Stable cells measured small overhead. Overload did not exercise the designed admission reject path.</p>
+          <div><span class="number">04</span><span class="eyebrow">SAME-BOX A10 / SUSTAINED OVERLOAD</span></div>
+          <h2>Bounded rejection, with the failure history intact</h2>
+          <p>The amended duration-based gate passed on the measured single-node contract. The Phase 5 negative result stays attached to its Phase 7.1 resolution receipt.</p>
         </header>
         <div class="gateway-summary" id="gateway-summary"></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Load</th><th>Gateway errors</th><th>Bare vLLM</th><th>Queue max</th><th>Observed semantics</th></tr></thead>
+            <thead><tr><th>Load</th><th>Arrival window</th><th>Bare upstream 5xx</th><th>Gateway upstream 5xx</th><th>Admission receipt</th></tr></thead>
             <tbody id="overload-table"></tbody>
           </table>
         </div>
+        <div class="finding negative" id="highest-load-receipt"></div>
         <div class="finding danger" id="gateway-limitation"></div>
       </section>
 

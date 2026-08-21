@@ -100,24 +100,34 @@
       <p class="caption">p50 ${item.simultaneous_latency_p50_s.toFixed(3)}s → ${item.two_pass_latency_p50_s.toFixed(3)}s · tool-call rate stayed 100%.</p>
     </article>`).join("");
 
-  const gateway = data.gateway;
+  const gateway = data.phase7_1;
+  const legacyGateway = data.gateway;
+  const gate = gateway.gate;
+  const cells = gate.sustained_overload_cells;
   const summary = [
-    [`${gateway.stable_pair_count}`, "stable paired cells"],
-    [`${gateway.stable_median_e2e_p50_overhead_pct.toFixed(1)}%`, "median stable p50 overhead"],
-    [`${pct(gateway.nonstable_gateway_error_rate_range[0], 0)}–${pct(gateway.nonstable_gateway_error_rate_range[1], 0)}`, "non-stable gateway errors"],
+    [gate.status.toUpperCase(), "amended sustained gate"],
+    [`≥${num(gate.thresholds.minimum_arrival_duration_s, 0)} s`, "arrival window per cell"],
+    [gateway.production_blocked ? "retained" : "lifted", "measured-contract block"],
   ];
   document.querySelector("#gateway-summary").innerHTML = summary.map(([value, label]) =>
     `<div class="summary-card"><strong>${value}</strong><span>${label}</span></div>`
   ).join("");
-  document.querySelector("#overload-table").innerHTML = gateway.overload.map((row) => `
+  document.querySelector("#overload-table").innerHTML = cells.map((cell) => `
     <tr>
-      <td>${row.multiplier.toFixed(0)}× / ${row.offered_qps.toFixed(0)} QPS</td>
-      <td>${pct(row.gateway_error_rate)}</td>
-      <td>${pct(row.direct_error_rate)}</td>
-      <td>${row.queue_depth_max.toFixed(0)}</td>
-      <td><code>502 / upstream_error</code><br><small>reject_overload=${row.routing_decisions.reject_overload}</small></td>
+      <td>${num(cell.multiplier, 0)}× / ${num(cell.offered_qps, 0)} QPS</td>
+      <td>${num(cell.gateway_arrival_duration_s, 1)} s</td>
+      <td>${pct(cell.bare_vllm_upstream_5xx_rate)}</td>
+      <td>${pct(cell.gateway_upstream_5xx_rate)}</td>
+      <td>${String(cell.http_429_count)} bounded rejects<br><small>queue ${String(cell.sampled_queue_max)} / ${String(cell.configured_queue_bound)}</small></td>
     </tr>`).join("");
-  document.querySelector("#gateway-limitation").innerHTML = `<b>Known limitation:</b> ${gateway.known_limitation}`;
+  const statusCounts = (counts) => Object.entries(counts)
+    .map(([status, count]) => `${String(count)}×${status}`)
+    .join(" · ");
+  document.querySelector("#highest-load-receipt").innerHTML = `
+    <b>Highest-load status receipt:</b>
+    bare vLLM <code>${statusCounts(gateway.highest_load.bare_vllm_http_status_counts)}</code>;
+    gateway <code>${statusCounts(gateway.highest_load.gateway_http_status_counts)}</code>.`;
+  document.querySelector("#gateway-limitation").innerHTML = `<b>Archived Phase 5 limitation + resolution:</b> ${legacyGateway.known_limitation}`;
 
   const receipts = [
     ["Schema", data.schema_version],

@@ -255,6 +255,75 @@ def test_demo_sources_are_network_free_and_javascript_is_parseable() -> None:
     )
 
 
+def test_demo_gateway_exhibit_renders_from_phase7_1_payload(tmp_path: Path) -> None:
+    harness = tmp_path / "render-demo.cjs"
+    harness.write_text(
+        """
+const fs = require("fs");
+const appPath = process.argv[2];
+const releasePath = process.argv[3];
+const data = JSON.parse(fs.readFileSync(releasePath, "utf8"));
+data.gateway = {known_limitation: data.gateway.known_limitation};
+
+const elements = new Map();
+const created = [];
+class Element {
+  constructor(tag) {
+    this.tag = tag;
+    this.children = [];
+    this.className = "";
+    this.classList = {toggle() {}};
+    this.innerHTML = "";
+    this.textContent = "";
+  }
+  append(child) {
+    this.children.push(child);
+    created.push(child);
+  }
+  addEventListener() {}
+  querySelectorAll(selector) {
+    return selector === "button" ? this.children.filter((child) => child.tag === "button") : [];
+  }
+}
+
+global.window = {FORGE_RELEASE: data};
+global.document = {
+  createElement(tag) { return new Element(tag); },
+  querySelector(selector) {
+    if (!elements.has(selector)) elements.set(selector, new Element(selector));
+    return elements.get(selector);
+  },
+  querySelectorAll(selector) {
+    if (selector !== ".ladder-row") return [];
+    return created.filter((element) => element.className.split(" ").includes("ladder-row"));
+  },
+};
+
+eval(fs.readFileSync(appPath, "utf8"));
+for (const selector of [
+  "#gateway-summary",
+  "#overload-table",
+  "#highest-load-receipt",
+  "#gateway-limitation",
+]) {
+  if (!elements.get(selector).innerHTML) throw new Error(`${selector} was not rendered`);
+}
+"""
+    )
+    rendered = subprocess.run(
+        [
+            "node",
+            str(harness),
+            str(ROOT / "demo/assets/app.js"),
+            str(ROOT / "demo/data/release.json"),
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert rendered.returncode == 0, rendered.stderr
+
+
 def test_makefile_phase6_targets_are_real_and_smoke_is_guarded() -> None:
     dry = subprocess.run(
         ["make", "--no-print-directory", "--dry-run", "reproduce-headline", "SMOKE=1"],
