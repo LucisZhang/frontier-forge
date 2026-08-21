@@ -1,4 +1,4 @@
-"""Phase 6 offline release, demo, and headline-reproduction gates."""
+"""Offline release, demo, and headline-reproduction gates."""
 
 from __future__ import annotations
 
@@ -75,6 +75,12 @@ SOURCE_PATHS = tuple(
             "results/phase5/raw/phase5_gateway_bench.json",
             "results/phase5/gpu_ledger.jsonl",
             "results/phase5/verification.json",
+            "results/phase7_1/raw/phase7_1_sustained_gateway_bench.json",
+            "results/phase7_2/raw/gateway_keda_scale.json",
+            "results/phase7_2/raw/gpu_cold_start.json",
+            "results/phase7_2/raw/canary_release.json",
+            "results/phase7_2/raw/alert_ForgeAvailabilityBurnRate.json",
+            "results/phase7_2/raw/alert_ForgeLatencyBurnRate.json",
         )
         + tuple(relative_path(path) for path in TEACHER_API_COST_PATHS)
         + tuple(relative_path(path) for path in PHASE4_COST_PATHS)
@@ -187,10 +193,10 @@ def _project_spend_payload() -> dict[str, Any]:
 def build_source_manifest() -> dict[str, Any]:
     missing = [relative_path(path) for path in SOURCE_PATHS if not path.is_file()]
     if missing:
-        raise FileNotFoundError(f"Phase 6 source files missing: {missing}")
+        raise FileNotFoundError(f"release source files missing: {missing}")
     return {
         "version": 1,
-        "phase": 6,
+        "phase": 7,
         "files": [
             {"path": relative_path(path), "sha256": sha256_file(path)} for path in SOURCE_PATHS
         ],
@@ -436,6 +442,94 @@ def _phase5_payload() -> dict[str, Any]:
     }
 
 
+def _phase7_1_payload() -> dict[str, Any]:
+    receipt = _json(RESULTS / "phase7_1/raw/phase7_1_sustained_gateway_bench.json")
+    highest_gate_cell = max(
+        receipt["gate"]["sustained_overload_cells"], key=lambda cell: cell["offered_qps"]
+    )
+    highest_load_cells = [
+        cell
+        for cell in receipt["metrics"]["sustained_overload"]["cells"]
+        if cell["arrival_rate_qps"] == highest_gate_cell["offered_qps"]
+    ]
+    by_endpoint = {cell["endpoint"]: cell for cell in highest_load_cells}
+    if set(by_endpoint) != {"direct", "gateway"}:
+        raise RuntimeError("highest Phase 7.1 load must contain direct and gateway cells")
+    return {
+        "run_id": receipt["run_id"],
+        "status": receipt["status"],
+        "production_blocked": receipt["production_blocked"],
+        "gate": receipt["gate"],
+        "highest_load": {
+            "multiplier": highest_gate_cell["multiplier"],
+            "offered_qps": highest_gate_cell["offered_qps"],
+            "bare_vllm_http_status_counts": by_endpoint["direct"]["http_status_counts"],
+            "gateway_http_status_counts": by_endpoint["gateway"]["http_status_counts"],
+        },
+    }
+
+
+def _phase7_2_payload() -> dict[str, Any]:
+    raw = RESULTS / "phase7_2/raw"
+    scaling = _json(raw / "gateway_keda_scale.json")
+    cold_start = _json(raw / "gpu_cold_start.json")
+    canary = _json(raw / "canary_release.json")
+    alert_receipts = (
+        _json(raw / "alert_ForgeAvailabilityBurnRate.json"),
+        _json(raw / "alert_ForgeLatencyBurnRate.json"),
+    )
+    return {
+        "gateway_scaling": {
+            key: scaling[key]
+            for key in (
+                "status",
+                "before",
+                "after",
+                "max_ready_replicas",
+                "max_queue_depth",
+                "max_queue_high_watermark",
+                "k6_counts",
+                "scaled_down",
+                "checks",
+            )
+        },
+        "gpu_cold_start": {
+            key: cold_start[key]
+            for key in (
+                "status",
+                "iterations_completed",
+                "iterations_required",
+                "distribution_s",
+            )
+        },
+        "canary_rollout": {
+            "status": canary["status"],
+            "checks": canary["checks"],
+            "promotion_stages": [
+                {
+                    key: stage[key]
+                    for key in (
+                        "variant",
+                        "counts",
+                        "http_statuses",
+                        "request_concurrency",
+                        "slo_guard",
+                    )
+                }
+                for stage in canary["promotion_stages"]
+            ],
+            "rollback_passed": canary["rollback"]["pass"],
+        },
+        "alerts": {
+            receipt["alert"]: {
+                key: receipt[key]
+                for key in ("status", "injected_fault", "k6_counts", "firing_payload")
+            }
+            for receipt in alert_receipts
+        },
+    }
+
+
 def _exports_payload() -> dict[str, Any]:
     original = _json(RESULTS / "phase3_export_manifest_r1b_trl_s0.json")
     mtp = _json(RESULTS / "phase4/r1b_mtp_reexport_manifest.json")
@@ -452,7 +546,7 @@ def build_payload(source_manifest_sha256: str) -> dict[str, Any]:
     records = _records()
     return {
         "schema_version": "frontier-forge-release-v1",
-        "phase": 6,
+        "phase": 7,
         "provenance": {
             "source_manifest": relative_path(SOURCE_MANIFEST),
             "source_manifest_sha256": source_manifest_sha256,
@@ -463,6 +557,8 @@ def build_payload(source_manifest_sha256: str) -> dict[str, Any]:
         "project_spend": _project_spend_payload(),
         "serving": _phase4_payload(),
         "gateway": _phase5_payload(),
+        "phase7_1": _phase7_1_payload(),
+        "phase7_2": _phase7_2_payload(),
         "exports": _exports_payload(),
     }
 
@@ -525,7 +621,7 @@ def _build_release_manifest() -> dict[str, Any]:
         raise FileNotFoundError(f"release files missing: {missing}")
     return {
         "version": 1,
-        "phase": 6,
+        "phase": 7,
         "files": [
             {"path": relative_path(path), "sha256": sha256_file(path)} for path in RELEASE_FILES
         ],

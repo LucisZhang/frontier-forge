@@ -112,6 +112,6 @@
     "rows": 86972,
     "source_split_sha256": "d7c24d6db05f337ac3fca1922b16c4324775e2007833af1eae684ddc37533c94"
   },
-  "source_manifest_sha256": "60e8cdb407be5b783790ee81769fe359b878777f62415c9f7390d2a3925198a5",
+  "source_manifest_sha256": "673138d9888b4c2a183422d187d92e3e4fc5b80b85dd854891be6a1af0c963e4",
   "source_repository": "https://github.com/LucisZhang/frontier-forge"
 }

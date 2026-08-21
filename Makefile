@@ -236,7 +236,7 @@ sync-up:
 sync-down:
 	@./scripts/remote/sync.sh down
 
-demo-build:
+demo-build: phase6-release-write
 	@uv run python -m forge.release --demo-build
 
 reproduce-headline:

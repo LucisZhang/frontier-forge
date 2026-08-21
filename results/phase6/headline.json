@@ -192,7 +192,303 @@
     "stable_median_throughput_delta_pct": -0.9403315620813433,
     "stable_pair_count": 5
   },
-  "phase": 6,
+  "phase": 7,
+  "phase7_1": {
+    "gate": {
+      "checks": {
+        "429_fast_reject_semantics": true,
+        "bounded_queue": true,
+        "duration_at_least_120s_per_cell": true,
+        "matched_same_box_schedules": true,
+        "queue_saturated_in_every_cell": true,
+        "upstream_5xx_parity": true
+      },
+      "status": "pass",
+      "sustained_overload_cells": [
+        {
+          "all_429_fast_with_retry_after_and_overloaded_code": true,
+          "bare_vllm_upstream_5xx_rate": 0.0,
+          "bounded_queue": true,
+          "configured_queue_bound": 24,
+          "direct_arrival_duration_s": 120.06692818654031,
+          "direct_requests": 510,
+          "duration_pass": true,
+          "gateway_arrival_duration_s": 120.06692818654031,
+          "gateway_requests": 510,
+          "gateway_upstream_5xx_rate": 0.0,
+          "http_429_count": 19,
+          "multiplier": 2.0,
+          "offered_qps": 4.0,
+          "pass": true,
+          "process_queue_high_watermark": 24.0,
+          "queue_saturated": true,
+          "reject_overload_decisions": 19,
+          "rejection_semantics_pass": true,
+          "sampled_queue_max": 24.0,
+          "upstream_5xx_absolute_delta": 0.0,
+          "upstream_5xx_parity_pass": true
+        },
+        {
+          "all_429_fast_with_retry_after_and_overloaded_code": true,
+          "bare_vllm_upstream_5xx_rate": 0.0,
+          "bounded_queue": true,
+          "configured_queue_bound": 24,
+          "direct_arrival_duration_s": 120.39553984113248,
+          "direct_requests": 707,
+          "duration_pass": true,
+          "gateway_arrival_duration_s": 120.39553984113248,
+          "gateway_requests": 707,
+          "gateway_upstream_5xx_rate": 0.0,
+          "http_429_count": 215,
+          "multiplier": 3.0,
+          "offered_qps": 6.0,
+          "pass": true,
+          "process_queue_high_watermark": 24.0,
+          "queue_saturated": true,
+          "reject_overload_decisions": 215,
+          "rejection_semantics_pass": true,
+          "sampled_queue_max": 24.0,
+          "upstream_5xx_absolute_delta": 0.0,
+          "upstream_5xx_parity_pass": true
+        },
+        {
+          "all_429_fast_with_retry_after_and_overloaded_code": true,
+          "bare_vllm_upstream_5xx_rate": 0.03058623619371283,
+          "bounded_queue": true,
+          "configured_queue_bound": 24,
+          "direct_arrival_duration_s": 120.14902997427112,
+          "direct_requests": 1177,
+          "duration_pass": true,
+          "gateway_arrival_duration_s": 120.14902997427112,
+          "gateway_requests": 1177,
+          "gateway_upstream_5xx_rate": 0.0,
+          "http_429_count": 687,
+          "multiplier": 5.0,
+          "offered_qps": 10.0,
+          "pass": true,
+          "process_queue_high_watermark": 24.0,
+          "queue_saturated": true,
+          "reject_overload_decisions": 688,
+          "rejection_semantics_pass": true,
+          "sampled_queue_max": 24.0,
+          "upstream_5xx_absolute_delta": 0.03058623619371283,
+          "upstream_5xx_parity_pass": true
+        }
+      ],
+      "thresholds": {
+        "max_fast_reject_s": 1.0,
+        "max_upstream_5xx_rate_delta": 0.05,
+        "min_429_rejects_per_overload_cell": 1,
+        "minimum_arrival_duration_s": 120.0,
+        "queue_bound_requests": 24
+      },
+      "upstream_5xx_denominator": "all requests except gateway admission 429 responses"
+    },
+    "highest_load": {
+      "bare_vllm_http_status_counts": {
+        "200": 490,
+        "500": 36,
+        "transport_error": 651
+      },
+      "gateway_http_status_counts": {
+        "200": 490,
+        "429": 687
+      },
+      "multiplier": 5.0,
+      "offered_qps": 10.0
+    },
+    "production_blocked": false,
+    "run_id": "phase7_1_sustained_overload_r1b_bf16_native_mtp_a10",
+    "status": "complete"
+  },
+  "phase7_2": {
+    "alerts": {
+      "ForgeAvailabilityBurnRate": {
+        "firing_payload": {
+          "activeAt": "2026-08-20T19:43:27.016370452Z",
+          "annotations": {
+            "runbook_url": "docs/runbooks/phase7_2.md#availability-burn",
+            "summary": "Frontier Forge availability error budget is burning fast"
+          },
+          "labels": {
+            "alertname": "ForgeAvailabilityBurnRate",
+            "phase": "7.2",
+            "severity": "critical",
+            "slo": "availability"
+          },
+          "state": "firing",
+          "value": "1e+00"
+        },
+        "injected_fault": "fault-500",
+        "k6_counts": {
+          "forge_http_200": 0,
+          "forge_http_500": 64,
+          "forge_http_503": 371
+        },
+        "status": "complete"
+      },
+      "ForgeLatencyBurnRate": {
+        "firing_payload": {
+          "activeAt": "2026-08-20T19:59:32.016370452Z",
+          "annotations": {
+            "runbook_url": "docs/runbooks/phase7_2.md#latency-burn",
+            "summary": "Frontier Forge p95 latency error budget is burning fast"
+          },
+          "labels": {
+            "alertname": "ForgeLatencyBurnRate",
+            "phase": "7.2",
+            "severity": "critical",
+            "slo": "p95_latency"
+          },
+          "state": "firing",
+          "value": "8.290598290598291e-01"
+        },
+        "injected_fault": "fault-latency",
+        "k6_counts": {
+          "forge_http_200": 573,
+          "forge_http_500": 0,
+          "forge_http_503": 8
+        },
+        "status": "complete"
+      }
+    },
+    "canary_rollout": {
+      "checks": {
+        "all_promotion_guards_passed": true,
+        "availability_alert_fired": true,
+        "canary_100_bf16_only": true,
+        "canary_10_both_and_stable_majority": true,
+        "canary_50_both": true,
+        "coexisting_ready": true,
+        "promoted_bf16_verified": true,
+        "rollback_verified": true
+      },
+      "promotion_stages": [
+        {
+          "counts": {
+            "unknown": 0,
+            "vllm-bf16": 5,
+            "vllm-int4": 45
+          },
+          "http_statuses": {
+            "200": 50
+          },
+          "request_concurrency": 1,
+          "slo_guard": {
+            "at": "2026-08-20T19:42:33.484575+00:00",
+            "availability_5xx_ratio_30s": 0.0,
+            "firing_alerts": [],
+            "p95_latency_seconds_1m": 0.09352941176470585,
+            "pass": true
+          },
+          "variant": "canary-10"
+        },
+        {
+          "counts": {
+            "unknown": 0,
+            "vllm-bf16": 20,
+            "vllm-int4": 20
+          },
+          "http_statuses": {
+            "200": 40
+          },
+          "request_concurrency": 1,
+          "slo_guard": {
+            "at": "2026-08-20T19:42:40.428256+00:00",
+            "availability_5xx_ratio_30s": 0.0,
+            "firing_alerts": [],
+            "p95_latency_seconds_1m": 0.09602272727272727,
+            "pass": true
+          },
+          "variant": "canary-50"
+        },
+        {
+          "counts": {
+            "unknown": 0,
+            "vllm-bf16": 20,
+            "vllm-int4": 0
+          },
+          "http_statuses": {
+            "200": 20
+          },
+          "request_concurrency": 1,
+          "slo_guard": {
+            "at": "2026-08-20T19:42:48.066321+00:00",
+            "availability_5xx_ratio_30s": 0.0,
+            "firing_alerts": [],
+            "p95_latency_seconds_1m": 0.09651785714285714,
+            "pass": true
+          },
+          "variant": "canary-100"
+        }
+      ],
+      "rollback_passed": true,
+      "status": "complete"
+    },
+    "gateway_scaling": {
+      "after": {
+        "reject_overload": 3447.0,
+        "replicas": {
+          "available_replicas": 3,
+          "desired_replicas": 3,
+          "generation": 2,
+          "image": "frontier-forge/gateway:phase7-2",
+          "name": "forge-gateway",
+          "ready_replicas": 3,
+          "replicas": 3
+        }
+      },
+      "before": {
+        "reject_overload": 0.0,
+        "replicas": {
+          "available_replicas": 1,
+          "desired_replicas": 1,
+          "generation": 1,
+          "image": "frontier-forge/gateway:phase7-2",
+          "name": "forge-gateway",
+          "ready_replicas": 1,
+          "replicas": 1
+        }
+      },
+      "checks": {
+        "custom_metric_scale_up": true,
+        "every_k6_429_had_retry_after": true,
+        "k6_observed_429": true,
+        "overload_decision_increased": true,
+        "queue_saturated": true,
+        "scaled_back_to_one": true
+      },
+      "k6_counts": {
+        "http_429": 3799,
+        "retry_after_429": 3799
+      },
+      "max_queue_depth": 24.0,
+      "max_queue_high_watermark": 24.0,
+      "max_ready_replicas": 3,
+      "scaled_down": {
+        "available_replicas": 1,
+        "desired_replicas": 1,
+        "generation": 3,
+        "image": "frontier-forge/gateway:phase7-2",
+        "name": "forge-gateway",
+        "ready_replicas": 1,
+        "replicas": 1
+      },
+      "status": "complete"
+    },
+    "gpu_cold_start": {
+      "distribution_s": {
+        "max": 128.04996124499667,
+        "mean": 123.97077294439987,
+        "min": 116.53874896900015,
+        "p50": 124.61739338000007,
+        "p95": 127.11158833379866
+      },
+      "iterations_completed": 10,
+      "iterations_required": 10,
+      "status": "complete"
+    }
+  },
   "project_spend": {
     "gpu_components": {
       "phase3": {
@@ -222,7 +518,7 @@
     "bootstrap_resamples": 1000,
     "dataset_hash": "d1092cd16f604c25ed6d5034bf0fed33afbe975af4048fbd2a0cd93d7b25e564",
     "source_manifest": "results/phase6/source_manifest.json",
-    "source_manifest_sha256": "60e8cdb407be5b783790ee81769fe359b878777f62415c9f7390d2a3925198a5"
+    "source_manifest_sha256": "673138d9888b4c2a183422d187d92e3e4fc5b80b85dd854891be6a1af0c963e4"
   },
   "schema_version": "frontier-forge-release-v1",
   "serving": {

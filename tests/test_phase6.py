@@ -87,6 +87,87 @@ def test_gateway_payload_preserves_the_overload_failure_semantics() -> None:
     )
 
 
+def test_phase7_1_payload_copies_the_sustained_gate_and_highest_load_statuses() -> None:
+    receipt = json.loads(
+        (ROOT / "results/phase7_1/raw/phase7_1_sustained_gateway_bench.json").read_text()
+    )
+    phase7_1 = release.build_payload("f" * 64)["phase7_1"]
+    highest_gate_cell = max(
+        receipt["gate"]["sustained_overload_cells"], key=lambda cell: cell["offered_qps"]
+    )
+    highest_load_cells = [
+        cell
+        for cell in receipt["metrics"]["sustained_overload"]["cells"]
+        if cell["arrival_rate_qps"] == highest_gate_cell["offered_qps"]
+    ]
+    by_endpoint = {cell["endpoint"]: cell for cell in highest_load_cells}
+
+    assert phase7_1["run_id"] == receipt["run_id"]
+    assert phase7_1["status"] == receipt["status"]
+    assert phase7_1["production_blocked"] == receipt["production_blocked"]
+    assert phase7_1["gate"] == receipt["gate"]
+    assert phase7_1["highest_load"]["multiplier"] == highest_gate_cell["multiplier"]
+    assert phase7_1["highest_load"]["offered_qps"] == highest_gate_cell["offered_qps"]
+    assert (
+        phase7_1["highest_load"]["bare_vllm_http_status_counts"]
+        == by_endpoint["direct"]["http_status_counts"]
+    )
+    assert (
+        phase7_1["highest_load"]["gateway_http_status_counts"]
+        == by_endpoint["gateway"]["http_status_counts"]
+    )
+
+
+def test_phase7_2_payload_copies_scaling_cold_start_canary_and_alert_receipts() -> None:
+    raw = ROOT / "results/phase7_2/raw"
+    scaling = json.loads((raw / "gateway_keda_scale.json").read_text())
+    cold_start = json.loads((raw / "gpu_cold_start.json").read_text())
+    canary = json.loads((raw / "canary_release.json").read_text())
+    alert_receipts = [
+        json.loads((raw / name).read_text())
+        for name in (
+            "alert_ForgeAvailabilityBurnRate.json",
+            "alert_ForgeLatencyBurnRate.json",
+        )
+    ]
+    phase7_2 = release.build_payload("f" * 64)["phase7_2"]
+
+    assert phase7_2["gateway_scaling"] == {
+        key: scaling[key]
+        for key in (
+            "status",
+            "before",
+            "after",
+            "max_ready_replicas",
+            "max_queue_depth",
+            "max_queue_high_watermark",
+            "k6_counts",
+            "scaled_down",
+            "checks",
+        )
+    }
+    assert phase7_2["gpu_cold_start"] == {
+        key: cold_start[key]
+        for key in ("status", "iterations_completed", "iterations_required", "distribution_s")
+    }
+    assert phase7_2["canary_rollout"]["status"] == canary["status"]
+    assert phase7_2["canary_rollout"]["checks"] == canary["checks"]
+    assert phase7_2["canary_rollout"]["promotion_stages"] == [
+        {
+            key: stage[key]
+            for key in ("variant", "counts", "http_statuses", "request_concurrency", "slo_guard")
+        }
+        for stage in canary["promotion_stages"]
+    ]
+    assert phase7_2["canary_rollout"]["rollback_passed"] == canary["rollback"]["pass"]
+    assert phase7_2["alerts"] == {
+        receipt["alert"]: {
+            key: receipt[key] for key in ("status", "injected_fault", "k6_counts", "firing_payload")
+        }
+        for receipt in alert_receipts
+    }
+
+
 def test_cascade_handoff_refuses_to_promote_the_model_to_a_certified_classifier() -> None:
     payload = release.build_payload("f" * 64)
     handoff = release.build_handoff(payload)
@@ -106,6 +187,15 @@ def test_source_manifest_covers_every_declared_source_and_matches_bytes() -> Non
     assert {row["path"] for row in committed["files"]} == {
         release.relative_path(path) for path in release.SOURCE_PATHS
     }
+    assert current["phase"] == 7
+    assert {
+        "results/phase7_1/raw/phase7_1_sustained_gateway_bench.json",
+        "results/phase7_2/raw/gateway_keda_scale.json",
+        "results/phase7_2/raw/gpu_cold_start.json",
+        "results/phase7_2/raw/canary_release.json",
+        "results/phase7_2/raw/alert_ForgeAvailabilityBurnRate.json",
+        "results/phase7_2/raw/alert_ForgeLatencyBurnRate.json",
+    }.issubset({row["path"] for row in current["files"]})
 
 
 def test_release_manifest_and_derived_outputs_are_green() -> None:
@@ -190,3 +280,17 @@ def test_makefile_phase6_targets_are_real_and_smoke_is_guarded() -> None:
     )
     assert blocked.returncode != 0
     assert "requires SMOKE=1" in blocked.stderr
+
+
+def test_demo_build_rebuilds_and_reseals_release_before_copying_dist() -> None:
+    dry = subprocess.run(
+        ["make", "--no-print-directory", "--dry-run", "demo-build"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    write_index = dry.stdout.index("forge.release --write")
+    build_index = dry.stdout.index("forge.release --demo-build")
+    assert write_index < build_index
