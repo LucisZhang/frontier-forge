@@ -81,6 +81,10 @@ def test_gateway_payload_preserves_the_overload_failure_semantics() -> None:
     assert all(row["http_status_counts"].get("502", 0) > 0 for row in gateway["overload"])
     assert all(row["routing_decisions"]["reject_overload"] == 0 for row in gateway["overload"])
     assert "not designed 429 admission fast rejects" in gateway["known_limitation"]
+    assert "已在 Phase 7.1 修复" in gateway["known_limitation"]
+    assert (
+        "results/phase7_1/raw/phase7_1_sustained_gateway_bench.json" in gateway["known_limitation"]
+    )
     assert all(
         row["interpretation"] == "survivor-biased; not a latency win"
         for row in gateway["nonstable_cells"]

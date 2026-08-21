@@ -26,7 +26,7 @@
     },
     {
       "path": "results/phase6/headline.json",
-      "sha256": "8a5e71d9ef3e9a2107206f283d45bff7a7aca4ce73ee1979d21490e2a9c37e72"
+      "sha256": "9e547b3418ce1f633914e8dfe7b818fa6f7e064a891cee8e4c73837e6ce45f4d"
     },
     {
       "path": "results/phase6/cascade_handoff.json",
@@ -58,11 +58,11 @@
     },
     {
       "path": "demo/data/release.json",
-      "sha256": "8a5e71d9ef3e9a2107206f283d45bff7a7aca4ce73ee1979d21490e2a9c37e72"
+      "sha256": "9e547b3418ce1f633914e8dfe7b818fa6f7e064a891cee8e4c73837e6ce45f4d"
     },
     {
       "path": "demo/data/release.js",
-      "sha256": "138a95f3e74b7b92846faf6a9719f876736a4b2f7b9a656a18fd0c0b43aa4cf9"
+      "sha256": "d2f1b3869aaf02b134291b7df331fb1f8b46b37288a81627477a2d641b7dda75"
     }
   ],
   "phase": 7,

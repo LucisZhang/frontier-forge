@@ -437,7 +437,9 @@ def _phase5_payload() -> dict[str, Any]:
             "502/upstream_error, not designed 429 admission fast rejects; every overload "
             "cell recorded reject_overload=0. The connection-handling defect remains "
             "uncorrected in this measured build. Lower p95 in error-bearing cells is "
-            "conditional on failed work and is not an unconditional win."
+            "conditional on failed work and is not an unconditional win. 已在 Phase 7.1 "
+            "修复；supporting receipt: "
+            "results/phase7_1/raw/phase7_1_sustained_gateway_bench.json."
         ),
     }
 
