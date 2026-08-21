@@ -26,10 +26,12 @@ make demo-build
 ```
 
 `make reproduce-headline` re-derives the ladder, serving, structured-output,
-gateway, export, demo, and cascade-handoff payloads from pinned raw artifacts. It
-then verifies the source manifest and every published release file by SHA-256.
-`make demo-build` produces `demo/dist/` using only local HTML, CSS, JavaScript, and
-the generated receipt—opening the demo does not contact a CDN or model API.
+Phase 5 gateway history, Phase 7.1 sustained-overload and Phase 7.2 runtime
+receipts, export, demo, and cascade-handoff payloads from pinned raw artifacts.
+It then verifies the source manifest and every published release file by SHA-256.
+`make demo-build` first rebuilds and re-seals those artifacts, then produces
+`demo/dist/` using only local HTML, CSS, JavaScript, and the generated receipt—
+opening the demo does not contact a CDN or model API.
 
 For a fresh-clone CPU smoke of the implementation chain:
 
